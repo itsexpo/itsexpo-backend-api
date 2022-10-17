@@ -7,11 +7,16 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "prepare": "husky install"
     },
     "devDependencies": {
+        "@commitlint/cli": "^17.1.2",
+        "@commitlint/config-conventional": "^17.1.0",
         "axios": "^0.25",
+        "husky": "^8.0.0",
         "laravel-mix": "^6.0.6",
+        "lint-staged": "^13.0.3",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14"
     }
