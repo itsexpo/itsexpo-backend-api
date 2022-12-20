@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('fakultas', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name', 128);
+            $table->string('singkatan', 32);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

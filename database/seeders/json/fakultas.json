@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Fakultas Desain Kreatif dan Bisnis Digital",
+    "singkatan": "FDKBD/CREABIZ"
+  },
+  {
+    "id": 2,
+    "name": "Fakultas Sains dan Analitika Data",
+    "singkatan": "FSAD/SCIENTICS"
+  },
+  {
+    "id": 3,
+    "name": "Fakultas Teknologi Elektro dan Informatika Cerdas",
+    "singkatan": "FTEIC/ELECTICS"
+  },
+  {
+    "id": 4,
+    "name": "Fakultas Teknologi Industri dan Rekayasa Sistem",
+    "singkatan": "FTIRS/INDSYS"
+  },
+  {
+    "id": 5,
+    "name": "Fakultas Teknologi Kelautan",
+    "singkatan": "FTK/MARTECH"
+  },
+  {
+    "id": 6,
+    "name": "Fakultas Teknik Sipil, Perencanaan, dan Kebumian",
+    "singkatan": "FTSPK/CIVPLAN"
+  },
+  {
+    "id": 7,
+    "name": "Fakultas Vokasi",
+    "singkatan": "FV/VOCATION"
+  }
+]
