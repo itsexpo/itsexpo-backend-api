@@ -5,8 +5,12 @@ namespace App\Core\Application\Service\LoginUser;
 use Exception;
 use App\Core\Domain\Models\Email;
 use App\Exceptions\UserException;
+use Illuminate\Support\Facades\Mail;
+use App\Core\Application\Mail\EmailTest;
 use App\Core\Domain\Service\JwtManagerInterface;
 use App\Core\Domain\Repository\UserRepositoryInterface;
+use App\Core\Application\Service\LoginUser\LoginUserRequest;
+use App\Core\Application\Service\LoginUser\LoginUserResponse;
 
 class LoginUserService
 {
@@ -38,6 +42,11 @@ class LoginUserService
             ->checkPassword($request->getPassword())
             ->verify();
         $token_jwt = $this->jwt_factory->createFromUser($user);
+        Mail::to($user->getEmail()->toString())->send(new EmailTest(
+            $user->getName(),
+            $user->getEmail()->toString(),
+            $user->getNoTelp(),
+        ));
         return new LoginUserResponse($token_jwt, $type);
     }
 }
