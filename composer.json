@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "darkaonline/l5-swagger": "^8.4",
         "doctrine/dbal": "^3.3",
         "firebase/php-jwt": "^6.2",
         "friendsofphp/php-cs-fixer": "^3.12",
