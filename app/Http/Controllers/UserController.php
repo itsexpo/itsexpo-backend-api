@@ -14,10 +14,48 @@ use Throwable;
 
 class UserController extends Controller
 {
-
     /**
-     * @throws Exception
-     */
+     * @OA\Tag(
+     *   name="Authentication",
+     *   description="API Endpoints of User"
+     * )
+    *      @OA\Post(
+    *          path="/login_user",
+    *          tags={"Authentication"},
+    *          description="Login",
+    *          @OA\RequestBody(
+    *              required=true,
+    *              @OA\JsonContent(
+    *                  required={"email", "password"},  
+    *                  @OA\Property(property="email", type="string", example="admin@itsexpo.com"),
+    *                  @OA\Property(property="password", type="password", example="1234567"),
+    *              )
+    *          ),
+    *
+    *          @OA\Response(
+    *              response="200",
+    *              description="Success",
+    *              @OA\JsonContent(
+    *                  type="object",
+    *                  @OA\Property(property="status", type="boolean"),
+    *                  @OA\Property(property="data", type="object", 
+    *                       @OA\Property(property="token", type="string"),
+    *                   ),
+    *               )
+    *         ),
+    *          @OA\Response(
+    *              response="401",
+    *              description="Unauthorized",
+    *              @OA\JsonContent(
+    *                  type="object",
+    *                  @OA\Property(property="status", type="boolean", example="false"),
+    *                  @OA\Property(property="code", type="string", example="1001"),
+    *                  @OA\Property(property="message", type="string"),
+    *               )
+    *         ),
+    *   )
+     */ 
+   
     public function createUser(Request $request, RegisterUserService $service): JsonResponse
     {
         $request->validate([

@@ -10,6 +10,51 @@ use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
+    /**
+    * @OA\Info(title="ITS Expo API Documentation", version="1.0")
+    *
+    * @OA\Tag(
+    *   name="General Respond",
+    *   description="General Api Respond"
+    * )
+    * @OA\Get(
+    *      path="/test",
+    *      tags={"General Respond"},
+    *      @OA\Response(
+    *       response="200",
+    *       description="Success",
+    *       @OA\JsonContent(
+    *           type="object",
+    *            @OA\Property(property="status", type="boolean"),
+    *            @OA\Property(property="message", type="string"),
+    *            @OA\Property(property="data", type="object",
+    *                  @OA\Property(property="hallo", type="string"),
+    *                  @OA\Property(property="world", type="string"),
+    *            ),
+    *       )
+    *  ),
+    *
+    *  @OA\Response(
+    *       response="401",
+    *       description="Unauthorized",
+    *           @OA\JsonContent(
+    *                  type="object",
+    *                  @OA\Property(property="status", type="boolean", example="false"),
+    *                  @OA\Property(property="message", type="string"),
+    *               )
+    *         ),
+    *  @OA\Response(
+    *       response="500",
+    *       description="Unauthorized",
+    *           @OA\JsonContent(
+    *                  type="object",
+    *                  @OA\Property(property="status", type="boolean", example="false"),
+    *                  @OA\Property(property="code", type="string"),
+    *                  @OA\Property(property="message", type="string"),
+    *               )
+    *         ),
+    * )
+    */
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function successWithData($data): JsonResponse
