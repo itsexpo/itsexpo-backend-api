@@ -14,12 +14,9 @@ return new class extends Migration {
     {
         Schema::create('role', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('user_id')->index();
             $table->string('name', 128);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
-
-            $table->foreign('user_id')->references('id')->on('user');
         });
     }
 

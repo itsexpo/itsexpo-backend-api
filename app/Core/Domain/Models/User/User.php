@@ -6,11 +6,12 @@ use Exception;
 use App\Core\Domain\Models\Email;
 use App\Exceptions\UserException;
 use Illuminate\Support\Facades\Hash;
+use App\Core\Domain\Models\Role\RoleId;
 
 class User
 {
     private UserId $id;
-    private UserType $type;
+    private RoleId $role_id;
     private Email $email;
     private string $no_telp;
     private string $name;
@@ -19,16 +20,16 @@ class User
 
     /**
      * @param UserId $id
-     * @param UserType $type
+     * @param RoleId $role_id
      * @param Email $email
      * @param string $no_telp
      * @param string $name
      * @param string $hashed_password
      */
-    public function __construct(UserId $id, UserType $type, Email $email, string $no_telp, string $name, string $hashed_password)
+    public function __construct(UserId $id, RoleId $role_id, Email $email, string $no_telp, string $name, string $hashed_password)
     {
         $this->id = $id;
-        $this->type = $type;
+        $this->role_id = $role_id;
         $this->email = $email;
         $this->no_telp = $no_telp;
         $this->name = $name;
@@ -72,11 +73,11 @@ class User
         return $this;
     }
 
-    public function checkUserType(UserType $type): self
-    {
-        self::$verifier &= ($this->type->value == $type->value); 
-        return $this;
-    }
+    // public function checkRoleId(RoleId $role_id): self
+    // {
+    //     self::$verifier &= ($this->role_id->value == $role_id->value);
+    //     return $this;
+    // }
 
     /**
      * @throws Exception
@@ -91,11 +92,11 @@ class User
     /**
      * @throws Exception
      */
-    public static function create(UserType $type, Email $email, string $no_telp, string $name, string $unhashed_password): self
+    public static function create(RoleId $role_id, Email $email, string $no_telp, string $name, string $unhashed_password): self
     {
         return new self(
             UserId::generate(),
-            $type,
+            $role_id,
             $email,
             $no_telp,
             $name,
@@ -112,11 +113,11 @@ class User
     }
 
     /**
-     * @return UserType
+     * @return RoleId
      */
-    public function getType(): UserType
+    public function getRoleId(): RoleId
     {
-        return $this->type;
+        return $this->role_id;
     }
 
     /**
