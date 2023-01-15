@@ -4,35 +4,35 @@ namespace App\Core\Domain\Models\RoleHasPermission;
 
 use Exception;
 use App\Core\Domain\Models\Role\RoleId;
-use App\Core\Domain\Models\User\UserId;
+use App\Core\Domain\Models\Permission\PermissionId;
 
 class RoleHasPermission
 {
     private RoleHasPermissionId $id;
     private RoleId $role_id;
-    private UserId $user_id;
+    private PermissionId $permission_id;
 
     /**
      * @param RoleId $role_id
-     * @param UserId $user_id
+     * @param PermissionId $permission_id
      * @param RoleHasPermissionId $id
      */
-    public function __construct(RoleHasPermissionId $id, RoleId $role_id, UserId $user_id)
+    public function __construct(RoleHasPermissionId $id, RoleId $role_id, PermissionId $permission_id)
     {
         $this->id = $id;
         $this->role_id = $role_id;
-        $this->user_id = $user_id;
+        $this->permission_id = $permission_id;
     }
 
     /**
      * @throws Exception
      */
-    public static function create(RoleId $role_id, UserId $user_id): self
+    public static function create(RoleId $role_id, PermissionId $permission_id): self
     {
         return new self(
             RoleHasPermissionId::generate(),
             $role_id,
-            $user_id,
+            $permission_id,
         );
     }
 
@@ -53,10 +53,10 @@ class RoleHasPermission
     }
 
     /**
-     * @return UserId
+     * @return PermissionId
      */
-    public function getUserId(): UserId
+    public function getPermissionId(): PermissionId
     {
-        return $this->user_id;
+        return $this->permission_id;
     }
 }
