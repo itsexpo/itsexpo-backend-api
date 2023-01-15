@@ -75,11 +75,11 @@ class User
         return $this;
     }
 
-    // public function checkRoleId(RoleId $role_id): self
-    // {
-    //     self::$verifier &= ($this->role_id->value == $role_id->value);
-    //     return $this;
-    // }
+    public function checkRoleId(string $role_id): self
+    {
+        self::$verifier &= ($this->role_id == $role_id);
+        return $this;
+    }
 
     /**
      * @throws Exception
