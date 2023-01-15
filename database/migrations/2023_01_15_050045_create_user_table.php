@@ -13,8 +13,8 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('user', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('role_id')->index();
+            $table->string('id')->primary();
+            $table->string('role_id')->index();
             $table->string('name', 128);
             $table->string('email')->index();
             $table->string('no_telp', 16);

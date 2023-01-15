@@ -3,21 +3,19 @@
 namespace App\Core\Domain\Models\RoleHasPermission;
 
 use Exception;
-use App\Core\Domain\Models\Role\RoleId;
-use App\Core\Domain\Models\Permission\PermissionId;
 
 class RoleHasPermission
 {
-    private RoleHasPermissionId $id;
-    private RoleId $role_id;
-    private PermissionId $permission_id;
+    private string $id;
+    private string $role_id;
+    private string $permission_id;
 
     /**
-     * @param RoleId $role_id
-     * @param PermissionId $permission_id
-     * @param RoleHasPermissionId $id
+     * @param string $role_id
+     * @param string $permission_id
+     * @param string $id
      */
-    public function __construct(RoleHasPermissionId $id, RoleId $role_id, PermissionId $permission_id)
+    public function __construct(string $id, string $role_id, string $permission_id)
     {
         $this->id = $id;
         $this->role_id = $role_id;
@@ -27,35 +25,35 @@ class RoleHasPermission
     /**
      * @throws Exception
      */
-    public static function create(RoleId $role_id, PermissionId $permission_id): self
+    public static function create(string $role_id, string $permission_id): self
     {
         return new self(
-            RoleHasPermissionId::generate(),
+            string::generate(),
             $role_id,
             $permission_id,
         );
     }
 
     /**
-     * @return RoleHasPermissionId
+     * @return string
      */
-    public function getId(): RoleHasPermissionId
+    public function getId(): string
     {
         return $this->id;
     }
 
     /**
-     * @return RoleId
+     * @return string
      */
-    public function getRoleId(): RoleId
+    public function getRoleId(): string
     {
         return $this->role_id;
     }
 
     /**
-     * @return PermissionId
+     * @return string
      */
-    public function getPermissionId(): PermissionId
+    public function getPermissionId(): string
     {
         return $this->permission_id;
     }

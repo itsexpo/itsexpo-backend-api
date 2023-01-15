@@ -4,7 +4,6 @@ namespace App\Infrastrucutre\Repository;
 
 use Illuminate\Support\Facades\DB;
 use App\Core\Domain\Models\Permission\Permission;
-use App\Core\Domain\Models\Permission\PermissionId;
 use App\Core\Domain\Repository\PermissionRepositoryInterface;
 
 class SqlPermissionRepository implements PermissionRepositoryInterface
@@ -12,7 +11,7 @@ class SqlPermissionRepository implements PermissionRepositoryInterface
     public function persist(Permission $permission): void
     {
         DB::table('permission')->upsert([
-            'id' => $permission->getId()->toString(),
+            'id' => $permission->getId(),
             'routes' => $permission->getRoutes(),
         ], 'id');
     }
@@ -20,9 +19,9 @@ class SqlPermissionRepository implements PermissionRepositoryInterface
     /**
      * @throws Exception
      */
-    public function find(PermissionId $id): ?Permission
+    public function find(string $id): ?Permission
     {
-        $row = DB::table('permission')->where('id', $id->toString())->first();
+        $row = DB::table('permission')->where('id', $id)->first();
 
         if (!$row) {
             return null;
@@ -37,7 +36,7 @@ class SqlPermissionRepository implements PermissionRepositoryInterface
     private function constructFromRow($row): Permission
     {
         return new Permission(
-            new PermissionId($row->id),
+            $row->id,
             $row->routes,
         );
     }

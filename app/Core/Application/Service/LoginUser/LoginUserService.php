@@ -8,22 +8,24 @@ use App\Exceptions\UserException;
 use Illuminate\Support\Facades\Mail;
 use App\Core\Application\Mail\EmailTest;
 use App\Core\Domain\Service\JwtManagerInterface;
+use App\Core\Domain\Repository\RoleRepositoryInterface;
 use App\Core\Domain\Repository\UserRepositoryInterface;
-use App\Core\Application\Service\LoginUser\LoginUserRequest;
-use App\Core\Application\Service\LoginUser\LoginUserResponse;
 
 class LoginUserService
 {
     private UserRepositoryInterface $user_repository;
+    private RoleRepositoryInterface $role_repository;
     private JwtManagerInterface $jwt_factory;
 
     /**
      * @param UserRepositoryInterface $user_repository
+     * @param RoleRepositoryInterface $role_repository
      * @param JwtManagerInterface $jwt_factory
      */
-    public function __construct(UserRepositoryInterface $user_repository, JwtManagerInterface $jwt_factory)
+    public function __construct(UserRepositoryInterface $user_repository, RoleRepositoryInterface $role_repository, JwtManagerInterface $jwt_factory)
     {
         $this->user_repository = $user_repository;
+        $this->role_repository = $role_repository;
         $this->jwt_factory = $jwt_factory;
     }
 
@@ -36,7 +38,8 @@ class LoginUserService
         if (!$user) {
             UserException::throw("user tidak ketemu", 1006, 404);
         }
-        $type = $this->user_repository->findByEmail(new Email($request->getEmail()))->getType();
+
+        $role = $this->role_repository->find($user->getRoleId());
         
         $user->beginVerification()
             ->checkPassword($request->getPassword())
@@ -47,6 +50,6 @@ class LoginUserService
             $user->getEmail()->toString(),
             $user->getNoTelp(),
         ));
-        return new LoginUserResponse($token_jwt, $type);
+        return new LoginUserResponse($token_jwt, $role->getName());
     }
 }

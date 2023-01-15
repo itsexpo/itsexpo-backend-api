@@ -6,15 +6,15 @@ use Exception;
 
 class Role
 {
-    private RoleId $id;
+    private string $id;
     private string $name;
 
     /**
-     * @param RoleId $id
+     * @param string $id
      * @param UserId $user_id
      * @param string $name
      */
-    public function __construct(RoleId $id, string $name)
+    public function __construct(string $id, string $name)
     {
         $this->id = $id;
         $this->name = $name;
@@ -26,15 +26,15 @@ class Role
     public static function create(string $name): self
     {
         return new self(
-            RoleId::generate(),
+            string::generate(),
             $name,
         );
     }
 
     /**
-     * @return RoleId
+     * @return string
      */
-    public function getId(): RoleId
+    public function getId(): string
     {
         return $this->id;
     }

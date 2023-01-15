@@ -2,7 +2,6 @@
 
 use App\Infrastrucutre\Service\JwtManager;
 use App\Core\Domain\Service\JwtManagerInterface;
-use Illuminate\Contracts\Foundation\Application;
 use App\Infrastrucutre\Repository\SqlDesaRepository;
 use App\Infrastrucutre\Repository\SqlRoleRepository;
 use App\Infrastrucutre\Repository\SqlUserRepository;
@@ -14,12 +13,15 @@ use App\Infrastrucutre\Repository\SqlProvinsiRepository;
 use App\Infrastrucutre\Repository\SqlKabupatenRepository;
 use App\Infrastrucutre\Repository\SqlKecamatanRepository;
 use App\Infrastrucutre\Repository\SqlDepartemenRepository;
+use App\Infrastrucutre\Repository\SqlPermissionRepository;
 use App\Core\Domain\Repository\FakultasRepositoryInterface;
 use App\Core\Domain\Repository\ProvinsiRepositoryInterface;
 use App\Core\Domain\Repository\KabupatenRepositoryInterface;
 use App\Core\Domain\Repository\KecamatanRepositoryInterface;
 use App\Core\Domain\Repository\DepartemenRepositoryInterface;
 use App\Core\Domain\Repository\PermissionRepositoryInterface;
+use App\Infrastrucutre\Repository\SqlRoleHasPermissionRepository;
+use App\Core\Domain\Repository\RoleHasPermissionRepositoryInterface;
 
 /** @var Application $app */
 
