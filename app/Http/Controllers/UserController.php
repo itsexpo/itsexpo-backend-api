@@ -82,7 +82,7 @@ class UserController extends Controller
             throw $e;
         }
         DB::commit();
-        return $this->success();
+        return $this->success("Berhasil Registrasi");
     }
 
     /**
@@ -95,7 +95,7 @@ class UserController extends Controller
             $request->input('password')
         );
         $response = $service->execute($input);
-        return $this->successWithData($response);
+        return $this->successWithData($response, "Berhasil Login");
     }
 
     /**
@@ -108,6 +108,6 @@ class UserController extends Controller
             $request->input('token')
         );
         $service->execute($input);
-        return $this->success();
+        return $this->success("Berhasil Verifikasi User");
     }
 }
