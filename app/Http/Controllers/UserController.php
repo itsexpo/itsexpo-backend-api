@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use Throwable;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use App\Core\Application\Service\LoginUser\LoginUserRequest;
 use App\Core\Application\Service\LoginUser\LoginUserService;
 use App\Core\Application\Service\RegisterUser\RegisterUserRequest;
 use App\Core\Application\Service\RegisterUser\RegisterUserService;
-use Exception;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Throwable;
+use App\Core\Application\Service\UserVerification\UserVerificationRequest;
+use App\Core\Application\Service\UserVerification\UserVerificationService;
 
 class UserController extends Controller
 {
@@ -26,7 +28,7 @@ class UserController extends Controller
     *          @OA\RequestBody(
     *              required=true,
     *              @OA\JsonContent(
-    *                  required={"email", "password"},  
+    *                  required={"email", "password"},
     *                  @OA\Property(property="email", type="string", example="admin@itsexpo.com"),
     *                  @OA\Property(property="password", type="password", example="1234567"),
     *              )
@@ -38,7 +40,7 @@ class UserController extends Controller
     *              @OA\JsonContent(
     *                  type="object",
     *                  @OA\Property(property="status", type="boolean"),
-    *                  @OA\Property(property="data", type="object", 
+    *                  @OA\Property(property="data", type="object",
     *                       @OA\Property(property="token", type="string"),
     *                   ),
     *               )
@@ -54,7 +56,7 @@ class UserController extends Controller
     *               )
     *         ),
     *   )
-     */ 
+     */
    
     public function createUser(Request $request, RegisterUserService $service): JsonResponse
     {
@@ -96,4 +98,16 @@ class UserController extends Controller
         return $this->successWithData($response);
     }
 
+    /**
+     * @throws Exception
+     */
+    public function userVerification(Request $request, UserVerificationService $service): JsonResponse
+    {
+        $input = new UserVerificationRequest(
+            $request->input('email'),
+            $request->input('token')
+        );
+        $service->execute($input);
+        return $this->success();
+    }
 }

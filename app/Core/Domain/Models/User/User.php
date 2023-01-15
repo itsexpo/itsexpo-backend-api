@@ -146,4 +146,12 @@ class User
     {
         return $this->hashed_password;
     }
+
+    /**
+     * @return void
+     */
+    public function setIsValid($is_valid): void
+    {
+        $this->is_valid = $is_valid;
+    }
 }

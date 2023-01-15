@@ -9,10 +9,11 @@ Route::get('hello', function () {
 
 Route::post('/create_user', [UserController::class, 'createUser']);
 Route::post('/login_user', [UserController::class, 'loginUser']);
+Route::post('/user_verification', [UserController::class, 'userVerification']);
 
 Route::middleware(['iam'])->group(
     function () {
-        Route::get('test', function(){
+        Route::get('test', function () {
             return response()->json([
                 "success" => true
             ]);
