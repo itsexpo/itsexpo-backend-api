@@ -15,7 +15,6 @@ return new class extends Migration {
         Schema::create('user', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('role_id')->index();
-            $table->string('user_type', 16);
             $table->string('name', 128);
             $table->string('email')->index();
             $table->string('no_telp', 16);
