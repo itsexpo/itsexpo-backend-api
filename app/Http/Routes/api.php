@@ -18,9 +18,10 @@ Route::middleware(['iam'])->group(
                 "success" => true
             ]);
         });
+        Route::post('/me', [UserController::class, 'me']);
     }
 );
-    
+
 Route::middleware(['iam', 'admin'])->group(
     function () {
     }

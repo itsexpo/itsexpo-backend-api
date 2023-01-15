@@ -28,46 +28,50 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
             return null;
         }
 
-        return $this->constructFromRow($row);
+        return $this->constructFromRows([$row])[0];
     }
 
     /**
      * @throws Exception
      */
-    public function findByRoleId(string $role_id): ?RoleHasPermission
+    public function findByRoleId(string $role_id): array
     {
-        $row = DB::table('role_has_permission')->where('role_id', $role_id)->first();
+        $row = DB::table('role_has_permission')->where('role_id', $role_id)->get();
 
         if (!$row) {
             return null;
         }
 
-        return $this->constructFromRow($row);
+        return $this->constructFromRows($row->all());
     }
 
     /**
      * @throws Exception
      */
-    public function findByPermissionId(string $permission_id): ?RoleHasPermission
+    public function findByPermissionId(string $permission_id): array
     {
-        $row = DB::table('role_has_permission')->where('permission_id', $permission_id)->first();
+        $rows = DB::table('role_has_permission')->where('permission_id', $permission_id)->get();
 
-        if (!$row) {
+        if (!$rows) {
             return null;
         }
 
-        return $this->constructFromRow($row);
+        return $this->constructFromRows($rows->all());
     }
 
     /**
      * @throws Exception
      */
-    private function constructFromRow($row): RoleHasPermission
+    private function constructFromRows(array $rows): array
     {
-        return new RoleHasPermission(
-            $row->id,
-            $row->role_id,
-            $row->permission_id,
-        );
+        $role_has_permissions = [];
+        foreach ($rows as $row) {
+            $role_has_permissions[] = new RoleHasPermission(
+                $row->id,
+                $row->role_id,
+                $row->permission_id,
+            );
+        }
+        return $role_has_permissions;
     }
 }

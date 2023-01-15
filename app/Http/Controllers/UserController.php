@@ -7,6 +7,7 @@ use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use App\Core\Application\Service\Me\MeService;
 use App\Core\Application\Service\LoginUser\LoginUserRequest;
 use App\Core\Application\Service\LoginUser\LoginUserService;
 use App\Core\Application\Service\RegisterUser\RegisterUserRequest;
@@ -109,5 +110,14 @@ class UserController extends Controller
         );
         $service->execute($input);
         return $this->success("Berhasil Verifikasi User");
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function me(Request $request, MeService $service): JsonResponse
+    {
+        $response = $service->execute($request->get('account'));
+        return $this->successWithData($response, "Berhasil Mengambil Data");
     }
 }
