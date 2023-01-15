@@ -5,8 +5,6 @@ namespace App\Core\Application\Service\LoginUser;
 use Exception;
 use App\Core\Domain\Models\Email;
 use App\Exceptions\UserException;
-use Illuminate\Support\Facades\Mail;
-use App\Core\Application\Mail\EmailTest;
 use App\Core\Domain\Service\JwtManagerInterface;
 use App\Core\Domain\Repository\RoleRepositoryInterface;
 use App\Core\Domain\Repository\UserRepositoryInterface;
@@ -36,20 +34,15 @@ class LoginUserService
     {
         $user = $this->user_repository->findByEmail(new Email($request->getEmail()));
         if (!$user) {
-            UserException::throw("user tidak ketemu", 1006, 404);
+            UserException::throw("User Tidak Ditemukan", 1006, 404);
         }
-
-        $role = $this->role_repository->find($user->getRoleId());
-        
+        if ($user->getIsValid() == false) {
+            UserException::throw("Mohon Periksa Email Anda Untuk Proses Verifikasi Akun", 1007, 404);
+        }
         $user->beginVerification()
             ->checkPassword($request->getPassword())
             ->verify();
         $token_jwt = $this->jwt_factory->createFromUser($user);
-        Mail::to($user->getEmail()->toString())->send(new EmailTest(
-            $user->getName(),
-            $user->getEmail()->toString(),
-            $user->getNoTelp(),
-        ));
-        return new LoginUserResponse($token_jwt, $role->getName());
+        return new LoginUserResponse($token_jwt);
     }
 }
