@@ -1,0 +1,10 @@
+[
+    {
+      "id": 1,
+      "routes": "create_user.store"
+    },
+    {
+      "id": 2,
+      "routes": "login_user.store"
+    }
+  ]
