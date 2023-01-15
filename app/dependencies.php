@@ -21,7 +21,9 @@ use App\Core\Domain\Repository\KecamatanRepositoryInterface;
 use App\Core\Domain\Repository\DepartemenRepositoryInterface;
 use App\Core\Domain\Repository\PermissionRepositoryInterface;
 use App\Infrastrucutre\Repository\SqlRoleHasPermissionRepository;
+use App\Infrastrucutre\Repository\SqlAccountVerificationRepository;
 use App\Core\Domain\Repository\RoleHasPermissionRepositoryInterface;
+use App\Core\Domain\Repository\AccountVerificationRepositoryInterface;
 
 /** @var Application $app */
 
@@ -35,4 +37,5 @@ $app->singleton(DesaRepositoryInterface::class, SqlDesaRepository::class);
 $app->singleton(RoleRepositoryInterface::class, SqlRoleRepository::class);
 $app->singleton(PermissionRepositoryInterface::class, SqlPermissionRepository::class);
 $app->singleton(RoleHasPermissionRepositoryInterface::class, SqlRoleHasPermissionRepository::class);
+$app->singleton(AccountVerificationRepositoryInterface::class, SqlAccountVerificationRepository::class);
 $app->singleton(JwtManagerInterface::class, JwtManager::class);

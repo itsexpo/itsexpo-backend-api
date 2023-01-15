@@ -6,24 +6,20 @@ use Exception;
 use App\Core\Domain\Models\Email;
 use App\Exceptions\UserException;
 use App\Core\Domain\Service\JwtManagerInterface;
-use App\Core\Domain\Repository\RoleRepositoryInterface;
 use App\Core\Domain\Repository\UserRepositoryInterface;
 
 class LoginUserService
 {
     private UserRepositoryInterface $user_repository;
-    private RoleRepositoryInterface $role_repository;
     private JwtManagerInterface $jwt_factory;
 
     /**
      * @param UserRepositoryInterface $user_repository
-     * @param RoleRepositoryInterface $role_repository
      * @param JwtManagerInterface $jwt_factory
      */
-    public function __construct(UserRepositoryInterface $user_repository, RoleRepositoryInterface $role_repository, JwtManagerInterface $jwt_factory)
+    public function __construct(UserRepositoryInterface $user_repository, JwtManagerInterface $jwt_factory)
     {
         $this->user_repository = $user_repository;
-        $this->role_repository = $role_repository;
         $this->jwt_factory = $jwt_factory;
     }
 
