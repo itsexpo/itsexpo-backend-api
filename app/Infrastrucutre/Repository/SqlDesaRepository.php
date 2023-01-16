@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\DB;
 class SqlDesaRepository implements DesaRepositoryInterface
 {
     /**
+     * @throws Exception
+     */
+    public function getAll(): array
+    {
+        $rows = DB::table('desa')->get();
+
+        return $this->constructFromRows($rows->all());
+    }
+
+    /**
      * @param int $kecamatan_id
      * @return Desa[]
      * @throws Exception
