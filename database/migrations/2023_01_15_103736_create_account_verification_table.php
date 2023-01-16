@@ -13,7 +13,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('account_verification', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->uuid('id')->primary();
             $table->string('email', 128)->index();
             $table->string('token', 256);
             $table->timestamp('created_at')->useCurrent();

@@ -27,9 +27,8 @@ class SqlProvinsiRepository implements ProvinsiRepositoryInterface
     public function constructFromRows(array $rows): array
     {
         $provinsi = [];
-        foreach ($rows as $row) { 
-            $provinsi[] = new
-            Provinsi(
+        foreach ($rows as $row) {
+            $provinsi[] = new Provinsi(
                 $row->id,
                 $row->name,
             );

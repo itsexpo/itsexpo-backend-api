@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class SqlKabupatenRepository implements KabupatenRepositoryInterface
 {
+    public function getAll(): array
+    {
+        $rows = DB::table('kabupaten')->get();
+        return $this->constructFromRows($rows->all());
+    }
     /**
      * @param int $provinsi_id
      * @return Kabupaten[]
@@ -17,7 +22,6 @@ class SqlKabupatenRepository implements KabupatenRepositoryInterface
     public function getByProvinsiId(int $provinsi_id): array
     {
         $row = DB::table('kabupaten')->where('provinsi_id', '=', $provinsi_id)->get();
-
         return $this->constructFromRows($row->all());
     }
 
