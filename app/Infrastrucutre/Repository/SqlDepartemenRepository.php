@@ -27,6 +27,13 @@ class SqlDepartemenRepository implements DepartemenRepositoryInterface
         return $this->constructFromRows([$row])[0];
     }
 
+    public function getAll(): array
+    {
+        $rows = DB::table('departemen')->get();
+
+        return $this->constructFromRows($rows->all());
+    }
+
     /**
      * @param array $rows
      * @return Departemen[]
