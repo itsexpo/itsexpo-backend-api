@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->uuid('id')->primary();
             $table->string('email', 128)->index();
             $table->string('token', 256);
+            $table->boolean('is_active');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
