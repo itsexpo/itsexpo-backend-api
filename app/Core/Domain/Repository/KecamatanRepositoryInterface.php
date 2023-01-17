@@ -7,6 +7,11 @@ use App\Core\Domain\Models\Kecamatan\Kecamatan;
 interface KecamatanRepositoryInterface
 {
     /**
+     * @return Kecamatan[]
+     */
+    public function getAll(): array;
+
+    /**
      * @param string $id
      * @return Kecamatan[]
      */
