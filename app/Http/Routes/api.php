@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KecamatanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProvinsiController;
@@ -13,6 +14,9 @@ Route::post('/create_user', [UserController::class, 'createUser']);
 Route::post('/login_user', [UserController::class, 'loginUser']);
 Route::post('/user_verification', [UserController::class, 'userVerification']);
 Route::get('/provinsi', [ProvinsiController::class, 'provinsi']);
+
+#GET Kecamatan
+Route::get('/kecamatan', [KecamatanController::class, 'kecamatan']);
 
 #GET Desa
 Route::get('/desa', [DesaController::class, 'desa']);

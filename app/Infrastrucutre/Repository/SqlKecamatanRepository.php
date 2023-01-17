@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\DB;
 class SqlKecamatanRepository implements KecamatanRepositoryInterface
 {
     /**
+     * @return Kecamatan[]
+     * @throws Exceptions
+     */
+    public function getAll(): array
+    {
+        $rows = DB::table('kecamatan')->get();
+        return $this->constructFromRows($rows->all());
+    }
+
+    /**
      * @param int $kabupaten_id
      * @return Kecamatan[]
      * @throws Exception
