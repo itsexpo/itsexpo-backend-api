@@ -20,7 +20,7 @@ Route::middleware(['iam'])->group(
                 "success" => true
             ]);
         });
-        Route::post('/me', [UserController::class, 'me']);
+        Route::get('/me', [UserController::class, 'me']);
     }
 );
 
