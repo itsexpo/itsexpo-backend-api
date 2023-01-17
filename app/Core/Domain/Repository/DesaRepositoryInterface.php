@@ -10,6 +10,8 @@ interface DesaRepositoryInterface
      * @param string $id
      * @return Desa[]
      */
+    public function getAll(): array;
+
     public function getByKecamatanId(int $kecamatan_id): array;
 
     public function find(int $id): ?Desa;
