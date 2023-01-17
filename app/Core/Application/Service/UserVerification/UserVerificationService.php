@@ -33,10 +33,15 @@ class UserVerificationService
             UserException::throw("User Tidak Ditemukan", 1006, 404);
         }
         $account_verification = $this->account_verification_repository->findByEmail(new Email($request->getEmail()));
+        if ($account_verification->getIsActive() == true) {
+            UserException::throw("Akun User Sudah Aktif", 1019, 404);
+        }
         if (strcmp($request->getToken(), $account_verification->getToken()) !== 0) {
             UserException::throw("Token Tidak Cocok Dengan Email Yang Didaftarkan", 1007, 404);
         }
         $user->setIsValid(true);
+        $account_verification->setIsActive(true);
+        $this->account_verification_repository->persist($account_verification);
         $this->user_repository->persist($user);
     }
 }

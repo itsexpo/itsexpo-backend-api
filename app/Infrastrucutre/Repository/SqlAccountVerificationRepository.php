@@ -16,7 +16,8 @@ class SqlAccountVerificationRepository implements AccountVerificationRepositoryI
         DB::table('account_verification')->upsert([
             'id' => $account_verification->getId()->toString(),
             'email' => $account_verification->getEmail()->toString(),
-            'token' => $account_verification->getToken()
+            'token' => $account_verification->getToken(),
+            'is_active' => $account_verification->getIsActive(),
         ], 'id');
     }
 
@@ -56,7 +57,8 @@ class SqlAccountVerificationRepository implements AccountVerificationRepositoryI
         return new AccountVerification(
             new AccountVerificationId($row->id),
             new Email($row->email),
-            $row->token
+            $row->token,
+            $row->is_active,
         );
     }
 }
