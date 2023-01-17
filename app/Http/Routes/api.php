@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\KabupatenController;
+use App\Http\Controllers\DesaController;
 
 Route::get('hello', function () {
     return response()->json();
@@ -13,7 +14,13 @@ Route::post('/create_user', [UserController::class, 'createUser']);
 Route::post('/login_user', [UserController::class, 'loginUser']);
 Route::post('/user_verification', [UserController::class, 'userVerification']);
 Route::get('/provinsi', [ProvinsiController::class, 'provinsi']);
+
+#GET Kabupaten
+Route::get('/kabupaten', [KabupatenController::class, 'kabupaten']);
 Route::get('/kabupaten/{provinsi_id?}', [KabupatenController::class, 'kabupaten']);
+
+#GET Desa
+Route::get('/desa', [DesaController::class, 'desa']);
 
 Route::middleware(['iam'])->group(
     function () {
@@ -22,7 +29,7 @@ Route::middleware(['iam'])->group(
                 "success" => true
             ]);
         });
-        Route::post('/me', [UserController::class, 'me']);
+        Route::get('/me', [UserController::class, 'me']);
     }
 );
 

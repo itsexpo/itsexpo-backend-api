@@ -21,7 +21,7 @@ class KabupatenService
     /**
      * @throws Exception
      */
-    public function execute($provinsi_id = null): array
+    public function execute(?string $provinsi_id): array
     {
         if ($provinsi_id === null) {
             $allKabupaten = $this->kabupaten_repository->getAll();

@@ -4,26 +4,27 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\JsonResponse;
-use App\Core\Application\Service\Kabupaten\KabupatenService;
+use Illuminate\Http\Request;
+use App\Core\Application\Service\Desa\DesaService;
 
-class KabupatenController extends Controller
+class DesaController extends Controller
 {
     /**
-    * @OA\Tag(
-    *   name="Get Kabupaten",
-    *   description="API Endpoints of Kabupaten"
-    * )
+     * @OA\Tag(
+     *   name="Get Desa",
+     *   description="API Endpoints of Desa"
+     * )
     *      @OA\Get(
-    *          path="/kabupaten",
-    *          tags={"Get Kabupaten"},
-    *          description="get all kabupaten",
+    *          path="/desa",
+    *          tags={"Get Desa"},
+    *          description="get all desa",
     *
     *          @OA\Response(
     *              response="200",
     *              description="Success",
     *              @OA\JsonContent(
     *                  type="object",
-    *                  @OA\Property(property="success", type="boolean"),
+    *                  @OA\Property(property="succes", type="boolean"),
     *                  @OA\Property(property="data", type="object"),
     *                  @OA\Property(property="message", type="string"),
     *               )
@@ -33,20 +34,20 @@ class KabupatenController extends Controller
     *              description="Not Found",
     *              @OA\JsonContent(
     *                  type="object",
-    *                  @OA\Property(property="success", type="boolean", example="false"),
+    *                  @OA\Property(property="succes", type="boolean", example="false"),
     *                  @OA\Property(property="code", type="string", example="1057"),
     *                  @OA\Property(property="message", type="string"),
     *               )
     *         ),
     *      @OA\Get(
-    *          path="/kabupaten",
-    *          tags={"Get Kabupaten"},
-    *          description="get kabupaten by provinsi_id",
+    *          path="/desa",
+    *          tags={"Get Desa"},
+    *          description="get desa by id_kecamatan",
     *          @OA\RequestBody(
     *              required=true,
     *              @OA\JsonContent(
-    *                  required={"provinsi_id"},
-    *                  @OA\Property(property="provinsi_id", type="string", example="1101020"),
+    *                  required={"id_kecamatan"},
+    *                  @OA\Property(property="id_kecamatan", type="string", example="1101020"),
     *              )
     *          ),
     *
@@ -55,7 +56,7 @@ class KabupatenController extends Controller
     *              description="Success",
     *              @OA\JsonContent(
     *                  type="object",
-    *                  @OA\Property(property="success", type="boolean"),
+    *                  @OA\Property(property="succes", type="boolean"),
     *                  @OA\Property(property="data", type="object"),
     *                  @OA\Property(property="message", type="string"),
     *               )
@@ -65,7 +66,7 @@ class KabupatenController extends Controller
     *              description="Not Found",
     *              @OA\JsonContent(
     *                  type="object",
-    *                  @OA\Property(property="success", type="boolean", example="false"),
+    *                  @OA\Property(property="succes", type="boolean", example="false"),
     *                  @OA\Property(property="code", type="string", example="1058"),
     *                  @OA\Property(property="message", type="string"),
     *               )
@@ -78,10 +79,9 @@ class KabupatenController extends Controller
     /**
      * @throws Exception
      */
-    public function kabupaten(KabupatenService $service): JsonResponse
+    public function desa(Request $request, DesaService $service): JsonResponse
     {
-        $provinsi_id = request('provinsi_id');
-        $response = $service->execute($provinsi_id);
-        return $this->successWithData($response, "Berhasil Mengambil Data Kabupaten");
+        $response = $service->execute($request['id_kecamatan']);
+        return $this->successWithData($response, "Berhasil Mengambil Data Desa");
     }
 }
