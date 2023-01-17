@@ -34,7 +34,7 @@ class KabupatenService
         } elseif ($provinsi_id) {
             $allKabupaten = $this->kabupaten_repository->getByProvinsiId($provinsi_id);
             if (count($allKabupaten) < 1) {
-                UserException::throw("Kabupaten dengan id provinsi $provinsi_id tidak ditemukan", 1049, 404);
+                UserException::throw("Kabupaten dengan id provinsi tersebut tidak ditemukan", 1049, 404);
             } else {
                 return array_map(function (Kabupaten $result) {
                     return new KabupatenResponse(
