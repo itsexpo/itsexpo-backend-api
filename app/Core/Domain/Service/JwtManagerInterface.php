@@ -7,7 +7,7 @@ use App\Core\Domain\Models\User\User;
 
 interface JwtManagerInterface
 {
-    public function createFromUser(User $user): string;
+    public function createFromUser(User $user, String $ip): string;
 
-    public function decode(string $jwt): UserAccount;
+    public function decode(string $jwt, String $ip): UserAccount;
 }
