@@ -31,13 +31,14 @@ class JwtManager implements JwtManagerInterface
     }
 
 
-    public function createFromUser(User $user): string
+    public function createFromUser(User $user, String $ip): string
     {
         return JWT::encode(
             [
-                'user_id' => $user->getId()->toString()
+                'user_id' => $user->getId()->toString(),
+                'exp' => time() + 60 * 60 * 3 // 3 hours
             ],
-            config('app.key'),
+            config('app.key') . $ip,
             'HS256'
         );
     }
@@ -45,12 +46,12 @@ class JwtManager implements JwtManagerInterface
     /**
      * @throws Exception
      */
-    public function decode(string $jwt): UserAccount
+    public function decode(string $jwt, String $ip): UserAccount
     {
         try {
             $jwt = JWT::decode(
                 $jwt,
-                new Key(config('app.key'), 'HS256')
+                new Key(config('app.key') . $ip, 'HS256')
             );
         } catch (ExpiredException $e) {
             UserException::throw('JWT has expired', 902);
