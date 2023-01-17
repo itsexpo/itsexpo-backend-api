@@ -10,17 +10,20 @@ class AccountVerification
     private AccountVerificationId $id;
     private Email $email;
     private string $token;
+    private bool $is_active;
 
     /**
      * @param AccountVerificationId $id
      * @param Email $email
      * @param string $token
+     * @param bool $is_active
      */
-    public function __construct(AccountVerificationId $id, Email $email, string $token)
+    public function __construct(AccountVerificationId $id, Email $email, string $token, bool $is_active)
     {
         $this->id = $id;
         $this->email = $email;
         $this->token = $token;
+        $this->is_active = $is_active;
     }
 
     /**
@@ -39,7 +42,8 @@ class AccountVerification
         return new self(
             AccountVerificationId::generate(),
             $email,
-            $token
+            $token,
+            false
         );
     }
 
@@ -57,5 +61,21 @@ class AccountVerification
     public function getToken(): string
     {
         return $this->token;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsActive(): bool
+    {
+        return $this->is_active;
+    }
+
+    /**
+     * @return void
+     */
+    public function setIsActive($is_active): void
+    {
+        $this->is_active = $is_active;
     }
 }
