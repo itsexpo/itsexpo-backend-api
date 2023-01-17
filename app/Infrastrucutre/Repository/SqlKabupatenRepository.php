@@ -23,7 +23,6 @@ class SqlKabupatenRepository implements KabupatenRepositoryInterface
     public function getByProvinsiId(int $provinsi_id): array
     {
         $row = DB::table('kabupaten')->where('provinsi_id', '=', $provinsi_id)->get();
-
         return $this->constructFromRows($row->all());
     }
 
