@@ -24,6 +24,8 @@ use App\Infrastrucutre\Repository\SqlRoleHasPermissionRepository;
 use App\Infrastrucutre\Repository\SqlAccountVerificationRepository;
 use App\Core\Domain\Repository\RoleHasPermissionRepositoryInterface;
 use App\Core\Domain\Repository\AccountVerificationRepositoryInterface;
+use App\Core\Domain\Service\GetIPInterface;
+use App\Infrastrucutre\Service\GetIP;
 
 /** @var Application $app */
 
@@ -39,3 +41,4 @@ $app->singleton(PermissionRepositoryInterface::class, SqlPermissionRepository::c
 $app->singleton(RoleHasPermissionRepositoryInterface::class, SqlRoleHasPermissionRepository::class);
 $app->singleton(AccountVerificationRepositoryInterface::class, SqlAccountVerificationRepository::class);
 $app->singleton(JwtManagerInterface::class, JwtManager::class);
+$app->singleton(GetIPInterface::class, GetIP::class);
