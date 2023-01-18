@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Exception;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Core\Application\Service\Desa\DesaService;
 
 class DesaController extends Controller

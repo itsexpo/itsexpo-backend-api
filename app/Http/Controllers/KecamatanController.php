@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Core\Application\Service\Kecamatan\KecamatanRequest;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Core\Application\Service\Kecamatan\KecamatanRequest;
 use App\Core\Application\Service\Kecamatan\KecamatanService;
 
 class KecamatanController extends Controller
