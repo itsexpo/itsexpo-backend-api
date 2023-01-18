@@ -14,10 +14,15 @@ class SqlKabupatenRepository implements KabupatenRepositoryInterface
      * @return Kabupaten[]
      * @throws Exception
      */
+    public function getAll(): array
+    {
+        $rows = DB::table('kabupaten')->get();
+        return $this->constructFromRows($rows->all());
+    }
+
     public function getByProvinsiId(int $provinsi_id): array
     {
         $row = DB::table('kabupaten')->where('provinsi_id', '=', $provinsi_id)->get();
-
         return $this->constructFromRows($row->all());
     }
 

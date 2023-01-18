@@ -85,6 +85,71 @@
                 }
             }
         },
+        "/api/kabupaten": {
+            "get": {
+                "tags": [
+                    "Kabupaten"
+                ],
+                "description": "Get kabupaten by province id",
+                "operationId": "930a4e7b631dcfdd41e6b5855c1e1d11",
+                "parameters": [
+                    {
+                        "name": "provinsi_id",
+                        "in": "query",
+                        "description": "ID provinsi",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "token": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "false"
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "example": "1049"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/login_user": {
             "post": {
                 "tags": [
@@ -171,6 +236,10 @@
         {
             "name": "General Respond",
             "description": "General Api Respond"
+        },
+        {
+            "name": "Kabupaten",
+            "description": "API Endpoints of Kabupaten"
         },
         {
             "name": "Authentication",
