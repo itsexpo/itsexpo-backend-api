@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DesaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FakultasController;
 use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\KabupatenController;
-use App\Http\Controllers\DesaController;
-use App\Http\Controllers\FakultasController;
+use App\Http\Controllers\KecamatanController;
+use App\Http\Controllers\DepartemenController;
 
 Route::get('hello', function () {
     return response()->json();
