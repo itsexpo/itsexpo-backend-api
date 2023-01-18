@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProvinsiController;
+use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\FakultasController;
 
@@ -20,6 +21,9 @@ Route::get('/provinsi', [ProvinsiController::class, 'provinsi']);
 
 #GET Kecamatan
 Route::get('/kecamatan', [KecamatanController::class, 'kecamatan']);
+
+#GET Kabupaten
+Route::get('/kabupaten', [KabupatenController::class, 'kabupaten']);
 
 // Desa
 Route::get('/desa', [DesaController::class, 'desa']);
