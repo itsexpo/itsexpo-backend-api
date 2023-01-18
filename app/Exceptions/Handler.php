@@ -2,19 +2,19 @@
 
 namespace App\Exceptions;
 
+use Throwable;
 use Carbon\Carbon;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Auth\AuthenticationException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Throwable;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class Handler extends ExceptionHandler
 {
@@ -62,9 +62,9 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         $request_id_code = "";
+        $mytime = Carbon::now("Asia/Jakarta");
         if ($request) {
             // generating request unique id
-            $mytime = Carbon::now();
             $time = $mytime->toDateTimeString();
             $request_id = $request->ip() . " " . $time;
             $request_id_code = Str::upper(Str::substr(md5($request_id), 0, 8));
@@ -73,7 +73,7 @@ class Handler extends ExceptionHandler
         }
 
         Log::error(
-            date("Y-m-d H:i:s") . " " . $request_id_code . " " . $exception,
+            $mytime . " " . $request_id_code . " " . $exception,
         );
 
         if ($exception instanceof UserException) {
