@@ -76,14 +76,13 @@ class Handler extends ExceptionHandler
             date("Y-m-d H:i:s") . " " . $request_id_code . " " . $exception,
         );
 
-        if ($exception instanceof UserException)
-        {
+        if ($exception instanceof UserException) {
             return $exception->render();
         }
 
         $code = 500;
-        $message = "Terjadi Kesalahan Server";
-        //$message = "Terjadi Kesalahan. Request Id: " . $request_id_code;
+        // $message = "Terjadi Kesalahan Server";
+        $message = "Terjadi Kesalahan. Request Id: " . $request_id_code;
         if ($exception instanceof ValidationException) {
             $code = 422;
             $message = $exception->validator->errors()->first();
@@ -120,7 +119,7 @@ class Handler extends ExceptionHandler
             $message = $exception->getMessage();
         }
 
-        if(!App::environment('production')){
+        if (!App::environment('production')) {
             $message = $exception->getMessage();
             $code = 500;
         }
