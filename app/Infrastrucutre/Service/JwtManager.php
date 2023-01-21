@@ -43,6 +43,18 @@ class JwtManager implements JwtManagerInterface
         );
     }
 
+    public function createForgotPasswordToken(User $user, String $ip): string
+    {
+        return JWT::encode(
+            [
+                'user_id' => $user->getEmail()->toString(),
+                'exp' => time() + 60 * 60 * 24 * 3 // 3 days
+            ],
+            config('app.key') . $ip,
+            'HS256'
+        );
+    }
+
     /**
      * @throws Exception
      */
