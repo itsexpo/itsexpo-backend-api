@@ -41,7 +41,8 @@ Route::middleware(['iam'])->group(
                 "success" => true
             ]);
         });
-        Route::get('/me', [UserController::class, 'me']);
+        Route::post('/me', [UserController::class, 'me']);
+        Route::post('/change_password', [UserController::class, 'changePassword']);
     }
 );
 
