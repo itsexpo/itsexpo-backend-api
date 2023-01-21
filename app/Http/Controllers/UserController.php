@@ -149,8 +149,8 @@ class UserController extends Controller
             DB::rollBack();
             throw $e;
         }
-
         DB::commit();
+        
         return $this->success("Berhasil Merubah Password");
     }
 }
