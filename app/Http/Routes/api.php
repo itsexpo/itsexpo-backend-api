@@ -17,6 +17,24 @@ Route::get('hello', function () {
 Route::post('/create_user', [UserController::class, 'createUser']);
 Route::post('/login_user', [UserController::class, 'loginUser']);
 Route::post('/user_verification', [UserController::class, 'userVerification']);
+Route::get('/users', [UserController::class, 'getUserList']);
+Route::post('/users/delete', [UserController::class, 'deleteUser']);
+
+//Role
+Route::get('/roles', [RoleController::class, 'getRoleList']);
+Route::post('/roles', [RoleController::class, 'add']);
+Route::post('/roles/delete', [RoleController::class, 'delete']);
+Route::post('/roles/update', [RoleController::class, 'update']);
+Route::post('/api/roles_assign', [RoleController::class, 'assignRolePermission']);
+Route::post('/api/roles_assign/delete', [RoleController::class, 'deleteRolePermission']);
+
+//Permission
+Route::get('/permission', [PermissionController::class, 'getPermissionList']);
+Route::post('/permission', [PermissionController::class, 'add']);
+Route::post('/permission/delete', [PermissionController::class, 'delete']);
+Route::post('/permission/update', [PermissionController::class, 'update']);
+
+
 
 // Provinsi
 Route::get('/provinsi', [ProvinsiController::class, 'provinsi']);
