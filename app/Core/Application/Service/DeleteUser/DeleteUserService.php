@@ -2,6 +2,7 @@
 
 namespace App\Core\Application\Service\DeleteUser;
 
+use App\Core\Domain\Models\User\UserId;
 use App\Core\Domain\Repository\UserRepositoryInterface;
 use App\Core\Application\Service\DeleteUser\DeleteUserRequest;
 
@@ -12,7 +13,7 @@ class DeleteUserService
     /**
      * @param UserRepositoryInterface $user_repository
      */
-    
+
     public function __construct(UserRepositoryInterface $user_repository)
     {
         $this->user_repository = $user_repository;
@@ -23,6 +24,6 @@ class DeleteUserService
      */
     public function execute(DeleteUserRequest $request)
     {
-
+        $user = $this->user_repository->delete(new UserId($request->getUserId()));
     }
 }
