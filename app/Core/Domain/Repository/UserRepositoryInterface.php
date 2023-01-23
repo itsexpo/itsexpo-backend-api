@@ -13,4 +13,6 @@ interface UserRepositoryInterface
     public function find(UserId $id): ?User;
 
     public function findByEmail(Email $email): ?User;
+
+    public function getWithPagination(int $page, int $per_page): array;
 }
