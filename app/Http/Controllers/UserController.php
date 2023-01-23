@@ -244,7 +244,7 @@ class UserController extends Controller
             throw $e;
         }
         DB::commit();
-        return $this->success("Berhasil Registrasi");
+        return $this->success("User Berhasil diHapus");
     }
 }
 

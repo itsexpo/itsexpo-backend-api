@@ -10,6 +10,8 @@ interface UserRepositoryInterface
 {
     public function persist(User $user): void;
 
+    public function delete(UserId $id): void;
+
     public function find(UserId $id): ?User;
 
     public function findByEmail(Email $email): ?User;

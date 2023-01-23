@@ -26,14 +26,14 @@ class GetUserListService
     public function execute(GetUserListRequest $request)
     {
         $users_pagination = $this->user_repository->getWithPagination($request->getPage(), $request->getPerPage());
-        $max_page = $users_pagination[1];
+        $max_page = $users_pagination['max_page'];
 
         $user_response = array_map(function (User $user){
             return new GetUserListResponse(
                 $user
                 //yang dibutuhin untuk ditampilkan apa aja
             );
-        }, $users_pagination);
+        }, $users_pagination['data']);
 
         return new PaginationResponse($user_response, $request->getPage(), $max_page);
     }

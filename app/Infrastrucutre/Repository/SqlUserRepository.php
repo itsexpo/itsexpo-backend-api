@@ -67,4 +67,24 @@ class SqlUserRepository implements UserRepositoryInterface
             $row->password
         );
     }
+
+    public function getWithPagination(int $page, int $per_page): array
+    {
+        $rows = DB::table('user')
+            ->paginate($per_page, ['*'], 'npc_team_page', $page);
+        $users = [];
+
+        foreach ($rows as $row) {
+            $users[] = $this->constructFromRow($row);
+        }
+        return [
+            "data" => $users, 
+            "max_page" => ceil($rows->total() / $per_page)
+        ];
+    }
+
+    public function delete(UserId $id): void
+    {
+        DB::table('user')->where('id', $id->toString())->delete();
+    }
 }
