@@ -7,8 +7,73 @@ use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use App\Core\Application\Service\DeletePermission\DeletePermissionRequest;
+use App\Core\Application\Service\DeletePermission\DeletePermissionService;
+use App\Core\Application\Service\GetPermissionList\GetPermissionListRequest;
+use App\Core\Application\Service\GetPermissionList\GetPermissionListService;
 
 class PermissionController extends Controller
 {
-    
+    public function add(Request $request, AddPermissionService $service): JsonResponse
+    {
+        $input = new AddPermissionRequest(
+            $request->input('routes')
+        );
+
+        DB::beginTransaction();
+        try {
+            $service->execute($input);
+        } catch (Throwable $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
+        return $this->success("Permission Berhasil ditambahkan");
+    }
+
+    public function delete(Request $request, DeletePermissionService $service): JsonResponse
+    {  
+        $input = new DeletePermissionRequest(
+            $request->input('role_id')
+        );
+
+        DB::beginTransaction();
+        try {
+            $service->execute($input);
+        } catch (Throwable $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
+        return $this->success("Permission Berhasil diHapus");
+    }
+
+    public function update(Request $request, UpdatePermissionService $service): JsonResponse
+    {
+        $input = new UpdatePermissionRequest(
+            $request->input('id'),
+            $request->input('routes')
+        );
+
+        DB::beginTransaction();
+        try {
+            $service->execute($input);
+        } catch (Throwable $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
+        return $this->success("Permission Berhasil diHapus");
+    }
+
+    public function getPermissionList(Request $request, GetPermissionListService $service): JsonResponse
+    {
+        $input = new GetPermissionListRequest(
+            $request->input('page'),
+            $request->input('page_size')
+        );
+        
+        $response = $service->execute($input);
+        return $this->successWithData($response, "Berhasil Mendapatkan List Permission");
+    }
 }

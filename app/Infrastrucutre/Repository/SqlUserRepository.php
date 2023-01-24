@@ -71,7 +71,7 @@ class SqlUserRepository implements UserRepositoryInterface
     public function getWithPagination(int $page, int $per_page): array
     {
         $rows = DB::table('user')
-            ->paginate($per_page, ['*'], 'npc_team_page', $page);
+            ->paginate($per_page, ['*'], 'user_page', $page);
         $users = [];
 
         foreach ($rows as $row) {

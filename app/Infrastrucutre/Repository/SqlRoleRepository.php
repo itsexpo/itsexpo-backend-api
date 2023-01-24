@@ -40,4 +40,24 @@ class SqlRoleRepository implements RoleRepositoryInterface
             $row->name,
         );
     }
+
+    public function getWithPagination(int $page, int $per_page): array
+    {
+        $rows = DB::table('role')
+            ->paginate($per_page, ['*'], 'role_page', $page);
+        $roles = [];
+
+        foreach ($rows as $row) {
+            $roles[] = $this->constructFromRow($row);
+        }
+        return [
+            "data" => $roles, 
+            "max_page" => ceil($rows->total() / $per_page)
+        ];
+    }
+
+    public function delete(string $id): void
+    {
+        DB::table('role')->where('id', $id)->delete();
+    }
 }
