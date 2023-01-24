@@ -74,4 +74,9 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
         }
         return $role_has_permissions;
     }
+
+    public function delete(string $id): void
+    {
+        DB::table('role_has_permission')->where('id', $id)->delete();
+    }
 }
