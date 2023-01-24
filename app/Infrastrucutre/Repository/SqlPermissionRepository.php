@@ -40,4 +40,24 @@ class SqlPermissionRepository implements PermissionRepositoryInterface
             $row->routes,
         );
     }
+
+    public function getWithPagination(int $page, int $per_page): array
+    {
+        $rows = DB::table('permission')
+            ->paginate($per_page, ['*'], 'permission_page', $page);
+        $permissions = [];
+
+        foreach ($rows as $row) {
+            $permissions[] = $this->constructFromRow($row);
+        }
+        return [
+            "data" => $permissions, 
+            "max_page" => ceil($rows->total() / $per_page)
+        ];
+    }
+
+    public function delete(string $id): void
+    {
+        DB::table('permission')->where('id', $id)->delete();
+    }
 }

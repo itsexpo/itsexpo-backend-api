@@ -8,5 +8,9 @@ interface PermissionRepositoryInterface
 {
     public function persist(Permission $permission): void;
 
-    public function find(string $id): ?Permission;
+    public function delete(string $id): void;
+
+    public function find(String $id): ?Permission;
+
+    public function getWithPagination(int $page, int $per_page): array;
 }
