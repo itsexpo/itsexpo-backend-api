@@ -12,7 +12,9 @@ interface RoleHasPermissionRepositoryInterface
 
     public function find(string $id): ?RoleHasPermission;
 
-    public function findByRoleId(string $role_id): array;
+    public function findByRoleId(string $role_id): ?array;
 
-    public function findByPermissionId(string $permission_id): array;
+    public function findByPermissionId(string $permission_id): ?array;
+
+    public function findByBoth(string $role_id, string $permission_id): ?RoleHasPermission;
 }

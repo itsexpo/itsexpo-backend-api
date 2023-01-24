@@ -24,6 +24,14 @@ class AddRoleHasPermissionService
      */
     public function execute(AddRoleHasPermissionRequest $request)
     {
+        $check = $this->role_has_permission_repository->findByBoth(
+            $request->getRoleId(), 
+            $request->getPermissionId()
+        );
+
+        if ($check)
+            throw new Exception("Role ini sudah memiliki Permission tersebut", 999);
+
         $role_has_permission = RoleHasPermission::create( 
             $request->getRoleId(), 
             $request->getPermissionId() 

@@ -2,6 +2,7 @@
 
 namespace App\Infrastrucutre\Repository;
 
+use Exception;
 use Illuminate\Support\Facades\DB;
 use App\Core\Domain\Models\RoleHasPermission\RoleHasPermission;
 use App\Core\Domain\Repository\RoleHasPermissionRepositoryInterface;
@@ -34,7 +35,7 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
     /**
      * @throws Exception
      */
-    public function findByRoleId(string $role_id): array
+    public function findByRoleId(string $role_id): ?array
     {
         $row = DB::table('role_has_permission')->where('role_id', $role_id)->get();
 
@@ -48,7 +49,7 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
     /**
      * @throws Exception
      */
-    public function findByPermissionId(string $permission_id): array
+    public function findByPermissionId(string $permission_id): ?array
     {
         $rows = DB::table('role_has_permission')->where('permission_id', $permission_id)->get();
 
@@ -78,5 +79,20 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
     public function delete(string $id): void
     {
         DB::table('role_has_permission')->where('id', $id)->delete();
+    }
+
+    public function findByBoth(string $role_id, string $permission_id): ?RoleHasPermission
+    {
+        $row = DB::table('role_has_permission')
+            ->where('role_id', $role_id)
+            ->where('permission_id', $permission_id)
+            ->first();
+
+        if (!$row) {
+            return null;
+        }
+
+        return $this->constructFromRows([$row])[0];
+        
     }
 }
