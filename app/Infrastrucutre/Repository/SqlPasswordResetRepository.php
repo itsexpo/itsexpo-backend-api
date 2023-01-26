@@ -18,10 +18,19 @@ class SqlPasswordResetRepository implements PasswordResetRepositoryInterface
      */
     public function persist(PasswordReset $password_reset): void
     {
-        DB::table('password_resets')->upsert([
-            'email' => $password_reset->getEmail()->toString(),
-            'token' => $password_reset->getToken(),
-        ], 'email');
+        DB::table('password_resets')->updateOrInsert(
+            ['email' => $password_reset->getEmail()->toString()],
+            [
+                'email' => $password_reset->getEmail()->toString(),
+                'token' => $password_reset->getToken(),
+                'created_at' => now()->toDateTimeString(),
+            ]
+        );
+    }
+
+    public function delete(string $email): void
+    {
+        DB::table('password_resets')->where('email', $email)->delete();
     }
 
     public function findByEmail(string $email): ?PasswordReset

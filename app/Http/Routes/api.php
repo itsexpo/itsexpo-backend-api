@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ChangePasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\UserController;
@@ -35,8 +34,11 @@ Route::get('/desa', [DesaController::class, 'desa']);
 Route::get('/fakultas', [FakultasController::class, 'fakultas']);
 Route::get('/departemen', [DepartemenController::class, 'departemen']);
 
-// Change Password
-Route::post('/forgot-password', [ChangePasswordController::class, 'request']);
+// Forgot Password
+Route::group(['prefix' => '/forgot_password'], function () {
+    Route::post('/request', [UserController::class, 'requestForgotPassword']);
+    Route::post('/change', [UserController::class, 'changeForgotPassword']);
+});
 
 Route::middleware(['iam'])->group(
     function () {

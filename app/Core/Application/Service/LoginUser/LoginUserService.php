@@ -45,7 +45,6 @@ class LoginUserService
 
         $ip = $this->get_ip->getIP();
         $token_jwt = $this->jwt_factory->createFromUser($user, $ip);
-        error_log($ip);
         return new LoginUserResponse($token_jwt);
     }
 }
