@@ -2,6 +2,7 @@
 
 namespace App\Infrastrucutre\Service;
 
+use App\Core\Domain\Models\Email;
 use App\Core\Domain\Models\UserAccount;
 use Exception;
 use Firebase\JWT\JWT;
@@ -43,16 +44,67 @@ class JwtManager implements JwtManagerInterface
         );
     }
 
-    public function createForgotPasswordToken(User $user, String $ip): string
+    public function randomToken(): string
     {
-        return JWT::encode(
+        // make random string
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < 32; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+    /**
+     * @return array ['jwt': string, 'token': string]
+     */
+    public function createForgotPasswordToken(User $user): array
+    {
+        $random = $this->randomToken();
+        $token = JWT::encode(
             [
-                'user_id' => $user->getEmail()->toString(),
-                'exp' => time() + 60 * 60 * 24 * 3 // 3 days
+                'email' => $user->getEmail()->toString(),
+                'exp' => time() + 60 * 60 * 24 * 3, // 3 days
+                'token' => $random
             ],
-            config('app.key') . $ip,
+            config('app.key'),
             'HS256'
         );
+        return [
+            'jwt' => $token,
+            'token' => $random
+        ];
+    }
+
+    /**
+     * @return array ['user': UserAccount, 'decoded': string]
+     */
+    public function decodeForgotPasswordToken(string $jwt): array
+    {
+        $decoded = null;
+        try {
+            $decoded = JWT::decode(
+                $jwt,
+                new Key(config('app.key'), 'HS256')
+            );
+        } catch (ExpiredException $e) {
+            UserException::throw('JWT has expired', 902);
+        } catch (SignatureInvalidException $e) {
+            UserException::throw('JWT signature is invalid', 903);
+        } catch (UnexpectedValueException $e) {
+            UserException::throw('Unexpected JWT format', 907);
+        }
+        $user = $this->user_repository->findByEmail(new Email($decoded->email));
+        if (!$user) {
+            UserException::throw("User not found!", 1500);
+        }
+        return [
+            'user' =>  new UserAccount(
+                $user->getId()
+            ),
+            'decoded' => $decoded
+        ];
     }
 
     /**

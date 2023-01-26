@@ -16,6 +16,10 @@ use App\Core\Application\Service\UserVerification\UserVerificationRequest;
 use App\Core\Application\Service\UserVerification\UserVerificationService;
 use App\Core\Application\Service\ChangePassword\ChangePasswordRequest;
 use App\Core\Application\Service\ChangePassword\ChangePasswordService;
+use App\Core\Application\Service\ForgotPassword\ForgotPasswordRequest;
+use App\Core\Application\Service\ForgotPassword\ChangePasswordRequest as ChangeForgotPasswordRequest;
+use App\Core\Application\Service\ForgotPassword\ForgotPasswordService;
+use App\Core\Domain\Models\Email;
 
 class UserController extends Controller
 {
@@ -58,9 +62,34 @@ class UserController extends Controller
     *                  @OA\Property(property="message", type="string"),
     *               )
     *         ),
+    *
+    *       @OA\Post(
+    *          path="/forgot_password/request",
+    *          tags={"Authentication"},
+    *          description="Requesting Forgot Password",
+    *          @OA\RequestBody(
+    *              required=true,
+    *              @OA\JsonContent(
+    *                  required={"email"},
+    *                  @OA\Property(property="email", type="string", example="admin@itsexpo.com"),
+    *              )
+    *          ),
+    *
+    *       @OA\Post(
+    *          path="/forgot_password/change",
+    *          tags={"Authentication"},
+    *          description="Changing Forgot Password",
+    *          @OA\RequestBody(
+    *              required=true,
+    *              @OA\JsonContent(
+    *                  required={"token", "password"},
+    *                  @OA\Property(property="token", type="string", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImZhaHJ1bHJwdXRyYUBnbWFpbC5jb20iLCJleHAiOjE2NzUwMDQ4MTgsInRva2VuIjoiWkNHallKRmJCWkpDSnBKUXF5MzE5WlNXR3pPcGpXWDYifQ.CO_N2vXB4LGisN6Y6y9qIcApcHEAVK3KX9clK4lG5Uw"),
+    *                  @OA\Property(property="password", type="password", example="1234567"),
+    *              )
+    *          ),
     *   )
      */
-   
+
     public function createUser(Request $request, RegisterUserService $service): JsonResponse
     {
         $request->validate([
@@ -141,7 +170,7 @@ class UserController extends Controller
             $request->input('new_password'),
             $request->input('re_password')
         );
-        
+
         DB::beginTransaction();
         try {
             $service->execute($input);
@@ -150,7 +179,35 @@ class UserController extends Controller
             throw $e;
         }
         DB::commit();
-        
+
         return $this->success("Berhasil Merubah Password");
+    }
+
+    public function requestForgotPassword(Request $request, ForgotPasswordService $service): JsonResponse
+    {
+        $input = new ForgotPasswordRequest(
+            new Email($request->input('email'))
+        );
+        $service->send($input);
+        return $this->success("Berhasil Mengirim Permintan Mengganti Passsword");
+    }
+
+    public function changeForgotPassword(Request $request, ForgotPasswordService $service): JsonResponse
+    {
+        $input = new ChangeForgotPasswordRequest(
+            $request->input('token'),
+            $request->input('password'),
+        );
+
+        DB::beginTransaction();
+        try {
+            $service->change($input);
+        } catch (Throwable $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
+
+        return $this->success("Berhasil Mengganti Passsword");
     }
 }
