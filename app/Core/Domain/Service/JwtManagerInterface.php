@@ -10,4 +10,6 @@ interface JwtManagerInterface
     public function createFromUser(User $user, String $ip): string;
 
     public function decode(string $jwt, String $ip): UserAccount;
+
+    public function createForgotPasswordToken(User $user, String $ip): string;
 }

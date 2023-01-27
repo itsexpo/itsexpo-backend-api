@@ -18,6 +18,8 @@ use App\Core\Application\Service\RegisterUser\RegisterUserRequest;
 use App\Core\Application\Service\RegisterUser\RegisterUserService;
 use App\Core\Application\Service\UserVerification\UserVerificationRequest;
 use App\Core\Application\Service\UserVerification\UserVerificationService;
+use App\Core\Application\Service\ChangePassword\ChangePasswordRequest;
+use App\Core\Application\Service\ChangePassword\ChangePasswordService;
 
 class UserController extends Controller
 {
@@ -141,7 +143,7 @@ class UserController extends Controller
         $input = new DeleteUserRequest(
             $request->input('user_id')
         );
-
+        
         DB::beginTransaction();
         try {
             $service->execute($input);
@@ -150,7 +152,40 @@ class UserController extends Controller
             throw $e;
         }
         DB::commit();
+        
         return $this->success("User Berhasil diHapus");
+    }
+
+
+    /**
+     * @throws Exception
+     */
+    public function changePassword(Request $request, ChangePasswordService $service) : JsonResponse
+    {
+        $request->validate([
+            'email' => 'email|email',
+            'current_password' => 'min:8|max:64|string',
+            'new_password' => 'min:8|max:64|string',
+            're_password' => 'min:8|max:64|string'
+        ]);
+
+        $input = new ChangePasswordRequest(
+            $request->input('email'),
+            $request->input('current_password'),
+            $request->input('new_password'),
+            $request->input('re_password')
+        );
+        
+        DB::beginTransaction();
+        try {
+            $service->execute($input);
+        } catch (Throwable $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
+
+        return $this->success("Berhasil Merubah Password");
     }
 }
 

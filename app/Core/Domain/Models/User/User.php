@@ -108,6 +108,14 @@ class User
     }
 
     /**
+    * @throws Exception
+    */
+    public function changePassword(string $unhashed_password) : void
+    {
+        $this->hashed_password = Hash::make($unhashed_password);
+    }
+
+    /**
      * @return UserId
      */
     public function getId(): UserId
