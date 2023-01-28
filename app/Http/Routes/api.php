@@ -17,6 +17,7 @@ Route::get('hello', function () {
 Route::post('/create_user', [UserController::class, 'createUser']);
 Route::post('/login_user', [UserController::class, 'loginUser']);
 Route::post('/user_verification', [UserController::class, 'userVerification']);
+Route::get('/user_verification', [UserController::class, 'reUserVerification']);
 
 // Provinsi
 Route::get('/provinsi', [ProvinsiController::class, 'provinsi']);
