@@ -156,10 +156,6 @@ class UserController extends Controller
         return $this->successWithData($response, "Berhasil Mengambil Data");
     }
 
-    
-    /**
-     * @throws Exception
-     */
     public function getUserList(Request $request, GetUserListService $service): JsonResponse
     {
         $input = new GetUserListRequest(
@@ -170,6 +166,25 @@ class UserController extends Controller
         $response = $service->execute($input);
         return $this->successWithData($response, "Berhasil Mendapatkan List User");
     }
+
+    public function deleteUser(Request $request, DeleteUserService $service): JsonResponse
+    {
+        $input = new DeleteUserRequest(
+            $request->input('user_id')
+        );
+        
+        DB::beginTransaction();
+        try {
+            $service->execute($input);
+        } catch (Throwable $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
+        
+        return $this->success("User Berhasil diHapus");
+    }
+
 
     /**
      * @throws Exception
@@ -229,22 +244,4 @@ class UserController extends Controller
 
         return $this->success("Berhasil Mengganti Passsword");
     }
-
-    public function deleteUser(Request $request, DeleteUserService $service): JsonResponse
-    {
-        $input = new DeleteUserRequest(
-            $request->input('user_id')
-        );
-
-        DB::beginTransaction();
-        try {
-            $service->execute($input);
-        } catch (Throwable $e) {
-            DB::rollBack();
-            throw $e;
-        }
-        DB::commit();
-        return $this->success("User Berhasil diHapus");
-    }
 }
-

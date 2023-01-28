@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use App\Core\Application\Service\AddPermission\AddPermissionRequest;
+use App\Core\Application\Service\AddPermission\AddPermissionService;
 use App\Core\Application\Service\DeletePermission\DeletePermissionRequest;
 use App\Core\Application\Service\DeletePermission\DeletePermissionService;
+use App\Core\Application\Service\UpdatePermission\UpdatePermissionRequest;
+use App\Core\Application\Service\UpdatePermission\UpdatePermissionService;
 use App\Core\Application\Service\GetPermissionList\GetPermissionListRequest;
 use App\Core\Application\Service\GetPermissionList\GetPermissionListService;
 
@@ -32,7 +35,7 @@ class PermissionController extends Controller
     }
 
     public function delete(Request $request, DeletePermissionService $service): JsonResponse
-    {  
+    {
         $input = new DeletePermissionRequest(
             $request->input('role_id')
         );
