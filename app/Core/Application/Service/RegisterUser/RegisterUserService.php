@@ -4,6 +4,7 @@ namespace App\Core\Application\Service\RegisterUser;
 
 use Exception;
 use App\Core\Domain\Models\Email;
+use App\Exceptions\UserException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Core\Domain\Models\User\User;
@@ -32,6 +33,11 @@ class RegisterUserService
      */
     public function execute(RegisterUserRequest $request)
     {
+        $registeredUser = $this->user_repository->findByEmail(new Email($request->getEmail()));
+        if ($registeredUser) {
+            UserException::throw("Mohon Periksa Email Anda Untuk Proses Verifikasi Akun", 1022, 404);
+        }
+        
         $user = User::create(
             1,
             new Email($request->getEmail()),
