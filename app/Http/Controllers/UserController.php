@@ -23,81 +23,15 @@ use App\Core\Application\Service\ForgotPassword\ForgotPasswordRequest;
 use App\Core\Application\Service\ForgotPassword\ForgotPasswordService;
 use App\Core\Application\Service\UserVerification\UserVerificationRequest;
 use App\Core\Application\Service\UserVerification\UserVerificationService;
+use App\Core\Application\Service\UserVerification\ReUserVerificationRequest;
 use App\Core\Application\Service\ForgotPassword\ChangePasswordRequest as ChangeForgotPasswordRequest;
 
 class UserController extends Controller
 {
-    /**
-     * @OA\Tag(
-     *   name="Authentication",
-     *   description="API Endpoints of User"
-     * )
-    *      @OA\Post(
-    *          path="/login_user",
-    *          tags={"Authentication"},
-    *          description="Login",
-    *          @OA\RequestBody(
-    *              required=true,
-    *              @OA\JsonContent(
-    *                  required={"email", "password"},
-    *                  @OA\Property(property="email", type="string", example="admin@itsexpo.com"),
-    *                  @OA\Property(property="password", type="password", example="1234567"),
-    *              )
-    *          ),
-    *
-    *          @OA\Response(
-    *              response="200",
-    *              description="Success",
-    *              @OA\JsonContent(
-    *                  type="object",
-    *                  @OA\Property(property="status", type="boolean"),
-    *                  @OA\Property(property="data", type="object",
-    *                       @OA\Property(property="token", type="string"),
-    *                   ),
-    *               )
-    *         ),
-    *          @OA\Response(
-    *              response="401",
-    *              description="Unauthorized",
-    *              @OA\JsonContent(
-    *                  type="object",
-    *                  @OA\Property(property="status", type="boolean", example="false"),
-    *                  @OA\Property(property="code", type="string", example="1001"),
-    *                  @OA\Property(property="message", type="string"),
-    *               )
-    *         ),
-    *
-    *       @OA\Post(
-    *          path="/forgot_password/request",
-    *          tags={"Authentication"},
-    *          description="Requesting Forgot Password",
-    *          @OA\RequestBody(
-    *              required=true,
-    *              @OA\JsonContent(
-    *                  required={"email"},
-    *                  @OA\Property(property="email", type="string", example="admin@itsexpo.com"),
-    *              )
-    *          ),
-    *
-    *       @OA\Post(
-    *          path="/forgot_password/change",
-    *          tags={"Authentication"},
-    *          description="Changing Forgot Password",
-    *          @OA\RequestBody(
-    *              required=true,
-    *              @OA\JsonContent(
-    *                  required={"token", "password"},
-    *                  @OA\Property(property="token", type="string", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImZhaHJ1bHJwdXRyYUBnbWFpbC5jb20iLCJleHAiOjE2NzUwMDQ4MTgsInRva2VuIjoiWkNHallKRmJCWkpDSnBKUXF5MzE5WlNXR3pPcGpXWDYifQ.CO_N2vXB4LGisN6Y6y9qIcApcHEAVK3KX9clK4lG5Uw"),
-    *                  @OA\Property(property="password", type="password", example="1234567"),
-    *              )
-    *          ),
-    *   )
-     */
-
     public function createUser(Request $request, RegisterUserService $service): JsonResponse
     {
         $request->validate([
-            'email' => 'unique:user,email|email',
+            'email' => 'email|email',
             'password' => 'min:8|max:64|string',
             'name' => 'min:8|max:128|string',
             'no_telp' => 'min:10|max:15|string'
@@ -145,6 +79,18 @@ class UserController extends Controller
         );
         $service->execute($input);
         return $this->success("Berhasil Verifikasi User");
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function reUserVerification(Request $request, UserVerificationService $service): JsonResponse
+    {
+        $input = new ReUserVerificationRequest(
+            $request['email']
+        );
+        $service->reExecute($input);
+        return $this->success("Berhasil Mengirim Ulang Tautan");
     }
 
     /**
