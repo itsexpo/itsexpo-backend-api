@@ -12,19 +12,19 @@ class UpdatePermissionRequest
      * @param string $routes
      */
 
-     public function __construct(string $id, string $routes)
-     {
+    public function __construct(string $id, string $routes)
+    {
         $this->id = $id;
         $this->routes = $routes;
-     }
+    }
 
-     public function getRoutes(): string
-     {
+    public function getRoutes(): string
+    {
         return $this->routes;
-     }
+    }
 
-     public function getId(): string
-     {
-      return $this->id;
-     }
+    public function getId(): string
+    {
+        return $this->id;
+    }
 }

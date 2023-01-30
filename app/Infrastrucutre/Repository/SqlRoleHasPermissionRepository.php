@@ -76,6 +76,20 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
         return $role_has_permissions;
     }
 
+    /**
+     * @throws Exception
+     */
+    public function findLargestId(): ?string
+    {
+        $row = DB::table('role_has_permission')->max('id');
+
+        if (!$row) {
+            return null;
+        }
+
+        return $row;
+    }
+
     public function delete(string $id): void
     {
         DB::table('role_has_permission')->where('id', $id)->delete();
@@ -93,6 +107,5 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
         }
 
         return $this->constructFromRows([$row])[0];
-        
     }
 }

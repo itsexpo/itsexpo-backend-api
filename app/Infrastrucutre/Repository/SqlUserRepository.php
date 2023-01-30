@@ -35,7 +35,7 @@ class SqlUserRepository implements UserRepositoryInterface
             return null;
         }
 
-        return $this->constructFromRow($row);
+        return $this->constructFromRows([$row])[0];
     }
 
     /**
@@ -49,23 +49,41 @@ class SqlUserRepository implements UserRepositoryInterface
             return null;
         }
 
-        return $this->constructFromRow($row);
+        return $this->constructFromRows([$row])[0];
     }
 
     /**
      * @throws Exception
      */
-    private function constructFromRow($row): User
+    public function findByRoleId(string $role_id): array
     {
-        return new User(
-            new UserId($row->id),
-            $row->role_id,
-            new Email($row->email),
-            $row->no_telp,
-            $row->name,
-            $row->is_valid,
-            $row->password
-        );
+        $rows = DB::table('user')->where('role_id', $role_id)->get();
+
+        if (!$rows) {
+            return null;
+        }
+
+        return $this->constructFromRows($rows->all());
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function constructFromRows(array $rows): array
+    {
+        $users = [];
+        foreach ($rows as $row) {
+            $users[] = new User(
+                new UserId($row->id),
+                $row->role_id,
+                new Email($row->email),
+                $row->no_telp,
+                $row->name,
+                $row->is_valid,
+                $row->password
+            );
+        }
+        return $users;
     }
 
     public function getWithPagination(int $page, int $per_page): array
@@ -75,10 +93,10 @@ class SqlUserRepository implements UserRepositoryInterface
         $users = [];
 
         foreach ($rows as $row) {
-            $users[] = $this->constructFromRow($row);
+            $users[] = $this->constructFromRows([$row])[0];
         }
         return [
-            "data" => $users, 
+            "data" => $users,
             "max_page" => ceil($rows->total() / $per_page)
         ];
     }

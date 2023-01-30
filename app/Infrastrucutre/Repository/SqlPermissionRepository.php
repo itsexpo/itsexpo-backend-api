@@ -41,6 +41,20 @@ class SqlPermissionRepository implements PermissionRepositoryInterface
         );
     }
 
+    /**
+     * @throws Exception
+     */
+    public function findLargestId(): ?string
+    {
+        $row = DB::table('permission')->max('id');
+
+        if (!$row) {
+            return null;
+        }
+
+        return $row;
+    }
+
     public function getWithPagination(int $page, int $per_page): array
     {
         $rows = DB::table('permission')
@@ -51,7 +65,7 @@ class SqlPermissionRepository implements PermissionRepositoryInterface
             $permissions[] = $this->constructFromRow($row);
         }
         return [
-            "data" => $permissions, 
+            "data" => $permissions,
             "max_page" => ceil($rows->total() / $per_page)
         ];
     }

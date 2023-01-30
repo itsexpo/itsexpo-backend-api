@@ -3,10 +3,11 @@
 namespace App\Core\Application\Service\UpdateRole;
 
 use Exception;
+use App\Exceptions\UserException;
 use App\Core\Domain\Models\Role\Role;
 use App\Core\Domain\Repository\RoleRepositoryInterface;
 
-class UpdateRoleService 
+class UpdateRoleService
 {
     private RoleRepositoryInterface $role_repository;
 
@@ -24,11 +25,15 @@ class UpdateRoleService
      */
     public function execute(UpdateRoleRequest $request)
     {
-        $role = new Role( 
+        $role = $this->role_repository->find($request->getId());
+        if (!$role) {
+            UserException::throw("Role Tidak Ditemukan", 1008, 400);
+        }
+        $role = new Role(
             $request->getId(),
             $request->getName()
         );
         
-        $this->role_repository->persist( $role );
+        $this->role_repository->persist($role);
     }
 }

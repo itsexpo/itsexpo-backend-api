@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -20,6 +19,9 @@ class RoleController extends Controller
 {
     public function add(Request $request, AddRoleService $service): JsonResponse
     {
+        $request->validate([
+            'name' => 'unique:role',
+        ]);
         $input = new AddRoleRequest(
             $request->input('name')
         );
@@ -32,13 +34,13 @@ class RoleController extends Controller
             throw $e;
         }
         DB::commit();
-        return $this->success("Role Berhasil ditambahkan");
+        return $this->success("Role Berhasil Ditambahkan");
     }
 
     public function delete(Request $request, DeleteRoleService $service): JsonResponse
-    {  
+    {
         $input = new DeleteRoleRequest(
-            $request->input('role_id')
+            $request->input('id')
         );
 
         DB::beginTransaction();
@@ -49,7 +51,7 @@ class RoleController extends Controller
             throw $e;
         }
         DB::commit();
-        return $this->success("Role Berhasil diHapus");
+        return $this->success("Role Berhasil Dihapus");
     }
 
     public function update(Request $request, UpdateRoleService $service): JsonResponse
@@ -67,14 +69,14 @@ class RoleController extends Controller
             throw $e;
         }
         DB::commit();
-        return $this->success("Role Berhasil diHapus");
+        return $this->success("Role Berhasil Diupdate");
     }
 
     public function getRoleList(Request $request, GetRoleListService $service): JsonResponse
     {
         $input = new GetRoleListRequest(
             $request->input('page'),
-            $request->input('page_size')
+            $request->input('per_page')
         );
         
         $response = $service->execute($input);

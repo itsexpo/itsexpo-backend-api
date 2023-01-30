@@ -23,10 +23,10 @@ class Role
     /**
      * @throws Exception
      */
-    public static function create(string $name): self
+    public static function create(string $name, string $id): self
     {
         return new self(
-            string::generate(),
+            $id,
             $name,
         );
     }

@@ -19,6 +19,9 @@ class PermissionController extends Controller
 {
     public function add(Request $request, AddPermissionService $service): JsonResponse
     {
+        $request->validate([
+            'routes' => 'unique:permission',
+        ]);
         $input = new AddPermissionRequest(
             $request->input('routes')
         );
@@ -37,7 +40,7 @@ class PermissionController extends Controller
     public function delete(Request $request, DeletePermissionService $service): JsonResponse
     {
         $input = new DeletePermissionRequest(
-            $request->input('role_id')
+            $request->input('id')
         );
 
         DB::beginTransaction();
@@ -48,7 +51,7 @@ class PermissionController extends Controller
             throw $e;
         }
         DB::commit();
-        return $this->success("Permission Berhasil diHapus");
+        return $this->success("Permission Berhasil Dihapus");
     }
 
     public function update(Request $request, UpdatePermissionService $service): JsonResponse
@@ -66,14 +69,14 @@ class PermissionController extends Controller
             throw $e;
         }
         DB::commit();
-        return $this->success("Permission Berhasil diHapus");
+        return $this->success("Permission Berhasil diupdate");
     }
 
     public function getPermissionList(Request $request, GetPermissionListService $service): JsonResponse
     {
         $input = new GetPermissionListRequest(
             $request->input('page'),
-            $request->input('page_size')
+            $request->input('per_page')
         );
         
         $response = $service->execute($input);

@@ -7,20 +7,21 @@ use App\Core\Domain\Models\Permission\Permission;
 
 class GetPermissionListResponse implements JsonSerializable
 {
-    private Permission $role;
+    private Permission $permission;
 
     /**
-     * @param Permission $role
+     * @param Permission $permission
      */
-    public function __construct(Permission $role)
+    public function __construct(Permission $permission)
     {
-        $this->role = $role;
+        $this->permission = $permission;
     }
 
     public function jsonSerialize(): array
     {
         return [
-            'role' => $this->role
+            'id' => $this->permission->getId(),
+            'routes' => $this->permission->getRoutes(),
         ];
     }
 }

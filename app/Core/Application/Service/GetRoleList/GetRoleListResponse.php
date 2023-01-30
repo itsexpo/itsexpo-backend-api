@@ -20,7 +20,8 @@ class GetRoleListResponse implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-            'role' => $this->role
+            'id' => $this->role->getId(),
+            'role' => $this->role->getName(),
         ];
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -16,10 +15,16 @@ class RoleHasPermissionController extends Controller
 {
     public function add(Request $request, AddRoleHasPermissionService $service): JsonResponse
     {
-        $input = new AddRoleHasPermissionRequest(
-            $request->input('role_id'),
-            $request->input('permission_id')
-        );
+        // $input = new AddRoleHasPermissionRequest(
+        //     $request->input('role_id'),
+        //     $request->input('permission_id')
+        // );
+        $input = array_map(function (array $role_permission) {
+            return new AddRoleHasPermissionRequest(
+                $role_permission['role_id'],
+                $role_permission['permission_id'],
+            );
+        }, $request->input('role_permission'));
 
         DB::beginTransaction();
         try {
@@ -29,13 +34,14 @@ class RoleHasPermissionController extends Controller
             throw $e;
         }
         DB::commit();
-        return $this->success("RoleHasPermission Berhasil ditambahkan");
+        return $this->success("Hubungan Role Dan Permission Berhasil Ditambahkan");
     }
 
     public function delete(Request $request, DeleteRoleHasPermissionService $service): JsonResponse
     {
         $input = new DeleteRoleHasPermissionRequest(
-            $request->input('role_has_permission_id')
+            $request->input('role_id'),
+            $request->input('permission_id'),
         );
 
         DB::beginTransaction();
@@ -46,6 +52,6 @@ class RoleHasPermissionController extends Controller
             throw $e;
         }
         DB::commit();
-        return $this->success("RoleHasPermission Berhasil diHapus");
+        return $this->success("Hubungan Role Dan Permission Berhasil Dicabut");
     }
 }

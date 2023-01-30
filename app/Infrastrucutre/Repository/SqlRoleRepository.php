@@ -33,6 +33,20 @@ class SqlRoleRepository implements RoleRepositoryInterface
     /**
      * @throws Exception
      */
+    public function findLargestId(): ?string
+    {
+        $row = DB::table('role')->max('id');
+
+        if (!$row) {
+            return null;
+        }
+
+        return $row;
+    }
+
+    /**
+     * @throws Exception
+     */
     private function constructFromRow($row): Role
     {
         return new Role(
@@ -51,7 +65,7 @@ class SqlRoleRepository implements RoleRepositoryInterface
             $roles[] = $this->constructFromRow($row);
         }
         return [
-            "data" => $roles, 
+            "data" => $roles,
             "max_page" => ceil($rows->total() / $per_page)
         ];
     }

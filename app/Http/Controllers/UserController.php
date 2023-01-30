@@ -106,7 +106,7 @@ class UserController extends Controller
     {
         $input = new GetUserListRequest(
             $request->input('page'),
-            $request->input('page_size')
+            $request->input('per_page')
         );
         
         $response = $service->execute($input);

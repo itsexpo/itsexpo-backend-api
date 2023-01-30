@@ -26,8 +26,10 @@ class PaginationResponse implements JsonSerializable
     {
         return [
             "data_per_page" => $this->data,
-            "page" => $this->page,
-            "max_page" => $this->max_page,
+            "meta" => [
+                "page" => $this->page,
+                "max_page" => $this->max_page,
+            ]
         ];
     }
 }

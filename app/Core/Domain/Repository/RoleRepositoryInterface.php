@@ -12,5 +12,7 @@ interface RoleRepositoryInterface
 
     public function find(String $id): ?Role;
 
+    public function findLargestId(): ?string;
+
     public function getWithPagination(int $page, int $per_page): array;
 }

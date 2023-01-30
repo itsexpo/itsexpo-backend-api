@@ -3,10 +3,11 @@
 namespace App\Core\Application\Service\UpdatePermission;
 
 use Exception;
+use App\Exceptions\UserException;
 use App\Core\Domain\Models\Permission\Permission;
 use App\Core\Domain\Repository\PermissionRepositoryInterface;
 
-class UpdatePermissionService 
+class UpdatePermissionService
 {
     private PermissionRepositoryInterface $permission_repository;
 
@@ -24,11 +25,15 @@ class UpdatePermissionService
      */
     public function execute(UpdatePermissionRequest $request)
     {
-        $permission = new Permission( 
+        $permission = $this->permission_repository->find($request->getId());
+        if (!$permission) {
+            UserException::throw("Permission Tidak Ditemukan", 1008, 400);
+        }
+        $permission = new Permission(
             $request->getId(),
             $request->getRoutes()
         );
         
-        $this->permission_repository->persist( $permission );
+        $this->permission_repository->persist($permission);
     }
 }

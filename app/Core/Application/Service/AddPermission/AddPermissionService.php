@@ -6,7 +6,7 @@ use Exception;
 use App\Core\Domain\Models\Permission\Permission;
 use App\Core\Domain\Repository\PermissionRepositoryInterface;
 
-class AddPermissionService 
+class AddPermissionService
 {
     private PermissionRepositoryInterface $permission_repository;
 
@@ -24,7 +24,8 @@ class AddPermissionService
      */
     public function execute(AddPermissionRequest $request)
     {
-        $permission = Permission::create( $request->getRoutes() );
-        $this->permission_repository->persist( $permission );
+        $id = $this->permission_repository->findLargestId();
+        $permission = Permission::create($request->getRoutes(), ++$id);
+        $this->permission_repository->persist($permission);
     }
 }

@@ -6,7 +6,7 @@ use Exception;
 use App\Core\Domain\Models\Role\Role;
 use App\Core\Domain\Repository\RoleRepositoryInterface;
 
-class AddRoleService 
+class AddRoleService
 {
     private RoleRepositoryInterface $role_repository;
 
@@ -24,7 +24,8 @@ class AddRoleService
      */
     public function execute(AddRoleRequest $request)
     {
-        $role = Role::create( $request->getName() );
-        $this->role_repository->persist( $role );
+        $id = $this->role_repository->findLargestId();
+        $role = Role::create($request->getName(), ++$id);
+        $this->role_repository->persist($role);
     }
 }
