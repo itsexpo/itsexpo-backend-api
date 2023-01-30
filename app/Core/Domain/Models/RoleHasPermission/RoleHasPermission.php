@@ -25,10 +25,10 @@ class RoleHasPermission
     /**
      * @throws Exception
      */
-    public static function create(string $role_id, string $permission_id): self
+    public static function create(string $id, string $role_id, string $permission_id): self
     {
         return new self(
-            string::generate(),
+            $id,
             $role_id,
             $permission_id,
         );

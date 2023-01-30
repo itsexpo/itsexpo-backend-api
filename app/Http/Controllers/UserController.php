@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 use App\Core\Application\Service\Me\MeService;
 use App\Core\Application\Service\LoginUser\LoginUserRequest;
 use App\Core\Application\Service\LoginUser\LoginUserService;
+use App\Core\Application\Service\DeleteUser\DeleteUserRequest;
+use App\Core\Application\Service\DeleteUser\DeleteUserService;
+use App\Core\Application\Service\GetUserList\GetUserListRequest;
+use App\Core\Application\Service\GetUserList\GetUserListService;
 use App\Core\Application\Service\RegisterUser\RegisterUserRequest;
 use App\Core\Application\Service\RegisterUser\RegisterUserService;
 use App\Core\Application\Service\ChangePassword\ChangePasswordRequest;
@@ -97,6 +101,36 @@ class UserController extends Controller
         $response = $service->execute($request->get('account'));
         return $this->successWithData($response, "Berhasil Mengambil Data");
     }
+
+    public function getUserList(Request $request, GetUserListService $service): JsonResponse
+    {
+        $input = new GetUserListRequest(
+            $request->input('page'),
+            $request->input('per_page')
+        );
+        
+        $response = $service->execute($input);
+        return $this->successWithData($response, "Berhasil Mendapatkan List User");
+    }
+
+    public function deleteUser(Request $request, DeleteUserService $service): JsonResponse
+    {
+        $input = new DeleteUserRequest(
+            $request->input('user_id')
+        );
+        
+        DB::beginTransaction();
+        try {
+            $service->execute($input);
+        } catch (Throwable $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
+        
+        return $this->success("User Berhasil diHapus");
+    }
+
 
     /**
      * @throws Exception

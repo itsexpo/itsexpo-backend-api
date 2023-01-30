@@ -22,10 +22,10 @@ class Permission
     /**
      * @throws Exception
      */
-    public static function create(string $routes): self
+    public static function create(string $routes, string $id): self
     {
         return new self(
-            string::generate(),
+            $id,
             $routes,
         );
     }
