@@ -69,7 +69,7 @@ class SqlUserRepository implements UserRepositoryInterface
     /**
      * @throws Exception
      */
-    private function constructFromRows(array $rows): array
+    public function constructFromRows(array $rows): array
     {
         $users = [];
         foreach ($rows as $row) {

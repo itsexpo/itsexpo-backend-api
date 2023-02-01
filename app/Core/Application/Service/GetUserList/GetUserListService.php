@@ -2,9 +2,10 @@
 
 namespace App\Core\Application\Service\GetUserList;
 
-use App\Core\Application\Service\PaginationResponse;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use App\Core\Domain\Models\User\User;
+use App\Core\Application\Service\PaginationResponse;
 use App\Core\Domain\Repository\RoleRepositoryInterface;
 use App\Core\Domain\Repository\UserRepositoryInterface;
 
@@ -27,7 +28,29 @@ class GetUserListService
      */
     public function execute(GetUserListRequest $request)
     {
-        $users_pagination = $this->user_repository->getWithPagination($request->getPage(), $request->getPerPage());
+        $rows = DB::table('user')->leftJoin('role', 'user.role_id', '=', 'role.id');
+
+        if ($request->getFilter())
+            $rows->whereIn('role.name', $request->getFilter());
+            // foreach ($request->getFilter() as $filter)
+            //     $rows->where('role.name', '=', $filter);
+        if($request->getSearch())
+            $rows->where('user.name', 'like', '%'.$request->getSearch().'%');
+        if ($request->getSort())
+            $rows->orderBy($request->getSort(), $request->getType());
+
+        $rows = $rows->paginate($request->getPerPage(), ['user.*'], 'user_page', $request->getPage());
+
+        $users = [];
+        foreach ($rows as $row) {
+            $users[] = $this->user_repository->constructFromRows([$row])[0];
+        }
+
+        $users_pagination = [
+            "data" => $users,
+            "max_page" => ceil($rows->total() / $request->getPerPage())
+        ];
+
         $max_page = $users_pagination['max_page'];
 
         $user_response = array_map(function (User $user) {
@@ -35,7 +58,6 @@ class GetUserListService
             return new GetUserListResponse(
                 $user,
                 $role->getName()
-                //yang dibutuhin untuk ditampilkan apa aja
             );
         }, $users_pagination['data']);
 

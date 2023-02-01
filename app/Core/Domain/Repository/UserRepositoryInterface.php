@@ -19,4 +19,6 @@ interface UserRepositoryInterface
     public function findByRoleId(string $role_id): array;
 
     public function getWithPagination(int $page, int $per_page): array;
+
+    public function constructFromRows(array $rows): array;
 }
