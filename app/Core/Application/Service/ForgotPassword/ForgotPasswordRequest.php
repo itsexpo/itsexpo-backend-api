@@ -26,8 +26,9 @@ class ChangePasswordRequest
 {
     private string $token;
     private string $password;
+    private string $re_password;
 
-    public function __construct(string $token, string $password)
+    public function __construct(string $token, string $password, string $re_password)
     {
         $this->token = $token;
         $this->password = $password;
@@ -47,5 +48,13 @@ class ChangePasswordRequest
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    /**
+     * Get the value of re_password
+     */
+    public function getRepassword()
+    {
+        return $this->re_password;
     }
 }

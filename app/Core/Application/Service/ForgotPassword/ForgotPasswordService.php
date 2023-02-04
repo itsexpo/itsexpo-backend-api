@@ -62,17 +62,23 @@ class ForgotPasswordService
     {
         $token = $input->getToken();
         $password = $input->getPassword();
+        $re_password = $input->getRepassword();
 
         $decoded = $this->jwt_manager->decodeForgotPasswordToken($token);
         $user = $this->user_repository->find($decoded['user']->getUserId());
+
+        if ($password !== $re_password) {
+            UserException::throw("Password dan Repassword tidak sama", 6665, 404);
+        }
 
         if (!$user) {
             UserException::throw("User tidak ditemukan", 6667, 404);
         }
         $password_reset = $this->password_reset_repository->findByEmail($user->getEmail()->toString());
-        if(!$password_reset) {
+        if (!$password_reset) {
             UserException::throw("Token tidak ditemukan", 6668, 401);
         }
+
         // check is valid
         $isValid = $user->getIsValid();
         if (!$isValid) {
@@ -81,8 +87,7 @@ class ForgotPasswordService
 
         // check for payload
         $decodedJWT = $decoded['decoded'];
-        if(!isset($decodedJWT->token))
-        {
+        if (!isset($decodedJWT->token)) {
             UserException::throw("Token payload tidak valid", 6669, 401);
         }
         // check token
