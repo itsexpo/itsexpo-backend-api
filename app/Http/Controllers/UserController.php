@@ -34,14 +34,16 @@ class UserController extends Controller
             'email' => 'email|email',
             'password' => 'min:8|max:64|string',
             'name' => 'min:8|max:128|string',
-            'no_telp' => 'min:10|max:15|string'
+            'no_telp' => 'min:10|max:15|string',
+            'status' => 'not_in:2'
         ]);
 
         $input = new RegisterUserRequest(
             $request->input('email'),
             $request->input('no_telp'),
             $request->input('name'),
-            $request->input('password')
+            $request->input('password'),
+            $request->input('status')
         );
 
         DB::beginTransaction();
@@ -112,7 +114,7 @@ class UserController extends Controller
             $request->input('filter'),
             $request->input('search')
         );
-        
+
         $response = $service->execute($input);
         return $this->successWithData($response, "Berhasil Mendapatkan List User");
     }
@@ -122,7 +124,7 @@ class UserController extends Controller
         $input = new DeleteUserRequest(
             $request->input('user_id')
         );
-        
+
         DB::beginTransaction();
         try {
             $service->execute($input);
@@ -131,7 +133,7 @@ class UserController extends Controller
             throw $e;
         }
         DB::commit();
-        
+
         return $this->success("User Berhasil diHapus");
     }
 
@@ -139,7 +141,7 @@ class UserController extends Controller
     /**
      * @throws Exception
      */
-    public function changePassword(Request $request, ChangePasswordService $service) : JsonResponse
+    public function changePassword(Request $request, ChangePasswordService $service): JsonResponse
     {
         $request->validate([
             'email' => 'email|email',
@@ -178,9 +180,15 @@ class UserController extends Controller
 
     public function changeForgotPassword(Request $request, ForgotPasswordService $service): JsonResponse
     {
+        $request->validate([
+            'token' => 'string',
+            'password' => 'string|min:8|max:64',
+            're_password' => 'string|min:8|max:64'
+        ]);
         $input = new ChangeForgotPasswordRequest(
             $request->input('token'),
             $request->input('password'),
+            $request->input('re_password')
         );
 
         DB::beginTransaction();
