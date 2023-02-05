@@ -70,6 +70,25 @@ class SqlPermissionRepository implements PermissionRepositoryInterface
         ];
     }
 
+    public function getAll(): array
+    {
+        $rows = DB::table('permission')->get();
+
+        return $this->constructFromRows($rows->all());
+    }
+
+    private function constructFromRows(array $rows): array
+    {
+        $permission = [];
+        foreach ($rows as $row) {
+            $permission[] = new Permission(
+                $row->id,
+                $row->routes,
+            );
+        }
+        return $permission;
+    }
+
     public function delete(string $id): void
     {
         DB::table('permission')->where('id', $id)->delete();
