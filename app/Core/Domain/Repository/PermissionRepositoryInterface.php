@@ -15,4 +15,6 @@ interface PermissionRepositoryInterface
     public function findLargestId(): ?string;
 
     public function getWithPagination(int $page, int $per_page): array;
+
+    public function getAll(): array;
 }
