@@ -59,21 +59,21 @@ Route::middleware(['iam'])->group(
 
         //User
         Route::get('/users', [UserController::class, 'getUserList'])->middleware('permission:users.index');
-        Route::post('/users/delete', [UserController::class, 'deleteUser'])->middleware('permission:users.delete');
+        Route::delete('/users', [UserController::class, 'deleteUser'])->middleware('permission:users.delete');
 
         //Role
         Route::get('/roles', [RoleController::class, 'getRoleList'])->middleware('permission:roles.index');
         Route::post('/roles', [RoleController::class, 'add'])->middleware('permission:roles.store');
-        Route::post('/roles/delete', [RoleController::class, 'delete'])->middleware('permission:roles.delete');
-        Route::post('/roles/update', [RoleController::class, 'update'])->middleware('permission:roles.update');
+        Route::delete('/roles', [RoleController::class, 'delete'])->middleware('permission:roles.delete');
+        Route::put('/roles', [RoleController::class, 'update'])->middleware('permission:roles.update');
         Route::post('/roles_assign', [RoleHasPermissionController::class, 'add'])->middleware('permission:roles_assign.store');
-        Route::post('/roles_unassign', [RoleHasPermissionController::class, 'delete'])->middleware('permission:roles_unassign.store');
+        Route::delete('/roles_unassign', [RoleHasPermissionController::class, 'delete'])->middleware('permission:roles_unassign.store');
 
         //Permission
         Route::get('/permissions', [PermissionController::class, 'getPermissionList'])->middleware('permission:permissions.index');
         Route::post('/permissions', [PermissionController::class, 'add'])->middleware('permission:permissions.store');
-        Route::post('/permissions/delete', [PermissionController::class, 'delete'])->middleware('permission:permissions.delete');
-        Route::post('/permissions/update', [PermissionController::class, 'update'])->middleware('permission:permissions.update');
+        Route::delete('/permissions', [PermissionController::class, 'delete'])->middleware('permission:permissions.delete');
+        Route::put('/permissions', [PermissionController::class, 'update'])->middleware('permission:permissions.update');
     }
 );
 
