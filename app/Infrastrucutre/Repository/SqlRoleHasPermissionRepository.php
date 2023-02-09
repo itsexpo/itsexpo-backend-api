@@ -108,4 +108,23 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
 
         return $this->constructFromRows([$row])[0];
     }
+
+    public function getPermissionByRole(string $role_id): ?array
+    {
+        $permission = [];
+        $raw = DB::table('role_has_permission')
+        ->leftJoin('permission', 'role_has_permission.permission_id', '=', 'permission.id')
+        ->where('role_id', '=', $role_id)
+        ->get(['permission.id', 'routes']);
+
+        foreach ($raw as $r) {
+            array_push($permission, $r);
+        }
+
+        if (!$raw) {
+            return null;
+        }
+
+        return $permission;
+    }
 }

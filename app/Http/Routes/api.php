@@ -66,6 +66,7 @@ Route::middleware(['iam'])->group(
         Route::post('/roles', [RoleController::class, 'add'])->middleware('permission:roles.store');
         Route::delete('/roles', [RoleController::class, 'delete'])->middleware('permission:roles.delete');
         Route::put('/roles', [RoleController::class, 'update'])->middleware('permission:roles.update');
+        Route::get('/roles/{id_role}', [RoleHasPermissionController::class, 'getRolePermission'])->middleware('permission:roles.detail');
         Route::post('/roles_assign', [RoleHasPermissionController::class, 'add'])->middleware('permission:roles_assign.store');
         Route::delete('/roles_unassign', [RoleHasPermissionController::class, 'delete'])->middleware('permission:roles_unassign.store');
 

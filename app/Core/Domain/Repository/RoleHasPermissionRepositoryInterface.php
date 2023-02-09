@@ -19,4 +19,6 @@ interface RoleHasPermissionRepositoryInterface
     public function findLargestId(): ?string;
 
     public function findByBoth(string $role_id, string $permission_id): ?RoleHasPermission;
+
+    public function getPermissionByRole(string $role_id): ?array;
 }

@@ -10,6 +10,7 @@ use App\Core\Application\Service\AddRoleHasPermission\AddRoleHasPermissionReques
 use App\Core\Application\Service\AddRoleHasPermission\AddRoleHasPermissionService;
 use App\Core\Application\Service\DeleteRoleHasPermission\DeleteRoleHasPermissionRequest;
 use App\Core\Application\Service\DeleteRoleHasPermission\DeleteRoleHasPermissionService;
+use App\Core\Application\Service\GetRolePermission\GetRolePermissionService;
 
 class RoleHasPermissionController extends Controller
 {
@@ -53,5 +54,11 @@ class RoleHasPermissionController extends Controller
         }
         DB::commit();
         return $this->success("Hubungan Role Dan Permission Berhasil Dicabut");
+    }
+
+    public function getRolePermission($id_role, GetRolePermissionService $service): JsonResponse
+    {
+        $response = $service->execute($id_role);
+        return $this->successWithData($response, "Berhasil mendapatkan data permission dari role");
     }
 }
