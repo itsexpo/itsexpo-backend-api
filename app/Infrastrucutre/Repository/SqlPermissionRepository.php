@@ -19,7 +19,7 @@ class SqlPermissionRepository implements PermissionRepositoryInterface
     /**
      * @throws Exception
      */
-    public function find(string $id): ?Permission
+    public function find(int $id): ?Permission
     {
         $row = DB::table('permission')->where('id', $id)->first();
 
@@ -44,7 +44,7 @@ class SqlPermissionRepository implements PermissionRepositoryInterface
     /**
      * @throws Exception
      */
-    public function findLargestId(): ?string
+    public function findLargestId(): ?int
     {
         $row = DB::table('permission')->max('id');
 
@@ -89,7 +89,7 @@ class SqlPermissionRepository implements PermissionRepositoryInterface
         return $permission;
     }
 
-    public function delete(string $id): void
+    public function delete(int $id): void
     {
         DB::table('permission')->where('id', $id)->delete();
     }

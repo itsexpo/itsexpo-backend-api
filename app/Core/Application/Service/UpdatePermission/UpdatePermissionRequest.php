@@ -4,15 +4,15 @@ namespace App\Core\Application\Service\UpdatePermission;
 
 class UpdatePermissionRequest
 {
-    private string $id;
+    private int $id;
     private string $routes;
 
     /**
-     * @param string $id
+     * @param int $id
      * @param string $routes
      */
 
-    public function __construct(string $id, string $routes)
+    public function __construct(int $id, string $routes)
     {
         $this->id = $id;
         $this->routes = $routes;
@@ -23,7 +23,7 @@ class UpdatePermissionRequest
         return $this->routes;
     }
 
-    public function getId(): string
+    public function getId(): int
     {
         return $this->id;
     }

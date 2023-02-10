@@ -8,11 +8,11 @@ interface RoleRepositoryInterface
 {
     public function persist(Role $role): void;
 
-    public function delete(string $id): void;
+    public function delete(int $id): void;
 
-    public function find(String $id): ?Role;
+    public function find(int $id): ?Role;
 
-    public function findLargestId(): ?string;
+    public function findLargestId(): ?int;
 
     public function getWithPagination(int $page, int $per_page): array;
 }

@@ -4,27 +4,27 @@ namespace App\Core\Application\Service\AddRoleHasPermission;
 
 class AddRoleHasPermissionRequest
 {
-    private string $role_id;
-    private string $permission_id;
+    private int $role_id;
+    private int $permission_id;
 
     /**
-     * @param string $role_id
-     * @param string $permission_id
+     * @param int $role_id
+     * @param int $permission_id
      */
 
-     public function __construct(string $role_id, string $permission_id)
-     {
+    public function __construct(int $role_id, int $permission_id)
+    {
         $this->role_id = $role_id;
         $this->permission_id = $permission_id;
-     }
+    }
 
-     public function getRoleId(): string
-     {
+    public function getRoleId(): int
+    {
         return $this->role_id;
-     }
+    }
 
-     public function getPermissionId(): string
-     {
+    public function getPermissionId(): int
+    {
         return $this->permission_id;
-     }
+    }
 }

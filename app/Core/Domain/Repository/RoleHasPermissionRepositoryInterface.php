@@ -8,17 +8,17 @@ interface RoleHasPermissionRepositoryInterface
 {
     public function persist(RoleHasPermission $RoleHasPermission): void;
 
-    public function delete(string $id): void;
+    public function delete(int $id): void;
 
-    public function find(string $id): ?RoleHasPermission;
+    public function find(int $id): ?RoleHasPermission;
 
-    public function findByRoleId(string $role_id): ?array;
+    public function findByRoleId(int $role_id): ?array;
 
-    public function findByPermissionId(string $permission_id): ?array;
+    public function findByPermissionId(int $permission_id): ?array;
 
-    public function findLargestId(): ?string;
+    public function findLargestId(): ?int;
 
-    public function findByBoth(string $role_id, string $permission_id): ?RoleHasPermission;
+    public function findByBoth(int $role_id, int $permission_id): ?RoleHasPermission;
 
-    public function getPermissionByRole(string $role_id): ?array;
+    public function getPermissionByRole(int $role_id): ?array;
 }

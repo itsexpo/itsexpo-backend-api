@@ -6,14 +6,14 @@ use JsonSerializable;
 
 class GetRolePermissionResponse implements JsonSerializable
 {
-    private string $id;
+    private int $id;
     private string $route;
 
     /**
-     * @param string $id
+     * @param int $id
      * @param string $route
      */
-    public function __construct(string $id, string $routes)
+    public function __construct(int $id, string $routes)
     {
         $this->id = $id;
         $this->route = $routes;

@@ -19,7 +19,7 @@ class SqlRoleRepository implements RoleRepositoryInterface
     /**
      * @throws Exception
      */
-    public function find(string $id): ?Role
+    public function find(int $id): ?Role
     {
         $row = DB::table('role')->where('id', $id)->first();
 
@@ -33,7 +33,7 @@ class SqlRoleRepository implements RoleRepositoryInterface
     /**
      * @throws Exception
      */
-    public function findLargestId(): ?string
+    public function findLargestId(): ?int
     {
         $row = DB::table('role')->max('id');
 
@@ -70,7 +70,7 @@ class SqlRoleRepository implements RoleRepositoryInterface
         ];
     }
 
-    public function delete(string $id): void
+    public function delete(int $id): void
     {
         DB::table('role')->where('id', $id)->delete();
     }
