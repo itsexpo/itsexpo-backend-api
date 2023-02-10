@@ -6,16 +6,16 @@ use Exception;
 
 class RoleHasPermission
 {
-    private string $id;
-    private string $role_id;
-    private string $permission_id;
+    private int $id;
+    private int $role_id;
+    private int $permission_id;
 
     /**
-     * @param string $role_id
-     * @param string $permission_id
-     * @param string $id
+     * @param int $role_id
+     * @param int $permission_id
+     * @param int $id
      */
-    public function __construct(string $id, string $role_id, string $permission_id)
+    public function __construct(int $id, int $role_id, int $permission_id)
     {
         $this->id = $id;
         $this->role_id = $role_id;
@@ -25,7 +25,7 @@ class RoleHasPermission
     /**
      * @throws Exception
      */
-    public static function create(string $id, string $role_id, string $permission_id): self
+    public static function create(int $id, int $role_id, int $permission_id): self
     {
         return new self(
             $id,
@@ -35,25 +35,25 @@ class RoleHasPermission
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getId(): string
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getRoleId(): string
+    public function getRoleId(): int
     {
         return $this->role_id;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getPermissionId(): string
+    public function getPermissionId(): int
     {
         return $this->permission_id;
     }

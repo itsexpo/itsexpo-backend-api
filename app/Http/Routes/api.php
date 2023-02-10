@@ -1,6 +1,5 @@
 <?php
 
-use App\Core\Domain\Models\Permission\Permission;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\RoleController;

@@ -13,9 +13,9 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('role_has_permission', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->string('role_id')->index();
-            $table->string('permission_id')->index();
+            $table->integer('id')->primary();
+            $table->integer('role_id')->index();
+            $table->integer('permission_id')->index();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 

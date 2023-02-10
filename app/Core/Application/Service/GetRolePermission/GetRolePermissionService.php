@@ -4,7 +4,6 @@ namespace App\Core\Application\Service\GetRolePermission;
 
 use App\Exceptions\UserException;
 use App\Core\Domain\Repository\RoleRepositoryInterface;
-use App\Core\Domain\Repository\PermissionRepositoryInterface;
 use App\Core\Domain\Repository\RoleHasPermissionRepositoryInterface;
 use App\Core\Domain\Models\Permission\Permission;
 
@@ -12,19 +11,16 @@ class GetRolePermissionService
 {
     private RoleHasPermissionRepositoryInterface $role_has_permission_repository;
     private RoleRepositoryInterface $role_repository;
-    private PermissionRepositoryInterface $permission_repository;
 
     /**
      * @param RoleHasPermissionRepositoryInterface $role_has_permission_repository
      * @param RoleRepositoryInterface $role_repository
-     * @param PermissionRepositoryInterface $permission_repository
      */
 
-    public function __construct(RoleHasPermissionRepositoryInterface $role_has_permission_repository, RoleRepositoryInterface $role_repository, PermissionRepositoryInterface $permission_repository)
+    public function __construct(RoleHasPermissionRepositoryInterface $role_has_permission_repository, RoleRepositoryInterface $role_repository)
     {
         $this->role_has_permission_repository = $role_has_permission_repository;
         $this->role_repository = $role_repository;
-        $this->permission_repository = $permission_repository;
     }
 
     /**

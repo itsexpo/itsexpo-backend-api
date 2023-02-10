@@ -8,16 +8,16 @@ class RegisterUserRequest
     private string $no_telp;
     private string $name;
     private string $password;
-    private string $status;
+    private int $status;
 
     /**
      * @param string $email
      * @param string $no_telp
      * @param string $name
      * @param string $password
-     * @param string $status
+     * @param int $status
      */
-    public function __construct(string $email, string $no_telp, string $name, string $password, string $status)
+    public function __construct(string $email, string $no_telp, string $name, string $password, int $status)
     {
         $this->email = $email;
         $this->no_telp = $no_telp;

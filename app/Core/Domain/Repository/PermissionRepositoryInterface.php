@@ -8,11 +8,11 @@ interface PermissionRepositoryInterface
 {
     public function persist(Permission $permission): void;
 
-    public function delete(string $id): void;
+    public function delete(int $id): void;
 
-    public function find(String $id): ?Permission;
+    public function find(int $id): ?Permission;
 
-    public function findLargestId(): ?string;
+    public function findLargestId(): ?int;
 
     public function getWithPagination(int $page, int $per_page): array;
 

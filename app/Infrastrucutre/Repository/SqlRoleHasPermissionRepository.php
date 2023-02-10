@@ -21,7 +21,7 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
     /**
      * @throws Exception
      */
-    public function find(string $id): ?RoleHasPermission
+    public function find(int $id): ?RoleHasPermission
     {
         $row = DB::table('role_has_permission')->where('id', $id)->first();
 
@@ -35,7 +35,7 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
     /**
      * @throws Exception
      */
-    public function findByRoleId(string $role_id): ?array
+    public function findByRoleId(int $role_id): ?array
     {
         $row = DB::table('role_has_permission')->where('role_id', $role_id)->get();
 
@@ -49,7 +49,7 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
     /**
      * @throws Exception
      */
-    public function findByPermissionId(string $permission_id): ?array
+    public function findByPermissionId(int $permission_id): ?array
     {
         $rows = DB::table('role_has_permission')->where('permission_id', $permission_id)->get();
 
@@ -79,7 +79,7 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
     /**
      * @throws Exception
      */
-    public function findLargestId(): ?string
+    public function findLargestId(): ?int
     {
         $row = DB::table('role_has_permission')->max('id');
 
@@ -90,12 +90,12 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
         return $row;
     }
 
-    public function delete(string $id): void
+    public function delete(int $id): void
     {
         DB::table('role_has_permission')->where('id', $id)->delete();
     }
 
-    public function findByBoth(string $role_id, string $permission_id): ?RoleHasPermission
+    public function findByBoth(int $role_id, int $permission_id): ?RoleHasPermission
     {
         $row = DB::table('role_has_permission')
             ->where('role_id', $role_id)
@@ -109,7 +109,7 @@ class SqlRoleHasPermissionRepository implements RoleHasPermissionRepositoryInter
         return $this->constructFromRows([$row])[0];
     }
 
-    public function getPermissionByRole(string $role_id): ?array
+    public function getPermissionByRole(int $role_id): ?array
     {
         $permission = [];
         $raw = DB::table('role_has_permission')

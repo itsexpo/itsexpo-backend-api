@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class User
 {
     private UserId $id;
-    private string $role_id;
+    private int $role_id;
     private Email $email;
     private string $no_telp;
     private string $name;
@@ -20,14 +20,14 @@ class User
 
     /**
      * @param UserId $id
-     * @param string $role_id
+     * @param int $role_id
      * @param Email $email
      * @param string $no_telp
      * @param string $name
      * @param bool $is_valid
      * @param string $hashed_password
      */
-    public function __construct(UserId $id, string $role_id, Email $email, string $no_telp, string $name, bool $is_valid, string $hashed_password)
+    public function __construct(UserId $id, int $role_id, Email $email, string $no_telp, string $name, bool $is_valid, string $hashed_password)
     {
         $this->id = $id;
         $this->role_id = $role_id;
@@ -94,7 +94,7 @@ class User
     /**
      * @throws Exception
      */
-    public static function create(string $role_id, Email $email, string $no_telp, string $name, bool $is_valid, string $unhashed_password): self
+    public static function create(int $role_id, Email $email, string $no_telp, string $name, bool $is_valid, string $unhashed_password): self
     {
         return new self(
             UserId::generate(),
@@ -124,9 +124,9 @@ class User
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getRoleId(): string
+    public function getRoleId(): int
     {
         return $this->role_id;
     }

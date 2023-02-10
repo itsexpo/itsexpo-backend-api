@@ -13,7 +13,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('role', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->integer('id')->primary();
             $table->string('name', 128);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();

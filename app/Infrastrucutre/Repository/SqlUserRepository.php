@@ -55,7 +55,7 @@ class SqlUserRepository implements UserRepositoryInterface
     /**
      * @throws Exception
      */
-    public function findByRoleId(string $role_id): array
+    public function findByRoleId(int $role_id): array
     {
         $rows = DB::table('user')->where('role_id', $role_id)->get();
 
