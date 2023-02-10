@@ -6,5 +6,25 @@
     {
       "id": 2,
       "name": "ADMIN"
+    },
+    {
+      "id" : 3,
+      "name" : "SMP/Sederajat"
+    },
+    {
+      "id" : 4,
+      "name" : "SMA/Sederajat"
+    },
+    {
+      "id" : 5,
+      "name": "Mahasiswa"
+    }, 
+    {
+      "id" : 6,
+      "name": "Umum"
+    },
+    {
+      "id" : 7,
+      "name": "BPH"
     }
 ]

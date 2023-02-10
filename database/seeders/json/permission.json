@@ -46,5 +46,9 @@
     {
       "id": 12,
       "routes": "permissions.update"
+    },
+    {
+      "id": 13,
+      "routes": "roles.detail"
     }
   ]
