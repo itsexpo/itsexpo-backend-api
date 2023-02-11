@@ -10,6 +10,7 @@ use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\DepartemenController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\UrlShortenerController;
 use App\Http\Controllers\RoleHasPermissionController;
 
 Route::get('hello', function () {
@@ -55,6 +56,9 @@ Route::middleware(['iam'])->group(
 
         Route::get('/me', [UserController::class, 'me']);
         Route::post('/change_password', [UserController::class, 'changePassword']);
+
+        //Url Shortener
+        Route::post('/url_shortener', [UrlShortenerController::class, 'add'])->middleware('permission:url_shortener.store');
 
         //User
         Route::get('/users', [UserController::class, 'getUserList'])->middleware('permission:users.index');
