@@ -1,6 +1,8 @@
 <?php
 
+use App\Infrastrucutre\Service\GetIP;
 use App\Infrastrucutre\Service\JwtManager;
+use App\Core\Domain\Service\GetIPInterface;
 use App\Core\Domain\Service\JwtManagerInterface;
 use App\Infrastrucutre\Repository\SqlDesaRepository;
 use App\Infrastrucutre\Repository\SqlRoleRepository;
@@ -18,16 +20,16 @@ use App\Core\Domain\Repository\FakultasRepositoryInterface;
 use App\Core\Domain\Repository\ProvinsiRepositoryInterface;
 use App\Core\Domain\Repository\KabupatenRepositoryInterface;
 use App\Core\Domain\Repository\KecamatanRepositoryInterface;
+use App\Infrastrucutre\Repository\SqlUrlShortenerRepository;
 use App\Core\Domain\Repository\DepartemenRepositoryInterface;
 use App\Core\Domain\Repository\PermissionRepositoryInterface;
+use App\Infrastrucutre\Repository\SqlPasswordResetRepository;
+use App\Core\Domain\Repository\UrlShortenerRepositoryInterface;
+use App\Core\Domain\Repository\PasswordResetRepositoryInterface;
 use App\Infrastrucutre\Repository\SqlRoleHasPermissionRepository;
 use App\Infrastrucutre\Repository\SqlAccountVerificationRepository;
 use App\Core\Domain\Repository\RoleHasPermissionRepositoryInterface;
 use App\Core\Domain\Repository\AccountVerificationRepositoryInterface;
-use App\Core\Domain\Repository\PasswordResetRepositoryInterface;
-use App\Core\Domain\Service\GetIPInterface;
-use App\Infrastrucutre\Repository\SqlPasswordResetRepository;
-use App\Infrastrucutre\Service\GetIP;
 
 /** @var Application $app */
 
@@ -45,3 +47,4 @@ $app->singleton(AccountVerificationRepositoryInterface::class, SqlAccountVerific
 $app->singleton(JwtManagerInterface::class, JwtManager::class);
 $app->singleton(GetIPInterface::class, GetIP::class);
 $app->singleton(PasswordResetRepositoryInterface::class, SqlPasswordResetRepository::class);
+$app->singleton(UrlShortenerRepositoryInterface::class, SqlUrlShortenerRepository::class);

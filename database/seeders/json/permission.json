@@ -50,5 +50,9 @@
     {
       "id": 13,
       "routes": "roles.detail"
+    },
+    {
+      "id": 14,
+      "routes": "url_shortener.store"
     }
   ]

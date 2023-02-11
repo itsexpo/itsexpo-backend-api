@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Throwable;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
+use App\Core\Application\Service\AddUrlShortener\AddUrlShortenerRequest;
+use App\Core\Application\Service\AddUrlShortener\AddUrlShortenerService;
+
+class UrlShortenerController extends Controller
+{
+    public function add(Request $request, AddUrlShortenerService $service): JsonResponse
+    {
+        $request->validate([
+            'long_url' => 'unique:url_shortener',
+            'short_url' => 'unique:url_shortener',
+        ]);
+        
+        $input = new AddUrlShortenerRequest(
+            $request->input('long_url'),
+            $request->input('short_url'),
+        );
+
+        DB::beginTransaction();
+        try {
+            $service->execute($input, $request->get('account'));
+        } catch (Throwable $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
+        return $this->success("Url Shortener Berhasil Ditambahkan");
+    }
+}
