@@ -53,6 +53,14 @@
     },
     {
       "id": 14,
-      "routes": "url_shortener.store"
+      "routes": "url.store"
+    },
+    {
+      "id": 15,
+      "routes": "url.delete"
+    },
+    {
+      "id": 16,
+      "routes": "url.update"
     }
   ]

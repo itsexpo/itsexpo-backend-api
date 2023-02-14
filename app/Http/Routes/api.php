@@ -58,7 +58,7 @@ Route::middleware(['iam'])->group(
         Route::post('/change_password', [UserController::class, 'changePassword']);
 
         //Url Shortener
-        Route::post('/url_shortener', [UrlShortenerController::class, 'add'])->middleware('permission:url_shortener.store');
+        Route::post('/url', [UrlShortenerController::class, 'add'])->middleware('permission:url_shortener.store');
 
         //User
         Route::get('/users', [UserController::class, 'getUserList'])->middleware('permission:users.index');
@@ -78,6 +78,10 @@ Route::middleware(['iam'])->group(
         Route::post('/permissions', [PermissionController::class, 'add'])->middleware('permission:permissions.store');
         Route::delete('/permissions', [PermissionController::class, 'delete'])->middleware('permission:permissions.delete');
         Route::put('/permissions', [PermissionController::class, 'update'])->middleware('permission:permissions.update');
+
+        //URL Shortener
+        Route::delete('/url', [UrlShortenerController::class, 'delete'])->middleware('permission:url.delete');
+        Route::put('/url', [UrlShortenerController::class, 'update'])->middleware('permission:url.update');
     }
 );
 

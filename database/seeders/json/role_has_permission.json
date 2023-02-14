@@ -68,6 +68,15 @@
       "id": 14,
       "role_id": 2,
       "permission_id":14
+    },
+    {
+      "id": 15,
+      "role_id": 2,
+      "permission_id":15
+    },
+    {
+      "id": 16,
+      "role_id": 2,
+      "permission_id":16
     }
-   
   ]
