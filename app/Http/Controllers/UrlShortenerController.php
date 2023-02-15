@@ -8,6 +8,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use App\Core\Application\Service\AddUrlShortener\AddUrlShortenerRequest;
 use App\Core\Application\Service\AddUrlShortener\AddUrlShortenerService;
+use App\Core\Application\Service\GetUrlShortener\GetUrlShortenerRequest;
+use App\Core\Application\Service\GetUrlShortener\GetUrlShortenerService;
 
 class UrlShortenerController extends Controller
 {
@@ -17,7 +19,7 @@ class UrlShortenerController extends Controller
             'long_url' => 'unique:url_shortener',
             'short_url' => 'unique:url_shortener',
         ]);
-        
+
         $input = new AddUrlShortenerRequest(
             $request->input('long_url'),
             $request->input('short_url'),
@@ -32,5 +34,12 @@ class UrlShortenerController extends Controller
         }
         DB::commit();
         return $this->success("Url Shortener Berhasil Ditambahkan");
+    }
+
+    public function get(Request $request, GetUrlShortenerService $service, string $short_url): JsonResponse
+    {
+        $request = new GetUrlShortenerRequest($short_url);
+        $long_url = $service->execute($request);
+        return $this->success($long_url);
     }
 }
