@@ -26,10 +26,10 @@ Route::get('/user_verification', [UserController::class, 'reUserVerification']);
 // Provinsi
 Route::get('/provinsi', [ProvinsiController::class, 'provinsi']);
 
-#GET Kecamatan
+// Kecamatan
 Route::get('/kecamatan', [KecamatanController::class, 'kecamatan']);
 
-#GET Kabupaten
+// Kabupaten
 Route::get('/kabupaten', [KabupatenController::class, 'kabupaten']);
 
 // Desa
@@ -45,6 +45,9 @@ Route::group(['prefix' => '/forgot_password'], function () {
     Route::post('/change', [UserController::class, 'changeForgotPassword']);
 });
 
+//Url Shortener
+Route::get('/url_shortener', [UrlShortenerController::class, 'get']);
+
 Route::middleware(['iam'])->group(
     function () {
         Route::get('test', function () {
@@ -59,6 +62,9 @@ Route::middleware(['iam'])->group(
 
         //Url Shortener
         Route::post('/url_shortener', [UrlShortenerController::class, 'add'])->middleware('permission:url_shortener.store');
+        Route::delete('/url_shortener', [UrlShortenerController::class, 'delete'])->middleware('permission:url_shortener.delete');
+        Route::put('/url_shortener', [UrlShortenerController::class, 'update'])->middleware('permission:url_shortener.update');
+        Route::get('/all_url_shortener', [UrlShortenerController::class, 'index'])->middleware('permission:url_shortener.index');
 
         //User
         Route::get('/users', [UserController::class, 'getUserList'])->middleware('permission:users.index');
@@ -78,10 +84,5 @@ Route::middleware(['iam'])->group(
         Route::post('/permissions', [PermissionController::class, 'add'])->middleware('permission:permissions.store');
         Route::delete('/permissions', [PermissionController::class, 'delete'])->middleware('permission:permissions.delete');
         Route::put('/permissions', [PermissionController::class, 'update'])->middleware('permission:permissions.update');
-    }
-);
-
-Route::middleware(['iam', 'admin'])->group(
-    function () {
     }
 );
