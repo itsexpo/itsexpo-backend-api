@@ -30,7 +30,7 @@ class UpdateUrlShortenerService
         $user_id_req = $this->url_shortener_repository->find($request->getUrlId())->getUserId()->toString();
         
         if ($user_id->toString() != $user_id_req) {
-            UserException::throw('User is not verified', 1200, 403);
+            UserException::throw('User does not have permission to perform this action', 1200, 403);
         }
 
         $this->url_shortener_repository->update(
