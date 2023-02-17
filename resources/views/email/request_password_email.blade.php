@@ -10,7 +10,7 @@
 
 <body style="background-color: #e9ecef;">
     <p>Silahkan klik kode dibawah ini untuk mengganti password akun anda.</p>
-    <a href="{{ 'itsexpo.com/forgot_password?=' . $token  }}">
+    <a href="{{ 'itsexpo.com/forgot_password?token=' . $token  }}">
         {{ 'itsexpo.com/forgot_password?=' . $token  }}
     </a>
 </body>

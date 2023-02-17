@@ -13,5 +13,9 @@ interface UrlShortenerRepositoryInterface
 
     public function update(UrlShortenerId $url_id, string $long_url, string $short_url): void;
 
-    public function find(UrlShortenerId $url_id): ?UrlShortener;
+    public function findById(UrlShortenerId $url_id): ?UrlShortener;
+
+    public function find(string $url_shortener): ?UrlShortener;
+
+    public function addVisitor(string $url_shortener): void;
 }

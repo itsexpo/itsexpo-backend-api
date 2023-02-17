@@ -26,10 +26,10 @@ Route::get('/user_verification', [UserController::class, 'reUserVerification']);
 // Provinsi
 Route::get('/provinsi', [ProvinsiController::class, 'provinsi']);
 
-#GET Kecamatan
+// Kecamatan
 Route::get('/kecamatan', [KecamatanController::class, 'kecamatan']);
 
-#GET Kabupaten
+// Kabupaten
 Route::get('/kabupaten', [KabupatenController::class, 'kabupaten']);
 
 // Desa
@@ -44,6 +44,9 @@ Route::group(['prefix' => '/forgot_password'], function () {
     Route::post('/request', [UserController::class, 'requestForgotPassword']);
     Route::post('/change', [UserController::class, 'changeForgotPassword']);
 });
+
+//Url Shortener
+Route::get('/url_shortener/{short_url}', [UrlShortenerController::class, 'get']);
 
 Route::middleware(['iam'])->group(
     function () {
@@ -80,10 +83,5 @@ Route::middleware(['iam'])->group(
         Route::post('/permissions', [PermissionController::class, 'add'])->middleware('permission:permissions.store');
         Route::delete('/permissions', [PermissionController::class, 'delete'])->middleware('permission:permissions.delete');
         Route::put('/permissions', [PermissionController::class, 'update'])->middleware('permission:permissions.update');
-    }
-);
-
-Route::middleware(['iam', 'admin'])->group(
-    function () {
     }
 );

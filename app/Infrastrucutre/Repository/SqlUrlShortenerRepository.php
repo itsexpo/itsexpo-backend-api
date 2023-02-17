@@ -38,7 +38,7 @@ class SqlUrlShortenerRepository implements UrlShortenerRepositoryInterface
             ]);
     }
 
-    public function find(UrlShortenerId $url_id): ?UrlShortener
+    public function findById(UrlShortenerId $url_id): ?UrlShortener
     {
         $row = DB::table('url_shortener')
         ->where('id', '=', $url_id->toString())
@@ -52,12 +52,28 @@ class SqlUrlShortenerRepository implements UrlShortenerRepositoryInterface
             $res->short_url,
             $res->visitor
         );
+      
+        return $res;
+    }
+
+    public function find(string $short_url): ?UrlShortener
+    {
+        $row = DB::table('url_shortener')->where('short_url', $short_url)->first();
 
         if (!$row) {
             return null;
         }
 
-        return $res;
+        return $this->constructFromRow($row);
+    }
+
+    public function addVisitor(string $short_url): void
+    {
+        $row = DB::table('url_shortener')->where('short_url', $short_url);
+        $visitor = $row->first()->visitor + 1;
+        if ($row) {
+            $row->update(['visitor' => $visitor]);
+        }
     }
 
     /**
@@ -66,8 +82,8 @@ class SqlUrlShortenerRepository implements UrlShortenerRepositoryInterface
     private function constructFromRow($row): UrlShortener
     {
         return new UrlShortener(
-            $row->id,
-            $row->user_id,
+            new UrlShortenerId($row->id),
+            new UserId($row->user_id),
             $row->long_url,
             $row->short_url,
             $row->visitor,
