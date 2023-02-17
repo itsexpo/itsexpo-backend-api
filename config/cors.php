@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['*://*.vercel.app', '*://localhost:3000', '*://*.expo-its.com', '*://expo-its.com'],
 
     'allowed_origins_patterns' => [],
 
