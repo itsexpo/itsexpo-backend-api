@@ -48,6 +48,7 @@ Route::group(['prefix' => '/forgot_password'], function () {
 //Url Shortener
 Route::get('/url_shortener', [UrlShortenerController::class, 'get']);
 
+
 Route::middleware(['iam'])->group(
     function () {
         Route::get('test', function () {
