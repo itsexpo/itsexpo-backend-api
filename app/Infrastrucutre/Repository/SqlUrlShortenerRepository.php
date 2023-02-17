@@ -21,15 +21,42 @@ class SqlUrlShortenerRepository implements UrlShortenerRepositoryInterface
         ], 'id');
     }
 
-    public function find(string $short_url): ?UrlShortener
+    public function delete(UrlShortenerId $url_shortener): void
     {
-        $row = DB::table('url_shortener')->where('short_url', $short_url)->first();
+        DB::table('url_shortener')
+            ->where('id', '=', $url_shortener->toString())
+            ->delete();
+    }
 
-        if (!$row) {
-            return null;
+    public function update(UrlShortenerId $url_id, string $long_url, string $short_url): void
+    {
+        DB::table('url_shortener')
+            ->where('id', '=', $url_id->toString())
+            ->update([
+                'long_url' => $long_url,
+                'short_url' => $short_url
+            ]);
+    }
+
+    public function find(UrlShortenerId $url_id): ?UrlShortener
+    {
+        $row = DB::table('url_shortener')->where('id', $url_id->toString())->first();
+
+        return $this->constructFromRows([$row])[0];
+    }
+
+    public function findByUserIdPaginate(int $page, int $per_page, UserId $user_id): array
+    {
+        $rows = DB::table('url_shortener')->where('user_id', $user_id->toString())
+            ->paginate($per_page, ['*'], 'url_shortener_page', $page);
+        $url_shortener = [];
+        foreach ($rows as $row) {
+            $url_shortener[] = $this->constructFromRows([$row])[0];
         }
-
-        return $this->constructFromRow($row);
+        return [
+            "data" => $url_shortener,
+            "max_page" => ceil($rows->total() / $per_page)
+        ];
     }
 
     public function addVisitor(string $short_url): void
@@ -40,18 +67,44 @@ class SqlUrlShortenerRepository implements UrlShortenerRepositoryInterface
             $row->update(['visitor' => $visitor]);
         }
     }
+    
+    public function findByShortUrl(string $short_url): ?UrlShortener
+    {
+        $row = DB::table('url_shortener')->where('short_url', $short_url)->first();
+
+        if (!$row) {
+            return null;
+        }
+
+        return $this->constructFromRows([$row])[0];
+    }
+    
+    public function findByLongUrl(string $long_url): ?UrlShortener
+    {
+        $row = DB::table('url_shortener')->where('long_url', $long_url)->first();
+
+        if (!$row) {
+            return null;
+        }
+
+        return $this->constructFromRows([$row])[0];
+    }
 
     /**
      * @throws Exception
      */
-    private function constructFromRow($row): UrlShortener
+    private function constructFromRows(array $rows): array
     {
-        return new UrlShortener(
-            new UrlShortenerId($row->id),
-            new UserId($row->user_id),
-            $row->long_url,
-            $row->short_url,
-            $row->visitor,
-        );
+        $url_shortener = [];
+        foreach ($rows as $row) {
+            $url_shortener[] = new UrlShortener(
+                new UrlShortenerId($row->id),
+                new UserId($row->user_id),
+                $row->long_url,
+                $row->short_url,
+                $row->visitor,
+            );
+        }
+        return $url_shortener;
     }
 }
