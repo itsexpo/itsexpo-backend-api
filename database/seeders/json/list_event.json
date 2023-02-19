@@ -1,0 +1,32 @@
+[
+    {
+        "id": 11,
+        "name": "Jurnalistik",
+        "kuota": 100
+    },
+    {
+        "id": 12,
+        "name": "Talkshow",
+        "kuota": 100
+    },
+    {
+        "id": 13,
+        "name": "Robotik In Action",
+        "kuota": 100
+    },
+    {
+        "id": 21,
+        "name": "Talkshow",
+        "kuota": 100
+    },
+    {
+        "id": 22,
+        "name": "Exibition",
+        "kuota": 100
+    },
+    {
+        "id": 31,
+        "name": "Gebyar ITS EXPO",
+        "kuota": 100
+    }
+]
