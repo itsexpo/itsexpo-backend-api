@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\TestingController;
 use App\Http\Controllers\FakultasController;
 use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\KabupatenController;
@@ -48,6 +50,11 @@ Route::group(['prefix' => '/forgot_password'], function () {
 //Url Shortener
 Route::get('/url_shortener', [UrlShortenerController::class, 'get']);
 
+//Testing
+Route::post('/store_image_test', [TestingController::class, 'storeImage']);
+
+//Stream Image
+Route::get('/stream_image', [ImageController::class, 'streamImage']);
 
 Route::middleware(['iam'])->group(
     function () {
