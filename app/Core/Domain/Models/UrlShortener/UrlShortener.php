@@ -12,6 +12,8 @@ class UrlShortener
     private string $long_url;
     private string $short_url;
     private int $visitor;
+    private string $created_at;
+    private string $updated_at;
 
     /**
      * @param UrlShortenerId $id
@@ -19,14 +21,18 @@ class UrlShortener
      * @param string $long_url
      * @param string $short_url
      * @param int $visitor
+     * @param string $created_at
+     * @param string $updated_at
      */
-    public function __construct(UrlShortenerId $id, UserId $user_id, string $long_url, string $short_url, int $visitor)
+    public function __construct(UrlShortenerId $id, UserId $user_id, string $long_url, string $short_url, int $visitor, string $created_at, string $updated_at)
     {
         $this->id = $id;
         $this->user_id = $user_id;
         $this->long_url = $long_url;
         $this->short_url = $short_url;
         $this->visitor = $visitor;
+        $this->created_at = $created_at;
+        $this->updated_at = $updated_at;
     }
 
     /**
@@ -39,7 +45,9 @@ class UrlShortener
             $user_id,
             $long_url,
             $short_url,
-            $visitor
+            $visitor,
+            "null",
+            "null"
         );
     }
 
@@ -81,5 +89,15 @@ class UrlShortener
     public function getVisitor(): int
     {
         return $this->visitor;
+    }
+
+    public function getCreatedAt(): string
+    {
+        return $this->created_at;
+    }
+
+    public function getUpdatedAt(): string
+    {
+        return $this->updated_at;
     }
 }

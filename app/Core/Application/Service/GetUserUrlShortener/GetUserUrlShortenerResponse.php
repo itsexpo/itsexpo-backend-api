@@ -17,9 +17,12 @@ class GetUserUrlShortenerResponse implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [
+            'url_id' => $this->url_shortener->getId()->toString(),
             'short_url' => $this->url_shortener->getShortUrl(),
             'long_url' => $this->url_shortener->getLongUrl(),
             'visitor' => $this->url_shortener->getVisitor(),
+            'user_id' => $this->url_shortener->getUserId()->toString(),
+            'created_at' => $this->url_shortener->getCreatedAt(),
         ];
     }
 }

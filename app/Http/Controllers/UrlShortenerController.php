@@ -84,7 +84,7 @@ class UrlShortenerController extends Controller
     {
         $request = new GetUrlShortenerRequest($request->input('short_url'));
         $long_url = $service->execute($request);
-        return $this->success($long_url);
+        return $this->successWithData($long_url, "Berhasil Mendapatkan URL");
     }
 
     public function index(Request $request, GetUserUrlShortenerService $service): JsonResponse
@@ -94,6 +94,6 @@ class UrlShortenerController extends Controller
             $request->input('per_page')
         );
         $long_url = $service->execute($input, $request->get('account'));
-        return $this->success($long_url);
+        return $this->successWithData($long_url, "Berhasil Mendapatkan URL User");
     }
 }

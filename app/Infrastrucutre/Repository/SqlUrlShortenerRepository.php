@@ -103,6 +103,8 @@ class SqlUrlShortenerRepository implements UrlShortenerRepositoryInterface
                 $row->long_url,
                 $row->short_url,
                 $row->visitor,
+                $row->created_at,
+                $row->updated_at
             );
         }
         return $url_shortener;
