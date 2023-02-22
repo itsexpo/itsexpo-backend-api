@@ -19,9 +19,9 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*://*.vercel.app', '*://localhost:3000', '*://*.expo-its.com', '*://expo-its.com'],
+    'allowed_origins' => [],
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins_patterns' => ['/^https?:\/\/(?:\w+\.)?expo-its\.com(?::\d{1,5})?(?:[\/?#]|$)/', '/^https?:\/\/localhost:3000$/', '/^https?:\/\/[\w-]+\.vercel\.app(?::\d{1,5})?(?:[\/?#]|$)/'],
 
     'allowed_headers' => ['*'],
 
