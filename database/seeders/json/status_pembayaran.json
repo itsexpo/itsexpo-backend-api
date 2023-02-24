@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "status": "Revisi"
+    },
+    {
+        "id": 2,
+        "status": "Gagal"
+    },
+    {
+        "id": 3,
+        "status": "Success"
+    },
+    {
+        "id": 4,
+        "status": "Awaiting Verification"
+    },
+    {
+        "id": 5,
+        "status": "Awaiting Payment"
+    }
+]

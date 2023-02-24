@@ -14,5 +14,45 @@
       "no_telp": "085257188591",
       "is_valid": 1,
       "password": "ITSExpo@2023"
+    },
+    {
+      "name": "BPH ITS EXPO",
+      "role_id": 7,
+      "email": "bph@itsexpo.com",
+      "no_telp": "085257188591",
+      "is_valid": 1,
+      "password": "ITSExpo@2023"
+    },
+    {
+      "name": "Event ITS EXPO",
+      "role_id": 8,
+      "email": "event@itsexpo.com",
+      "no_telp": "085257188591",
+      "is_valid": 1,
+      "password": "ITSExpo@2023"
+    },
+    {
+      "name": "Marketing ITS EXPO",
+      "role_id": 9,
+      "email": "marketing@itsexpo.com",
+      "no_telp": "085257188591",
+      "is_valid": 1,
+      "password": "ITSExpo@2023"
+    },
+    {
+      "name": "Branding ITS EXPO",
+      "role_id": 10,
+      "email": "branding@itsexpo.com",
+      "no_telp": "085257188591",
+      "is_valid": 1,
+      "password": "ITSExpo@2023"
+    },
+    {
+      "name": "Damen ITS EXPO",
+      "role_id": 11,
+      "email": "damen@itsexpo.com",
+      "no_telp": "085257188591",
+      "is_valid": 1,
+      "password": "ITSExpo@2023"
     }
 ]

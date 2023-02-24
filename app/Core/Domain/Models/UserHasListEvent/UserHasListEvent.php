@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Core\Domain\Models\RoleHasPermission;
+namespace App\Core\Domain\Models\UserHasListEvent;
 
 use App\Core\Domain\Models\User\UserId;
 use Exception;
 
-class RoleHasPermission
+class UserHasListEvent
 {
     private int $list_event_id;
     private UserId $user_id;
