@@ -66,5 +66,21 @@
     {
       "id": 17,
       "routes": "url_shortener.index"
+    },
+    {
+      "id": 18,
+      "routes": "pengumuman.index"
+    },
+    {
+      "id": 19,
+      "routes": "pengumuman.store"
+    },
+    {
+      "id": 20,
+      "routes": "pengumuman.update"
+    },
+    {
+      "id": 21,
+      "routes": "pengumuman.delete"
     }
   ]

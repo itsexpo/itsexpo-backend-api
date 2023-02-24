@@ -30,6 +30,8 @@ use App\Infrastrucutre\Repository\SqlRoleHasPermissionRepository;
 use App\Infrastrucutre\Repository\SqlAccountVerificationRepository;
 use App\Core\Domain\Repository\RoleHasPermissionRepositoryInterface;
 use App\Core\Domain\Repository\AccountVerificationRepositoryInterface;
+use App\Core\Domain\Repository\PengumumanRepositoryInterface;
+use App\Infrastrucutre\Repository\SqlPengumumanRepository;
 
 /** @var Application $app */
 
@@ -48,3 +50,4 @@ $app->singleton(JwtManagerInterface::class, JwtManager::class);
 $app->singleton(GetIPInterface::class, GetIP::class);
 $app->singleton(PasswordResetRepositoryInterface::class, SqlPasswordResetRepository::class);
 $app->singleton(UrlShortenerRepositoryInterface::class, SqlUrlShortenerRepository::class);
+$app->singleton(PengumumanRepositoryInterface::class, SqlPengumumanRepository::class);
