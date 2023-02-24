@@ -12,12 +12,9 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('list_event', function (Blueprint $table) {
+        Schema::create('status_pembayaran', function (Blueprint $table) {
             $table->integer('id')->primary();
-            $table->string('name', 256);
-            $table->integer('kuota');
-            $table->date('start_date');
-            $table->date('close_date');
+            $table->string('status', 64);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
@@ -30,6 +27,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('list_event');
+        Schema::dropIfExists('status_pembayaran');
     }
 };

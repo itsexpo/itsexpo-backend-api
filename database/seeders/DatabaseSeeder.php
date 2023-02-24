@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ListBankSeeder::class,
             ListEventSeeder::class,
+            StatusPembayaranSeeder::class
         ]);
     }
 }

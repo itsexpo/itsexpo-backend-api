@@ -23,6 +23,8 @@ class ListEventSeeder extends Seeder
                 'id' => $list_event['id'],
                 'name' => $list_event['name'],
                 'kuota' => $list_event['kuota'],
+                'start_date' => $list_event['start_date'],
+                'close_date' => $list_event['close_date'],
             ];
         }
         DB::table('list_event')->insert($payload);

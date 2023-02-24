@@ -26,5 +26,21 @@
     {
       "id" : 7,
       "name": "BPH"
+    },
+    {
+      "id" : 8,
+      "name": "Event"
+    },
+    {
+      "id" : 9,
+      "name": "Marketing"
+    },
+    {
+      "id" : 10,
+      "name": "Branding"
+    },
+    {
+      "id" : 11,
+      "name": "Damen"
     }
 ]

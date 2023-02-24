@@ -12,14 +12,18 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('list_event', function (Blueprint $table) {
-            $table->integer('id')->primary();
-            $table->string('name', 256);
-            $table->integer('kuota');
-            $table->date('start_date');
-            $table->date('close_date');
+        Schema::create('jurnalistik_team', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->uuid('pembayaran_id')->nullable();
+            $table->string('team_name', 512);
+            $table->string('team_code', 512);
+            $table->string('lomba_category', 512);
+            $table->integer('jumlah_anggota');
+            $table->boolean('team_status');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+
+            $table->foreign('pembayaran_id')->references('id')->on('pembayaran');
         });
     }
 
@@ -30,6 +34,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('list_event');
+        Schema::dropIfExists('jurnalistik_team');
     }
 };
