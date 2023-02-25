@@ -65,7 +65,7 @@
     },
     {
       "id": 17,
-      "routes": "url_shortener.index"
+      "routes": "all_url_shortener.index"
     },
     {
       "id": 18,
