@@ -14,8 +14,9 @@ class JurnalistikTeam
     private bool $team_status;
     private int $jumlah_anggota;
     private string $lomba_category;
+    private string $jenis_kegiatan;
 
-    public function __construct(JurnalistikTeamId $id, ?PembayaranId $pembayaran_id, string $team_name, string $team_code, bool $team_status, int $jumlah_anggota, string $lomba_category)
+    public function __construct(JurnalistikTeamId $id, ?PembayaranId $pembayaran_id, string $team_name, string $team_code, bool $team_status, int $jumlah_anggota, string $lomba_category, string $jenis_kegiatan)
     {
         $this->id = $id;
         $this->pembayaran_id = $pembayaran_id;
@@ -24,12 +25,13 @@ class JurnalistikTeam
         $this->team_status = $team_status;
         $this->jumlah_anggota = $jumlah_anggota;
         $this->lomba_category = $lomba_category;
+        $this->jenis_kegiatan = $jenis_kegiatan;
     }
 
     /**
      * @throws Exception
      */
-    public static function create(?PembayaranId $pembayaran_id, string $team_name, string $team_code, bool $team_status, int $jumlah_anggota, string $lomba_category): self
+    public static function create(?PembayaranId $pembayaran_id, string $team_name, string $team_code, bool $team_status, int $jumlah_anggota, string $lomba_category, string $jenis_kegiatan): self
     {
         return new self(
             JurnalistikTeamId::generate(),
@@ -39,6 +41,7 @@ class JurnalistikTeam
             $team_status,
             $jumlah_anggota,
             $lomba_category,
+            $jenis_kegiatan,
         );
     }
 
@@ -96,5 +99,13 @@ class JurnalistikTeam
     public function getLombaCategory(): string
     {
         return $this->lomba_category;
+    }
+
+    /**
+     * @return string
+     */
+    public function getJenisKegiatan(): string
+    {
+        return $this->jenis_kegiatan;
     }
 }

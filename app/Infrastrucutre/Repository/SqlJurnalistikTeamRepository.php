@@ -31,6 +31,7 @@ class SqlJurnalistikTeamRepository implements JurnalistikTeamRepositoryInterface
                 $row->team_status,
                 $row->jumlah_anggota,
                 $row->lomba_category,
+                $row->jenis_kegiatan,
             );
         }
         return $jurnalistik_team;

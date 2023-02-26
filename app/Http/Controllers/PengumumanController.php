@@ -53,7 +53,7 @@ class PengumumanController extends Controller
 
         $input = new GetPengumumanRequest(
             $request->query('event_id'),
-            $request->route('id')
+            $request->query('id')
         );
 
         $response = $service->execute($input);
@@ -76,7 +76,7 @@ class PengumumanController extends Controller
             $request->input('event_id'),
             $request->input('title'),
             $request->input('description'),
-            $request->route('id')
+            $request->input('id')
         );
 
         try {
@@ -93,7 +93,7 @@ class PengumumanController extends Controller
     {
         DB::beginTransaction();
 
-        $input = new DeletePengumumanRequest($request->route('id'));
+        $input = new DeletePengumumanRequest($request->query('id'));
 
         try {
             $service->execute($input);

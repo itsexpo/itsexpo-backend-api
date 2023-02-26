@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('team_name', 512);
             $table->string('team_code', 512);
             $table->string('lomba_category', 512);
+            $table->string('jenis_kegiatan', 512);
             $table->integer('jumlah_anggota');
             $table->boolean('team_status');
             $table->timestamp('created_at')->useCurrent();
