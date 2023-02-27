@@ -1,0 +1,25 @@
+name: Pull Backend Developement With Migrate
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    name: Pull Backend Server
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH to server & execute commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          script: |
+            cd /var/www/itsexpo-backend-api
+            git pull origin main
+            composer install --optimize-autoloader --no-dev
+            php artisan migrate:refresh --force
+            php artisan db:seed --force
+            php artisan route:clear
+            php artisan cache:clear
+            php artisan view:clear
+            systemctl restart nginx.service
