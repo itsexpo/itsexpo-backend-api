@@ -11,9 +11,21 @@ class SqlUserHasListEventRepository implements UserHasListEventRepositoryInterfa
 {
     public function findByUserId(UserId $user_id): ?array
     {
-        $row = DB::table('user_has_list_event')->where('user_id', $user_id)->get();
+        $row = DB::table('user_has_list_event')->where('user_id', $user_id->toString())->get();
 
         return $this->constructFromRows($row->all());
+    }
+
+    public function findByUserIdReturningOnlyEventsId(UserId $user_id): ?array
+    {
+        $events_id = [];
+        $row = DB::table('user_has_list_event')->where('user_id', $user_id->toString())->get();
+
+        foreach ($row as $r) {
+            array_push($events_id, $r->list_event_id);
+        }
+
+        return $events_id;
     }
 
     /**
@@ -23,9 +35,10 @@ class SqlUserHasListEventRepository implements UserHasListEventRepositoryInterfa
     {
         $user_has_list_event = [];
         foreach ($rows as $row) {
+            $user_id = new UserId($row->user_id);
             $user_has_list_event[] = new UserHasListEvent(
                 $row->list_event_id,
-                $row->user_id,
+                $user_id,
             );
         }
         return $user_has_list_event;

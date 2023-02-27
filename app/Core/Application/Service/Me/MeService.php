@@ -2,15 +2,17 @@
 
 namespace App\Core\Application\Service\Me;
 
-use App\Core\Domain\Models\Permission\Permission;
-use App\Core\Domain\Models\RoleHasPermission\RoleHasPermission;
 use Exception;
 use App\Exceptions\UserException;
 use App\Core\Domain\Models\UserAccount;
-use App\Core\Domain\Repository\PermissionRepositoryInterface;
-use App\Core\Domain\Repository\RoleHasPermissionRepositoryInterface;
+use App\Core\Domain\Models\Permission\Permission;
 use App\Core\Domain\Repository\RoleRepositoryInterface;
 use App\Core\Domain\Repository\UserRepositoryInterface;
+use App\Core\Domain\Repository\ListEventRepositoryInterface;
+use App\Core\Domain\Repository\PermissionRepositoryInterface;
+use App\Core\Domain\Models\RoleHasPermission\RoleHasPermission;
+use App\Core\Domain\Repository\UserHasListEventRepositoryInterface;
+use App\Core\Domain\Repository\RoleHasPermissionRepositoryInterface;
 
 class MeService
 {
@@ -18,19 +20,32 @@ class MeService
     private RoleRepositoryInterface $role_repository;
     private PermissionRepositoryInterface $permission_repository;
     private RoleHasPermissionRepositoryInterface $role_has_permission_repository;
+    private ListEventRepositoryInterface $list_event_repository;
+    private UserHasListEventRepositoryInterface $user_has_list_event_repository;
 
     /**
      * @param UserRepositoryInterface $user_repository
      * @param RoleRepositoryInterface $role_repository
      * @param PermissionRepositoryInterface $permission_repository
      * @param RoleHasPermissionRepositoryInterface $role_has_permission_repository
+     * @param ListEventRepositoryInterface $list_event_repository
+     * @param UserHasListEventRepositoryInterface $user_has_list_event
      */
-    public function __construct(UserRepositoryInterface $user_repository, RoleRepositoryInterface $role_repository, PermissionRepositoryInterface $permission_repository, RoleHasPermissionRepositoryInterface $role_has_permission_repository)
+    public function __construct(
+        UserRepositoryInterface $user_repository,
+        RoleRepositoryInterface $role_repository,
+        PermissionRepositoryInterface $permission_repository,
+        RoleHasPermissionRepositoryInterface $role_has_permission_repository,
+        ListEventRepositoryInterface $list_event_repository,
+        UserHasListEventRepositoryInterface $user_has_list_event_repository
+    )
     {
         $this->user_repository = $user_repository;
         $this->role_repository = $role_repository;
         $this->permission_repository = $permission_repository;
         $this->role_has_permission_repository = $role_has_permission_repository;
+        $this->list_event_repository = $list_event_repository;
+        $this->user_has_list_event_repository = $user_has_list_event_repository;
     }
 
     /**
@@ -43,6 +58,9 @@ class MeService
         if (!$user) {
             UserException::throw("user tidak ditemukan", 1006, 404);
         }
+        $user_events_id = $this->user_has_list_event_repository->findByUserIdReturningOnlyEventsId($account->getUserId());
+
+        //LANJUT--LANJUT--LANJUT--LANJUT--LANJUT--LANJUT--LANJUT--LANJUT--LANJUT--LANJUT--LANJUT
 
         $routes = $this->role_has_permission_repository->findByRoleId($role->getId());
         $routes_array = array_map(function (RoleHasPermission $route) {

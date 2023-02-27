@@ -30,8 +30,12 @@ use App\Infrastrucutre\Repository\SqlRoleHasPermissionRepository;
 use App\Infrastrucutre\Repository\SqlAccountVerificationRepository;
 use App\Core\Domain\Repository\RoleHasPermissionRepositoryInterface;
 use App\Core\Domain\Repository\AccountVerificationRepositoryInterface;
+use App\Core\Domain\Repository\ListEventRepositoryInterface;
 use App\Core\Domain\Repository\PengumumanRepositoryInterface;
+use App\Core\Domain\Repository\UserHasListEventRepositoryInterface;
+use App\Infrastrucutre\Repository\SqlListEventRepository;
 use App\Infrastrucutre\Repository\SqlPengumumanRepository;
+use App\Infrastrucutre\Repository\SqlUserHasListEventRepository;
 
 /** @var Application $app */
 
@@ -51,3 +55,5 @@ $app->singleton(GetIPInterface::class, GetIP::class);
 $app->singleton(PasswordResetRepositoryInterface::class, SqlPasswordResetRepository::class);
 $app->singleton(UrlShortenerRepositoryInterface::class, SqlUrlShortenerRepository::class);
 $app->singleton(PengumumanRepositoryInterface::class, SqlPengumumanRepository::class);
+$app->singleton(ListEventRepositoryInterface::class, SqlListEventRepository::class);
+$app->singleton(UserHasListEventRepositoryInterface::class, SqlUserHasListEventRepository::class);
