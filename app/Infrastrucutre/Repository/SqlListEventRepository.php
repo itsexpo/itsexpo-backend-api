@@ -8,6 +8,20 @@ use App\Core\Domain\Repository\ListEventRepositoryInterface;
 
 class SqlListEventRepository implements ListEventRepositoryInterface
 {
+    public function getAll(): array
+    {
+        $rows = DB::table('list_event')->get();
+        // dd($rows);
+
+        $list = [];
+        foreach ($rows as $row) {
+            array_push($list, $row);
+        }
+
+        // dd($list);
+        return $list;
+    }
+
     public function find(int $list_event_id): ?ListEvent
     {
         $row = DB::table('list_event')->where('id', $list_event_id)->first();
