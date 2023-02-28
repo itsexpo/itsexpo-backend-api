@@ -5,15 +5,35 @@ namespace App\Infrastrucutre\Repository;
 use Illuminate\Support\Facades\DB;
 use App\Core\Domain\Models\Jurnalistik\Member\JurnalistikMember;
 use App\Core\Domain\Models\Jurnalistik\Member\JurnalistikMemberId;
+use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikTeamId;
+use App\Core\Domain\Models\User\UserId;
 use App\Core\Domain\Repository\JurnalistikMemberRepositoryInterface;
 
 class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInterface
 {
     public function find(JurnalistikMemberId $jurnalistik_member_id): ?JurnalistikMember
     {
-        $row = DB::table('jurnalistik_member')->where('id', $jurnalistik_member_id)->first();
+        $row = DB::table('jurnalistik_member')->where('id', $jurnalistik_member_id->toString())->first();
 
         return $this->constructFromRows([$row])[0];
+    }
+
+    public function findByUser(UserId $user_id): ?JurnalistikMember
+    {
+        $row = DB::table('jurnalistik_member')->where('user_id', $user_id->toString())->first();
+        
+        if (!$row) {
+            return null;
+        }
+
+        return $this->constructFromRows([$row])[0];
+    }
+
+    public function findAllMember(JurnalistikTeamId $jurnalistik_team_id): array
+    {
+        $row = DB::table('jurnalistik_member')->where('jurnalistik_team_id', $jurnalistik_team_id->toString())->get();
+
+        return $this->constructFromRows($row->all());
     }
 
     /**
@@ -24,12 +44,12 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
         $jurnalistik_member = [];
         foreach ($rows as $row) {
             $jurnalistik_member[] = new JurnalistikMember(
-                $row->id,
-                $row->jurnalistik_team_id,
-                $row->user_id,
+                new JurnalistikMemberId($row->id),
+                new JurnalistikTeamId($row->jurnalistik_team_id),
+                new UserId($row->user_id),
                 $row->member_type,
                 $row->kabupaten_id,
-                $row->povinsin_id,
+                $row->provinsi_id,
                 $row->name,
                 $row->asal_instansi,
                 $row->id_line,
