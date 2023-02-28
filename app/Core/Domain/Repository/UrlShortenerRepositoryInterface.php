@@ -23,4 +23,6 @@ interface UrlShortenerRepositoryInterface
     public function findByLongUrl(string $long_url): ?UrlShortener;
 
     public function addVisitor(string $url_shortener): void;
+
+    public function constructFromRows(array $rows): array;
 }

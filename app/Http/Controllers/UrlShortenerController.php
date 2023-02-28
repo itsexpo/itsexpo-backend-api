@@ -90,6 +90,7 @@ class UrlShortenerController extends Controller
     public function index(Request $request, GetUserUrlShortenerService $service): JsonResponse
     {
         $input = new GetUserUrlShortenerRequest(
+            $request->query('search'),
             $request->input('page'),
             $request->input('per_page')
         );
