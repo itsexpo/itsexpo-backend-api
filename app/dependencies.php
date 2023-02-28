@@ -32,6 +32,10 @@ use App\Core\Domain\Repository\RoleHasPermissionRepositoryInterface;
 use App\Core\Domain\Repository\AccountVerificationRepositoryInterface;
 use App\Core\Domain\Repository\PengumumanRepositoryInterface;
 use App\Infrastrucutre\Repository\SqlPengumumanRepository;
+use App\Infrastrucutre\Repository\SqlJurnalistikMemberRepository;
+use App\Infrastrucutre\Repository\SqlJurnalistikTeamRepository;
+use App\Core\Domain\Repository\JurnalistikMemberRepositoryInterface;
+use App\Core\Domain\Repository\JurnalistikTeamRepositoryInterface;
 
 /** @var Application $app */
 
@@ -51,3 +55,5 @@ $app->singleton(GetIPInterface::class, GetIP::class);
 $app->singleton(PasswordResetRepositoryInterface::class, SqlPasswordResetRepository::class);
 $app->singleton(UrlShortenerRepositoryInterface::class, SqlUrlShortenerRepository::class);
 $app->singleton(PengumumanRepositoryInterface::class, SqlPengumumanRepository::class);
+$app->singleton(JurnalistikMemberRepositoryInterface::class, SqlJurnalistikMemberRepository::class);
+$app->singleton(JurnalistikTeamRepositoryInterface::class, SqlJurnalistikTeamRepository::class);

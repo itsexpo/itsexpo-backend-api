@@ -15,6 +15,7 @@ use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UrlShortenerController;
 use App\Http\Controllers\RoleHasPermissionController;
+use App\Http\Controllers\JurnalistikController;
 
 Route::get('hello', function () {
     return response()->json();
@@ -66,6 +67,9 @@ Route::middleware(['iam'])->group(
             ]);
         })->middleware('permission:test.index');
 
+        //Jurnalistik
+        Route::get('/pre_event/jurnalistik', [JurnalistikController::class, 'get']);
+        
         Route::get('/me', [UserController::class, 'me']);
         Route::post('/change_password', [UserController::class, 'changePassword']);
 
