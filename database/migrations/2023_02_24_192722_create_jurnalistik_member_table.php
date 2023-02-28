@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('provinsi_id')->index();
             $table->string('kabupaten_id')->index();
             $table->string('name', 512);
+            $table->string('member_type', 512);
             $table->string('asal_instansi', 512);
             $table->string('id_line', 512);
             $table->string('id_card_url', 512);

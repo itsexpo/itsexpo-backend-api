@@ -27,6 +27,7 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
                 $row->id,
                 $row->jurnalistik_team_id,
                 $row->user_id,
+                $row->member_type,
                 $row->kabupaten_id,
                 $row->povinsin_id,
                 $row->name,
