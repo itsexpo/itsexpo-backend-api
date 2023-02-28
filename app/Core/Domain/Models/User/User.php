@@ -87,7 +87,7 @@ class User
     public function verify(): void
     {
         if (!self::$verifier) {
-            UserException::throw("invalid credential", 1003, 401);
+            UserException::throw("Username Atau Password Salah", 1003, 401);
         }
     }
 

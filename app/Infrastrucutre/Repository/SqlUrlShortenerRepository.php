@@ -93,7 +93,7 @@ class SqlUrlShortenerRepository implements UrlShortenerRepositoryInterface
     /**
      * @throws Exception
      */
-    private function constructFromRows(array $rows): array
+    public function constructFromRows(array $rows): array
     {
         $url_shortener = [];
         foreach ($rows as $row) {
