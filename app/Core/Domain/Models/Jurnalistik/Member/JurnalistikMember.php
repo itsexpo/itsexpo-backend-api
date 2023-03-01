@@ -2,6 +2,7 @@
 
 namespace App\Core\Domain\Models\Jurnalistik\Member;
 
+use App\Core\Domain\Models\Jurnalistik\JurnalistikMemberType;
 use Exception;
 use App\Core\Domain\Models\User\UserId;
 use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikTeamId;
@@ -14,14 +15,14 @@ class JurnalistikMember
     private string $kabupaten_id;
     private string $provinsi_id;
     private string $name;
-    private string $member_type;
+    private JurnalistikMemberType $member_type;
     private string $asal_instansi;
     private string $id_line;
     private string $id_card_url;
     private string $follow_sosmed_url;
     private string $share_poster_url;
 
-    public function __construct(JurnalistikMemberId $id, ?JurnalistikTeamId $jurnalistik_team_id, UserId $user_id, string $kabupaten_id, string $provinsi_id, string $name, string $member_type, string $asal_instansi, string $id_line, string $id_card_url, string $follow_sosmed_url, string $share_poster_url)
+    public function __construct(JurnalistikMemberId $id, ?JurnalistikTeamId $jurnalistik_team_id, UserId $user_id, string $kabupaten_id, string $provinsi_id, string $name, JurnalistikMemberType $member_type, string $asal_instansi, string $id_line, string $id_card_url, string $follow_sosmed_url, string $share_poster_url)
     {
         $this->id = $id;
         $this->jurnalistik_team_id = $jurnalistik_team_id;
@@ -40,7 +41,7 @@ class JurnalistikMember
     /**
      * @throws Exception
      */
-    public static function create(?JurnalistikTeamId $jurnalistik_team_id, UserId $user_id, string $kabupaten_id, string $provinsi_id, string $name, string $member_type, string $asal_instansi, string $id_line, string $id_card_url, string $follow_sosmed_url, string $share_poster_url): self
+    public static function create(?JurnalistikTeamId $jurnalistik_team_id, UserId $user_id, string $kabupaten_id, string $provinsi_id, string $name, JurnalistikMemberType $member_type, string $asal_instansi, string $id_line, string $id_card_url, string $follow_sosmed_url, string $share_poster_url): self
     {
         return new self(
             JurnalistikMemberId::generate(),
@@ -115,9 +116,9 @@ class JurnalistikMember
     }
 
     /**
-     * @return string
+     * @return JurnalistikMemberType
      */
-    public function getMemberType(): string
+    public function getMemberType(): JurnalistikMemberType
     {
         return $this->member_type;
     }

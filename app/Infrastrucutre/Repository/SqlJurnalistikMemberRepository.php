@@ -2,6 +2,7 @@
 
 namespace App\Infrastrucutre\Repository;
 
+use App\Core\Domain\Models\Jurnalistik\JurnalistikMemberType;
 use Illuminate\Support\Facades\DB;
 use App\Core\Domain\Models\Jurnalistik\Member\JurnalistikMember;
 use App\Core\Domain\Models\Jurnalistik\Member\JurnalistikMemberId;
@@ -21,7 +22,7 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
     public function findByUser(UserId $user_id): ?JurnalistikMember
     {
         $row = DB::table('jurnalistik_member')->where('user_id', $user_id->toString())->first();
-        
+
         if (!$row) {
             return null;
         }
@@ -50,7 +51,7 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
                 $row->kabupaten_id,
                 $row->provinsi_id,
                 $row->name,
-                $row->member_type,
+                JurnalistikMemberType::from($row->member_type),
                 $row->asal_instansi,
                 $row->id_line,
                 $row->id_card_url,
