@@ -2,6 +2,7 @@
 
 namespace App\Core\Application\Service\GetDataJurnalistik;
 
+use App\Core\Domain\Models\Jurnalistik\JurnalistikMemberType;
 use App\Core\Domain\Models\Jurnalistik\Member\JurnalistikMember;
 use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikTeam;
 
@@ -28,7 +29,7 @@ class GetDataJurnalistikResponse implements JsonSerializable
 
     private function cekKetua(): bool
     {
-        if ($this->personal->getMemberType() == "ketua") {
+        if ($this->personal->getMemberType() == JurnalistikMemberType::KETUA) {
             return true;
         }
         return false;

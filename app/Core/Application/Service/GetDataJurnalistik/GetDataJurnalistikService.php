@@ -39,7 +39,7 @@ class GetDataJurnalistikService
         }
         $member_data = $this->jurnalistik_member_repository->findAllMember($user_jurnalistik_info->getJurnalistikTeamId());
         $team_data = $this->jurnalistik_team_repository->find($user_jurnalistik_info->getJurnalistikTeamId());
-        
+
         $members_array = array_map(function (JurnalistikMember $member) {
             return new MembersResponse($member);
         }, $member_data);
