@@ -36,6 +36,10 @@ use App\Infrastrucutre\Repository\SqlJurnalistikMemberRepository;
 use App\Infrastrucutre\Repository\SqlJurnalistikTeamRepository;
 use App\Core\Domain\Repository\JurnalistikMemberRepositoryInterface;
 use App\Core\Domain\Repository\JurnalistikTeamRepositoryInterface;
+use App\Core\Domain\Repository\PembayaranRepositoryInterface;
+use App\Infrastrucutre\Repository\SqlPembayaranRepository;
+use App\Core\Domain\Repository\StatusPembayaranRepositoryInterface;
+use App\Infrastrucutre\Repository\SqlStatusPembayaranRepository;
 
 /** @var Application $app */
 
@@ -57,3 +61,5 @@ $app->singleton(UrlShortenerRepositoryInterface::class, SqlUrlShortenerRepositor
 $app->singleton(PengumumanRepositoryInterface::class, SqlPengumumanRepository::class);
 $app->singleton(JurnalistikMemberRepositoryInterface::class, SqlJurnalistikMemberRepository::class);
 $app->singleton(JurnalistikTeamRepositoryInterface::class, SqlJurnalistikTeamRepository::class);
+$app->singleton(PembayaranRepositoryInterface::class, SqlPembayaranRepository::class);
+$app->singleton(StatusPembayaranRepositoryInterface::class, SqlStatusPembayaranRepository::class);
