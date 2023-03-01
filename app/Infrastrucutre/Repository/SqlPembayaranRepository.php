@@ -11,7 +11,7 @@ class SqlPembayaranRepository implements PembayaranRepositoryInterface
 {
     public function find(PembayaranId $pembayaran_id): ?Pembayaran
     {
-        $row = DB::table('pembayaran')->where('id', $pembayaran_id)->first();
+        $row = DB::table('pembayaran')->where('id', $pembayaran_id->toString())->first();
 
         return $this->constructFromRows([$row])[0];
     }
@@ -24,7 +24,7 @@ class SqlPembayaranRepository implements PembayaranRepositoryInterface
         $pembayaran = [];
         foreach ($rows as $row) {
             $pembayaran[] = new Pembayaran(
-                $row->id,
+                new PembayaranId($row->id),
                 $row->list_bank_id,
                 $row->list_event_id,
                 $row->status_pembayaran_id,

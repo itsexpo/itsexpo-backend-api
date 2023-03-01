@@ -15,12 +15,21 @@ class MembersResponse implements JsonSerializable
         $this->jurnalistik_member = $jurnalistik_member;
     }
 
+    private function cekKetua(): bool
+    {
+        if ($this->jurnalistik_member->getMemberType() == 'ketua') {
+            return true;
+        }
+        return false;
+    }
+
     public function jsonSerialize(): array
     {
         $response = [
             'id' => $this->jurnalistik_member->getId()->toString(),
             'user_id' => $this->jurnalistik_member->getUserId()->toString(),
-            'name' => $this->jurnalistik_member->getName()
+            'name' => $this->jurnalistik_member->getName(),
+            'ketua' => $this->cekKetua()
         ];
         return $response;
     }
