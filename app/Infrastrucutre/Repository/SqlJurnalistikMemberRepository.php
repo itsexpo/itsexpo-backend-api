@@ -14,7 +14,7 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
 {
     public function find(JurnalistikMemberId $jurnalistik_member_id): ?JurnalistikMember
     {
-        $row = DB::table('jurnalistik_member')->where('id', $jurnalistik_member_id)->first();
+        $row = DB::table('jurnalistik_member')->where('id', $jurnalistik_member_id->toString())->first();
         if (!$row) {
             return null;
         }
@@ -22,9 +22,9 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
     }
 
 
-    public function updateTeamId(UserID $user_id, JurnalistikTeamId $team_id): void
+    public function updateTeamId(JurnalistikMemberId $personal_id, JurnalistikTeamId $team_id): void
     {
-        DB::table('jurnalistik_member')->where('user_id', $user_id->toString())->update([
+        DB::table('jurnalistik_member')->where('id', $personal_id->toString())->update([
             'jurnalistik_team_id' => $team_id->toString(),
         ]);
     }

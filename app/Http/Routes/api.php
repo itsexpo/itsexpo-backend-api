@@ -68,9 +68,10 @@ Route::middleware(['iam'])->group(
 
         //Jurnalistik
         Route::get('/pre_event/jurnalistik', [JurnalistikController::class, 'get']);
-        Route::post('/pre_event/jurnalistik/team', [JurnalistikController::class, 'joinTeam']);
+        Route::post('/pre_event/jurnalistik/join', [JurnalistikController::class, 'joinTeam']);
         Route::delete('/pre_event/jurnalistik/team', [JurnalistikController::class, 'deleteTeam']);
 
+        //User
         Route::get('/me', [UserController::class, 'me']);
         Route::post('/change_password', [UserController::class, 'changePassword']);
 

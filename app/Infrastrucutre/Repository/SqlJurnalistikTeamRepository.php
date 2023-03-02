@@ -17,20 +17,33 @@ class SqlJurnalistikTeamRepository implements JurnalistikTeamRepositoryInterface
         return $this->constructFromRows([$row])[0];
     }
 
-    public function incrementJumlahAnggota(JurnalistikTeamId $jurnalistik_team_id): void
+    public function findByTeamCode(string $team_code): ?JurnalistikTeam
     {
-        $jurnalistik_team = DB::table('jurnalistik_team')->where('id', $jurnalistik_team_id);
-        $jurnalistik_team->update([
-            'jumlah_anggota', $jurnalistik_team->first()['jumlah_anggota'] + 1,
-        ]);
+        $row = DB::table('jurnalistik_team')->where('team_code', $team_code)->first();
+
+        return $this->constructFromRows([$row])[0];
     }
 
-    public function decrementJumlahAnggota(JurnalistikTeamId $jurnalistik_team_id): void
+    public function incrementJumlahAnggota(string $team_code): void
     {
-        $jurnalistik_team = DB::table('jurnalistik_team')->where('id', $jurnalistik_team_id);
-        $jurnalistik_team->update([
-            'jumlah_anggota', $jurnalistik_team->first()['jumlah_anggota'] - 1,
-        ]);
+        $jurnalistik_team = DB::table('jurnalistik_team')->where('team_code', $team_code);
+        if (!$jurnalistik_team->first()) {
+            return;
+        }
+        $jurnalistik_team->update(
+            ['jumlah_anggota' => (int)$jurnalistik_team->first()->jumlah_anggota + 1]
+        );
+    }
+
+    public function decrementJumlahAnggota(string $team_code): void
+    {
+        $jurnalistik_team = DB::table('jurnalistik_team')->where('team_code', $team_code);
+        if (!$jurnalistik_team->first()) {
+            return;
+        }
+        $jurnalistik_team->update(
+            ['jumlah_anggota' => (int)$jurnalistik_team->first()->jumlah_anggota - 1]
+        );
     }
 
     /**

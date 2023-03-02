@@ -25,9 +25,9 @@ class JurnalistikController extends Controller
             'code_team' => 'string',
         ]);
 
-        $input = new JoinTeamJurnalistikRequest($request->input('code_team'), $request->get('account'));
-        $service->execute($input);
-        return $this->success("berhasil gabung team");
+        $input = new JoinTeamJurnalistikRequest($request->input('code_team'));
+        $service->execute($input, $request->get('account'));
+        return $this->success("Berhasil Bergabung Dengan Team");
     }
 
     public function deleteTeam(Request $request, DeleteTeamJurnalistikService $service): JsonResponse
@@ -38,10 +38,9 @@ class JurnalistikController extends Controller
         ]);
         $input = new DeleteTeamJurnalistikRequest(
             $request->input('code_team'),
-            $request->get('account'),
             $request->input('id_personal'),
         );
-        $service->execute($input);
+        $service->execute($input, $request->get('account'));
         return $this->success("berhasil hapus team");
     }
 }
