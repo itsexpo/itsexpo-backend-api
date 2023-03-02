@@ -28,7 +28,7 @@ class JoinTeamJurnalistikService
     {
         $jurnalistik_member = $this->jurnalistik_member_repository->findByUser($request->getAccount()->getUserId());
         if ($jurnalistik_member == null) {
-            UserException::throw("User Not Found", 6006);
+            UserException::throw("User Not Found", 6016);
         }
         if ($jurnalistik_member->getJurnalistikTeamId() != null) {
             UserException::throw("Already Join to Team", 6004);
@@ -36,7 +36,7 @@ class JoinTeamJurnalistikService
         $jurnalistik_team = $this->jurnalistik_team_repository->find(new JurnalistikTeamId($request->getCodeTeam()));
 
         if ($jurnalistik_team == null) {
-            UserException::throw("Jurnalistik Team Not Found", 6007);
+            UserException::throw("Jurnalistik Team Not Found", 6017);
         }
 
         if ($jurnalistik_team->getJumlahAnggota() == 5) {

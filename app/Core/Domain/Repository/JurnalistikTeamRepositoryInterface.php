@@ -9,4 +9,5 @@ interface JurnalistikTeamRepositoryInterface
 {
     public function find(JurnalistikTeamId $id): ?JurnalistikTeam;
     public function incrementJumlahAnggota(JurnalistikTeamId $jurnalistik_team_id): void;
+    public function decrementJumlahAnggota(JurnalistikTeamId $jurnalistik_team_id): void;
 }
