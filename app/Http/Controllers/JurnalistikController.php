@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Core\Application\Service\DeleteTeamJurnalistik\DeleteTeamJurnalistikRequest;
+use App\Core\Application\Service\DeleteTeamJurnalistik\DeleteTeamJurnalistikService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -25,6 +27,21 @@ class JurnalistikController extends Controller
 
         $input = new JoinTeamJurnalistikRequest($request->input('code_team'), $request->get('account'));
         $service->execute($input);
-        return $this->success("join team succeed");
+        return $this->success("berhasil gabung team");
+    }
+
+    public function deleteTeam(Request $request, DeleteTeamJurnalistikService $service): JsonResponse
+    {
+        $request->validate([
+            'code_team' => 'string',
+            'id_personal' => 'string',
+        ]);
+        $input = new DeleteTeamJurnalistikRequest(
+            $request->input('code_team'),
+            $request->get('account'),
+            $request->input('id_personal'),
+        );
+        $service->execute($input);
+        return $this->success("berhasil hapus team");
     }
 }
