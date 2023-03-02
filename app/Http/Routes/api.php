@@ -15,6 +15,7 @@ use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UrlShortenerController;
 use App\Http\Controllers\RoleHasPermissionController;
+use App\Http\Controllers\JurnalistikController;
 
 Route::get('hello', function () {
     return response()->json();
@@ -65,6 +66,11 @@ Route::middleware(['iam'])->group(
                 "message" => "User Berhasil Mengakses Endpoint Ini"
             ]);
         })->middleware('permission:test.index');
+
+        //Jurnalistik
+        Route::get('/pre_event/jurnalistik', [JurnalistikController::class, 'get']);
+        Route::post('/pre_event/jurnalistik/ketua', [JurnalistikController::class, 'createJurnalistikKetua']);
+        Route::post('/pre_event/jurnalistik/member', [JurnalistikController::class, 'createJurnalistikMember']);
 
         Route::get('/me', [UserController::class, 'me']);
         Route::post('/change_password', [UserController::class, 'changePassword']);

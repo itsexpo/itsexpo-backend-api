@@ -8,4 +8,6 @@ use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikTeamId;
 interface JurnalistikTeamRepositoryInterface
 {
     public function find(JurnalistikTeamId $id): ?JurnalistikTeam;
+
+    public function persist(JurnalistikTeam $team) : void;
 }

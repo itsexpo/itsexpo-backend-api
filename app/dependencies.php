@@ -31,7 +31,15 @@ use App\Infrastrucutre\Repository\SqlAccountVerificationRepository;
 use App\Core\Domain\Repository\RoleHasPermissionRepositoryInterface;
 use App\Core\Domain\Repository\AccountVerificationRepositoryInterface;
 use App\Core\Domain\Repository\PengumumanRepositoryInterface;
+use App\Infrastrucutre\Repository\SqlJurnalistikMemberRepository;
+use App\Infrastrucutre\Repository\SqlJurnalistikTeamRepository;
+use App\Core\Domain\Repository\JurnalistikMemberRepositoryInterface;
+use App\Core\Domain\Repository\JurnalistikTeamRepositoryInterface;
 use App\Infrastrucutre\Repository\SqlPengumumanRepository;
+use App\Core\Domain\Repository\PembayaranRepositoryInterface;
+use App\Infrastrucutre\Repository\SqlPembayaranRepository;
+use App\Core\Domain\Repository\StatusPembayaranRepositoryInterface;
+use App\Infrastrucutre\Repository\SqlStatusPembayaranRepository;
 
 /** @var Application $app */
 
@@ -51,3 +59,7 @@ $app->singleton(GetIPInterface::class, GetIP::class);
 $app->singleton(PasswordResetRepositoryInterface::class, SqlPasswordResetRepository::class);
 $app->singleton(UrlShortenerRepositoryInterface::class, SqlUrlShortenerRepository::class);
 $app->singleton(PengumumanRepositoryInterface::class, SqlPengumumanRepository::class);
+$app->singleton(JurnalistikTeamRepositoryInterface::class, SqlJurnalistikTeamRepository::class);
+$app->singleton(JurnalistikMemberRepositoryInterface::class, SqlJurnalistikMemberRepository::class);
+$app->singleton(PembayaranRepositoryInterface::class, SqlPembayaranRepository::class);
+$app->singleton(StatusPembayaranRepositoryInterface::class, SqlStatusPembayaranRepository::class);

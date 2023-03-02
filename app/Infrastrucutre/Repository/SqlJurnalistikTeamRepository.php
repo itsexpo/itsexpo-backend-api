@@ -6,14 +6,29 @@ use Illuminate\Support\Facades\DB;
 use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikTeam;
 use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikTeamId;
 use App\Core\Domain\Repository\JurnalistikTeamRepositoryInterface;
+use App\Core\Domain\Models\Pembayaran\PembayaranId;
 
 class SqlJurnalistikTeamRepository implements JurnalistikTeamRepositoryInterface
 {
     public function find(JurnalistikTeamId $jurnalistik_team_id): ?JurnalistikTeam
     {
-        $row = DB::table('jurnalistik_team')->where('id', $jurnalistik_team_id)->first();
+        $row = DB::table('jurnalistik_team')->where('id', $jurnalistik_team_id->toString())->first();
 
         return $this->constructFromRows([$row])[0];
+    }
+
+    public function persist(JurnalistikTeam $team): void
+    {
+        DB::table('jurnalistik_team')->upsert([
+             'id' => $team->getId()->toString(),
+             'pembayaran_id' => $team->getPembayaranId(),
+             'team_name' => $team->getTeamName(),
+             'team_code' => $team->getTeamCode(),
+             'team_status' => $team->getTeamStatus(),
+             'jumlah_anggota' => $team->getJumlahAnggota(),
+             'lomba_category' => $team->getLombaCategory(),
+             'jenis_kegiatan' => $team->getJenisKegiatan(),
+         ], 'id');
     }
 
     /**
@@ -24,8 +39,8 @@ class SqlJurnalistikTeamRepository implements JurnalistikTeamRepositoryInterface
         $jurnalistik_team = [];
         foreach ($rows as $row) {
             $jurnalistik_team[] = new JurnalistikTeam(
-                $row->id,
-                $row->pembayaran_id,
+                new JurnalistikTeamId($row->id),
+                new PembayaranId($row->pembayaran_id),
                 $row->team_name,
                 $row->team_code,
                 $row->team_status,
