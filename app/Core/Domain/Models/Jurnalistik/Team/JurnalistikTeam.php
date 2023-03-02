@@ -2,8 +2,8 @@
 
 namespace App\Core\Domain\Models\Jurnalistik\Team;
 
-use App\Core\Domain\Models\Pembayaran\PembayaranId;
 use Exception;
+use App\Core\Domain\Models\Pembayaran\PembayaranId;
 
 class JurnalistikTeam
 {

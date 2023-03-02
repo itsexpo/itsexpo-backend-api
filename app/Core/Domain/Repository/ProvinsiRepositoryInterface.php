@@ -10,4 +10,6 @@ interface ProvinsiRepositoryInterface
      * @return Provinsi[]
      */
     public function getAll(): array;
+
+    public function find(int $id): ?Provinsi;
 }
