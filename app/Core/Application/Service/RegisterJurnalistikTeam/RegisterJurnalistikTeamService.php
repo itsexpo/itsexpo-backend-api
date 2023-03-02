@@ -3,11 +3,12 @@
 namespace App\Core\Application\Service\RegisterJurnalistikTeam;
 
 use App\Core\Domain\Models\Jurnalistik\JurnalistikMemberType;
-use Illuminate\Support\Str;
 use App\Core\Domain\Models\UserAccount;
 use Illuminate\Support\Facades\Storage;
 use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikTeam;
 use App\Core\Domain\Models\Jurnalistik\Member\JurnalistikMember;
+use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikJenisKegiatan;
+use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikLombaCategory;
 use App\Core\Domain\Repository\JurnalistikTeamRepositoryInterface;
 use App\Core\Domain\Repository\JurnalistikMemberRepositoryInterface;
 
@@ -28,14 +29,16 @@ class RegisterJurnalistikTeamService
 
     public function execute(RegisterJurnalistikTeamRequest $request, UserAccount $account)
     {
+        $team_code = 'JR-CITS-' . str_pad($this->jurnalistik_team_repository->countAllTeams() + 1, 3, "0", STR_PAD_LEFT);
+
         $team = JurnalistikTeam::create(
             null,
             $request->getTeamName(),
-            Str::random(8),
+            $team_code,
             false,
             0,
-            $request->getLombaCategory(),
-            $request->getJenisKegiatan()
+            JurnalistikLombaCategory::from($request->getLombaCategory()),
+            JurnalistikJenisKegiatan::from($request->getJenisKegiatan())
         );
         $this->jurnalistik_team_repository->persist($team);
     

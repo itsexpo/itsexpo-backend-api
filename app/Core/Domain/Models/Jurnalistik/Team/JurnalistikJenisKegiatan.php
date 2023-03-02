@@ -2,7 +2,7 @@
 
 namespace App\Core\Domain\Models\Jurnalistik\Team;
 
-enum JenisKegiatan : string
+enum JurnalistikJenisKegiatan : string
 {
     case KHUSUS = 'khusus';
     case UMUM = 'umum';

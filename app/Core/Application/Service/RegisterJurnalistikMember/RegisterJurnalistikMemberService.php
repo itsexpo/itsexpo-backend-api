@@ -23,6 +23,13 @@ class RegisterJurnalistikMemberService
 
     public function execute(RegisterJurnalistikMemberRequest $request, UserAccount $account)
     {
+        $registeredUser = $this->jurnalistik_member_repository->findByUsername($account->getUserId(), $request->getName());
+        // print_r($request->getName());
+
+        if ($registeredUser) {
+            UserException::throw("User telah mendaftar", 1001, 404);
+        }
+
         if ($request->getIdCard()->getSize() > 1048576) {
             UserException::throw("ID Card Harus Dibawah 1Mb", 2000);
         }

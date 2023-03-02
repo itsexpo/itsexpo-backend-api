@@ -34,17 +34,16 @@ class GetDataJurnalistikResponse implements JsonSerializable
         }
         return false;
     }
-
+    
     public function jsonSerialize(): array
     {
         $response = [
             'id_tim' => $this->jurnalistik_team->getId()->toString(),
             'name_tim' => $this->jurnalistik_team->getTeamName(),
-            'ketua_tim' => $this->cekKetua(),
             'code_tim' => $this->jurnalistik_team->getTeamCode(),
             'status' => [
                 'status' => $this->jurnalistik_team->getTeamStatus(),
-                'pembayaran' => $this->pembayaran
+                'pembayaran' => $this->pembayaran,
             ],
             'peserta' => $this->members,
             'personal' => [

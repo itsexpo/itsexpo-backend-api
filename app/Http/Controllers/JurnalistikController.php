@@ -6,7 +6,6 @@ use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use App\Core\Application\Service\GetDataJurnalistik\GetDataJurnalistikService;
 use App\Core\Application\Service\JoinTeamJurnalistik\JoinTeamJurnalistikRequest;
 use App\Core\Application\Service\JoinTeamJurnalistik\JoinTeamJurnalistikService;
@@ -27,15 +26,15 @@ class JurnalistikController extends Controller
     }
 
         public function joinTeam(Request $request, JoinTeamJurnalistikService $service)
-    {
-        $request->validate([
-            'code_team' => 'string',
-        ]);
+        {
+            $request->validate([
+                'code_team' => 'string',
+            ]);
 
-        $input = new JoinTeamJurnalistikRequest($request->input('code_team'));
-        $service->execute($input, $request->get('account'));
-        return $this->success("Berhasil Bergabung Dengan Team");
-    }
+            $input = new JoinTeamJurnalistikRequest($request->input('code_team'));
+            $service->execute($input, $request->get('account'));
+            return $this->success("Berhasil Bergabung Dengan Team");
+        }
 
     public function deleteTeam(Request $request, DeleteTeamJurnalistikService $service): JsonResponse
     {
@@ -105,6 +104,7 @@ class JurnalistikController extends Controller
             $request->input('provinsi_id'),
             $request->input('kabupaten_id'),
             $request->input('name'),
+            $request->input('member_type'),
             $request->input('asal_instansi'),
             $request->input('id_line'),
             $request->file('id_card'),

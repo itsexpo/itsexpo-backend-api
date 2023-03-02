@@ -12,6 +12,8 @@ interface JurnalistikMemberRepositoryInterface
     public function find(JurnalistikMemberId $id): ?JurnalistikMember;
 
     public function findByUser(UserId $user_id): ?JurnalistikMember;
+    
+    public function findByUsername(UserId $user_id, string $username): ?JurnalistikMember;
 
     public function findAllMember(JurnalistikTeamId $team_id): array;
 

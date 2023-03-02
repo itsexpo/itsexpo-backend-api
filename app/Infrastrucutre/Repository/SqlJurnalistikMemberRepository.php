@@ -3,12 +3,9 @@
 namespace App\Infrastrucutre\Repository;
 
 use App\Core\Domain\Models\Jurnalistik\JurnalistikMemberType;
-use App\Core\Domain\Models\Jurnalistik\JurnalistikMemberType;
 use Illuminate\Support\Facades\DB;
 use App\Core\Domain\Models\Jurnalistik\Member\JurnalistikMember;
 use App\Core\Domain\Models\Jurnalistik\Member\JurnalistikMemberId;
-use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikTeamId;
-use App\Core\Domain\Models\User\UserId;
 use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikTeamId;
 use App\Core\Domain\Models\User\UserId;
 use App\Core\Domain\Repository\JurnalistikMemberRepositoryInterface;
@@ -42,10 +39,9 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
 
         return $this->constructFromRows([$row])[0];
     }
-
-    public function findByUser(UserId $user_id): ?JurnalistikMember
+    public function findByUsername(UserId $user_id, string $username): ?JurnalistikMember
     {
-        $row = DB::table('jurnalistik_member')->where('user_id', $user_id->toString())->first();
+        $row = DB::table('jurnalistik_member')->where('user_id', $user_id->toString())->where('name', $username)->first();
 
         if (!$row) {
             return null;
@@ -69,9 +65,6 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
         $jurnalistik_member = [];
         foreach ($rows as $row) {
             $jurnalistik_member[] = new JurnalistikMember(
-                new JurnalistikMemberId($row->id),
-                new JurnalistikTeamId($row->jurnalistik_team_id),
-                new UserId($row->user_id),
                 new JurnalistikMemberId($row->id),
                 new JurnalistikTeamId($row->jurnalistik_team_id),
                 new UserId($row->user_id),
