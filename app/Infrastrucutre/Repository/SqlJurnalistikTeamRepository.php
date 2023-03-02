@@ -44,6 +44,19 @@ class SqlJurnalistikTeamRepository implements JurnalistikTeamRepositoryInterface
         $jurnalistik_team->update(
             ['jumlah_anggota' => (int)$jurnalistik_team->first()->jumlah_anggota - 1]
         );
+      }
+    public function persist(JurnalistikTeam $team): void
+    {
+        DB::table('jurnalistik_team')->upsert([
+             'id' => $team->getId()->toString(),
+             'pembayaran_id' => $team->getPembayaranId(),
+             'team_name' => $team->getTeamName(),
+             'team_code' => $team->getTeamCode(),
+             'team_status' => $team->getTeamStatus(),
+             'jumlah_anggota' => $team->getJumlahAnggota(),
+             'lomba_category' => $team->getLombaCategory(),
+             'jenis_kegiatan' => $team->getJenisKegiatan(),
+         ], 'id');
     }
 
     /**

@@ -14,5 +14,8 @@ interface JurnalistikMemberRepositoryInterface
     public function findByUser(UserId $user_id): ?JurnalistikMember;
 
     public function findAllMember(JurnalistikTeamId $team_id): array;
+
+    public function persist(JurnalistikMember $member): void;
+    
     public function updateTeamId(JurnalistikMemberId $personal_id, JurnalistikTeamId $team_id): void;
 }

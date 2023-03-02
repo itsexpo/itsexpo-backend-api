@@ -33,8 +33,6 @@ use App\Core\Domain\Repository\AccountVerificationRepositoryInterface;
 use App\Core\Domain\Repository\JurnalistikMemberRepositoryInterface;
 use App\Core\Domain\Repository\JurnalistikTeamRepositoryInterface;
 use App\Core\Domain\Repository\PengumumanRepositoryInterface;
-use App\Infrastrucutre\Repository\SqlJurnalistikMemberRepository;
-use App\Infrastrucutre\Repository\SqlJurnalistikTeamRepository;
 use App\Infrastrucutre\Repository\SqlPengumumanRepository;
 use App\Core\Domain\Repository\PembayaranRepositoryInterface;
 use App\Infrastrucutre\Repository\SqlPembayaranRepository;
