@@ -5,21 +5,15 @@ namespace App\Infrastrucutre\Repository;
 use Illuminate\Support\Facades\DB;
 use App\Core\Domain\Models\ListEvent\ListEvent;
 use App\Core\Domain\Repository\ListEventRepositoryInterface;
+use Illuminate\Support\Facades\Date;
 
 class SqlListEventRepository implements ListEventRepositoryInterface
 {
     public function getAll(): array
     {
         $rows = DB::table('list_event')->get();
-        // dd($rows);
 
-        $list = [];
-        foreach ($rows as $row) {
-            array_push($list, $row);
-        }
-
-        // dd($list);
-        return $list;
+        return $this->constructFromRows($rows->toArray());
     }
 
     public function find(int $list_event_id): ?ListEvent
@@ -40,10 +34,11 @@ class SqlListEventRepository implements ListEventRepositoryInterface
                 $row->id,
                 $row->name,
                 $row->kuota,
-                $row->start_date,
-                $row->close_date,
+                Date::parse($row->created_at),
+                Date::parse($row->updated_at)
             );
         }
+
         return $list_event;
     }
 }
