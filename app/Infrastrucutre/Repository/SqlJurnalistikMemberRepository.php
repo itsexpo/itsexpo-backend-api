@@ -19,6 +19,13 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
         return $this->constructFromRows([$row])[0];
     }
 
+    public function findAllMember(JurnalistikTeamId $jurnalistik_team_id): array
+    {
+        $row = DB::table('jurnalistik_member')->where('jurnalistik_team_id', $jurnalistik_team_id->toString())->get();
+
+        return $this->constructFromRows($row->all());
+    }
+
     public function findByUser(UserId $user_id): ?JurnalistikMember
     {
         $row = DB::table('jurnalistik_member')->where('user_id', $user_id->toString())->first();
@@ -28,13 +35,6 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
         }
 
         return $this->constructFromRows([$row])[0];
-    }
-
-    public function findAllMember(JurnalistikTeamId $jurnalistik_team_id): array
-    {
-        $row = DB::table('jurnalistik_member')->where('jurnalistik_team_id', $jurnalistik_team_id->toString())->get();
-
-        return $this->constructFromRows($row->all());
     }
 
     /**
