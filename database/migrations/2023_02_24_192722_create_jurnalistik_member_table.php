@@ -28,7 +28,7 @@ return new class extends Migration {
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
-            $table->foreign('jurnalistik_team_id')->references('id')->on('jurnalistik_team');
+            $table->foreign('jurnalistik_team_id')->references('id')->on('jurnalistik_team')->onDelete("set null");
             $table->foreign('user_id')->references('id')->on('user');
             $table->foreign('provinsi_id')->references('id')->on('provinsi');
             $table->foreign('kabupaten_id')->references('id')->on('kabupaten');
