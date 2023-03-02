@@ -11,7 +11,7 @@ use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\DepartemenController;
-use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\JurnalistikController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UrlShortenerController;
 use App\Http\Controllers\RoleHasPermissionController;
@@ -98,10 +98,7 @@ Route::middleware(['iam'])->group(
         Route::delete('/permissions', [PermissionController::class, 'delete'])->middleware('permission:permissions.delete');
         Route::put('/permissions', [PermissionController::class, 'update'])->middleware('permission:permissions.update');
 
-        //Pengumuman
-        Route::post('/pengumuman', [PengumumanController::class, 'add'])->middleware('permission:pengumuman.store');
-        Route::get('/pengumuman', [PengumumanController::class, 'get'])->middleware('permission:pengumuman.index');
-        Route::put('/pengumuman', [PengumumanController::class, 'update'])->middleware('permission:pengumuman.update');
-        Route::delete('/pengumuman', [PengumumanController::class, 'delete'])->middleware('permission:pengumuman.delete');
+        // Jurnalistik
+        Route::post('/pre_event/jurnalistik/team', [JurnalistikController::class, 'joinTeam']);
     }
 );
