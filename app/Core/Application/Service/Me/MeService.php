@@ -2,6 +2,7 @@
 
 namespace App\Core\Application\Service\Me;
 
+use App\Core\Domain\Models\ListEvent\ListEvent;
 use Exception;
 use App\Exceptions\UserException;
 use App\Core\Domain\Models\UserAccount;
@@ -38,8 +39,7 @@ class MeService
         RoleHasPermissionRepositoryInterface $role_has_permission_repository,
         ListEventRepositoryInterface $list_event_repository,
         UserHasListEventRepositoryInterface $user_has_list_event_repository
-    )
-    {
+    ) {
         $this->user_repository = $user_repository;
         $this->role_repository = $role_repository;
         $this->permission_repository = $permission_repository;
@@ -60,8 +60,19 @@ class MeService
         }
         $user_events_id = $this->user_has_list_event_repository->findByUserIdReturningOnlyEventsId($account->getUserId());
 
-        //LANJUT--LANJUT--LANJUT--LANJUT--LANJUT--LANJUT--LANJUT--LANJUT--LANJUT--LANJUT--LANJUT
+        $list_event = $this->list_event_repository->getAll();
 
+        $user_has_event = array_map(function (ListEvent $event) use ($user_events_id) {
+            $status = in_array($event->getId(), $user_events_id);
+            return [
+                $event->getName() => [
+                    'status' => $status,
+                    'start_date' => new \DateTime($event->getStartDate()->toIso8601String()),
+                    'close_date' => new \DateTime($event->getCloseDate()->toIso8601String())
+                ]
+            ];
+        }, $list_event);
+        
         $routes = $this->role_has_permission_repository->findByRoleId($role->getId());
         $routes_array = array_map(function (RoleHasPermission $route) {
             return new RoutesResponse(
@@ -69,6 +80,6 @@ class MeService
             );
         }, $routes);
 
-        return new MeResponse($user, $role->getName(), $routes_array);
+        return new MeResponse($user, $role->getName(), $routes_array, $user_has_event);
     }
 }
