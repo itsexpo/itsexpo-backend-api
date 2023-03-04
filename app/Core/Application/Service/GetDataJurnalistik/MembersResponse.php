@@ -24,7 +24,6 @@ class MembersResponse implements JsonSerializable
         return false;
     }
 
-
     public function jsonSerialize(): array
     {
         $response = [

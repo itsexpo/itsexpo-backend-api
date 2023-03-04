@@ -23,6 +23,14 @@ class RegisterJurnalistikMemberService
 
     public function execute(RegisterJurnalistikMemberRequest $request, UserAccount $account)
     {
+        // Cek User Terdaftar
+        $registeredUser = $this->jurnalistik_member_repository->findByUserId($account->getUserId());
+
+        if ($registeredUser) {
+            UserException::throw("User Sudah Mendaftar di Event Jurnalistik", 1001, 404);
+        }
+
+        // Cek File Exception
         if ($request->getIdCard()->getSize() > 1048576) {
             UserException::throw("ID Card Harus Dibawah 1Mb", 2000);
         }
@@ -44,6 +52,8 @@ class RegisterJurnalistikMemberService
         if (!$shareUrl) {
             UserException::throw("Upload Share Sosmed Gagal", 2003);
         }
+
+        // Create Member
         $member = JurnalistikMember::create(
             null,
             $account->getUserId(),

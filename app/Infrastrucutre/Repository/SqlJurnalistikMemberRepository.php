@@ -14,7 +14,28 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
 {
     public function find(JurnalistikMemberId $jurnalistik_member_id): ?JurnalistikMember
     {
-        $row = DB::table('jurnalistik_member')->where('id', $jurnalistik_member_id)->first();
+        $row = DB::table('jurnalistik_member')->where('id', $jurnalistik_member_id->toString())->first();
+        if (!$row) {
+            return null;
+        }
+        return $this->constructFromRows([$row])[0];
+    }
+
+
+    public function updateTeamId(JurnalistikMemberId $personal_id, JurnalistikTeamId $team_id): void
+    {
+        DB::table('jurnalistik_member')->where('id', $personal_id->toString())->update([
+            'jurnalistik_team_id' => $team_id->toString(),
+        ]);
+    }
+
+    public function findByUserId(UserId $user_id): ?JurnalistikMember
+    {
+        $row = DB::table('jurnalistik_member')->where('user_id', $user_id->toString())->first();
+
+        if (!$row) {
+            return null;
+        }
 
         return $this->constructFromRows([$row])[0];
     }
@@ -24,17 +45,6 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
         $row = DB::table('jurnalistik_member')->where('jurnalistik_team_id', $jurnalistik_team_id->toString())->get();
 
         return $this->constructFromRows($row->all());
-    }
-
-    public function findByUser(UserId $user_id): ?JurnalistikMember
-    {
-        $row = DB::table('jurnalistik_member')->where('user_id', $user_id->toString())->first();
-
-        if (!$row) {
-            return null;
-        }
-
-        return $this->constructFromRows([$row])[0];
     }
 
     /**
@@ -49,7 +59,7 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
                 new JurnalistikTeamId($row->jurnalistik_team_id),
                 new UserId($row->user_id),
                 $row->kabupaten_id,
-                $row->povinsi_id,
+                $row->provinsi_id,
                 $row->name,
                 JurnalistikMemberType::from($row->member_type),
                 $row->asal_instansi,

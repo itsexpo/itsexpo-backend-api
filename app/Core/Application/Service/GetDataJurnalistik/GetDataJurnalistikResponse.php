@@ -40,11 +40,13 @@ class GetDataJurnalistikResponse implements JsonSerializable
         $response = [
             'id_tim' => $this->jurnalistik_team->getId()->toString(),
             'name_tim' => $this->jurnalistik_team->getTeamName(),
+            'ketua_tim' => $this->cekKetua(),
             'code_tim' => $this->jurnalistik_team->getTeamCode(),
             'status' => [
                 'status' => $this->jurnalistik_team->getTeamStatus(),
                 'pembayaran' => $this->pembayaran,
             ],
+            'category_jurnalistik' => $this->jurnalistik_team->getLombaCategory(),
             'peserta' => $this->members,
             'personal' => [
                 'id' => $this->personal->getId()->toString(),

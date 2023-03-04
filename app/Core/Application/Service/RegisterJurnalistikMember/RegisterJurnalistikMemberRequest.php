@@ -2,6 +2,7 @@
 
 namespace App\Core\Application\Service\RegisterJurnalistikMember;
 
+use App\Core\Domain\Models\Jurnalistik\JurnalistikMemberType;
 use Illuminate\Http\UploadedFile;
 
 class RegisterJurnalistikMemberRequest
@@ -9,6 +10,8 @@ class RegisterJurnalistikMemberRequest
     private string $kabupaten_id;
     private string $provinsi_id;
     private string $name;
+    // private JurnalistikMemberType $member_type;
+    private string $member_type;
     private string $asal_instansi;
     private string $id_line;
     private UploadedFile $id_card;
@@ -19,17 +22,19 @@ class RegisterJurnalistikMemberRequest
      * @param string $provinsi_id
      * @param string $kabupaten_id
      * @param string $name
+     * @param string $member_type
      * @param string $asal_instansi
      * @param string $id_line
      * @param UploadedFile $id_card
      * @param UploadedFile $follow_sosmed_url
      * @param UploadedFile $share_poster_url
      */
-    public function __construct(string $provinsi_id, string $kabupaten_id, string $name, string $asal_instansi, string $id_line, UploadedFile $id_card, UploadedFile $follow_sosmed_url, UploadedFile $share_poster_url)
+    public function __construct(string $provinsi_id, string $kabupaten_id, string $name, string $member_type, string $asal_instansi, string $id_line, UploadedFile $id_card, UploadedFile $follow_sosmed_url, UploadedFile $share_poster_url)
     {
         $this->provinsi_id = $provinsi_id;
         $this->kabupaten_id = $kabupaten_id;
         $this->name = $name;
+        $this->member_type = $member_type;
         $this->asal_instansi = $asal_instansi;
         $this->id_line = $id_line;
         $this->id_card = $id_card;
@@ -59,6 +64,14 @@ class RegisterJurnalistikMemberRequest
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMemberType(): string
+    {
+        return $this->member_type;
     }
 
     /**
