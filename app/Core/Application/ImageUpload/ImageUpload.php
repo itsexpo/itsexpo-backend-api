@@ -50,7 +50,7 @@ class ImageUpload
     }
 
     /**
-     * throws UserException
+     * @throws UserException
      */
     public function check(): void 
     {
@@ -64,7 +64,7 @@ class ImageUpload
     }
 
     /**
-     * return string
+     * @return string
      */
     public function upload(): string
     {

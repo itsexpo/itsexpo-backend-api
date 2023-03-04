@@ -7,7 +7,6 @@ use Illuminate\Http\UploadedFile;
 class RegisterJurnalistikTeamRequest
 {
     private string $team_name;
-    private string $lomba_category;
     private string $jenis_kegiatan;
     private string $kabupaten_id;
     private string $provinsi_id;
@@ -20,7 +19,6 @@ class RegisterJurnalistikTeamRequest
 
     /**
      * @param string $team_name
-     * @param string $lomba_category
      * @param string $jenis_kegiatan
      * @param string $provinsi_id
      * @param string $kabupaten_id
@@ -32,10 +30,9 @@ class RegisterJurnalistikTeamRequest
      * @param UploadedFile $share_poster_url
      */
 
-    public function __construct(string $team_name, string $lomba_category, string $jenis_kegiatan, string $provinsi_id, string $kabupaten_id, string $name, string $asal_instansi, string $id_line, UploadedFile $id_card, UploadedFile $follow_sosmed_url, UploadedFile $share_poster_url)
+    public function __construct(string $team_name, string $jenis_kegiatan, string $provinsi_id, string $kabupaten_id, string $name, string $asal_instansi, string $id_line, UploadedFile $id_card, UploadedFile $follow_sosmed_url, UploadedFile $share_poster_url)
     {
         $this->team_name = $team_name;
-        $this->lomba_category = $lomba_category;
         $this->jenis_kegiatan = $jenis_kegiatan;
         $this->provinsi_id = $provinsi_id;
         $this->kabupaten_id = $kabupaten_id;
@@ -53,14 +50,6 @@ class RegisterJurnalistikTeamRequest
     public function getTeamName() : string
     {
         return $this->team_name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLombaCategory() : string
-    {
-        return $this->lomba_category;
     }
 
     /**

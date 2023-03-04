@@ -55,7 +55,6 @@ class JurnalistikController extends Controller
         $request->validate([
           'team_name' => 'max:512|string',
           'team_code' => 'max:512|string',
-          'lomba_category' => 'max:512|string',
           'jenis_kegiatan' => 'max:512|string',
           'jumlah_anggota' => 'min:3|max:5|string',
           'provinsi_id' => 'max:512|string',
@@ -67,7 +66,6 @@ class JurnalistikController extends Controller
 
         $input = new RegisterJurnalistikTeamRequest(
             $request->input('team_name'),
-            $request->input('lomba_category'),
             $request->input('jenis_kegiatan'),
             $request->input('provinsi_id'),
             $request->input('kabupaten_id'),
