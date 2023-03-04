@@ -15,7 +15,7 @@ use App\Http\Controllers\JurnalistikController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UrlShortenerController;
 use App\Http\Controllers\RoleHasPermissionController;
-
+  
 Route::get('hello', function () {
     return response()->json();
 });
@@ -70,6 +70,8 @@ Route::middleware(['iam'])->group(
         Route::get('/pre_event/jurnalistik', [JurnalistikController::class, 'get']);
         Route::post('/pre_event/jurnalistik/join', [JurnalistikController::class, 'joinTeam']);
         Route::delete('/pre_event/jurnalistik/team', [JurnalistikController::class, 'deleteTeam']);
+        Route::post('/pre_event/jurnalistik/ketua', [JurnalistikController::class, 'createJurnalistikKetua']);
+        Route::post('/pre_event/jurnalistik/member', [JurnalistikController::class, 'createJurnalistikMember']);
 
         //User
         Route::get('/me', [UserController::class, 'me']);

@@ -29,7 +29,7 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
         ]);
     }
 
-    public function findByUser(UserId $user_id): ?JurnalistikMember
+    public function findByUserId(UserId $user_id): ?JurnalistikMember
     {
         $row = DB::table('jurnalistik_member')->where('user_id', $user_id->toString())->first();
 
@@ -70,5 +70,26 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
             );
         }
         return $jurnalistik_member;
+    }
+
+    public function persist(JurnalistikMember $member): void
+    {
+        DB::table('jurnalistik_member')->upsert(
+            [
+              'id' => $member->getId()->toString(),
+              'jurnalistik_team_id' => $member->getJurnalistikTeamId()?$member->getJurnalistikTeamId()->toString(): null,
+              'user_id' => $member->getUserId()->toString(),
+              'provinsi_id' => $member->getProvinsiId(),
+              'kabupaten_id' => $member->getKabupatenId(),
+              'name' => $member->getName(),
+              'member_type' => $member->getMemberType()->value,
+              'asal_instansi' => $member->getAsalInstansi(),
+              'id_line' => $member->getIdLine(),
+              'id_card_url' => $member->getIdCardUrl(),
+              'follow_sosmed_url' => $member->getFollowSosmedUrl(),
+              'share_poster_url' => $member->getSharePosterUrl(),
+            ],
+            'id'
+        );
     }
 }

@@ -19,18 +19,18 @@ class SqlProvinsiRepository implements ProvinsiRepositoryInterface
         return $this->constructFromRows($rows->all());
     }
 
-    public function find(int $id): ?Provinsi
-    {
-        $row = DB::table('provinsi')->where('id', $id)->first();
+        public function find(int $id): ?Provinsi
+        {
+            $row = DB::table('provinsi')->where('id', $id)->first();
 
-        return $this->constructFromRows([$row])[0];
-    }
+            return $this->constructFromRows([$row])[0];
+        }
 
     /**
-     * @param array $rows
-     * @return Provinsi[]
-     * @throws Exception
-     */
+         * @param array $rows
+         * @return Provinsi[]
+         * @throws Exception
+         */
     public function constructFromRows(array $rows): array
     {
         $provinsi = [];

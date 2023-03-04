@@ -2,8 +2,8 @@
 
 namespace App\Core\Domain\Models\Jurnalistik\Team;
 
-use App\Core\Domain\Models\Pembayaran\PembayaranId;
 use Exception;
+use App\Core\Domain\Models\Pembayaran\PembayaranId;
 
 class JurnalistikTeam
 {
@@ -13,10 +13,10 @@ class JurnalistikTeam
     private string $team_code;
     private bool $team_status;
     private int $jumlah_anggota;
-    private string $lomba_category;
-    private string $jenis_kegiatan;
+    private JurnalistikLombaCategory $lomba_category;
+    private JurnalistikJenisKegiatan $jenis_kegiatan;
 
-    public function __construct(JurnalistikTeamId $id, ?PembayaranId $pembayaran_id, string $team_name, string $team_code, bool $team_status, int $jumlah_anggota, string $lomba_category, string $jenis_kegiatan)
+    public function __construct(JurnalistikTeamId $id, ?PembayaranId $pembayaran_id, string $team_name, string $team_code, bool $team_status, int $jumlah_anggota, JurnalistikLombaCategory $lomba_category, JurnalistikJenisKegiatan $jenis_kegiatan)
     {
         $this->id = $id;
         $this->pembayaran_id = $pembayaran_id;
@@ -31,7 +31,7 @@ class JurnalistikTeam
     /**
      * @throws Exception
      */
-    public static function create(?PembayaranId $pembayaran_id, string $team_name, string $team_code, bool $team_status, int $jumlah_anggota, string $lomba_category, string $jenis_kegiatan): self
+    public static function create(?PembayaranId $pembayaran_id, string $team_name, string $team_code, bool $team_status, int $jumlah_anggota, JurnalistikLombaCategory $lomba_category, JurnalistikJenisKegiatan $jenis_kegiatan): self
     {
         return new self(
             JurnalistikTeamId::generate(),
@@ -94,17 +94,17 @@ class JurnalistikTeam
     }
 
     /**
-     * @return string
+     * @return JurnalistikLombaCategory
      */
-    public function getLombaCategory(): string
+    public function getLombaCategory(): JurnalistikLombaCategory
     {
         return $this->lomba_category;
     }
 
     /**
-     * @return string
+     * @return JurnalistikJenisKegiatan
      */
-    public function getJenisKegiatan(): string
+    public function getJenisKegiatan(): JurnalistikJenisKegiatan
     {
         return $this->jenis_kegiatan;
     }

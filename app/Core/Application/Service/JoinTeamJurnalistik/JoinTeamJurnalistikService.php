@@ -2,6 +2,7 @@
 
 namespace App\Core\Application\Service\JoinTeamJurnalistik;
 
+use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikLombaCategory;
 use App\Core\Domain\Models\UserAccount;
 use App\Exceptions\UserException;
 use App\Core\Domain\Repository\RoleRepositoryInterface;
@@ -25,9 +26,9 @@ class JoinTeamJurnalistikService
     }
     public function execute(JoinTeamJurnalistikRequest $request, UserAccount $account)
     {
-        $jurnalistik_member = $this->jurnalistik_member_repository->findByUser($account->getUserId());
+        $jurnalistik_member = $this->jurnalistik_member_repository->findByUserId($account->getUserId());
         if (!$jurnalistik_member) {
-            UserException::throw("User Not Found", 6016);
+            UserException::throw("Peserta Tidak Ditemukan", 6016);
         }
         if ($jurnalistik_member->getJurnalistikTeamId()->toString()) {
             UserException::throw("User Sudah Join Team", 6004);
@@ -38,18 +39,24 @@ class JoinTeamJurnalistikService
             UserException::throw("Jurnalistik Team Tidak Ditemukan", 6017);
         }
 
-        if ($jurnalistik_team->getJumlahAnggota() == 5) {
+        if ($jurnalistik_team->getJumlahAnggota() >= 5) {
             UserException::throw("Jumlah Team Sudah Penuh", 6005);
         }
 
         $user = $this->user_repository->find($account->getUserId());
         $role = $this->role_repository->find($user->getRoleId());
-        if ($role->getName() != $jurnalistik_team->getLombaCategory()) {
-            UserException::throw("Role Anda Tidak Diperbolehkan Mengikuti Kategori Lomba yang Dipilih Team", 6003);
+        if ($role->getName() == 'SMA/Sederajat') {
+            if ($jurnalistik_team->getLombaCategory() != JurnalistikLombaCategory::BLOGGER) {
+                UserException::throw("Role Anda Tidak Diperbolehkan Mengikuti Kategori Lomba yang Dipilih Team", 6003);
+            }
         }
-
-        $user = $this->jurnalistik_member_repository->findByUser($account->getUserId());
-        $this->jurnalistik_member_repository->updateTeamId($user->getId(), $jurnalistik_team->getId());
+        if ($role->getName() == 'Mahasiswa') {
+            if ($jurnalistik_team->getLombaCategory() != JurnalistikLombaCategory::TELEVISION) {
+                UserException::throw("Role Anda Tidak Diperbolehkan Mengikuti Kategori Lomba yang Dipilih Team", 6003);
+            }
+        }
+        
+        $this->jurnalistik_member_repository->updateTeamId($jurnalistik_member->getId(), $jurnalistik_team->getId());
         $this->jurnalistik_team_repository->incrementJumlahAnggota($request->getCodeTeam());
     }
 }

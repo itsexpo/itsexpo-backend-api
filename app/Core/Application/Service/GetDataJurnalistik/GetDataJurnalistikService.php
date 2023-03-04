@@ -31,25 +31,27 @@ class GetDataJurnalistikService
         $this->status_pembayaran = $status_pembayaran;
     }
 
-    public function execute(UserAccount $account)
+    public function execute(UserAccount $account): GetDataJurnalistikResponse
     {
-        $user_jurnalistik_info = $this->jurnalistik_member_repository->findByUser($account->getUserId());
+        $user_jurnalistik_info = $this->jurnalistik_member_repository->findByUserId($account->getUserId());
         if (!$user_jurnalistik_info) {
-            return UserException::throw("Data tidak ditemukan", 6060, 400);
+            return UserException::throw("Data Tidak Ditemukan", 6060, 400);
+        }
+        if ($user_jurnalistik_info->getJurnalistikTeamId()->toString() == null) {
+            return UserException::throw("User Belum Memiliki Tim", 6060, 400);
         }
         $member_data = $this->jurnalistik_member_repository->findAllMember($user_jurnalistik_info->getJurnalistikTeamId());
         $team_data = $this->jurnalistik_team_repository->find($user_jurnalistik_info->getJurnalistikTeamId());
-
         $members_array = array_map(function (JurnalistikMember $member) {
             return new MembersResponse($member);
         }, $member_data);
 
         $user_provinsi = $this->provinsi_repository->find($user_jurnalistik_info->getProvinsiId())->getName();
         $user_kabupaten = $this->kabupaten_repository->find($user_jurnalistik_info->getKabupatenId())->getName();
-
-
-        $pembayaran = $this->status_pembayaran->find($this->pembayaran_repository->find($team_data->getPembayaranId())->getStatusPembayaranId())->getStatus();
-
+        $pembayaran = "awaiting payment";
+        if ($team_data->getPembayaranId()->toString() != null) {
+            $pembayaran = $this->status_pembayaran->find($this->pembayaran_repository->find($team_data->getPembayaranId())->getStatusPembayaranId())->getStatus();
+        }
         $response = new GetDataJurnalistikResponse($team_data, $members_array, $user_jurnalistik_info, $user_provinsi, $user_kabupaten, $pembayaran);
 
         return $response;

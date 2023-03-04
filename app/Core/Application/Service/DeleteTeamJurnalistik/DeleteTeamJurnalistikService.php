@@ -28,7 +28,7 @@ class DeleteTeamJurnalistikService
             UserException::throw("Anda Tidak Terdaftar Menjadi Anggota Team Ini", 6019);
         }
 
-        $executor = $this->jurnalistik_member_repository->findByUser($account->getUserId());
+        $executor = $this->jurnalistik_member_repository->findByUserId($account->getUserId());
 
         if ($executor->getMemberType() != JurnalistikMemberType::KETUA) {
             UserException::throw("Hanya Ketua yang Memiliki Akses Untuk Menghapus Data Team", 6006);
