@@ -55,11 +55,8 @@ class JoinTeamJurnalistikService
                 UserException::throw("Role Anda Tidak Diperbolehkan Mengikuti Kategori Lomba yang Dipilih Team", 6003);
             }
         }
-        $user = $this->jurnalistik_member_repository->findByUserId($account->getUserId());
-        if (!$user) {
-            UserException::throw("User Tidak Ditemukan", 6016);
-        }
-        $this->jurnalistik_member_repository->updateTeamId($user->getId(), $jurnalistik_team->getId());
+        
+        $this->jurnalistik_member_repository->updateTeamId($jurnalistik_member->getId(), $jurnalistik_team->getId());
         $this->jurnalistik_team_repository->incrementJumlahAnggota($request->getCodeTeam());
     }
 }

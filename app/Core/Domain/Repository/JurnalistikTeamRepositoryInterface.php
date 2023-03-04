@@ -4,6 +4,8 @@ namespace App\Core\Domain\Repository;
 
 use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikTeam;
 use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikTeamId;
+use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikJenisKegiatan;
+use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikLombaCategory;
 
 interface JurnalistikTeamRepositoryInterface
 {
@@ -18,4 +20,8 @@ interface JurnalistikTeamRepositoryInterface
     public function findByTeamCode(string $team_code): ?JurnalistikTeam;
 
     public function countAllTeams(): int;
+
+    public function countTeamWithJenis(JurnalistikJenisKegiatan $jenis_kegiatan): int;
+    public function countTeamWithJenisAndCategory(JurnalistikJenisKegiatan $jenis_kegiatan, JurnalistikLombaCategory $lomba_category): int;
+    
 }

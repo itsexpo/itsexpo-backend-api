@@ -92,4 +92,21 @@ class SqlJurnalistikTeamRepository implements JurnalistikTeamRepositoryInterface
         
         return $team_code;
     }
+
+    public function countTeamWithJenis(JurnalistikJenisKegiatan $jenis_kegiatan): int
+    {
+        $count = DB::table('jurnalistik_team')
+            ->where('jenis_kegiatan', '=', $jenis_kegiatan->value)
+            ->count();
+        return $count;
+    }
+
+    public function countTeamWithJenisAndCategory(JurnalistikJenisKegiatan $jenis_kegiatan, JurnalistikLombaCategory $lomba_category): int
+    {
+        $count = DB::table('jurnalistik_team')
+            ->where('jenis_kegiatan', '=', $jenis_kegiatan->value)
+            ->where('lomba_category', '=', $lomba_category->value)
+            ->count();
+        return $count;
+    }
 }
