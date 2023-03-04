@@ -67,8 +67,8 @@ class MeService
             return [
                 $event->getName() => [
                     'status' => $status,
-                    'start_date' => new \DateTime($event->getStartDate()->toIso8601String()),
-                    'close_date' => new \DateTime($event->getCloseDate()->toIso8601String())
+                    'start_date' => $event->getStartDate(),
+                    'close_date' => $event->getCloseDate()
                 ]
             ];
         }, $list_event);
