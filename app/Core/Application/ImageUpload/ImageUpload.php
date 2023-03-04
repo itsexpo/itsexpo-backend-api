@@ -55,12 +55,12 @@ class ImageUpload
     public function check(): void 
     {
         if (
-            in_array($this->uploaded_file->getClientOriginalExtension(), $this->available_type) &&
-            in_array($this->uploaded_file->getClientMimeType(), $this->available_type)
+            !in_array($this->uploaded_file->getClientOriginalExtension(), $this->available_type) ||
+            !in_array($this->uploaded_file->getClientMimeType(), $this->available_mime_type)
             ) 
-            UserException::throw("Tipe File Invalid", 2000);
+            UserException::throw("Tipe File {$this->name} Invalid", 2000);
         if ($this->uploaded_file->getSize() > 1048576)
-            UserException::throw("ID Card Harus Dibawah 1Mb", 2000);
+            UserException::throw("{$this->name} Harus Dibawah 1Mb", 2000);
     }
 
     /**

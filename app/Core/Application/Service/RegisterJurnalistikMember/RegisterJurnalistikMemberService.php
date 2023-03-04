@@ -50,7 +50,7 @@ class RegisterJurnalistikMemberService
             $request->getSharePosterUrl(), 
             'jurnalistik/share_poster', 
             $account->getUserId()->toString(), 
-            "Share Sosmed")
+            "Share Poster")
                 ->upload();
 
         // Create Member
