@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Application\ImageCheck;
+namespace App\Core\Application\ImageUpload;
 
 use App\Exceptions\UserException;
 use Illuminate\Http\UploadedFile;
