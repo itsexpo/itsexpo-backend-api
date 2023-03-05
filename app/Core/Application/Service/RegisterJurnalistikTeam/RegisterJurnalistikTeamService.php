@@ -4,7 +4,6 @@ namespace App\Core\Application\Service\RegisterJurnalistikTeam;
 
 use App\Exceptions\UserException;
 use App\Core\Domain\Models\UserAccount;
-use Illuminate\Support\Facades\Storage;
 use App\Core\Application\ImageUpload\ImageUpload;
 use App\Core\Domain\Repository\RoleRepositoryInterface;
 use App\Core\Domain\Repository\UserRepositoryInterface;
@@ -45,23 +44,24 @@ class RegisterJurnalistikTeamService
         if ($registeredUser) {
             UserException::throw("User Sudah Mendaftar di Event Jurnalistik", 1001, 404);
         }
-        if ($user->getRoleId() != 4 || $user->getRoleId() != 5){
-            UserException::throw("", 6002);
-        }            
 
         $user = $this->user_repository->find($account->getUserId());
         $role = $this->role_repository->find($user->getRoleId());
 
         $lomba_category = null;
         $jenis_kegiatan = JurnalistikJenisKegiatan::from($request->getJenisKegiatan());
+        $lomba_category = JurnalistikLombaCategory::from($request->getLombaCategory());
 
         if ($role->getName() == 'SMA/Sederajat') {
-            $lomba_category = JurnalistikLombaCategory::BLOGGER;
+            if ($lomba_category != JurnalistikLombaCategory::BLOGGER) {
+                UserException::throw("Role Anda Tidak Diperbolehkan Mengikuti Kategori Lomba yang Dipilih Team", 6003);
+            }
         }
-        else if ($role->getName() == 'Mahasiswa') {
-            $lomba_category = JurnalistikLombaCategory::TELEVISION;
-        }
-        else {
+        if ($role->getName() == 'Mahasiswa') {
+            if ($lomba_category != JurnalistikLombaCategory::TELEVISION) {
+                UserException::throw("Role Anda Tidak Diperbolehkan Mengikuti Kategori Lomba yang Dipilih Team", 6003);
+            }
+        } else {
             UserException::throw("Role Anda Tidak Diperbolehkan Mengikuti Lomba Ini", 6002);
         }
 
@@ -72,14 +72,14 @@ class RegisterJurnalistikTeamService
         if ($jenis_kegiatan == JurnalistikJenisKegiatan::KHUSUS) {
             //Mendapatkan total dari team yang mendaftar Jenis KHUSUS
             $count = $this->jurnalistik_team_repository->countTeamWithJenis($jenis_kegiatan);
-            if($count >= $KHUSUS) {
+            if ($count >= $KHUSUS) {
                 UserException::throw("Jenis Kegiatan Khusus Sudah Penuh", 6002);
             }
         } else {
             //karna menggunakan variable maka pencarian bergantung pada variable tersebut
             //ini hanya work jika Kategori BLOGGER dan TELEVISION memiliki batas yang sama
             $count = $this->jurnalistik_team_repository->countTeamWithJenisAndCategory($jenis_kegiatan, $lomba_category);
-            if($count >= $UMUM) {
+            if ($count >= $UMUM) {
                 UserException::throw("Kategori Lomba {$lomba_category->value} Sudah Penuh", 6002);
             }
         }
@@ -101,24 +101,27 @@ class RegisterJurnalistikTeamService
         
         // Cek File Exception
         $idCardUrl = ImageUpload::create(
-            $request->getIdCard(), 
-            'jurnalistik/id_card', 
-            $account->getUserId()->toString(), 
-            "ID Card")
+            $request->getIdCard(),
+            'jurnalistik/id_card',
+            $account->getUserId()->toString(),
+            "ID Card"
+        )
                 ->upload();
 
         $followUrl = ImageUpload::create(
-            $request->getFollowSosmedUrl(), 
-            'jurnalistik/follow_sosmed', 
-            $account->getUserId()->toString(), 
-            "Follow Sosmed")
+            $request->getFollowSosmedUrl(),
+            'jurnalistik/follow_sosmed',
+            $account->getUserId()->toString(),
+            "Follow Sosmed"
+        )
                 ->upload();
 
         $shareUrl = ImageUpload::create(
-            $request->getSharePosterUrl(), 
-            'jurnalistik/share_poster', 
-            $account->getUserId()->toString(), 
-            "Share Poster")
+            $request->getSharePosterUrl(),
+            'jurnalistik/share_poster',
+            $account->getUserId()->toString(),
+            "Share Poster"
+        )
                 ->upload();
                 
         // Ceate Member
