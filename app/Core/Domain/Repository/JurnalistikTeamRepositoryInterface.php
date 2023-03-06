@@ -11,7 +11,7 @@ interface JurnalistikTeamRepositoryInterface
 {
     public function find(JurnalistikTeamId $id): ?JurnalistikTeam;
 
-    public function persist(JurnalistikTeam $team) : void;
+    public function persist(JurnalistikTeam $team): void;
 
     public function incrementJumlahAnggota(string $team_code): void;
 
@@ -22,6 +22,9 @@ interface JurnalistikTeamRepositoryInterface
     public function countAllTeams(JurnalistikLombaCategory $role): int;
 
     public function countTeamWithJenis(JurnalistikJenisKegiatan $jenis_kegiatan): int;
-    
+
     public function countTeamWithJenisAndCategory(JurnalistikJenisKegiatan $jenis_kegiatan, JurnalistikLombaCategory $lomba_category): int;
+
+    public function constructFromRows(array $rows): array;
+    public function getCreatedAt(JurnalistikTeamId $jurnalistik_team_id): ?string;
 }

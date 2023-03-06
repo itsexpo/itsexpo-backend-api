@@ -19,6 +19,12 @@ class SqlJurnalistikTeamRepository implements JurnalistikTeamRepositoryInterface
         return $this->constructFromRows([$row])[0];
     }
 
+    public function getCreatedAt(JurnalistikTeamId $jurnalistik_team_id): ?string
+    {
+        $row = DB::table('jurnalistik_team')->where('id', $jurnalistik_team_id->toString())->first();
+        return $row->created_at;
+    }
+
     public function findByTeamCode(string $team_code): ?JurnalistikTeam
     {
         $row = DB::table('jurnalistik_team')->where('team_code', $team_code)->first();
@@ -29,15 +35,15 @@ class SqlJurnalistikTeamRepository implements JurnalistikTeamRepositoryInterface
     public function persist(JurnalistikTeam $team): void
     {
         DB::table('jurnalistik_team')->upsert([
-             'id' => $team->getId()->toString(),
-             'pembayaran_id' => $team->getPembayaranId(),
-             'team_name' => $team->getTeamName(),
-             'team_code' => $team->getTeamCode(),
-             'team_status' => $team->getTeamStatus(),
-             'jumlah_anggota' => $team->getJumlahAnggota(),
-             'lomba_category' => $team->getLombaCategory()->value,
-             'jenis_kegiatan' => $team->getJenisKegiatan()->value,
-         ], 'id');
+            'id' => $team->getId()->toString(),
+            'pembayaran_id' => $team->getPembayaranId(),
+            'team_name' => $team->getTeamName(),
+            'team_code' => $team->getTeamCode(),
+            'team_status' => $team->getTeamStatus(),
+            'jumlah_anggota' => $team->getJumlahAnggota(),
+            'lomba_category' => $team->getLombaCategory()->value,
+            'jenis_kegiatan' => $team->getJenisKegiatan()->value,
+        ], 'id');
     }
 
     public function incrementJumlahAnggota(string $team_code): void
@@ -62,7 +68,7 @@ class SqlJurnalistikTeamRepository implements JurnalistikTeamRepositoryInterface
         );
     }
 
-    private function constructFromRows(array $rows): array
+    public function constructFromRows(array $rows): array
     {
         $jurnalistik_team = [];
         foreach ($rows as $row) {
@@ -84,11 +90,11 @@ class SqlJurnalistikTeamRepository implements JurnalistikTeamRepositoryInterface
     {
         $newest = DB::table('jurnalistik_team')->where('lomba_category', '=', $role->value)
             ->count();
-        print_r($newest);
+
         if ($newest === null) {
             return 0;
         }
-        
+
         return $newest;
     }
 

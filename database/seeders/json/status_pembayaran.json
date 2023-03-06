@@ -1,22 +1,22 @@
 [
     {
         "id": 1,
-        "status": "Revisi"
+        "status": "REVISI"
     },
     {
         "id": 2,
-        "status": "Gagal"
+        "status": "GAGAL"
     },
     {
         "id": 3,
-        "status": "Success"
+        "status": "SUCCESS"
     },
     {
         "id": 4,
-        "status": "Awaiting Verification"
+        "status": "AWAITING VERIFICATION"
     },
     {
         "id": 5,
-        "status": "Awaiting Payment"
+        "status": "AWAITING PAYMENT"
     }
 ]

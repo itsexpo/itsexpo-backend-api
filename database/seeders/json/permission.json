@@ -82,5 +82,30 @@
     {
       "id": 21,
       "routes": "pengumuman.delete"
+    },
+    {
+      "id": 22,
+      "routes": "jurnalistik.index"
+    },
+    {
+      "id": 23,
+      "routes": "jurnalistik_join.store"
+    },
+    {
+      "id": 24,
+      "routes": "jurnalistik_team.delete"
+    },
+    {
+      "id": 25,
+      "routes": "jurnalistik_ketua.store"
+    },
+    {
+      "id": 26,
+      "routes": "jurnalistik_member.store"
+    },
+    {
+      "id": 27,
+      "routes": "admin_jurnalistik.index"
     }
+
   ]
