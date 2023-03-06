@@ -56,8 +56,7 @@ class RegisterJurnalistikTeamService
             if ($lomba_category != JurnalistikLombaCategory::BLOGGER) {
                 UserException::throw("Role Anda Tidak Diperbolehkan Mengikuti Kategori Lomba yang Dipilih Team", 6003);
             }
-        }
-        if ($role->getName() == 'Mahasiswa') {
+        } elseif ($role->getName() == 'Mahasiswa') {
             if ($lomba_category != JurnalistikLombaCategory::TELEVISION) {
                 UserException::throw("Role Anda Tidak Diperbolehkan Mengikuti Kategori Lomba yang Dipilih Team", 6003);
             }
