@@ -40,6 +40,17 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
         return $this->constructFromRows([$row])[0];
     }
 
+    public function findKetua(JurnalistikTeamId $team_id): ?JurnalistikMember
+    {
+        $row = DB::table('jurnalistik_member')->where('jurnalistik_team_id', $team_id->toString())->where('member_type', 'ketua')->first();
+
+        if (!$row) {
+            return null;
+        }
+
+        return $this->constructFromRows([$row])[0];
+    }
+
     public function findAllMember(JurnalistikTeamId $jurnalistik_team_id): array
     {
         $row = DB::table('jurnalistik_member')->where('jurnalistik_team_id', $jurnalistik_team_id->toString())->get();

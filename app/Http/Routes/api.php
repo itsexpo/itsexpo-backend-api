@@ -11,11 +11,12 @@ use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\DepartemenController;
+use App\Http\Controllers\JurnalistikAdminController;
 use App\Http\Controllers\JurnalistikController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UrlShortenerController;
 use App\Http\Controllers\RoleHasPermissionController;
-  
+
 Route::get('hello', function () {
     return response()->json();
 });
@@ -67,11 +68,18 @@ Route::middleware(['iam'])->group(
         })->middleware('permission:test.index');
 
         //Jurnalistik
-        Route::get('/pre_event/jurnalistik', [JurnalistikController::class, 'get']);
-        Route::post('/pre_event/jurnalistik/join', [JurnalistikController::class, 'joinTeam']);
-        Route::delete('/pre_event/jurnalistik/team', [JurnalistikController::class, 'deleteTeam']);
-        Route::post('/pre_event/jurnalistik/ketua', [JurnalistikController::class, 'createJurnalistikKetua']);
-        Route::post('/pre_event/jurnalistik/member', [JurnalistikController::class, 'createJurnalistikMember']);
+        Route::get('/pre_event/jurnalistik', [JurnalistikController::class, 'get'])->middleware('permission:jurnalistik.index');
+        Route::post('/pre_event/jurnalistik/join', [JurnalistikController::class, 'joinTeam'])->middleware('permission:jurnalistik_join.store');
+        ;
+        Route::delete('/pre_event/jurnalistik/team', [JurnalistikController::class, 'deleteTeam'])->middleware('permission:jurnalistik_team.delete');
+        ;
+        Route::post('/pre_event/jurnalistik/ketua', [JurnalistikController::class, 'createJurnalistikKetua'])->middleware('permission:jurnalistik_ketua.store');
+        ;
+        Route::post('/pre_event/jurnalistik/member', [JurnalistikController::class, 'createJurnalistikMember'])->middleware('permission:jurnalistik_member.store');
+        ;
+
+        // jurnalistik admin
+        Route::get('/admin/jurnalistik', [JurnalistikAdminController::class, 'getTeam'])->middleware('permission:admin_jurnalistik.index');
 
         //User
         Route::get('/me', [UserController::class, 'me']);
