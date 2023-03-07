@@ -80,17 +80,16 @@ class SqlJurnalistikTeamRepository implements JurnalistikTeamRepositoryInterface
         return $jurnalistik_team;
     }
 
-    public function countAllTeams(): int
+    public function countAllTeams(JurnalistikLombaCategory $role): int
     {
-        $newest = DB::table('jurnalistik_team')->max('created_at');
+        $newest = DB::table('jurnalistik_team')->where('lomba_category', '=', $role->value)
+            ->count();
+        print_r($newest);
         if ($newest === null) {
             return 0;
         }
         
-        $data = DB::table('jurnalistik_team')->where('created_at', '=', $newest)->first();
-        $team_code = (int)(explode('-', $data->team_code))[2];
-        
-        return $team_code;
+        return $newest;
     }
 
     public function countTeamWithJenis(JurnalistikJenisKegiatan $jenis_kegiatan): int

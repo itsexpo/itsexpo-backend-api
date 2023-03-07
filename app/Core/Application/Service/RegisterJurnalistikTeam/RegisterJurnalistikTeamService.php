@@ -84,9 +84,12 @@ class RegisterJurnalistikTeamService
         }
 
         // Generate Team Code
-        $team_code = 'JR-CITS-' . str_pad($this->jurnalistik_team_repository->countAllTeams() + 1, 3, "0", STR_PAD_LEFT);
+        if ($role->getName() == 'SMA/Sederajat') {
+            $team_code = 'JR-VG-CITS-' . str_pad($this->jurnalistik_team_repository->countAllTeams(JurnalistikLombaCategory::BLOGGER) + 1, 3, "0", STR_PAD_LEFT);
+        } elseif ($role->getName() == 'Mahasiswa') {
+            $team_code = 'JR-TV-CITS-' . str_pad($this->jurnalistik_team_repository->countAllTeams(JurnalistikLombaCategory::TELEVISION) + 1, 3, "0", STR_PAD_LEFT);
+        }
 
-        // Create Team
         $team = JurnalistikTeam::create(
             null,
             $request->getTeamName(),
@@ -96,6 +99,7 @@ class RegisterJurnalistikTeamService
             $lomba_category,
             $jenis_kegiatan
         );
+
         $this->jurnalistik_team_repository->persist($team);
         
         // Cek File Exception
