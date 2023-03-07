@@ -19,9 +19,9 @@ interface JurnalistikTeamRepositoryInterface
 
     public function findByTeamCode(string $team_code): ?JurnalistikTeam;
 
-    public function countAllTeams(): int;
+    public function countAllTeams(JurnalistikLombaCategory $role): int;
 
     public function countTeamWithJenis(JurnalistikJenisKegiatan $jenis_kegiatan): int;
-    public function countTeamWithJenisAndCategory(JurnalistikJenisKegiatan $jenis_kegiatan, JurnalistikLombaCategory $lomba_category): int;
     
+    public function countTeamWithJenisAndCategory(JurnalistikJenisKegiatan $jenis_kegiatan, JurnalistikLombaCategory $lomba_category): int;
 }

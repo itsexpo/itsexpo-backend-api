@@ -47,7 +47,7 @@ class JurnalistikController extends Controller
             $request->input('id_personal'),
         );
         $service->execute($input, $request->get('account'));
-        return $this->success("berhasil hapus team");
+        return $this->success("Berhasil Menghapus Team");
     }
 
     public function createJurnalistikKetua(Request $request, RegisterJurnalistikTeamService $service)
