@@ -36,7 +36,7 @@ class SqlJurnalistikTeamRepository implements JurnalistikTeamRepositoryInterface
     {
         DB::table('jurnalistik_team')->upsert([
             'id' => $team->getId()->toString(),
-            'pembayaran_id' => $team->getPembayaranId()->toString(),
+            'pembayaran_id' => $team->getPembayaranId(),
             'team_name' => $team->getTeamName(),
             'team_code' => $team->getTeamCode(),
             'team_status' => $team->getTeamStatus(),
