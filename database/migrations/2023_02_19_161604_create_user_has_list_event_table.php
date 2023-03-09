@@ -13,7 +13,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('user_has_list_event', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->uuid('id')->primary();
             $table->uuid('user_id')->index();
             $table->integer('list_event_id')->index();
             $table->timestamp('created_at')->useCurrent();

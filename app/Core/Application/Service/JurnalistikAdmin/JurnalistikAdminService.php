@@ -74,11 +74,13 @@ class JurnalistikAdminService
             "data" => $teams,
             "max_page" => ceil($rows->total() / $request->getPerPage())
         ];
-
         $team_response = array_map(function (JurnalistikTeam $team) {
-            $pembayaran_id = $this->pembayaran_repository->find($team->getPembayaranId())->getStatusPembayaranId();
+            $status_pembayaran = false;
+            if ($team->getPembayaranId()->toString() != null) {
+                $pembayaran_id = $this->pembayaran_repository->find($team->getPembayaranId())->getStatusPembayaranId();
+                $status_pembayaran = $this->status_pembayaran_repository->find($pembayaran_id)->getStatus();
+            }
             $ketua_tim = $this->jurnalistik_member_repository->findKetua($team->getId())->getName();
-            $status_pembayaran = $this->status_pembayaran_repository->find($pembayaran_id)->getStatus();
             $created_at = $this->jurnalistik_team_repository->getCreatedAt($team->getId());
             return new JurnalistikAdminResponse(
                 $ketua_tim,

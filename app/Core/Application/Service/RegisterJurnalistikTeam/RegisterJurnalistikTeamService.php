@@ -14,24 +14,29 @@ use App\Core\Domain\Repository\JurnalistikTeamRepositoryInterface;
 use App\Core\Domain\Repository\JurnalistikMemberRepositoryInterface;
 use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikJenisKegiatan;
 use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikLombaCategory;
+use App\Core\Domain\Models\UserHasListEvent\UserHasListEvent;
+use App\Core\Domain\Repository\UserHasListEventRepositoryInterface;
 
 class RegisterJurnalistikTeamService
 {
     private JurnalistikTeamRepositoryInterface $jurnalistik_team_repository;
     private JurnalistikMemberRepositoryInterface $jurnalistik_member_repository;
+    private UserHasListEventRepositoryInterface $user_has_list_event_repository;
     private UserRepositoryInterface $user_repository;
     private RoleRepositoryInterface $role_repository;
 
     /**
      * @param JurnalistikTeamRepositoryInterface $jurnalistik_team_repository
      * @param JurnalistikMemberRepositoryInterface $jurnalistik_member_repository
+     * @param UserHasListEventRepositoryInterface $user_has_list_event_repository
      * @param UserRepositoryInterface $user_repository
      * @param RoleRepositoryInterface $role_repository
      */
-    public function __construct(JurnalistikTeamRepositoryInterface $jurnalistik_team_repository, JurnalistikMemberRepositoryInterface $jurnalistik_member_repository, UserRepositoryInterface $user_repository, RoleRepositoryInterface $role_repository)
+    public function __construct(JurnalistikTeamRepositoryInterface $jurnalistik_team_repository, JurnalistikMemberRepositoryInterface $jurnalistik_member_repository, UserHasListEventRepositoryInterface $user_has_list_event_repository, UserRepositoryInterface $user_repository, RoleRepositoryInterface $role_repository)
     {
         $this->jurnalistik_team_repository = $jurnalistik_team_repository;
         $this->jurnalistik_member_repository = $jurnalistik_member_repository;
+        $this->user_has_list_event_repository = $user_has_list_event_repository;
         $this->user_repository = $user_repository;
         $this->role_repository = $role_repository;
     }
@@ -142,5 +147,10 @@ class RegisterJurnalistikTeamService
             $shareUrl
         );
         $this->jurnalistik_member_repository->persist($member);
+        $user_has_list_event = UserHasListEvent::create(
+            11,
+            $member->getUserId(),
+        );
+        $this->user_has_list_event_repository->persist($user_has_list_event);
     }
 }

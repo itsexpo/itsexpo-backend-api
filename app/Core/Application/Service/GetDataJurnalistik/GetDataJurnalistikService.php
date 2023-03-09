@@ -40,6 +40,7 @@ class GetDataJurnalistikService
         if ($user_jurnalistik_info->getJurnalistikTeamId()->toString() == null) {
             return UserException::throw("User Belum Memiliki Tim", 6060, 400);
         }
+
         $member_data = $this->jurnalistik_member_repository->findAllMember($user_jurnalistik_info->getJurnalistikTeamId());
         $team_data = $this->jurnalistik_team_repository->find($user_jurnalistik_info->getJurnalistikTeamId());
         $members_array = array_map(function (JurnalistikMember $member) {
@@ -48,6 +49,7 @@ class GetDataJurnalistikService
 
         $user_provinsi = $this->provinsi_repository->find($user_jurnalistik_info->getProvinsiId())->getName();
         $user_kabupaten = $this->kabupaten_repository->find($user_jurnalistik_info->getKabupatenId())->getName();
+        
         $pembayaran = "awaiting payment";
         if ($team_data->getPembayaranId()->toString() != null) {
             $pembayaran = $this->status_pembayaran->find($this->pembayaran_repository->find($team_data->getPembayaranId())->getStatusPembayaranId())->getStatus();

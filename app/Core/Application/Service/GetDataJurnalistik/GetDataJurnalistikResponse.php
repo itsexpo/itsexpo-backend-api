@@ -47,6 +47,7 @@ class GetDataJurnalistikResponse implements JsonSerializable
                 'pembayaran' => $this->pembayaran,
             ],
             'category_jurnalistik' => $this->jurnalistik_team->getLombaCategory(),
+            'jenis_kegiatan' => $this->jurnalistik_team->getJenisKegiatan(),
             'peserta' => $this->members,
             'personal' => [
                 'id' => $this->personal->getId()->toString(),
