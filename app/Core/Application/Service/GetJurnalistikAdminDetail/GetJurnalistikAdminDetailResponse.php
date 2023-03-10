@@ -32,10 +32,10 @@ class GetJurnalistikAdminDetailResponse implements JsonSerializable
 
     public function jsonSerialize(): array
     {
-        $payment = collect([
+        $payment = [
             'status' => $this->payment_status,
             'image' => $this->payment_image
-        ]);
+        ];
 
         return [
             'team_name' => $this->team_name,

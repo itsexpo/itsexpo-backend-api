@@ -34,7 +34,7 @@ class GetJurnalistikAdminDetailService
             $kab = $member->getKabupatenId();
             $prov = $member->getProvinsiId();
             $nama = $member->getName();
-            $ketua = $member->getMemberType(); //Ini kurang diubah jadi string MEMBER / KETUA
+            $ketua = $member->getMemberType()->value(); //Ini kurang diubah jadi string MEMBER / KETUA (done)
             $id_line = $member->getIdLine();
             $id_card_url = $member->getIdCardUrl();
             $follow_sosmed_url = $member->getFollowSosmedUrl();
