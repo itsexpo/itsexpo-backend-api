@@ -26,5 +26,6 @@ interface JurnalistikTeamRepositoryInterface
     public function countTeamWithJenisAndCategory(JurnalistikJenisKegiatan $jenis_kegiatan, JurnalistikLombaCategory $lomba_category): int;
 
     public function constructFromRows(array $rows): array;
+
     public function getCreatedAt(JurnalistikTeamId $jurnalistik_team_id): ?string;
 }

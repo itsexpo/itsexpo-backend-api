@@ -106,6 +106,9 @@
     {
       "id": 27,
       "routes": "admin_jurnalistik.index"
+    },
+    {
+      "id": 28,
+      "routes": "admin_jurnalistik.detail"
     }
-
   ]
