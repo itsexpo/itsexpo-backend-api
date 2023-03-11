@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Core\Application\Service\JurnalistikAdmin\JurnalistikAdminRequest;
 use App\Core\Application\Service\JurnalistikAdmin\JurnalistikAdminService;
-use Illuminate\Http\Request;
+use App\Core\Application\Service\GetJurnalistikAdminDetail\GetJurnalistikAdminDetailService;
 
 class JurnalistikAdminController extends Controller
 {
@@ -36,5 +37,12 @@ class JurnalistikAdminController extends Controller
         );
         $response = $service->execute($input);
         return $this->successWithData($response, "success get jurnalistik team data");
+    }
+
+    public function getDetail(Request $request, GetJurnalistikAdminDetailService $service)
+    {
+        $id = $request->route('team_id');
+        $response = $service->execute($id);
+        return $this->successWithData($response, "Success get jurnalistik team detail");
     }
 }
