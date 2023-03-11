@@ -34,7 +34,7 @@ class GetJurnalistikAdminDetailService
             $kab = $member->getKabupatenId();
             $prov = $member->getProvinsiId();
             $nama = $member->getName();
-            $ketua = $member->getMemberType()->value(); //Ini kurang diubah jadi string MEMBER / KETUA (done)
+            $ketua = $member->getMemberType()->value;
             $id_line = $member->getIdLine();
             $id_card_url = $member->getIdCardUrl();
             $follow_sosmed_url = $member->getFollowSosmedUrl();
@@ -49,7 +49,9 @@ class GetJurnalistikAdminDetailService
         $payment_status = $this->status_pembayaran_repository->find($payment->getStatusPembayaranId())->getStatus();
         $payment_image_url = $payment->getBuktiPembayaranUrl();
 
-        $final = new GetJurnalistikAdminDetailResponse($team->getTeamName(), $team->getTeamCode(), $payment_status, $payment_image_url, ...$member_array);
-        dd($final);
+        $payment_obj = new PembayaranObjResponse($payment_status, $payment_image_url);
+
+        $final = new GetJurnalistikAdminDetailResponse($team->getTeamName(), $team->getTeamCode(), $payment_obj, $member_array);
+        return $final;
     }
 }

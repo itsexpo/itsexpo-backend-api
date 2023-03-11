@@ -43,6 +43,6 @@ class JurnalistikAdminController extends Controller
     {
         $id = $request->route('team_id');
         $response = $service->execute($id);
-        return $this->successWithData("success get jurnalistik team detail", $response);
+        return $this->successWithData($response, "Success get jurnalistik team detail");
     }
 }

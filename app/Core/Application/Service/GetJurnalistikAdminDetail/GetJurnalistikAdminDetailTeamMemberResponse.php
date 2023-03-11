@@ -2,14 +2,14 @@
 
 namespace App\Core\Application\Service\GetJurnalistikAdminDetail;
 
-use App\Core\Domain\Models\Jurnalistik\JurnalistikMemberType;
+use JsonSerializable;
 
-class GetJurnalistikAdminDetailTeamMemberResponse
+class GetJurnalistikAdminDetailTeamMemberResponse implements JsonSerializable
 {
     private string $kabupaten;
     private string $provinsi;
     private string $nama;
-    private JurnalistikMemberType $ketua;
+    private string $ketua;
     private string $id_line;
     private string $id_card_url;
     private string $follow_sosmed_url;
@@ -17,7 +17,7 @@ class GetJurnalistikAdminDetailTeamMemberResponse
 
     public function __construct(
         string $nama,
-        JurnalistikMemberType $ketua,
+        string $ketua,
         string $provinsi,
         string $id_line,
         string $kabupaten,
@@ -33,6 +33,20 @@ class GetJurnalistikAdminDetailTeamMemberResponse
         $this->id_card_url = $id_card_url;
         $this->follow_sosmed_url = $follow_sosmed_url;
         $this->share_poster_url = $share_poster_url;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'name' => $this->nama,
+            'ketua' => $this->ketua,
+            'provinsi' => $this->provinsi,
+            'id_line' => $this->id_line,
+            'kabupaten' => $this->kabupaten,
+            'id_card_url' => $this->id_card_url,
+            'follow_sosmed_url' => $this->follow_sosmed_url,
+            'share_poster_url' => $this->share_poster_url,
+        ];
     }
 
     /**
