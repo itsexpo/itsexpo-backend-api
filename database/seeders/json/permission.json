@@ -110,5 +110,9 @@
     {
       "id": 28,
       "routes": "admin_jurnalistik.detail"
+    },
+    {
+      "id": 29,
+      "routes": "admin_jurnalistik_approval.store"
     }
   ]
