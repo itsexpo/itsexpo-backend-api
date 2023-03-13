@@ -45,7 +45,7 @@ class JurnalistikAdminController extends Controller
     {
         $id = $request->route('team_id');
         $response = $service->execute($id);
-        return $this->successWithData($response, "Success get jurnalistik team detail");
+        return $this->successWithData($response, "Success getting jurnalistik team detail");
     }
 
     public function confirmTeam(Request $request, JurnalistikAdminConfirmService $service)

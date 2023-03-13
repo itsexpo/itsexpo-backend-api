@@ -22,6 +22,7 @@ class JurnalistikAdminResponse implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [
+            'id_tim' => $this->jurnalistik_team->getId()->toString(),
             'ketua_tim' => $this->ketua_tim,
             'nama_tim' => $this->jurnalistik_team->getTeamName(),
             'kode_tim' => $this->jurnalistik_team->getTeamCode(),

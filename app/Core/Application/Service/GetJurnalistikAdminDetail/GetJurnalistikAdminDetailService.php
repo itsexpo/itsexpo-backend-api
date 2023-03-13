@@ -45,13 +45,23 @@ class GetJurnalistikAdminDetailService
         }
 
         $payment_id = $team->getPembayaranId();
-        $payment = $this->pembayaran_repository->find($payment_id);
-        $payment_status = $this->status_pembayaran_repository->find($payment->getStatusPembayaranId())->getStatus();
-        $payment_image_url = $payment->getBuktiPembayaranUrl();
 
-        $payment_obj = new PembayaranObjResponse($payment_status, $payment_image_url);
+        if ($payment_id->toString() == null) {
+            $payment_status = "AWAITING PAYMENT";
 
-        $final = new GetJurnalistikAdminDetailResponse($team->getTeamName(), $team->getTeamCode(), $payment_obj, $member_array);
-        return $final;
+            $payment_obj = new PembayaranObjResponse($payment_status);
+
+            $final = new GetJurnalistikAdminDetailResponse($team->getTeamName(), $team->getTeamCode(), $payment_obj, $member_array);
+            return $final;
+        } else {
+            $payment = $this->pembayaran_repository->find($payment_id);
+            $payment_status = $this->status_pembayaran_repository->find($payment->getStatusPembayaranId())->getStatus();
+            $payment_image_url = $payment->getBuktiPembayaranUrl();
+    
+            $payment_obj = new PembayaranObjResponse($payment_status, $payment_id->toString(), $payment_image_url);
+    
+            $final = new GetJurnalistikAdminDetailResponse($team->getTeamName(), $team->getTeamCode(), $payment_obj, $member_array);
+            return $final;
+        }
     }
 }
