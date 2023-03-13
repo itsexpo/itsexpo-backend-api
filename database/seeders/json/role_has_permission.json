@@ -160,18 +160,28 @@
         "permission_id": 27
     },
     {
-      "id": 33,
-      "role_id": 11,
-      "permission_id": 27
+        "id": 33,
+        "role_id": 11,
+        "permission_id": 27
     },
     {
-      "id": 34,
-      "role_id": 2,
-      "permission_id": 28
+        "id": 34,
+        "role_id": 2,
+        "permission_id": 28
     },
     {
-      "id": 35,
-      "role_id": 2,
-      "permission_id": 29
+        "id": 35,
+        "role_id": 2,
+        "permission_id": 29
+    },
+    {
+        "id": 36,
+        "role_id": 4,
+        "permission_id": 30
+    },
+    {
+        "id": 37,
+        "role_id": 5,
+        "permission_id": 30
     }
 ]

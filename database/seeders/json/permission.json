@@ -1,118 +1,122 @@
 [
     {
-      "id": 1,
-      "routes": "users.index"
+        "id": 1,
+        "routes": "users.index"
     },
     {
-      "id": 2,
-      "routes": "users.delete"
+        "id": 2,
+        "routes": "users.delete"
     },
     {
-      "id": 3,
-      "routes": "roles.index"
+        "id": 3,
+        "routes": "roles.index"
     },
     {
-      "id": 4,
-      "routes": "roles.store"
+        "id": 4,
+        "routes": "roles.store"
     },
     {
-      "id": 5,
-      "routes": "roles.delete"
+        "id": 5,
+        "routes": "roles.delete"
     },
     {
-      "id": 6,
-      "routes": "roles.update"
+        "id": 6,
+        "routes": "roles.update"
     },
     {
-      "id": 7,
-      "routes": "roles_assign.store"
+        "id": 7,
+        "routes": "roles_assign.store"
     },
     {
-      "id": 8,
-      "routes": "roles_unassign.store"
+        "id": 8,
+        "routes": "roles_unassign.store"
     },
     {
-      "id": 9,
-      "routes": "permissions.index"
+        "id": 9,
+        "routes": "permissions.index"
     },
     {
-      "id": 10,
-      "routes": "permissions.store"
+        "id": 10,
+        "routes": "permissions.store"
     },
     {
-      "id": 11,
-      "routes": "permissions.delete"
+        "id": 11,
+        "routes": "permissions.delete"
     },
     {
-      "id": 12,
-      "routes": "permissions.update"
+        "id": 12,
+        "routes": "permissions.update"
     },
     {
-      "id": 13,
-      "routes": "roles.detail"
+        "id": 13,
+        "routes": "roles.detail"
     },
     {
-      "id": 14,
-      "routes": "url_shortener.store"
+        "id": 14,
+        "routes": "url_shortener.store"
     },
     {
-      "id": 15,
-      "routes": "url_shortener.delete"
+        "id": 15,
+        "routes": "url_shortener.delete"
     },
     {
-      "id": 16,
-      "routes": "url_shortener.update"
+        "id": 16,
+        "routes": "url_shortener.update"
     },
     {
-      "id": 17,
-      "routes": "all_url_shortener.index"
+        "id": 17,
+        "routes": "all_url_shortener.index"
     },
     {
-      "id": 18,
-      "routes": "pengumuman.index"
+        "id": 18,
+        "routes": "pengumuman.index"
     },
     {
-      "id": 19,
-      "routes": "pengumuman.store"
+        "id": 19,
+        "routes": "pengumuman.store"
     },
     {
-      "id": 20,
-      "routes": "pengumuman.update"
+        "id": 20,
+        "routes": "pengumuman.update"
     },
     {
-      "id": 21,
-      "routes": "pengumuman.delete"
+        "id": 21,
+        "routes": "pengumuman.delete"
     },
     {
-      "id": 22,
-      "routes": "jurnalistik.index"
+        "id": 22,
+        "routes": "jurnalistik.index"
     },
     {
-      "id": 23,
-      "routes": "jurnalistik_join.store"
+        "id": 23,
+        "routes": "jurnalistik_join.store"
     },
     {
-      "id": 24,
-      "routes": "jurnalistik_team.delete"
+        "id": 24,
+        "routes": "jurnalistik_team.delete"
     },
     {
-      "id": 25,
-      "routes": "jurnalistik_ketua.store"
+        "id": 25,
+        "routes": "jurnalistik_ketua.store"
     },
     {
-      "id": 26,
-      "routes": "jurnalistik_member.store"
+        "id": 26,
+        "routes": "jurnalistik_member.store"
     },
     {
-      "id": 27,
-      "routes": "admin_jurnalistik.index"
+        "id": 27,
+        "routes": "admin_jurnalistik.index"
     },
     {
-      "id": 28,
-      "routes": "admin_jurnalistik.detail"
+        "id": 28,
+        "routes": "admin_jurnalistik.detail"
     },
     {
-      "id": 29,
-      "routes": "admin_jurnalistik_approval.store"
+        "id": 29,
+        "routes": "admin_jurnalistik_approval.store"
+    },
+    {
+        "id": 30,
+        "routes": "pembayaran_jurnalistik.store"
     }
-  ]
+]

@@ -100,7 +100,7 @@ class RegisterJurnalistikTeamService
             $request->getTeamName(),
             $team_code,
             false,
-            0,
+            1,
             $lomba_category,
             $jenis_kegiatan
         );

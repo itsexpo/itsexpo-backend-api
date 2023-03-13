@@ -9,6 +9,18 @@ use App\Core\Domain\Repository\PembayaranRepositoryInterface;
 
 class SqlPembayaranRepository implements PembayaranRepositoryInterface
 {
+    public function persist(Pembayaran $pembayaran): void
+    {
+        DB::table('pembayaran')->upsert([
+            'id' => $pembayaran->getId()->toString(),
+            'list_bank_id' => $pembayaran->getListBankId(),
+            'list_event_id' => $pembayaran->getListEventId(),
+            'status_pembayaran_id' => $pembayaran->getStatusPembayaranId(),
+            'bukti_pembayaran_url' => $pembayaran->getBuktiPembayaranUrl(),
+            'harga' => $pembayaran->getHarga(),
+        ], 'id');
+    }
+
     public function find(PembayaranId $pembayaran_id): ?Pembayaran
     {
         $row = DB::table('pembayaran')->where('id', $pembayaran_id->toString())->first();

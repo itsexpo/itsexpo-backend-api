@@ -6,6 +6,7 @@ use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikTeam;
 use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikTeamId;
 use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikJenisKegiatan;
 use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikLombaCategory;
+use App\Core\Domain\Models\Pembayaran\PembayaranId;
 
 interface JurnalistikTeamRepositoryInterface
 {
@@ -28,4 +29,6 @@ interface JurnalistikTeamRepositoryInterface
     public function constructFromRows(array $rows): array;
 
     public function getCreatedAt(JurnalistikTeamId $jurnalistik_team_id): ?string;
+
+    public function updatePembayaran(JurnalistikTeamId $jurnalistik_team_id, PembayaranId $pembayaran_id);
 }
