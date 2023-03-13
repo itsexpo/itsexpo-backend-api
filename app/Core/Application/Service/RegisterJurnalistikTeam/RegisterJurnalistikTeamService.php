@@ -82,9 +82,16 @@ class RegisterJurnalistikTeamService
         } else {
             //karna menggunakan variable maka pencarian bergantung pada variable tersebut
             //ini hanya work jika Kategori BLOGGER dan TELEVISION memiliki batas yang sama
-            $count = $this->jurnalistik_team_repository->countTeamWithJenisAndCategory($jenis_kegiatan, $lomba_category);
-            if ($count >= $UMUM) {
-                UserException::throw("Kategori Lomba {$lomba_category->value} Sudah Penuh", 6002);
+            if ($user->getRoleId() == 4) {
+                $count = $this->jurnalistik_team_repository->countTeamWithJenisAndCategory(JurnalistikJenisKegiatan::KHUSUS, JurnalistikLombaCategory::BLOGGER);
+                if ($count >= $UMUM) {
+                    UserException::throw("Kategori Lomba Blogger Sudah Penuh", 6002);
+                }
+            } elseif ($user->getRoleId() == 5) {
+                $count = $this->jurnalistik_team_repository->countTeamWithJenisAndCategory(JurnalistikJenisKegiatan::KHUSUS, JurnalistikLombaCategory::TELEVISION);
+                if ($count >= $UMUM) {
+                    UserException::throw("Kategori Lomba Television Sudah Penuh", 6002);
+                }
             }
         }
 

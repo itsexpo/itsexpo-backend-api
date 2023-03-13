@@ -183,5 +183,15 @@
         "id": 37,
         "role_id": 5,
         "permission_id": 30
+    },
+    {
+        "id": 38,
+        "role_id": 4,
+        "permission_id": 31
+    },
+    {
+        "id": 39,
+        "role_id": 5,
+        "permission_id": 31
     }
 ]

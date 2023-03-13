@@ -15,8 +15,9 @@ class JurnalistikTeam
     private int $jumlah_anggota;
     private JurnalistikLombaCategory $lomba_category;
     private JurnalistikJenisKegiatan $jenis_kegiatan;
+    private string $created_at;
 
-    public function __construct(JurnalistikTeamId $id, ?PembayaranId $pembayaran_id, string $team_name, string $team_code, bool $team_status, int $jumlah_anggota, JurnalistikLombaCategory $lomba_category, JurnalistikJenisKegiatan $jenis_kegiatan)
+    public function __construct(JurnalistikTeamId $id, ?PembayaranId $pembayaran_id, string $team_name, string $team_code, bool $team_status, int $jumlah_anggota, JurnalistikLombaCategory $lomba_category, JurnalistikJenisKegiatan $jenis_kegiatan, string $created_at)
     {
         $this->id = $id;
         $this->pembayaran_id = $pembayaran_id;
@@ -26,6 +27,7 @@ class JurnalistikTeam
         $this->jumlah_anggota = $jumlah_anggota;
         $this->lomba_category = $lomba_category;
         $this->jenis_kegiatan = $jenis_kegiatan;
+        $this->created_at = $created_at;
     }
 
     /**
@@ -42,6 +44,7 @@ class JurnalistikTeam
             $jumlah_anggota,
             $lomba_category,
             $jenis_kegiatan,
+            "null"
         );
     }
 
@@ -107,5 +110,13 @@ class JurnalistikTeam
     public function getJenisKegiatan(): JurnalistikJenisKegiatan
     {
         return $this->jenis_kegiatan;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreatedAt(): string
+    {
+        return $this->created_at;
     }
 }

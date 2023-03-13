@@ -14,6 +14,7 @@ use App\Core\Application\Service\DeleteTeamJurnalistik\DeleteTeamJurnalistikRequ
 use App\Core\Application\Service\DeleteTeamJurnalistik\DeleteTeamJurnalistikService;
 use App\Core\Application\Service\RegisterJurnalistikTeam\RegisterJurnalistikTeamRequest;
 use App\Core\Application\Service\RegisterJurnalistikTeam\RegisterJurnalistikTeamService;
+use App\Core\Application\Service\CekPembayaranJurnalistik\CekPembayaranJurnalistikService;
 use App\Core\Application\Service\RegisterJurnalistikMember\RegisterJurnalistikMemberRequest;
 use App\Core\Application\Service\RegisterJurnalistikMember\RegisterJurnalistikMemberService;
 
@@ -25,16 +26,16 @@ class JurnalistikController extends Controller
         return $this->successWithData($response, "Berhasil Mendapatkan Data Jurnalistik");
     }
 
-        public function joinTeam(Request $request, JoinTeamJurnalistikService $service)
-        {
-            $request->validate([
-                'code_team' => 'string',
-            ]);
+    public function joinTeam(Request $request, JoinTeamJurnalistikService $service)
+    {
+        $request->validate([
+            'code_team' => 'string',
+        ]);
 
-            $input = new JoinTeamJurnalistikRequest($request->input('code_team'));
-            $service->execute($input, $request->get('account'));
-            return $this->success("Berhasil Bergabung Dengan Team");
-        }
+        $input = new JoinTeamJurnalistikRequest($request->input('code_team'));
+        $service->execute($input, $request->get('account'));
+        return $this->success("Berhasil Bergabung Dengan Team");
+    }
 
     public function deleteTeam(Request $request, DeleteTeamJurnalistikService $service): JsonResponse
     {
@@ -121,5 +122,11 @@ class JurnalistikController extends Controller
         }
         DB::commit();
         return $this->success("Member Berhasil Ditambahkan");
+    }
+
+    public function cekPembayaranJurnalistik(Request $request, CekPembayaranJurnalistikService $service): JsonResponse
+    {
+        $response = $service->execute($request->get('account'));
+        return $this->successWithData($response, "Berhasil Mendapatkan Detail Cek Pembayaran");
     }
 }
