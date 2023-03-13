@@ -23,6 +23,10 @@ class SqlUserHasListEventRepository implements UserHasListEventRepositoryInterfa
     {
         $row = DB::table('user_has_list_event')->where('user_id', $user_id->toString())->get();
 
+        if (!$row) {
+            return null;
+        }
+
         return $this->constructFromRows($row->all());
     }
 
@@ -30,6 +34,10 @@ class SqlUserHasListEventRepository implements UserHasListEventRepositoryInterfa
     {
         $events_id = [];
         $row = DB::table('user_has_list_event')->where('user_id', $user_id->toString())->get();
+
+        if (!$row) {
+            return null;
+        }
 
         foreach ($row as $r) {
             array_push($events_id, $r->list_event_id);

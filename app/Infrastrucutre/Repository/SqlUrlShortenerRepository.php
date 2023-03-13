@@ -42,6 +42,10 @@ class SqlUrlShortenerRepository implements UrlShortenerRepositoryInterface
     {
         $row = DB::table('url_shortener')->where('id', $url_id->toString())->first();
 
+        if (!$row) {
+            return null;
+        }
+
         return $this->constructFromRows([$row])[0];
     }
 

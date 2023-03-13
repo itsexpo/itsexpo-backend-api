@@ -17,18 +17,33 @@ class SqlKabupatenRepository implements KabupatenRepositoryInterface
     public function getAll(): array
     {
         $rows = DB::table('kabupaten')->get();
+
+        if (!$rows) {
+            return null;
+        }
+
         return $this->constructFromRows($rows->all());
     }
 
     public function getByProvinsiId(int $provinsi_id): array
     {
         $row = DB::table('kabupaten')->where('provinsi_id', '=', $provinsi_id)->get();
+
+        if (!$row) {
+            return null;
+        }
+
         return $this->constructFromRows($row->all());
     }
 
     public function find(int $id): ?Kabupaten
     {
         $row = DB::table('kabupaten')->where('id', $id)->first();
+
+        if (!$row) {
+            return null;
+        }
+        
         return $this->constructFromRows([$row])[0];
     }
 
