@@ -118,5 +118,9 @@
     {
         "id": 30,
         "routes": "pembayaran_jurnalistik.store"
+    },
+    {
+        "id": 31,
+        "routes": "pembayaran_jurnalistik.index"
     }
 ]

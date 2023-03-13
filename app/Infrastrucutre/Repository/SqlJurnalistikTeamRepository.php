@@ -85,6 +85,7 @@ class SqlJurnalistikTeamRepository implements JurnalistikTeamRepositoryInterface
                 $row->jumlah_anggota,
                 JurnalistikLombaCategory::from($row->lomba_category),
                 JurnalistikJenisKegiatan::from($row->jenis_kegiatan),
+                $row->created_at
             );
         }
         return $jurnalistik_team;
