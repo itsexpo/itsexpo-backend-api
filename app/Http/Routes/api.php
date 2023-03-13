@@ -11,10 +11,11 @@ use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\DepartemenController;
-use App\Http\Controllers\JurnalistikAdminController;
-use App\Http\Controllers\JurnalistikController;
+use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\JurnalistikController;
 use App\Http\Controllers\UrlShortenerController;
+use App\Http\Controllers\JurnalistikAdminController;
 use App\Http\Controllers\RoleHasPermissionController;
 
 Route::get('hello', function () {
@@ -69,15 +70,22 @@ Route::middleware(['iam'])->group(
 
         //Jurnalistik
         Route::get('/pre_event/jurnalistik', [JurnalistikController::class, 'get'])->middleware('permission:jurnalistik.index');
-        Route::post('/pre_event/jurnalistik/join', [JurnalistikController::class, 'joinTeam'])->middleware('permission:jurnalistik_join.store');;
-        Route::delete('/pre_event/jurnalistik/team', [JurnalistikController::class, 'deleteTeam'])->middleware('permission:jurnalistik_team.delete');;
-        Route::post('/pre_event/jurnalistik/ketua', [JurnalistikController::class, 'createJurnalistikKetua'])->middleware('permission:jurnalistik_ketua.store');;
-        Route::post('/pre_event/jurnalistik/member', [JurnalistikController::class, 'createJurnalistikMember'])->middleware('permission:jurnalistik_member.store');;
+        Route::post('/pre_event/jurnalistik/join', [JurnalistikController::class, 'joinTeam'])->middleware('permission:jurnalistik_join.store');
+        ;
+        Route::delete('/pre_event/jurnalistik/team', [JurnalistikController::class, 'deleteTeam'])->middleware('permission:jurnalistik_team.delete');
+        ;
+        Route::post('/pre_event/jurnalistik/ketua', [JurnalistikController::class, 'createJurnalistikKetua'])->middleware('permission:jurnalistik_ketua.store');
+        ;
+        Route::post('/pre_event/jurnalistik/member', [JurnalistikController::class, 'createJurnalistikMember'])->middleware('permission:jurnalistik_member.store');
+        ;
 
         // jurnalistik admin
         Route::get('/admin/jurnalistik', [JurnalistikAdminController::class, 'getTeam'])->middleware('permission:admin_jurnalistik.index');
         Route::get('/admin/jurnalistik/{team_id}', [JurnalistikAdminController::class, 'getDetail'])->middleware('permission:admin_jurnalistik.detail');
         Route::patch('/admin/jurnalistik', [JurnalistikAdminController::class, 'confirmTeam'])->middleware('permission:admin_jurnalistik_approval.store');
+
+        // Pembayaran
+        Route::post('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'createPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.store');
 
         //User
         Route::get('/me', [UserController::class, 'me']);

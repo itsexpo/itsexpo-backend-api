@@ -32,6 +32,7 @@ use App\Core\Domain\Repository\RoleHasPermissionRepositoryInterface;
 use App\Core\Domain\Repository\AccountVerificationRepositoryInterface;
 use App\Core\Domain\Repository\JurnalistikMemberRepositoryInterface;
 use App\Core\Domain\Repository\JurnalistikTeamRepositoryInterface;
+use App\Core\Domain\Repository\ListBankRepositoryInterface;
 use App\Core\Domain\Repository\ListEventRepositoryInterface;
 use App\Core\Domain\Repository\PengumumanRepositoryInterface;
 use App\Infrastrucutre\Repository\SqlJurnalistikMemberRepository;
@@ -42,6 +43,7 @@ use App\Infrastrucutre\Repository\SqlPengumumanRepository;
 use App\Core\Domain\Repository\PembayaranRepositoryInterface;
 use App\Infrastrucutre\Repository\SqlPembayaranRepository;
 use App\Core\Domain\Repository\StatusPembayaranRepositoryInterface;
+use App\Infrastrucutre\Repository\SqlListBankRepository;
 use App\Infrastrucutre\Repository\SqlStatusPembayaranRepository;
 use App\Infrastrucutre\Repository\SqlUserHasListEventRepository;
 
@@ -69,3 +71,4 @@ $app->singleton(PembayaranRepositoryInterface::class, SqlPembayaranRepository::c
 $app->singleton(StatusPembayaranRepositoryInterface::class, SqlStatusPembayaranRepository::class);
 $app->singleton(ListEventRepositoryInterface::class, SqlListEventRepository::class);
 $app->singleton(UserHasListEventRepositoryInterface::class, SqlUserHasListEventRepository::class);
+$app->singleton(ListBankRepositoryInterface::class, SqlListBankRepository::class);

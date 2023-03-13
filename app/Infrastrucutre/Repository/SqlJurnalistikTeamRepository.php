@@ -118,4 +118,15 @@ class SqlJurnalistikTeamRepository implements JurnalistikTeamRepositoryInterface
             ->count();
         return $count;
     }
+
+    public function updatePembayaran(JurnalistikTeamId $jurnalistik_team_id, PembayaranId $pembayaran_id): void
+    {
+        $jurnalistik_team = DB::table('jurnalistik_team')->where('id', $jurnalistik_team_id->toString());
+        if (!$jurnalistik_team->first()) {
+            return;
+        }
+        $jurnalistik_team->update(
+            ['pembayaran_id' => $pembayaran_id->toString()]
+        );
+    }
 }
