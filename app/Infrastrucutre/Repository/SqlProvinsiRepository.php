@@ -16,12 +16,20 @@ class SqlProvinsiRepository implements ProvinsiRepositoryInterface
     {
         $rows = DB::table('provinsi')->get();
 
+        if (!$rows) {
+            return null;
+        }
+
         return $this->constructFromRows($rows->all());
     }
 
         public function find(int $id): ?Provinsi
         {
             $row = DB::table('provinsi')->where('id', $id)->first();
+
+            if (!$row) {
+                return null;
+            }
 
             return $this->constructFromRows([$row])[0];
         }

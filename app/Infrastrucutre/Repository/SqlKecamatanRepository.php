@@ -16,6 +16,11 @@ class SqlKecamatanRepository implements KecamatanRepositoryInterface
     public function getAll(): array
     {
         $rows = DB::table('kecamatan')->get();
+
+        if (!$rows) {
+            return null;
+        }
+
         return $this->constructFromRows($rows->all());
     }
 
@@ -28,12 +33,21 @@ class SqlKecamatanRepository implements KecamatanRepositoryInterface
     {
         $row = DB::table('kecamatan')->where('kabupaten_id', '=', $kabupaten_id)->get();
 
+        if (!$row) {
+            return null;
+        }
+
         return $this->constructFromRows($row->all());
     }
 
     public function find(int $id): ?Kecamatan
     {
         $row = DB::table('kecamatan')->where('id', $id)->first();
+
+        if (!$row) {
+            return null;
+        }
+        
         return $this->constructFromRows([$row])[0];
     }
 

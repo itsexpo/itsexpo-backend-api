@@ -16,6 +16,10 @@ class SqlDesaRepository implements DesaRepositoryInterface
     {
         $rows = DB::table('desa')->get();
 
+        if (!$rows) {
+            return null;
+        }
+
         return $this->constructFromRows($rows->all());
     }
 
@@ -27,6 +31,10 @@ class SqlDesaRepository implements DesaRepositoryInterface
     public function getByKecamatanId(int $kecamatan_id): array
     {
         $row = DB::table('desa')->where('kecamatan_id', '=', $kecamatan_id)->get();
+
+        if (!$row) {
+            return null;
+        }
 
         return $this->constructFromRows($row->all());
     }

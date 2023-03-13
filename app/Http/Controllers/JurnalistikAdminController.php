@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Core\Application\Service\JurnalistikAdmin\JurnalistikAdminRequest;
 use App\Core\Application\Service\JurnalistikAdmin\JurnalistikAdminService;
+use App\Core\Application\Service\JurnalistikAdminConfirm\JurnalistikAdminConfirmRequest;
+use App\Core\Application\Service\JurnalistikAdminConfirm\JurnalistikAdminConfirmService;
 use App\Core\Application\Service\GetJurnalistikAdminDetail\GetJurnalistikAdminDetailService;
 
 class JurnalistikAdminController extends Controller
@@ -44,5 +46,21 @@ class JurnalistikAdminController extends Controller
         $id = $request->route('team_id');
         $response = $service->execute($id);
         return $this->successWithData($response, "Success getting jurnalistik team detail");
+    }
+
+    public function confirmTeam(Request $request, JurnalistikAdminConfirmService $service)
+    {
+        $request->validate([
+          'pembayaran_id' => 'required',
+          'status_pembayaran_id' => 'required'
+        ]);
+
+        $input = new JurnalistikAdminConfirmRequest(
+            $request->input('pembayaran_id'),
+            $request->input('status_pembayaran_id')
+        );
+
+        $service->execute($input);
+        return $this->success("Berhasil Mengubah Status Pembayaran");
     }
 }

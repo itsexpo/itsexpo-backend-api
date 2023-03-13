@@ -16,6 +16,10 @@ class SqlJurnalistikTeamRepository implements JurnalistikTeamRepositoryInterface
     {
         $row = DB::table('jurnalistik_team')->where('id', $jurnalistik_team_id->toString())->first();
 
+        if (!$row) {
+            return null;
+        }
+
         return $this->constructFromRows([$row])[0];
     }
 

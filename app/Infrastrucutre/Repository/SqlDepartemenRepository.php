@@ -24,6 +24,11 @@ class SqlDepartemenRepository implements DepartemenRepositoryInterface
     public function find(int $id): ?Departemen
     {
         $row = DB::table('departemen')->where('id', $id)->first();
+        
+        if (!$row) {
+            return null;
+        }
+
         return $this->constructFromRows([$row])[0];
     }
 

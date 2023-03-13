@@ -13,7 +13,20 @@ class SqlPembayaranRepository implements PembayaranRepositoryInterface
     {
         $row = DB::table('pembayaran')->where('id', $pembayaran_id->toString())->first();
 
+        if (!$row) {
+            return null;
+        }
+
         return $this->constructFromRows([$row])[0];
+    }
+
+    public function changeStatusPembayaran(PembayaranId $id, int $status_pembayaran_id): void
+    {
+        $row = DB::table('pembayaran')->where('id', $id->toString());
+        
+        $row->update(
+            ['status_pembayaran_id' => $status_pembayaran_id]
+        );
     }
 
     /**
