@@ -12,6 +12,10 @@ class SqlStatusPembayaranRepository implements StatusPembayaranRepositoryInterfa
     {
         $row = DB::table('status_pembayaran')->where('id', $status_pembayaran_id)->first();
 
+        if (!$row) {
+            return null;
+        }
+
         return $this->constructFromRows([$row])[0];
     }
 

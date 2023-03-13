@@ -12,6 +12,10 @@ class SqlListBankRepository implements ListBankRepositoryInterface
     {
         $row = DB::table('list_bank')->where('id', $list_bank_id)->first();
 
+        if (!$row) {
+            return null;
+        }
+
         return $this->constructFromRows([$row])[0];
     }
 

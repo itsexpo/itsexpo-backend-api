@@ -13,12 +13,20 @@ class SqlListEventRepository implements ListEventRepositoryInterface
     {
         $rows = DB::table('list_event')->get();
 
+        if (!$rows) {
+            return null;
+        }
+
         return $this->constructFromRows($rows->toArray());
     }
 
     public function find(int $list_event_id): ?ListEvent
     {
         $row = DB::table('list_event')->where('id', $list_event_id)->first();
+
+        if (!$row) {
+            return null;
+        }
 
         return $this->constructFromRows([$row])[0];
     }

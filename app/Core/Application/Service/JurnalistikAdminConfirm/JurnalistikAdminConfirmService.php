@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Core\Application\Service\JurnalistikAdminConfirm;
+namespace App\Core\Application\Service\JurnalistikAdminConfirm;
 
 use App\Exceptions\UserException;
 use App\Core\Domain\Models\Pembayaran\PembayaranId;
@@ -24,20 +24,19 @@ class JurnalistikAdminConfirmService
 
     public function execute(JurnalistikAdminConfirmRequest $request)
     {
-        $id = new PembayaranId($request->getId());
+        $id = new PembayaranId($request->getPembayaranId());
         $pembayaran = $this->pembayaran_repository->find($id);
-        print_r("Lmao");
  
         if (!$pembayaran) {
-            UserException::throw("Pembayaran tidak ditemukan", 1001, 404);
+            UserException::throw("Pembayaran Tidak Ditemukan", 1001, 404);
         }
 
-        $cekStatusPembayaran = $this->status_pemabayaran_repository->find($request->getStatus());
+        $cekStatusPembayaran = $this->status_pemabayaran_repository->find($request->getStatusPembayaranId());
 
         if (!$cekStatusPembayaran) {
-            UserException::throw("Status Pembayaran tidak ditemukan", 1001, 404);
+            UserException::throw("Status Pembayaran Tidak Ditemukan", 1001, 404);
         }
 
-        $this->pembayaran_repository->changeStatusPembayaran($pembayaran->getId(), $request->getStatus());
+        $this->pembayaran_repository->changeStatusPembayaran($pembayaran->getId(), $request->getStatusPembayaranId());
     }
 }

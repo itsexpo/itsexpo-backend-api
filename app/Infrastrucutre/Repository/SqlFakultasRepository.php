@@ -16,6 +16,10 @@ class SqlFakultasRepository implements FakultasRepositoryInterface
     {
         $rows = DB::table('fakultas')->get();
 
+        if (!$rows) {
+            return null;
+        }
+
         return $this->constructFromRows($rows->all());
     }
 
@@ -27,7 +31,7 @@ class SqlFakultasRepository implements FakultasRepositoryInterface
     public function constructFromRows(array $rows): array
     {
         $fakultas = [];
-        foreach ($rows as $row) { 
+        foreach ($rows as $row) {
             $fakultas[] = new
             Fakultas(
                 $row->id,

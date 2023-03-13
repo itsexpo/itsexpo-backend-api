@@ -74,6 +74,10 @@ class SqlPermissionRepository implements PermissionRepositoryInterface
     {
         $rows = DB::table('permission')->get();
 
+        if (!$rows) {
+            return null;
+        }
+
         return $this->constructFromRows($rows->all());
     }
 

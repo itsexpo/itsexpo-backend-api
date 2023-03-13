@@ -1,35 +1,35 @@
 <?php
 
-namespace app\Core\Application\Service\JurnalistikAdminConfirm;
+namespace App\Core\Application\Service\JurnalistikAdminConfirm;
 
 class JurnalistikAdminConfirmRequest
 {
-    private string $id;
-    private int $status;
+    private string $pembayaran_id;
+    private int $status_pembayaran_id;
 
     /**
-     * @param string $id
-     * @param int $status
+     * @param string $pembayaran_id
+     * @param int $status_pembayaran_id
      */
-    public function __construct(string $id, int $status)
+    public function __construct(string $pembayaran_id, int $status_pembayaran_id)
     {
-        $this->id = $id;
-        $this->status = $status;
+        $this->pembayaran_id = $pembayaran_id;
+        $this->status_pembayaran_id = $status_pembayaran_id;
     }
 
     /**
      * @return string
      */
-    public function getId(): string
+    public function getPembayaranId(): string
     {
-        return $this->id;
+        return $this->pembayaran_id;
     }
 
     /**
      * @return int
      */
-    public function getStatus(): int
+    public function getStatusPembayaranId(): int
     {
-        return $this->status;
+        return $this->status_pembayaran_id;
     }
 }

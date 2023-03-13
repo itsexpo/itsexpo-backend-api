@@ -22,18 +22,33 @@ class SqlPengumumanRepository implements PengumumanRepositoryInterface
     public function getAll(): array
     {
         $rows = DB::table('pengumuman')->get();
+
+        if (!$rows) {
+            return null;
+        }
+
         return $rows->all();
     }
 
     public function getByEventId(int $event_id): array
     {
         $rows = DB::table('pengumuman')->where('list_event_id', $event_id)->get();
+
+        if (!$rows) {
+            return null;
+        }
+
         return $rows->all();
     }
 
     public function getById(string $id)
     {
         $row = DB::table('pengumuman')->where('id', $id)->first();
+
+        if (!$row) {
+            return null;
+        }
+        
         return $row;
     }
 
