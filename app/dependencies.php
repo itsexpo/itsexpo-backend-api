@@ -46,6 +46,10 @@ use App\Core\Domain\Repository\StatusPembayaranRepositoryInterface;
 use App\Infrastrucutre\Repository\SqlListBankRepository;
 use App\Infrastrucutre\Repository\SqlStatusPembayaranRepository;
 use App\Infrastrucutre\Repository\SqlUserHasListEventRepository;
+use App\core\domain\Repository\RobotInActionMemberRepositoryInterface;
+use App\core\domain\Repository\RobotInActionTeamRepositoryInterface;
+use App\Infrastrucutre\Repository\SqlRobotInActionMemberRepository;
+use App\Infrastrucutre\Repository\SqlRobotInActionTeamRepository;
 
 /** @var Application $app */
 
@@ -72,3 +76,5 @@ $app->singleton(StatusPembayaranRepositoryInterface::class, SqlStatusPembayaranR
 $app->singleton(ListEventRepositoryInterface::class, SqlListEventRepository::class);
 $app->singleton(UserHasListEventRepositoryInterface::class, SqlUserHasListEventRepository::class);
 $app->singleton(ListBankRepositoryInterface::class, SqlListBankRepository::class);
+$app->singleton(RobotInActionTeamRepositoryInterface::class, SqlRobotInActionTeamRepository::class);
+$app->singleton(RobotInActionMemberRepositoryInterface::class, SqlRobotInActionMemberRepository::class);
