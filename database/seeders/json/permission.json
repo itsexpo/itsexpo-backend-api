@@ -130,5 +130,9 @@
     {
         "id": 33,
         "routes": "robot_in_action.index"
+    },
+    {
+        "id": 32, 
+        "routes": "kti.store"
     }
 ]

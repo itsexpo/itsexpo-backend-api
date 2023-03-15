@@ -78,3 +78,5 @@ $app->singleton(UserHasListEventRepositoryInterface::class, SqlUserHasListEventR
 $app->singleton(ListBankRepositoryInterface::class, SqlListBankRepository::class);
 $app->singleton(RobotInActionTeamRepositoryInterface::class, SqlRobotInActionTeamRepository::class);
 $app->singleton(RobotInActionMemberRepositoryInterface::class, SqlRobotInActionMemberRepository::class);
+$app->singleton(KTITeamRepositoryInterface::class, SqlKTITeamRepository::class);
+$app->singleton(KTIMemberRepositoryInterface::class, SqlKTIMemberRepository::class);
