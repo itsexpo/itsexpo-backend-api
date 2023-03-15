@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->uuid('id')->primary();
             $table->uuid('robot_in_action_team_id')->nullable();
             $table->uuid('user_id')->index();
-            $table->string('nama', 512);
+            $table->string('name', 512);
             $table->string('no_telp', 512);
             $table->string('member_type', 512);
             $table->string('asal_sekolah', 512);

@@ -67,9 +67,9 @@ class SqlRobotInActionMemberRepository implements RobotInActionMemberRepositoryI
         foreach ($rows as $row) {
             $robot_in_action_member[] = new RobotInActionMember(
                 new RobotInActionMemberId($row->id),
-                new RobotInActionTeamId($row->RobotInAction_team_id),
+                new RobotInActionTeamId($row->robot_in_action_team_id),
                 new UserId($row->user_id),
-                $row->nama,
+                $row->name,
                 $row->no_telp,
                 RobotInActionMemberType::from($row->member_type),
                 $row->asal_sekolah,
@@ -86,9 +86,9 @@ class SqlRobotInActionMemberRepository implements RobotInActionMemberRepositoryI
         DB::table('robot_in_action_member')->upsert(
             [
                 'id' => $member->getId()->toString(),
-                'RobotInAction_team_id' => $member->getRobotInActionTeamId() ? $member->getRobotInActionTeamId()->toString() : null,
+                'robot_in_action_team_id' => $member->getRobotInActionTeamId() ? $member->getRobotInActionTeamId()->toString() : null,
                 'user_id' => $member->getUserId()->toString(),
-                'nama' => $member->getNama(),
+                'name' => $member->getName(),
                 'no_telp' => $member->getNoTelp(),
                 'member_type' => $member->getMemberType()->value,
                 'asal_sekolah' => $member->getAsalSekolah(),

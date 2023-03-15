@@ -122,5 +122,9 @@
     {
         "id": 31,
         "routes": "pembayaran_jurnalistik.index"
+    },
+    {
+        "id": 32,
+        "routes": "robot_in_action.store"
     }
 ]

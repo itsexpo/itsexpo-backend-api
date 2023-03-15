@@ -10,9 +10,9 @@ use App\Core\Domain\Models\RobotInAction\Team\RobotInActionTeamId;
 class RobotInActionMember
 {
     private RobotInActionMemberId $id;
-    private ?RobotInActionTeamId $RobotInAction_team_id;
+    private ?RobotInActionTeamId $robot_in_action_team_id;
     private UserId $user_id;
-    private string $nama;
+    private string $name;
     private string $no_telp;
     private RobotInActionMemberType $member_type;
     private string $asal_sekolah;
@@ -20,12 +20,12 @@ class RobotInActionMember
     private string $follow_sosmed_url;
     private string $share_poster_url;
 
-    public function __construct(RobotInActionMemberId $id, ?RobotInActionTeamId $RobotInAction_team_id, UserId $user_id, string $nama, string $no_telp, RobotInActionMemberType $member_type, string $asal_sekolah, string $id_card_url, string $follow_sosmed_url, string $share_poster_url)
+    public function __construct(RobotInActionMemberId $id, ?RobotInActionTeamId $robot_in_action_team_id, UserId $user_id, string $name, string $no_telp, RobotInActionMemberType $member_type, string $asal_sekolah, string $id_card_url, string $follow_sosmed_url, string $share_poster_url)
     {
         $this->id = $id;
-        $this->RobotInAction_team_id = $RobotInAction_team_id;
+        $this->robot_in_action_team_id = $robot_in_action_team_id;
         $this->user_id = $user_id;
-        $this->nama = $nama;
+        $this->name = $name;
         $this->no_telp = $no_telp;
         $this->member_type = $member_type;
         $this->asal_sekolah = $asal_sekolah;
@@ -37,13 +37,13 @@ class RobotInActionMember
     /**
      * @throws Exception
      */
-    public static function create(?RobotInActionTeamId $RobotInAction_team_id, UserId $user_id, string $nama, string $no_telp, RobotInActionMemberType $member_type, string $asal_sekolah, string $id_card_url, string $follow_sosmed_url, string $share_poster_url): self
+    public static function create(?RobotInActionTeamId $robot_in_action_team_id, UserId $user_id, string $name, string $no_telp, RobotInActionMemberType $member_type, string $asal_sekolah, string $id_card_url, string $follow_sosmed_url, string $share_poster_url): self
     {
         return new self(
             RobotInActionMemberId::generate(),
-            $RobotInAction_team_id,
+            $robot_in_action_team_id,
             $user_id,
-            $nama,
+            $name,
             $no_telp,
             $member_type,
             $asal_sekolah,
@@ -66,7 +66,7 @@ class RobotInActionMember
      */
     public function getRobotInActionTeamId(): ?RobotInActionTeamId
     {
-        return $this->RobotInAction_team_id;
+        return $this->robot_in_action_team_id;
     }
 
     /**
@@ -88,9 +88,9 @@ class RobotInActionMember
     /**
      * @return string
      */
-    public function getnama(): string
+    public function getName(): string
     {
-        return $this->nama;
+        return $this->name;
     }
 
     /**

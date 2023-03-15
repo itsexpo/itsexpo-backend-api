@@ -19,6 +19,8 @@ interface RobotInActionTeamRepositoryInterface
 
     public function findByTeamCode(string $team_code): ?RobotInActionTeam;
 
+    public function countAllTeams(): int;
+
     public function countByCompetitionStatus(RobotInActionCompetitionStatus $role): int;
 
     public function constructFromRows(array $rows): array;

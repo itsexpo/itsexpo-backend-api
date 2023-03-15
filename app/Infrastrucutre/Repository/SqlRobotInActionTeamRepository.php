@@ -90,6 +90,11 @@ class SqlRobotInActionTeamRepository implements RobotInActionTeamRepositoryInter
         return $robot_in_action_team;
     }
 
+    public function countAllTeams(): int
+    {
+        return DB::table('robot_in_action_team')->count();
+    }
+
     public function countByCompetitionStatus(RobotInActionCompetitionStatus $role): int
     {
         $newest = DB::table('robot_in_action_team')->where('competition_status', '=', $role->value)
