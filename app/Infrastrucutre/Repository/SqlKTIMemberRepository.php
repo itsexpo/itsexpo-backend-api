@@ -22,6 +22,28 @@ class SqlKTIMemberRepository implements KTIMemberRepositoryInterface
         return $this->constructFromRows([$row])[0];
     }
 
+    public function findByTeamId(KTITeamId $kti_team_id): ?array
+    {
+        $row = DB::table('kti_member')->where('kti_team_id', '=', $kti_team_id->toString())->get();
+
+        if (!$row) {
+            return null;
+        }
+
+        return $this->constructFromRows($row->all());
+    }
+
+    public function findLeadByTeamId(KTITeamId $kti_team_id): ?KTIMember
+    {
+        $row = DB::table('kti_member')->where('kti_team_id', '=', $kti_team_id->toString())->where('member_type', '=', 'KETUA')->first();
+
+        if (!$row) {
+            return null;
+        }
+
+        return $this->constructFromRows([$row])[0];
+    }
+
     public function persist(KTIMember $member): void
     {
         DB::table('kti_member')->upsert([

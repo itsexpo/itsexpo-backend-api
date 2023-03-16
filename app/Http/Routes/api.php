@@ -89,6 +89,7 @@ Route::middleware(['iam'])->group(
 
         // Karya Tulis Ilmiah
         Route::post('/pre_event/kti', [KTIController::class, 'createKTITeam'])->middleware('permission:kti.store');
+        Route::get('/pre_event/kti', [KTIController::class, 'getKTITeam'])->middleware('permission:kti.index');
 
         // Pembayaran
         Route::post('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'createPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.store');

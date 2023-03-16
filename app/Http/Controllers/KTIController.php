@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Core\Application\Service\GetKTITeam\GetKTITeamService;
 use App\Core\Application\Service\RegisterKTIMember\RegisterKTIMemberRequest;
 use App\Core\Application\Service\RegisterKTIMember\RegisterKTIMemberService;
 use App\Core\Application\Service\RegisterKTITeam\RegisterKTITeamRequest;
@@ -51,5 +52,11 @@ class KTIController extends Controller
         }
         DB::commit();
         return $this->success("Berhasil Membuat Tim");
+    }
+
+    public function getKTITeam(Request $request, GetKTITeamService $service)
+    {
+        $data = $service->execute($request->get('account'));
+        return $this->successWithData($data, "Berhasil mendapatkan data tim");
     }
 }

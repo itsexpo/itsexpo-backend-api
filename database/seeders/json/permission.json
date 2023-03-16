@@ -134,5 +134,9 @@
     {
         "id": 32, 
         "routes": "kti.store"
+    },
+    {
+        "id": 33, 
+        "routes": "kti.index"
     }
 ]
