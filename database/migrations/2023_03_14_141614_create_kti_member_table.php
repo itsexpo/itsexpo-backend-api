@@ -14,7 +14,7 @@ return new class extends Migration {
     {
         Schema::create('kti_member', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('kti_team_id')->nullable();
+            $table->uuid('kti_team_id');
             $table->string('name', 512);
             $table->string('no_telp', 512);
             $table->string('member_type', 512);

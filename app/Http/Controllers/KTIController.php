@@ -31,7 +31,7 @@ class KTIController extends Controller
             $request->file('follow_sosmed'),
             $request->file('bukti_repost'),
             $request->file('twibbon'),
-            $request->file('abstrak')
+            $request->file('file_abstrak')
         );
 
         $input_member = array_map(function (array $member) {
