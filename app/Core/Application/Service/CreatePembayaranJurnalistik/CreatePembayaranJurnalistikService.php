@@ -39,10 +39,13 @@ class CreatePembayaranJurnalistikService
         $jurnalistik_team = $this->jurnalistik_team_repository->find($jurnalistik_team_id);
         if (!$jurnalistik_team) {
             UserException::throw("Jurnalistik Team Tidak Ditemukan", 1001, 404);
-        } elseif ($jurnalistik_team->getPembayaranId()->toString() != null) {
-            UserException::throw("Jurnalistik Team Sudah Melakukan Pembayaran", 1001, 404);
         }
-
+        $pembayaran = $this->pembayaran_repository->find($jurnalistik_team->getPembayaranId());
+        if ($pembayaran != null) {
+            if ($pembayaran->getStatusPembayaranId() != 1) {
+                UserException::throw("Jurnalistik Team Sudah Melakukan Pembayaran", 1001, 404);
+            }
+        }
         $bukti_pembayaran_url = ImageUpload::create(
             $request->getBuktiPembayaran(),
             'pembayaran/jurnalistik',

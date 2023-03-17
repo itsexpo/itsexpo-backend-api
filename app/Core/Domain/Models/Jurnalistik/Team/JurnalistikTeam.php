@@ -89,6 +89,14 @@ class JurnalistikTeam
     }
 
     /**
+     * @return void
+     */
+    public function setTeamStatus(bool $team_status): void
+    {
+        $this->team_status = $team_status;
+    }
+
+    /**
      * @return int
      */
     public function getJumlahAnggota(): int
