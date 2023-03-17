@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Core\Application\Service\RegisterRobotInAction\Ketua\RegisterRobotInActionKetuaService;
-use App\Core\Application\Service\RegisterRobotInAction\Member\RegisterRobotInActionMemberService;
-use App\Core\Application\Service\RegisterRobotInAction\Ketua\RegisterRobotInActionKetuaRequest;
-use App\Core\Application\Service\RegisterRobotInAction\Member\RegisterRobotInActionMemberRequest;
-use App\Core\Domain\Models\RobotInAction\RobotInActionMemberType;
 use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Core\Domain\Models\RobotInAction\RobotInActionMemberType;
+use App\Core\Application\Service\GetAnggotaRobotInAction\GetAnggotaRobotInActionService;
+use App\Core\Application\Service\RegisterRobotInAction\Ketua\RegisterRobotInActionKetuaRequest;
+use App\Core\Application\Service\RegisterRobotInAction\Ketua\RegisterRobotInActionKetuaService;
+use App\Core\Application\Service\RegisterRobotInAction\Member\RegisterRobotInActionMemberRequest;
+use App\Core\Application\Service\RegisterRobotInAction\Member\RegisterRobotInActionMemberService;
 
 class RobotInActionController extends Controller
 {
@@ -70,5 +72,11 @@ class RobotInActionController extends Controller
 
             return $this->success("Berhasil Mendaftarkan member");
         }
+    }
+
+    public function get(Request $request, GetAnggotaRobotInActionService $service)
+    {
+        $response = $service->execute($request->get('account'));
+        return $this->successWithData($response, "success get robot in action member");
     }
 }
