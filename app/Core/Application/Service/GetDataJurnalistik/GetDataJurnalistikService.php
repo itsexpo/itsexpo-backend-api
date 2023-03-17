@@ -50,9 +50,12 @@ class GetDataJurnalistikService
         $user_provinsi = $this->provinsi_repository->find($user_jurnalistik_info->getProvinsiId())->getName();
         $user_kabupaten = $this->kabupaten_repository->find($user_jurnalistik_info->getKabupatenId())->getName();
         
-        $pembayaran = "awaiting payment";
+        $pembayaran = "AWAITING PAYMENT";
         if ($team_data->getPembayaranId()->toString() != null) {
             $pembayaran = $this->status_pembayaran->find($this->pembayaran_repository->find($team_data->getPembayaranId())->getStatusPembayaranId())->getStatus();
+        }
+        if ($team_data->getJumlahAnggota() >= 3) {
+            $team_data->setTeamStatus(true);
         }
         $response = new GetDataJurnalistikResponse($team_data, $members_array, $user_jurnalistik_info, $user_provinsi, $user_kabupaten, $pembayaran);
 
