@@ -11,8 +11,8 @@ class RegisterRobotInActionMemberRequest
     private string $member_type;
     private string $asal_sekolah;
     private UploadedFile $id_card;
-    private UploadedFile $follow_sosmed_url;
-    private UploadedFile $share_poster_url;
+    private UploadedFile $follow_sosmed;
+    private UploadedFile $share_poster;
 
     /**
      * @param string $name
@@ -20,18 +20,18 @@ class RegisterRobotInActionMemberRequest
      * @param string $member_type
      * @param string $asal_sekolah
      * @param UploadedFile $id_card
-     * @param UploadedFile $follow_sosmed_url
-     * @param UploadedFile $share_poster_url
+     * @param UploadedFile $follow_sosmed
+     * @param UploadedFile $share_poster
      */
-    public function __construct(string $member_type, string $name, string $no_telp, string $asal_sekolah, UploadedFile $id_card, UploadedFile $follow_sosmed_url, UploadedFile $share_poster_url)
+    public function __construct(string $member_type, string $name, string $no_telp, string $asal_sekolah, UploadedFile $id_card, UploadedFile $follow_sosmed, UploadedFile $share_poster)
     {
         $this->member_type = $member_type;
         $this->name = $name;
         $this->no_telp = $no_telp;
         $this->asal_sekolah = $asal_sekolah;
         $this->id_card = $id_card;
-        $this->follow_sosmed_url = $follow_sosmed_url;
-        $this->share_poster_url = $share_poster_url;
+        $this->follow_sosmed = $follow_sosmed;
+        $this->share_poster = $share_poster;
     }
 
     /**
@@ -79,7 +79,7 @@ class RegisterRobotInActionMemberRequest
      */
     public function getFollowSosmedUrl(): UploadedFile
     {
-        return $this->follow_sosmed_url;
+        return $this->follow_sosmed;
     }
 
     /**
@@ -87,6 +87,6 @@ class RegisterRobotInActionMemberRequest
      */
     public function getSharePosterUrl(): UploadedFile
     {
-        return $this->share_poster_url;
+        return $this->share_poster;
     }
 }

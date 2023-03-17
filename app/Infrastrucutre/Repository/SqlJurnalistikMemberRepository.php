@@ -54,7 +54,9 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
     public function findAllMember(JurnalistikTeamId $jurnalistik_team_id): array
     {
         $row = DB::table('jurnalistik_member')->where('jurnalistik_team_id', $jurnalistik_team_id->toString())->get();
-
+        if (!$row) {
+            return null;
+        }
         return $this->constructFromRows($row->all());
     }
 

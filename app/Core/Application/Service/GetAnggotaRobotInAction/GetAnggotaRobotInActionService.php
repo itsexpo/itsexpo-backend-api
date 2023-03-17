@@ -2,9 +2,7 @@
 
 namespace App\Core\Application\Service\GetAnggotaRobotInAction;
 
-use App\Core\Application\Service\GetAnggotaRobotInAction\GetAnggotaRobotInActionPesertaResponse;
-use App\Core\Application\Service\GetAnggotaRobotInAction\GetAnggotaRobotInActionResponse;
-use App\Core\Application\Service\GetDetailRobotik\GetAnggotaRobotikRequest;
+use App\Exceptions\UserException;
 use App\Core\Domain\Models\UserAccount;
 use App\Core\Domain\Repository\PembayaranRepositoryInterface;
 use App\Core\Domain\Repository\RobotInActionMemberRepositoryInterface;
@@ -13,7 +11,6 @@ use App\Core\Domain\Repository\StatusPembayaranRepositoryInterface;
 
 class GetAnggotaRobotInActionService
 {
-
     private RobotInActionTeamRepositoryInterface $robotik_team;
     private RobotInActionMemberRepositoryInterface $robotik_member;
     private StatusPembayaranRepositoryInterface $status_pembayaran;
@@ -31,10 +28,27 @@ class GetAnggotaRobotInActionService
     {
         $userid = $account->getUserId();
         $member = $this->robotik_member->findByUserId($userid);
+
+        if (!$member) {
+            return UserException::throw("Data Tidak Ditemukan", 6060, 400);
+        }
+
         $team = $this->robotik_team->find($member->getRobotInActionTeamId());
+
+        if (!$team) {
+            return UserException::throw("Data Team Tidak Ditemukan", 6060, 400);
+        }
+
         $pemabayaran_tim = $this->pembayaran->find($team->getPembayaranId());
+
+        if (!$pemabayaran_tim) {
+            return UserException::throw("Data Pembayaran Tim Tidak Ditemukan", 6060, 400);
+        }
         $status_pembayaran_tim = $this->status_pembayaran->find($pemabayaran_tim->getStatusPembayaranId())->getStatus();
 
+        if (!$status_pembayaran_tim) {
+            return UserException::throw("Data Status Pembayaran Tidak Ditemukan", 6060, 400);
+        }
         $peserta = [];
         $team_members = $this->robotik_member->findAllMember($team->getId());
         foreach ($team_members as $team_member) {

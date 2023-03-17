@@ -25,13 +25,18 @@ class SqlRobotInActionTeamRepository implements RobotInActionTeamRepositoryInter
     public function getCreatedAt(RobotInActionTeamId $robot_in_action_team_id): ?string
     {
         $row = DB::table('robot_in_action_team')->where('id', $robot_in_action_team_id->toString())->first();
+        if (!$row) {
+            return null;
+        }
         return $row->created_at;
     }
 
     public function findByTeamCode(string $team_code): ?RobotInActionTeam
     {
         $row = DB::table('robot_in_action_team')->where('team_code', $team_code)->first();
-
+        if (!$row) {
+            return null;
+        }
         return $this->constructFromRows([$row])[0];
     }
 

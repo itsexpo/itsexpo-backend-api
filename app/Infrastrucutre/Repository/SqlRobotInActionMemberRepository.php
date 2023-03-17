@@ -54,7 +54,9 @@ class SqlRobotInActionMemberRepository implements RobotInActionMemberRepositoryI
     public function findAllMember(RobotInActionTeamId $robot_in_action_team_id): array
     {
         $row = DB::table('robot_in_action_member')->where('robot_in_action_team_id', $robot_in_action_team_id->toString())->get();
-
+        if (!$row) {
+            return null;
+        }
         return $this->constructFromRows($row->all());
     }
 

@@ -126,5 +126,9 @@
     {
         "id": 32,
         "routes": "robot_in_action.store"
+    },
+    {
+        "id": 33,
+        "routes": "robot_in_action.index"
     }
 ]

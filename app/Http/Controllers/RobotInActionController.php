@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use App\Core\Domain\Models\RobotInAction\RobotInActionMemberType;
 use App\Core\Application\Service\GetAnggotaRobotInAction\GetAnggotaRobotInActionService;
 use App\Core\Application\Service\RegisterRobotInAction\Ketua\RegisterRobotInActionKetuaRequest;
@@ -77,6 +76,6 @@ class RobotInActionController extends Controller
     public function get(Request $request, GetAnggotaRobotInActionService $service)
     {
         $response = $service->execute($request->get('account'));
-        return $this->successWithData($response, "success get robot in action member");
+        return $this->successWithData($response, "Berhasil mendapatkan data robot in action");
     }
 }
