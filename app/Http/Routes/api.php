@@ -12,12 +12,13 @@ use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\DepartemenController;
 use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\JurnalistikController;
 use App\Http\Controllers\UrlShortenerController;
+use App\Http\Controllers\RobotInActionController;
 use App\Http\Controllers\JurnalistikAdminController;
 use App\Http\Controllers\RoleHasPermissionController;
-use App\Http\Controllers\RobotInActionController;
 
 Route::get('hello', function () {
     return response()->json();
@@ -117,5 +118,11 @@ Route::middleware(['iam'])->group(
         Route::post('/permissions', [PermissionController::class, 'add'])->middleware('permission:permissions.store');
         Route::delete('/permissions', [PermissionController::class, 'delete'])->middleware('permission:permissions.delete');
         Route::put('/permissions', [PermissionController::class, 'update'])->middleware('permission:permissions.update');
+
+        //Pengumuman
+        Route::post('/pengumuman', [PengumumanController::class, 'add'])->middleware('permission:pengumuman.store');
+        Route::get('/pengumuman/{id?}', [PengumumanController::class, 'get'])->middleware('permission:pengumuman.index');
+        Route::put('/pengumuman/{id}', [PengumumanController::class, 'update'])->middleware('permission:pengumuman.update');
+        Route::delete('/pengumuman/{id}', [PengumumanController::class, 'delete'])->middleware('permission:pengumuman.delete');
     }
 );
