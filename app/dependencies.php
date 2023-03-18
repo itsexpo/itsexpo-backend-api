@@ -52,8 +52,8 @@ use App\Core\Domain\Repository\AccountVerificationRepositoryInterface;
 use App\Core\Domain\Repository\RobotInActionMemberRepositoryInterface;
 use App\Core\Domain\Repository\KTITeamRepositoryInterface;
 use App\Core\Domain\Repository\KTIMemberRepositoryInterface;
-use App\Core\Domain\Infrastructure\Repository\SqlKTITeamRepository;
-use App\Core\Domain\Infrastructure\Repository\SqlKTIMemberRepository;
+use App\Infrastrucutre\Repository\SqlKTIMemberRepository;
+use App\Infrastrucutre\Repository\SqlKTITeamRepository;
 
 /** @var Application $app */
 
