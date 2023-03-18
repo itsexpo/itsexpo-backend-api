@@ -17,6 +17,7 @@ use App\Http\Controllers\JurnalistikController;
 use App\Http\Controllers\UrlShortenerController;
 use App\Http\Controllers\JurnalistikAdminController;
 use App\Http\Controllers\RoleHasPermissionController;
+use App\Http\Controllers\RobotInActionController;
 
 Route::get('hello', function () {
     return response()->json();
@@ -75,6 +76,10 @@ Route::middleware(['iam'])->group(
         Route::post('/pre_event/jurnalistik/ketua', [JurnalistikController::class, 'createJurnalistikKetua'])->middleware('permission:jurnalistik_ketua.store');
         Route::post('/pre_event/jurnalistik/member', [JurnalistikController::class, 'createJurnalistikMember'])->middleware('permission:jurnalistik_member.store');
         Route::get('/pre_event/pembayaran/jurnalistik', [JurnalistikController::class, 'cekPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.index');
+
+        // Robot In Action
+        Route::post('/pre_event/robotik', [RobotInActionController::class, 'register'])->middleware('permission:robot_in_action.store');
+        Route::get('/pre_event/robotik', [RobotInActionController::class, 'get'])->middleware('permission:robot_in_action.index');
 
         // jurnalistik admin
         Route::get('/admin/jurnalistik', [JurnalistikAdminController::class, 'getTeam'])->middleware('permission:admin_jurnalistik.index');

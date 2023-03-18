@@ -42,7 +42,7 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
 
     public function findKetua(JurnalistikTeamId $team_id): ?JurnalistikMember
     {
-        $row = DB::table('jurnalistik_member')->where('jurnalistik_team_id', $team_id->toString())->where('member_type', 'ketua')->first();
+        $row = DB::table('jurnalistik_member')->where('jurnalistik_team_id', $team_id->toString())->where('member_type', 'KETUA')->first();
 
         if (!$row) {
             return null;
@@ -54,7 +54,9 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
     public function findAllMember(JurnalistikTeamId $jurnalistik_team_id): array
     {
         $row = DB::table('jurnalistik_member')->where('jurnalistik_team_id', $jurnalistik_team_id->toString())->get();
-
+        if (!$row) {
+            return null;
+        }
         return $this->constructFromRows($row->all());
     }
 
@@ -87,18 +89,18 @@ class SqlJurnalistikMemberRepository implements JurnalistikMemberRepositoryInter
     {
         DB::table('jurnalistik_member')->upsert(
             [
-              'id' => $member->getId()->toString(),
-              'jurnalistik_team_id' => $member->getJurnalistikTeamId()?$member->getJurnalistikTeamId()->toString(): null,
-              'user_id' => $member->getUserId()->toString(),
-              'provinsi_id' => $member->getProvinsiId(),
-              'kabupaten_id' => $member->getKabupatenId(),
-              'name' => $member->getName(),
-              'member_type' => $member->getMemberType()->value,
-              'asal_instansi' => $member->getAsalInstansi(),
-              'id_line' => $member->getIdLine(),
-              'id_card_url' => $member->getIdCardUrl(),
-              'follow_sosmed_url' => $member->getFollowSosmedUrl(),
-              'share_poster_url' => $member->getSharePosterUrl(),
+                'id' => $member->getId()->toString(),
+                'jurnalistik_team_id' => $member->getJurnalistikTeamId() ? $member->getJurnalistikTeamId()->toString() : null,
+                'user_id' => $member->getUserId()->toString(),
+                'provinsi_id' => $member->getProvinsiId(),
+                'kabupaten_id' => $member->getKabupatenId(),
+                'name' => $member->getName(),
+                'member_type' => $member->getMemberType()->value,
+                'asal_instansi' => $member->getAsalInstansi(),
+                'id_line' => $member->getIdLine(),
+                'id_card_url' => $member->getIdCardUrl(),
+                'follow_sosmed_url' => $member->getFollowSosmedUrl(),
+                'share_poster_url' => $member->getSharePosterUrl(),
             ],
             'id'
         );
