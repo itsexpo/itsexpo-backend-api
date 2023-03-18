@@ -8,6 +8,7 @@ use App\Core\Domain\Repository\KTIMemberRepositoryInterface;
 use App\Core\Domain\Repository\PembayaranRepositoryInterface;
 use App\Core\Domain\Repository\StatusPembayaranRepositoryInterface;
 use App\Core\Domain\Repository\UserRepositoryInterface;
+use App\Exceptions\UserException;
 
 class GetKTITeamService
 {
@@ -29,30 +30,70 @@ class GetKTITeamService
     public function execute(UserAccount $account)
     {
         $user_id = $account->getUserId();
-        $team = $this->kti_team_repo->findByUserId($user_id);
 
-        $payment_id = $team->getPembayaranId();
-        $payment = $this->pembayaran_repo->find($payment_id);
-        $payment_status = $this->status_pembayaran_repo->find($payment->getStatusPembayaranId());
-
-        $payment = new PembayaranObjResponse($payment_status->getStatus(), $payment_id->toString());
-
-        $members = $this->kti_member_repo->findByTeamId($team->getId());
-
-        $members_array = [];
-        foreach ($members as $member) {
-            $name = $member->getName();
-            $no_telp = $member->getNoTelp();
-            $memb = new GetKTITeamMemberResponse($name, $no_telp);
-            array_push($members_array, $memb);
+        if (!$user_id) {
+            UserException::throw("User id tidak ditemukan", 1005, 404);
         }
 
-        $lead_name = $this->kti_member_repo->findLeadByTeamId($team->getId())->getName();
-        // $lead_no_telp = $this->user_repo->find($team->getUserId())->getNoTelp();
-        $lead_no_telp = $this->kti_member_repo->findLeadByTeamId($team->getId())->getNoTelp();
+        $team = $this->kti_team_repo->findByUserId($user_id);
 
-        $final = new GetKTITeamResponse($team->getTeamName(), $team->getAsalInstansi(), $lead_name, $lead_no_telp, $payment, $members_array, $team->getFollowSosmed(), $team->getBuktiRepost(), $team->getTwibbon(), $team->getAbstrak());
+        if (!$team) {
+            UserException::throw("Team tidak ditemukan", 1005, 404);
+        }
 
-        return $final;
+        $payment_id = $team->getPembayaranId();
+
+        if ($payment_id->toString() == null) {
+            $payment = new PembayaranObjResponse("AWAITING PAYMENT");
+    
+            $members = $this->kti_member_repo->findByTeamId($team->getId());
+    
+            $members_array = [];
+            foreach ($members as $member) {
+                $name = $member->getName();
+                $no_telp = $member->getNoTelp();
+                $memb = new GetKTITeamMemberResponse($name, $no_telp);
+                array_push($members_array, $memb);
+            }
+    
+            $lead_name = $this->kti_member_repo->findLeadByTeamId($team->getId())->getName();
+    
+            if (!$lead_name) {
+                UserException::throw("Ketua tidak ditemukan!", 1005, 404);
+            }
+            
+            $lead_no_telp = $this->kti_member_repo->findLeadByTeamId($team->getId())->getNoTelp();
+    
+            return new GetKTITeamResponse($team->getTeamName(), $team->getAsalInstansi(), $lead_name, $lead_no_telp, $payment, $members_array, $team->getFollowSosmed(), $team->getBuktiRepost(), $team->getTwibbon(), $team->getAbstrak());
+        }
+
+        else
+        {
+            $payment = $this->pembayaran_repo->find($payment_id);
+            $payment_status = $this->status_pembayaran_repo->find($payment->getStatusPembayaranId());
+    
+            $payment = new PembayaranObjResponse($payment_status->getStatus(), $payment_id->toString());
+    
+            $members = $this->kti_member_repo->findByTeamId($team->getId());
+    
+            $members_array = [];
+            foreach ($members as $member) {
+                $name = $member->getName();
+                $no_telp = $member->getNoTelp();
+                $memb = new GetKTITeamMemberResponse($name, $no_telp);
+                array_push($members_array, $memb);
+            }
+    
+            $lead_name = $this->kti_member_repo->findLeadByTeamId($team->getId())->getName();
+    
+            if (!$lead_name) {
+                UserException::throw("Ketua tidak ditemukan!", 1005, 404);
+            }
+            
+            $lead_no_telp = $this->kti_member_repo->findLeadByTeamId($team->getId())->getNoTelp();
+    
+            return new GetKTITeamResponse($team->getTeamName(), $team->getAsalInstansi(), $lead_name, $lead_no_telp, $payment, $members_array, $team->getFollowSosmed(), $team->getBuktiRepost(), $team->getTwibbon(), $team->getAbstrak());
+        }
+
     }
 }

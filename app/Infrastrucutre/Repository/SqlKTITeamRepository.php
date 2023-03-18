@@ -25,7 +25,7 @@ class SqlKTITeamRepository implements KTITeamRepositoryInterface
     public function findByUserId(UserId $user_id): ?KTITeam
     {
         $row = DB::table('kti_team')->where('user_id', $user_id->toString())->first();
-        // print_r($row);
+        
         if (!$row) {
             return null;
         }
