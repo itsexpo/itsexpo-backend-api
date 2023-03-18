@@ -16,7 +16,8 @@ class ImageUpload
     private string $seed;
     private string $name;
 
-    public function __construct(UploadedFile $uploaded_file, string $path, string $seed, string $name) {
+    public function __construct(UploadedFile $uploaded_file, string $path, string $seed, string $name)
+    {
         $this->uploaded_file = $uploaded_file;
         $this->path = $path;
         $this->seed = $seed;
@@ -26,13 +27,15 @@ class ImageUpload
         $this->available_type = [
             "jpg",
             "jpeg",
-            "png"
+            "png",
+            "pdf"
         ];
 
         $this->available_mime_type = [
             "image/jpg",
             "image/jpeg",
-            "image/png"
+            "image/png",
+            "application/pdf" // menambahkan MIME type PDF ke daftar MIME type yang diizinkan
         ];
         $this->file_size_limit = 1048576;
 
@@ -52,15 +55,17 @@ class ImageUpload
     /**
      * @throws UserException
      */
-    public function check(): void 
+    public function check(): void
     {
         if (
             !in_array($this->uploaded_file->getClientOriginalExtension(), $this->available_type) ||
             !in_array($this->uploaded_file->getClientMimeType(), $this->available_mime_type)
-            ) 
+        ) {
             UserException::throw("Tipe File {$this->name} Invalid", 2000);
-        if ($this->uploaded_file->getSize() > 1048576)
+        }
+        if ($this->uploaded_file->getSize() > 1048576) {
             UserException::throw("{$this->name} Harus Dibawah 1Mb", 2000);
+        }
     }
 
     /**
@@ -71,13 +76,14 @@ class ImageUpload
         $file_front = str_replace(" ", "_", strtolower($this->name));
         $encrypted_seed = base64_encode($this->seed);
         $uploaded = Storage::putFileAs(
-            $this->path, 
-            $this->uploaded_file, 
-            $file_front."_".$encrypted_seed);
-        if (!$uploaded) 
+            $this->path,
+            $this->uploaded_file,
+            $file_front."_".$encrypted_seed
+        );
+        if (!$uploaded) {
             UserException::throw("Upload {$this->name} Gagal", 2003);
+        }
         $full_path = $this->path.'/'.$file_front."_".$encrypted_seed;
         return $full_path;
     }
-
 }

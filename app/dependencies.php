@@ -50,6 +50,10 @@ use App\Core\Domain\Repository\RobotInActionTeamRepositoryInterface;
 use App\Core\Domain\Repository\RoleHasPermissionRepositoryInterface;
 use App\Core\Domain\Repository\AccountVerificationRepositoryInterface;
 use App\Core\Domain\Repository\RobotInActionMemberRepositoryInterface;
+use App\Core\Domain\Repository\KTITeamRepositoryInterface;
+use App\Core\Domain\Repository\KTIMemberRepositoryInterface;
+use App\Core\Domain\Infrastructure\Repository\SqlKTITeamRepository;
+use App\Core\Domain\Infrastructure\Repository\SqlKTIMemberRepository;
 
 /** @var Application $app */
 
@@ -78,3 +82,5 @@ $app->singleton(UserHasListEventRepositoryInterface::class, SqlUserHasListEventR
 $app->singleton(ListBankRepositoryInterface::class, SqlListBankRepository::class);
 $app->singleton(RobotInActionTeamRepositoryInterface::class, SqlRobotInActionTeamRepository::class);
 $app->singleton(RobotInActionMemberRepositoryInterface::class, SqlRobotInActionMemberRepository::class);
+$app->singleton(KTITeamRepositoryInterface::class, SqlKTITeamRepository::class);
+$app->singleton(KTIMemberRepositoryInterface::class, SqlKTIMemberRepository::class);

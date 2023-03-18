@@ -9,6 +9,8 @@ use App\Core\Application\Service\PaginationResponse;
 use App\Core\Domain\Models\UrlShortener\UrlShortener;
 use App\Core\Domain\Repository\UrlShortenerRepositoryInterface;
 use App\Core\Application\Service\GetUrlShortener\GetUrlShortenerResponse;
+use App\Core\Application\Service\GetUserUrlShortener\GetUserUrlShortenerRequest;
+use App\Core\Application\Service\GetUserUrlShortener\GetUserUrlShortenerResponse;
 
 class GetUserUrlShortenerService
 {

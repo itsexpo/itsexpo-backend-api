@@ -213,5 +213,15 @@
         "id": 43,
         "role_id": 4,
         "permission_id": 33
+    },
+    {
+        "id": 44,
+        "role_id": 5,
+        "permission_id": 34
+    },
+    {
+        "id": 45,
+        "role_id": 5,
+        "permission_id": 35
     }
 ]
