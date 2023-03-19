@@ -80,8 +80,8 @@ Route::middleware(['iam'])->group(
         Route::get('/pre_event/pembayaran/jurnalistik', [JurnalistikController::class, 'cekPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.index');
 
         // Robot In Action
-        Route::post('/pre_event/robotik', [RobotInActionController::class, 'register'])->middleware('permission:robot_in_action.store');
-        Route::get('/pre_event/robotik', [RobotInActionController::class, 'get'])->middleware('permission:robot_in_action.index');
+        Route::post('/pre_event/robotik', [RobotInActionController::class, 'register'])->middleware('permission:robotik.store');
+        Route::get('/pre_event/robotik', [RobotInActionController::class, 'get'])->middleware('permission:robotik.index');
 
         // jurnalistik admin
         Route::get('/admin/jurnalistik', [JurnalistikAdminController::class, 'getTeam'])->middleware('permission:admin_jurnalistik.index');

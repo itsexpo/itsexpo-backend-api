@@ -63,6 +63,7 @@ class GetAnggotaRobotInActionService
             $team->getTeamName(),
             $member->getMemberType() == 'KETUA' ? 'TRUE' : 'FALSE',
             $team->getTeamCode(),
+            $team->getCompetitionStatus()->value,
             $team->getDeskripsiKarya(),
             $team->getPembayaranId()->toString(),
             $status_pembayaran_tim,
