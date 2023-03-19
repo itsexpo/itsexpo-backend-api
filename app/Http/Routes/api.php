@@ -19,6 +19,8 @@ use App\Http\Controllers\JurnalistikController;
 use App\Http\Controllers\UrlShortenerController;
 use App\Http\Controllers\RobotInActionController;
 use App\Http\Controllers\JurnalistikAdminController;
+use App\Http\Controllers\KTIAdminController;
+use App\Http\Controllers\KTIController;
 use App\Http\Controllers\RoleHasPermissionController;
 use App\Http\Controllers\RobotInActionAdminController;
 
@@ -86,7 +88,7 @@ Route::middleware(['iam'])->group(
         Route::delete('/pre_event/robotik/team', [RobotInActionController::class, 'deleteTeam'])->middleware('permission:robotik_team.delete');
 
 
-        // jurnalistik admin
+        // Jurnalistik admin
         Route::get('/admin/jurnalistik', [JurnalistikAdminController::class, 'getTeam'])->middleware('permission:admin_jurnalistik.index');
         Route::get('/admin/jurnalistik/{team_id}', [JurnalistikAdminController::class, 'getDetail'])->middleware('permission:admin_jurnalistik.detail');
         Route::patch('/admin/jurnalistik', [JurnalistikAdminController::class, 'confirmTeam'])->middleware('permission:admin_jurnalistik_approval.store');
@@ -101,6 +103,8 @@ Route::middleware(['iam'])->group(
         Route::post('/pre_event/kti', [KTIController::class, 'createKTITeam'])->middleware('permission:kti.store');
         Route::get('/pre_event/kti', [KTIController::class, 'getKTITeam'])->middleware('permission:kti.index');
 
+        // Karya Tulis Ilmiah Admin
+        Route::get('/admin/kti', [KTIAdminController::class, 'getTeam'])->middleware('permission:admin_kti.index');
 
         // Pembayaran
         Route::post('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'createPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.store');

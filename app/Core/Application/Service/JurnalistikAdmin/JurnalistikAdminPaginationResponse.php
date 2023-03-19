@@ -49,8 +49,6 @@ class JurnalistikAdminPaginationResponse implements JsonSerializable
                     "awaiting_verification" => $this->awaiting_verification,
                     "awaiting_payment" => $this->awaiting_payment
                 ]
-
-
             ]
         ];
     }
