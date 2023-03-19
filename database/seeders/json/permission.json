@@ -141,10 +141,10 @@
     },
     {
         "id": 36, 
-        "routes": "robot_in_action.createPembayaran"
+        "routes": "robotik_pembayaran.store"
     },
     {
         "id": 37, 
-        "routes": "robot_in_action.cekPembayaran"
+        "routes": "robotik_pembayaran.index"
     }
 ]
