@@ -11,7 +11,7 @@ class GetAnggotaRobotInActionResponse implements JsonSerializable
     private bool $is_ketua;
     private string $code_tim;
     private string $desripsi_karya;
-    private string $payment_id;
+    private ?string $payment_id;
     private string $payment_status;
     private array $peserta;
     private string $personal_id;
@@ -27,7 +27,7 @@ class GetAnggotaRobotInActionResponse implements JsonSerializable
         bool $is_ketua,
         string $code_tim,
         string $desripsi_karya,
-        string $payment_id,
+        ?string $payment_id,
         string $payment_status,
         array $peserta,
         string $personal_id,

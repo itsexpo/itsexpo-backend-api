@@ -30,25 +30,21 @@ class GetAnggotaRobotInActionService
         $member = $this->robotik_member->findByUserId($userid);
 
         if (!$member) {
-            return UserException::throw("Data Tidak Ditemukan", 6060, 400);
+            UserException::throw("Data Tidak Ditemukan", 6060, 400);
         }
 
         $team = $this->robotik_team->find($member->getRobotInActionTeamId());
 
         if (!$team) {
-            return UserException::throw("Data Team Tidak Ditemukan", 6060, 400);
+            UserException::throw("Data Team Tidak Ditemukan", 6060, 400);
         }
 
-        $pemabayaran_tim = $this->pembayaran->find($team->getPembayaranId());
-
-        if (!$pemabayaran_tim) {
-            return UserException::throw("Data Pembayaran Tim Tidak Ditemukan", 6060, 400);
+        $pembayaran_tim = $this->pembayaran->find($team->getPembayaranId());
+        $status_pembayaran_tim = "AWAITING PAYMENT";
+        if ($pembayaran_tim) {
+            $status_pembayaran_tim = $this->status_pembayaran->find($pembayaran_tim->getStatusPembayaranId())->getStatus();
         }
-        $status_pembayaran_tim = $this->status_pembayaran->find($pemabayaran_tim->getStatusPembayaranId())->getStatus();
 
-        if (!$status_pembayaran_tim) {
-            return UserException::throw("Data Status Pembayaran Tidak Ditemukan", 6060, 400);
-        }
         $peserta = [];
         $team_members = $this->robotik_member->findAllMember($team->getId());
         foreach ($team_members as $team_member) {
