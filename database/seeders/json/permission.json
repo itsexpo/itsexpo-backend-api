@@ -125,11 +125,11 @@
     },
     {
         "id": 32,
-        "routes": "robot_in_action.store"
+        "routes": "robotik.store"
     },
     {
         "id": 33,
-        "routes": "robot_in_action.index"
+        "routes": "robotik.index"
     },
     {
         "id": 34, 

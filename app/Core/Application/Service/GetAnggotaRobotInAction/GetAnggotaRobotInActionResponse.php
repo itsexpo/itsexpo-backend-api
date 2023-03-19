@@ -10,6 +10,7 @@ class GetAnggotaRobotInActionResponse implements JsonSerializable
     private string $name_tim;
     private bool $is_ketua;
     private string $code_tim;
+    private string $competition_status;
     private string $desripsi_karya;
     private ?string $payment_id;
     private string $payment_status;
@@ -26,6 +27,7 @@ class GetAnggotaRobotInActionResponse implements JsonSerializable
         string $name_tim,
         bool $is_ketua,
         string $code_tim,
+        string $competition_status,
         string $desripsi_karya,
         ?string $payment_id,
         string $payment_status,
@@ -41,6 +43,7 @@ class GetAnggotaRobotInActionResponse implements JsonSerializable
         $this->name_tim = $name_tim;
         $this->is_ketua = $is_ketua;
         $this->code_tim = $code_tim;
+        $this->competition_status = $competition_status;
         $this->desripsi_karya = $desripsi_karya;
         $this->payment_id = $payment_id;
         $this->payment_status = $payment_status;
@@ -60,6 +63,7 @@ class GetAnggotaRobotInActionResponse implements JsonSerializable
             'name_tim' => $this->name_tim,
             'ketua_tim' => $this->is_ketua,
             'code_tim' => $this->code_tim,
+            'competition_status' => $this->competition_status,
             'deskripsi_karya' => $this->desripsi_karya,
             'payment' => [
                 'id' => $this->payment_id,
