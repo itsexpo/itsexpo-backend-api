@@ -16,8 +16,9 @@ class KTITeam
     private string $bukti_repost;
     private string $twibbon;
     private string $abstrak;
+    private string $created_at;
 
-    public function __construct(KTITeamId $id, ?PembayaranId $pembayaran_id, UserId $user_id, string $team_name, string $asal_instansi, string $follow_sosmed, string $bukti_repost, string $twibbon, string $abstrak)
+    public function __construct(KTITeamId $id, ?PembayaranId $pembayaran_id, UserId $user_id, string $team_name, string $asal_instansi, string $follow_sosmed, string $bukti_repost, string $twibbon, string $abstrak, string $created_at)
     {
         $this->id = $id;
         $this->pembayaran_id = $pembayaran_id;
@@ -28,6 +29,7 @@ class KTITeam
         $this->bukti_repost = $bukti_repost;
         $this->twibbon = $twibbon;
         $this->abstrak = $abstrak;
+        $this->created_at = $created_at;
     }
 
     /**
@@ -45,6 +47,7 @@ class KTITeam
             $bukti_repost,
             $twibbon,
             $abstrak,
+            "null"
         );
     }
 
@@ -54,6 +57,11 @@ class KTITeam
     public function getId(): KTITeamId
     {
         return $this->id;
+    }
+
+    public function getCreatedAt(): string
+    {
+        return $this->created_at;
     }
 
     /**

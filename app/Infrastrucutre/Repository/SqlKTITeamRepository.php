@@ -62,8 +62,20 @@ class SqlKTITeamRepository implements KTITeamRepositoryInterface
                 $row->bukti_repost,
                 $row->twibbon,
                 $row->abstrak,
+                $row->created_at,
             );
         }
         return $kti_team;
+    }
+
+    public function updatePembayaran(KTITeamId $kti_team_id, PembayaranId $pembayaran_id): void
+    {
+        $kti_team = DB::table('kti_team')->where('id', $kti_team_id->toString());
+        if (!$kti_team->first()) {
+            return;
+        }
+        $kti_team->update(
+            ['pembayaran_id' => $pembayaran_id->toString()]
+        );
     }
 }
