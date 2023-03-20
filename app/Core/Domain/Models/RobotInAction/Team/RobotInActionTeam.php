@@ -1,57 +1,57 @@
 <?php
 
-namespace App\Core\Domain\Models\Jurnalistik\Team;
+namespace App\Core\Domain\Models\RobotInAction\Team;
 
 use Exception;
 use App\Core\Domain\Models\Pembayaran\PembayaranId;
 
-class JurnalistikTeam
+class RobotInActionTeam
 {
-    private JurnalistikTeamId $id;
+    private RobotInActionTeamId $id;
     private ?PembayaranId $pembayaran_id;
     private string $team_name;
     private string $team_code;
-    private bool $team_status;
+    private RobotInActionCompetitionStatus $competition_status;
+    private string  $deskripsi_karya;
     private int $jumlah_anggota;
-    private JurnalistikLombaCategory $lomba_category;
-    private JurnalistikJenisKegiatan $jenis_kegiatan;
+    private bool $team_status;
     private string $created_at;
 
-    public function __construct(JurnalistikTeamId $id, ?PembayaranId $pembayaran_id, string $team_name, string $team_code, bool $team_status, int $jumlah_anggota, JurnalistikLombaCategory $lomba_category, JurnalistikJenisKegiatan $jenis_kegiatan, string $created_at)
+    public function __construct(RobotInActionTeamId $id, ?PembayaranId $pembayaran_id, string $team_name, string $team_code, RobotInActionCompetitionStatus $competition_status, string  $deskripsi_karya, int $jumlah_anggota, bool $team_status, string $created_at)
     {
         $this->id = $id;
         $this->pembayaran_id = $pembayaran_id;
         $this->team_name = $team_name;
         $this->team_code = $team_code;
-        $this->team_status = $team_status;
+        $this->competition_status = $competition_status;
+        $this->deskripsi_karya = $deskripsi_karya;
         $this->jumlah_anggota = $jumlah_anggota;
-        $this->lomba_category = $lomba_category;
-        $this->jenis_kegiatan = $jenis_kegiatan;
+        $this->team_status = $team_status;
         $this->created_at = $created_at;
     }
 
     /**
      * @throws Exception
      */
-    public static function create(?PembayaranId $pembayaran_id, string $team_name, string $team_code, bool $team_status, int $jumlah_anggota, JurnalistikLombaCategory $lomba_category, JurnalistikJenisKegiatan $jenis_kegiatan): self
+    public static function create(?PembayaranId $pembayaran_id, string $team_name, string $team_code, RobotInActionCompetitionStatus $competition_status, string  $deskripsi_karya, int $jumlah_anggota, bool $team_status): self
     {
         return new self(
-            JurnalistikTeamId::generate(),
+            RobotInActionTeamId::generate(),
             $pembayaran_id,
             $team_name,
             $team_code,
-            $team_status,
+            $competition_status,
+            $deskripsi_karya,
             $jumlah_anggota,
-            $lomba_category,
-            $jenis_kegiatan,
+            $team_status,
             "null"
         );
     }
 
     /**
-     * @return JurnalistikTeamId
+     * @return RobotInActionTeamId
      */
-    public function getId(): JurnalistikTeamId
+    public function getId(): RobotInActionTeamId
     {
         return $this->id;
     }
@@ -89,14 +89,6 @@ class JurnalistikTeam
     }
 
     /**
-     * @return void
-     */
-    public function setTeamStatus(bool $team_status): void
-    {
-        $this->team_status = $team_status;
-    }
-
-    /**
      * @return int
      */
     public function getJumlahAnggota(): int
@@ -105,19 +97,19 @@ class JurnalistikTeam
     }
 
     /**
-     * @return JurnalistikLombaCategory
+     * @return RobotInActionCompetitionStatus
      */
-    public function getLombaCategory(): JurnalistikLombaCategory
+    public function getCompetitionStatus(): RobotInActionCompetitionStatus
     {
-        return $this->lomba_category;
+        return $this->competition_status;
     }
 
     /**
-     * @return JurnalistikJenisKegiatan
+     * @return string
      */
-    public function getJenisKegiatan(): JurnalistikJenisKegiatan
+    public function getDeskripsiKarya(): string
     {
-        return $this->jenis_kegiatan;
+        return $this->deskripsi_karya;
     }
 
     /**

@@ -8,17 +8,17 @@
     },
     {
         "id": 12,
-        "name": "Talkshow",
+        "name": "KaryaTulisIlmiah",
         "kuota": 100,
-        "start_date": "2023-02-19",
-        "close_date": "2023-02-19"
+        "start_date": "2023-04-01",
+        "close_date": "2023-04-30"
     },
     {
         "id": 13,
-        "name": "Robotik In Action",
+        "name": "RobotInAction",
         "kuota": 100,
         "start_date": "2023-02-19",
-        "close_date": "2023-02-19"
+        "close_date": "2023-02-19" 
     },
     {
         "id": 21,
@@ -36,7 +36,7 @@
     },
     {
         "id": 31,
-        "name": "Gebyar ITS EXPO",
+        "name": "GebyarITSEXPO",
         "kuota": 100,
         "start_date": "2023-02-19",
         "close_date": "2023-02-19"

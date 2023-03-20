@@ -54,6 +54,10 @@ class CekPembayaranJurnalistikService
             UserException::throw("Jurnalistik Team Tidak Ditemukan", 6009);
         }
         $tanggal_pembayaran = Carbon::createFromFormat("Y-m-d H:i:s", $jurnalistik_team->getCreatedAt())->addDays(1)->format("Y-m-d H:i:s");
+        $pembayaran = $this->pembayaran_repository->find($jurnalistik_team->getPembayaranId());
+        if ($pembayaran && $pembayaran->getStatusPembayaranId() == 1) {
+            $tanggal_pembayaran = Carbon::createFromFormat("Y-m-d H:i:s", $jurnalistik_team->getCreatedAt())->addDays(3)->format("Y-m-d H:i:s");
+        }
         $kode_unik = substr($jurnalistik_team->getTeamCode(), -3);
         $harga = 300000;
         if ($jurnalistik_team->getJenisKegiatan()->value == 'UMUM') {
