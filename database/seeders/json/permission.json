@@ -146,5 +146,9 @@
     {
         "id": 37, 
         "routes": "robotik_pembayaran.index"
+    },
+    {
+        "id": 38, 
+        "routes": "admin_robotik_approval.store"
     }
 ]

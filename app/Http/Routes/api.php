@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KTIController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -18,8 +19,8 @@ use App\Http\Controllers\JurnalistikController;
 use App\Http\Controllers\UrlShortenerController;
 use App\Http\Controllers\RobotInActionController;
 use App\Http\Controllers\JurnalistikAdminController;
-use App\Http\Controllers\KTIController;
 use App\Http\Controllers\RoleHasPermissionController;
+use App\Http\Controllers\RobotInActionAdminController;
 
 Route::get('hello', function () {
     return response()->json();
@@ -84,12 +85,16 @@ Route::middleware(['iam'])->group(
         Route::get('/pre_event/robotik', [RobotInActionController::class, 'get'])->middleware('permission:robotik.index');
         Route::post('/pre_event/robotik/pembayaran', [RobotInActionController::class, 'createPembayaran'])->middleware('permission:robotik_pembayaran.store');
         Route::get('/pre_event/robotik/pembayaran', [RobotInActionController::class, 'cekPembayaran'])->middleware('permission:robotik_pembayaran.index');
-
+        
+        
         // jurnalistik admin
         Route::get('/admin/jurnalistik', [JurnalistikAdminController::class, 'getTeam'])->middleware('permission:admin_jurnalistik.index');
         Route::get('/admin/jurnalistik/{team_id}', [JurnalistikAdminController::class, 'getDetail'])->middleware('permission:admin_jurnalistik.detail');
         Route::patch('/admin/jurnalistik', [JurnalistikAdminController::class, 'confirmTeam'])->middleware('permission:admin_jurnalistik_approval.store');
-
+        
+        // Robot in Action admin
+        Route::patch('/admin/robotik', [RobotInActionAdminController::class, 'confirmTeam'])->middleware('permission:admin_robotik_approval.store');
+        
         // Karya Tulis Ilmiah
         Route::post('/pre_event/kti', [KTIController::class, 'createKTITeam'])->middleware('permission:kti.store');
         Route::get('/pre_event/kti', [KTIController::class, 'getKTITeam'])->middleware('permission:kti.index');
