@@ -150,5 +150,10 @@
     {
         "id": 38, 
         "routes": "admin_robotik_approval.store"
+    },
+    {
+        "id": 39, 
+        "routes": "admin_robotik.index"
     }
+
 ]

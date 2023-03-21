@@ -2,19 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use Throwable;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use App\Core\Application\Service\RobotInActionAdminConfirm\RobotInActionAdminConfirmService;
+use App\Core\Application\Service\RobotInActionAdmin\RobotInActionAdminRequest;
+use App\Core\Application\Service\RobotInActionAdmin\RobotInActionAdminService;
 use App\Core\Application\Service\RobotInActionAdminConfirm\RobotInActionAdminConfirmRequest;
+use App\Core\Application\Service\RobotInActionAdminConfirm\RobotInActionAdminConfirmService;
 
 class RobotInActionAdminController extends Controller
 {
+    public function getTeam(Request $request, RobotInActionAdminService $service)
+    {
+        $request->validate([
+            'per_page' => 'numeric',
+            'page' => 'numeric',
+            'filter' => ['sometimes', function ($attr, $val, $fail) {
+                if (!is_array($val)) {
+                    $fail($attr . ' must be an array of numbers');
+                }
+                if (is_array($val)) {
+                    foreach ($val as $number) {
+                        if (!is_numeric($number)) {
+                            $fail($attr . ' must be an array of numbers');
+                        }
+                    }
+                }
+            }],
+            'search' => 'string',
+        ]);
+
+        $input = new RobotInActionAdminRequest(
+            $request->input('per_page'),
+            $request->input('page'),
+            $request->input('filter'),
+            $request->input('search'),
+        );
+        $response = $service->execute($input);
+        return $this->successWithData($response, "Sukses mendapatkan data team robotik");
+    }
+
     public function confirmTeam(Request $request, RobotInActionAdminConfirmService $service)
     {
         $request->validate([
-          'pembayaran_id' => 'required',
-          'status_pembayaran_id' => 'required'
+            'pembayaran_id' => 'required',
+            'status_pembayaran_id' => 'required'
         ]);
 
         $input = new RobotInActionAdminConfirmRequest(
