@@ -7,6 +7,7 @@ use App\Core\Application\Service\RobotInActionAdmin\RobotInActionAdminRequest;
 use App\Core\Application\Service\RobotInActionAdmin\RobotInActionAdminService;
 use App\Core\Application\Service\RobotInActionAdminConfirm\RobotInActionAdminConfirmRequest;
 use App\Core\Application\Service\RobotInActionAdminConfirm\RobotInActionAdminConfirmService;
+use App\Core\Application\Service\GetRobotInActionAdminDetail\GetRobotInActionAdminDetailService;
 
 class RobotInActionAdminController extends Controller
 {
@@ -38,6 +39,13 @@ class RobotInActionAdminController extends Controller
         );
         $response = $service->execute($input);
         return $this->successWithData($response, "Sukses mendapatkan data team robotik");
+    }
+
+    public function getDetail(Request $request, GetRobotInActionAdminDetailService $service)
+    {
+        $id = $request->route('team_id');
+        $response = $service->execute($id);
+        return $this->successWithData($response, "Sukses mendapatkan detail robotik");
     }
 
     public function confirmTeam(Request $request, RobotInActionAdminConfirmService $service)

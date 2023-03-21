@@ -94,6 +94,7 @@ Route::middleware(['iam'])->group(
 
         // Robot in Action admin
         Route::get('/admin/robotik', [RobotInActionAdminController::class, 'getTeam'])->middleware('permission:admin_robotik.index');
+        Route::get('/admin/robotik/{team_id}', [RobotInActionAdminController::class, 'getDetail'])->middleware('permission:admin_robotik.detail');
         Route::patch('/admin/robotik', [RobotInActionAdminController::class, 'confirmTeam'])->middleware('permission:admin_robotik_approval.store');
 
 
