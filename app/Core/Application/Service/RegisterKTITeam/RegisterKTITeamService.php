@@ -80,12 +80,15 @@ class RegisterKTITeamService
             $account->getUserId()->toString(),
             'File Abstract'
         )->upload();
+
+        $team_code = 'LKTI-' . str_pad($this->kti_team_repository->countAllTeams() + 1, 3, "0", STR_PAD_LEFT);
       
         // Persist disini
         $team = KTITeam::create(
             null,
             $account->getUserId(),
             $request->getTeamName(),
+            $team_code,
             $request->getAsalInstansi(),
             $followUrl,
             $shareUrl,

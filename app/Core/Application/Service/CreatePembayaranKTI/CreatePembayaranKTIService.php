@@ -52,7 +52,7 @@ class CreatePembayaranKTIService
 
         $pembayaran = Pembayaran::create(
             $request->getBankId(),
-            11,
+            12,
             4,
             $bukti_pembayaran_url,
             $request->getHarga()

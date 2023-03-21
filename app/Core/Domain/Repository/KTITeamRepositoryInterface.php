@@ -14,5 +14,6 @@ interface KTITeamRepositoryInterface
     public function findByUserId(UserId $user_id): ?KTITeam;
 
     public function persist(KTITeam $team): void;
+    public function countAllTeams(): int;
     public function updatePembayaran(KTITeamId $jurnalistik_team_id, PembayaranId $pembayaran_id): void;
 }

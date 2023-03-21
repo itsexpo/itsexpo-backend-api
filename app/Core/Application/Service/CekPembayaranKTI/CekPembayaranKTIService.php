@@ -46,18 +46,17 @@ class CekPembayaranKTIService
         if (!$kti_team) {
             UserException::throw("KTI Team Tidak Ditemukan", 6009);
         }
+
+        $kode_unik = substr($kti_team->getTeamCode(), -3);
         
         $tanggal_pembayaran = Carbon::createFromFormat("Y-m-d H:i:s", $kti_team->getCreatedAt())->addDays(1)->format("Y-m-d H:i:s");
-        $harga = 300000;
-        if ($user->getRoleId() == 4) {
-            $harga = 125000;
-        } else {
-            $harga = 150000;
-        }
+        $harga = 130000; //EarlyBird
+
         $cek_kuota = true;
         
         return new CekPembayaranKTIResponse(
             $cek_kuota,
+            $kode_unik,
             $harga,
             $tanggal_pembayaran
         );
