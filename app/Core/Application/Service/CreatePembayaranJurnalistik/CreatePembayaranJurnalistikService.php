@@ -57,6 +57,7 @@ class CreatePembayaranJurnalistikService
             $request->getBankId(),
             11,
             4,
+            $request->getAtasNama(),
             $bukti_pembayaran_url,
             $request->getHarga()
         );

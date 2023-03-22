@@ -16,6 +16,7 @@ class SqlPembayaranRepository implements PembayaranRepositoryInterface
             'list_bank_id' => $pembayaran->getListBankId(),
             'list_event_id' => $pembayaran->getListEventId(),
             'status_pembayaran_id' => $pembayaran->getStatusPembayaranId(),
+            'atas_nama' => $pembayaran->getAtasNama(),
             'bukti_pembayaran_url' => $pembayaran->getBuktiPembayaranUrl(),
             'harga' => $pembayaran->getHarga(),
         ], 'id');
@@ -53,6 +54,7 @@ class SqlPembayaranRepository implements PembayaranRepositoryInterface
                 $row->list_bank_id,
                 $row->list_event_id,
                 $row->status_pembayaran_id,
+                $row->atas_nama,
                 $row->bukti_pembayaran_url,
                 $row->harga
             );

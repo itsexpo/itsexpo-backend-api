@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->integer('list_event_id')->index();
             $table->integer('list_bank_id')->index();
             $table->integer('status_pembayaran_id')->index();
+            $table->string('atas_nama', 512);
             $table->string('bukti_pembayaran_url', 512);
             $table->integer('harga');
             $table->timestamp('created_at')->useCurrent();
