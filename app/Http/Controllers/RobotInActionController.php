@@ -6,6 +6,8 @@ use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Core\Domain\Models\RobotInAction\RobotInActionMemberType;
+use App\Core\Application\Service\JoinTeamRobotInAction\JoinTeamRobotInActionRequest;
+use App\Core\Application\Service\JoinTeamRobotInAction\JoinTeamRobotInActionService;
 use App\Core\Application\Service\GetAnggotaRobotInAction\GetAnggotaRobotInActionService;
 use App\Core\Application\Service\RegisterRobotInAction\Ketua\RegisterRobotInActionKetuaRequest;
 use App\Core\Application\Service\RegisterRobotInAction\Ketua\RegisterRobotInActionKetuaService;
@@ -77,5 +79,16 @@ class RobotInActionController extends Controller
     {
         $response = $service->execute($request->get('account'));
         return $this->successWithData($response, "Berhasil mendapatkan data robot in action");
+    }
+
+    public function joinTeam(Request $request, JoinTeamRobotInActionService $service)
+    {
+        $request->validate([
+            'code_team' => 'string',
+        ]);
+
+        $input = new JoinTeamRobotInActionRequest($request->input('code_team'));
+        $service->execute($input, $request->get('account'));
+        return $this->success("Berhasil Bergabung Dengan Team");
     }
 }
