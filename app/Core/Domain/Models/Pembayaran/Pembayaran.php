@@ -40,6 +40,22 @@ class Pembayaran
             $harga,
         );
     }
+    
+    /**
+     * @throws Exception
+     */
+    public static function update(PembayaranId $id, int $list_bank_id, int $list_event_id, int $status_pembayaran_id, string $atas_nama, string $bukti_pembayaran_url, int $harga): self
+    {
+        return new self(
+            $id,
+            $list_bank_id,
+            $list_event_id,
+            $status_pembayaran_id,
+            $atas_nama,
+            $bukti_pembayaran_url,
+            $harga,
+        );
+    }
 
     /**
      * @return PembayaranId
