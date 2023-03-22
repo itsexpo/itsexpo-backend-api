@@ -82,8 +82,6 @@ Route::middleware(['iam'])->group(
         // Robot In Action
         Route::post('/pre_event/robotik', [RobotInActionController::class, 'register'])->middleware('permission:robotik.store');
         Route::get('/pre_event/robotik', [RobotInActionController::class, 'get'])->middleware('permission:robotik.index');
-        Route::post('/pre_event/robotik/pembayaran', [RobotInActionController::class, 'createPembayaran'])->middleware('permission:robotik_pembayaran.store');
-        Route::get('/pre_event/robotik/pembayaran', [RobotInActionController::class, 'cekPembayaran'])->middleware('permission:robotik_pembayaran.index');
 
         // jurnalistik admin
         Route::get('/admin/jurnalistik', [JurnalistikAdminController::class, 'getTeam'])->middleware('permission:admin_jurnalistik.index');
@@ -96,6 +94,8 @@ Route::middleware(['iam'])->group(
 
         // Pembayaran
         Route::post('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'createPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.store');
+        Route::post('/pre_event/pembayaran/robotik', [RobotInActionController::class, 'createPembayaran'])->middleware('permission:pembayaran_robotik.store');
+        Route::get('/pre_event/pembayaran/robotik', [RobotInActionController::class, 'cekPembayaran'])->middleware('permission:pembayaran_robotik.index');
 
         //User
         Route::get('/me', [UserController::class, 'me']);

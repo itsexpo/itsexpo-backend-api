@@ -136,7 +136,7 @@ class RegisterRobotInActionKetuaService
         );
         $this->robot_in_action_member_repository->persist($member);
         $user_has_list_event = UserHasListEvent::create(
-            11,
+            13,
             $member->getUserId(),
         );
         $this->user_has_list_event_repository->persist($user_has_list_event);
