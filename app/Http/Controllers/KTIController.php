@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Core\Application\Service\GetKTITeam\GetKTITeamService;
-use App\Core\Application\Service\RegisterKTIMember\RegisterKTIMemberRequest;
-use App\Core\Application\Service\RegisterKTIMember\RegisterKTIMemberService;
-use App\Core\Application\Service\RegisterKTITeam\RegisterKTITeamRequest;
-use App\Core\Application\Service\RegisterKTITeam\RegisterKTITeamService;
-use App\Core\Domain\Models\KTI\KTIMemberType;
 use Throwable;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use App\Core\Domain\Models\KTI\KTIMemberType;
+use App\Core\Application\Service\GetKTITeam\GetKTITeamService;
+use App\Core\Application\Service\RegisterKTITeam\RegisterKTITeamRequest;
+use App\Core\Application\Service\RegisterKTITeam\RegisterKTITeamService;
+use App\Core\Application\Service\CekPembayaranKTI\CekPembayaranKTIService;
+use App\Core\Application\Service\RegisterKTIMember\RegisterKTIMemberRequest;
+use App\Core\Application\Service\RegisterKTIMember\RegisterKTIMemberService;
 
 class KTIController extends Controller
 {
@@ -58,5 +60,11 @@ class KTIController extends Controller
     {
         $data = $service->execute($request->get('account'));
         return $this->successWithData($data, "Berhasil mendapatkan data tim");
+    }
+
+    public function cekPembayaranJurnalistik(Request $request, CekPembayaranKTIService $service): JsonResponse
+    {
+        $response = $service->execute($request->get('account'));
+        return $this->successWithData($response, "Berhasil Mendapatkan Detail Cek Pembayaran");
     }
 }

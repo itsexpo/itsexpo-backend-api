@@ -2,6 +2,7 @@
 
 namespace App\Core\Application\Service\GetAnggotaRobotInAction;
 
+use App\Core\Domain\Models\RobotInAction\RobotInActionMemberType;
 use App\Exceptions\UserException;
 use App\Core\Domain\Models\UserAccount;
 use App\Core\Domain\Repository\PembayaranRepositoryInterface;
@@ -51,7 +52,7 @@ class GetAnggotaRobotInActionService
             $peserta[] = new GetAnggotaRobotInActionPesertaResponse(
                 $team_member->getId()->toString(),
                 $team_member->getName(),
-                $team_member->getMemberType() == 'KETUA' ? 'TRUE' : 'FALSE',
+                ($team_member->getMemberType() === RobotInActionMemberType::KETUA->value) ? true : false,
                 $team_member->getSharePosterUrl(),
                 $team_member->getIdCardUrl(),
                 $team_member->getFollowSosmedUrl(),
@@ -61,7 +62,7 @@ class GetAnggotaRobotInActionService
         return new GetAnggotaRobotInActionResponse(
             $team->getId()->toString(),
             $team->getTeamName(),
-            $member->getMemberType() == 'KETUA' ? 'TRUE' : 'FALSE',
+            ($member->getMemberType() === RobotInActionMemberType::KETUA->value) ? true : false,
             $team->getTeamCode(),
             $team->getCompetitionStatus()->value,
             $team->getDeskripsiKarya(),

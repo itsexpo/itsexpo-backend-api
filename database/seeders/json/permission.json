@@ -132,32 +132,35 @@
         "routes": "robotik.index"
     },
     {
-        "id": 34, 
+        "id": 34,
         "routes": "kti.store"
     },
     {
-        "id": 35, 
+        "id": 35,
         "routes": "kti.index"
     },
     {
-        "id": 36, 
-        "routes": "robotik_pembayaran.store"
+        "id": 36,
+        "routes": "pembayaran_robotik.store"
     },
     {
-        "id": 37, 
-        "routes": "robotik_pembayaran.index"
+        "id": 37,
+        "routes": "pembayaran_robotik.index"
     },
     {
-        "id": 38, 
-        "routes": "admin_robotik_approval.store"
+        "id": 38,
+        "routes": "robotik_join.store"
     },
     {
         "id": 39, 
-        "routes": "admin_robotik.index"
+        "routes": "admin_robotik_approval.store"
     },
     {
         "id": 40, 
+        "routes": "admin_robotik.index"
+    },
+    {
+        "id": 41, 
         "routes": "admin_robotik.detail"
     }
-
 ]

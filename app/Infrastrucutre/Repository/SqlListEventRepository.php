@@ -5,7 +5,6 @@ namespace App\Infrastrucutre\Repository;
 use Illuminate\Support\Facades\DB;
 use App\Core\Domain\Models\ListEvent\ListEvent;
 use App\Core\Domain\Repository\ListEventRepositoryInterface;
-use Illuminate\Support\Facades\Date;
 
 class SqlListEventRepository implements ListEventRepositoryInterface
 {
@@ -42,8 +41,8 @@ class SqlListEventRepository implements ListEventRepositoryInterface
                 $row->id,
                 $row->name,
                 $row->kuota,
-                Date::parse($row->created_at),
-                Date::parse($row->updated_at)
+                $row->start_date,
+                $row->close_date
             );
         }
 

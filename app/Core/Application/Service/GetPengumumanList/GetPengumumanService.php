@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Application\Service\GetpengumumanList;
+namespace App\Core\Application\Service\GetPengumumanList;
 
 use App\Core\Domain\Repository\PengumumanRepositoryInterface;
 use App\Exceptions\UserException;
