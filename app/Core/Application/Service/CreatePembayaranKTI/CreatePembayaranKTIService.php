@@ -55,6 +55,7 @@ class CreatePembayaranKTIService
             12,
             4,
             $bukti_pembayaran_url,
+            $request->getAtasNama(),
             $request->getHarga()
         );
 
