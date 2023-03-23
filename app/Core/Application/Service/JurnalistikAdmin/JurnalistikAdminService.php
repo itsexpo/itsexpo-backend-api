@@ -53,7 +53,7 @@ class JurnalistikAdminService
             ->count();
         $pembayaran_awaiting_payment = DB::table('jurnalistik_team')
             ->leftJoin('pembayaran', 'jurnalistik_team.pembayaran_id', '=', 'pembayaran.id')
-            ->where('pembayaran.status_pembayaran_id', 5)
+            ->where('pembayaran.status_pembayaran_id', null)
             ->count();
 
         if ($request->getFilter()) {
@@ -75,10 +75,13 @@ class JurnalistikAdminService
             "max_page" => ceil($rows->total() / $request->getPerPage())
         ];
         $team_response = array_map(function (JurnalistikTeam $team) {
-            $status_pembayaran = false;
+            $status_pembayaran = "";
             if ($team->getPembayaranId()->toString() != null) {
                 $pembayaran_id = $this->pembayaran_repository->find($team->getPembayaranId())->getStatusPembayaranId();
                 $status_pembayaran = $this->status_pembayaran_repository->find($pembayaran_id)->getStatus();
+            }
+            if ($status_pembayaran == null) {
+                $status_pembayaran = "AWAITING PAYMENT";
             }
             $ketua_tim = $this->jurnalistik_member_repository->findKetua($team->getId())->getName();
             $created_at = $this->jurnalistik_team_repository->getCreatedAt($team->getId());
