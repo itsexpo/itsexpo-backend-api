@@ -39,8 +39,14 @@ class CreatePembayaranRobotInActionService
         $robotInAction_team = $this->robotInAction_team_repository->find($robotInAction_team_id);
         if (!$robotInAction_team) {
             UserException::throw("Robot In Action Team Tidak Ditemukan", 1001, 404);
-        } elseif ($robotInAction_team->getPembayaranId()->toString() != null) {
-            UserException::throw("Robot In Action Team Sudah Melakukan Pembayaran", 1001, 404);
+        }
+        $pembayaran = $this->pembayaran_repository->find($robotInAction_team->getPembayaranId());
+        $pembayaran_id = false;
+        if ($pembayaran != null) {
+            if ($pembayaran->getStatusPembayaranId() != 1) {
+                UserException::throw("Jurnalistik Team Sudah Melakukan Pembayaran", 1001, 404);
+            }
+            $pembayaran_id = true;
         }
 
         $bukti_pembayaran_url = ImageUpload::create(
@@ -49,14 +55,27 @@ class CreatePembayaranRobotInActionService
             $account->getUserId()->toString(),
             "Bukti Pembayaran"
         )->upload();
-
-        $pembayaran = Pembayaran::create(
-            $request->getBankId(),
-            13,
-            4,
-            $bukti_pembayaran_url,
-            $request->getHarga()
-        );
+        if ($pembayaran_id) {
+            $pembayaran = Pembayaran::update(
+                $pembayaran->getId(),
+                $request->getBankId(),
+                13,
+                4,
+                $request->getAtasNama(),
+                $bukti_pembayaran_url,
+                $request->getHarga()
+            );
+        } else {
+            $pembayaran = Pembayaran::create(
+                $request->getBankId(),
+                13,
+                4,
+                $request->getAtasNama(),
+                $bukti_pembayaran_url,
+                $request->getHarga()
+            );
+        }
+        
 
         $this->pembayaran_repository->persist($pembayaran);
         

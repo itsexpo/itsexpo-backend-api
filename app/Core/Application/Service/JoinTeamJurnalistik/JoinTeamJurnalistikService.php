@@ -28,7 +28,7 @@ class JoinTeamJurnalistikService
     {
         $jurnalistik_member = $this->jurnalistik_member_repository->findByUserId($account->getUserId());
         if (!$jurnalistik_member) {
-            UserException::throw("Peserta Tidak Ditemukan", 6016);
+            UserException::throw("Jurnalistik Team Tidak Ditemukan", 6016);
         }
         if ($jurnalistik_member->getJurnalistikTeamId()->toString()) {
             UserException::throw("User Sudah Join Team", 6004);

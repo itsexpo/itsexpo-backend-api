@@ -63,8 +63,8 @@ class RegisterRobotInActionKetuaService
 
 
         // PEMBATASAN QUOTA
-        $LINE_TRACER = 100;
-        $BENTENGAN = 100;
+        $LINE_TRACER = 500;
+        $BENTENGAN = 500;
         if ($competition_status == RobotInActionCompetitionStatus::LINE_TRACER) {
             $count = $this->robot_in_action_team_repository->countByCompetitionStatus($competition_status);
             if ($count >= $LINE_TRACER) {
@@ -136,7 +136,7 @@ class RegisterRobotInActionKetuaService
         );
         $this->robot_in_action_member_repository->persist($member);
         $user_has_list_event = UserHasListEvent::create(
-            11,
+            13,
             $member->getUserId(),
         );
         $this->user_has_list_event_repository->persist($user_has_list_event);

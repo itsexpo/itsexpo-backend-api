@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Core\Application\Service\CekPembayaranRobotInAction\CekPembayaranRobotInActionService;
 use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\JsonResponse;
 use App\Core\Domain\Models\RobotInAction\RobotInActionMemberType;
+use App\Core\Application\Service\JoinTeamRobotInAction\JoinTeamRobotInActionRequest;
+use App\Core\Application\Service\JoinTeamRobotInAction\JoinTeamRobotInActionService;
 use App\Core\Application\Service\GetAnggotaRobotInAction\GetAnggotaRobotInActionService;
 use App\Core\Application\Service\RegisterRobotInAction\Ketua\RegisterRobotInActionKetuaRequest;
 use App\Core\Application\Service\RegisterRobotInAction\Ketua\RegisterRobotInActionKetuaService;
 use App\Core\Application\Service\RegisterRobotInAction\Member\RegisterRobotInActionMemberRequest;
 use App\Core\Application\Service\RegisterRobotInAction\Member\RegisterRobotInActionMemberService;
-use App\Core\Application\Service\CreatePembayaranRobotInAction\CreatePembayaranRobotInActionRequest;
-use App\Core\Application\Service\CreatePembayaranRobotInAction\CreatePembayaranRobotInActionService;
 
 class RobotInActionController extends Controller
 {
@@ -83,37 +81,14 @@ class RobotInActionController extends Controller
         return $this->successWithData($response, "Berhasil mendapatkan data robot in action");
     }
 
-    public function createPembayaran(Request $request, CreatePembayaranRobotInActionService $service)
+    public function joinTeam(Request $request, JoinTeamRobotInActionService $service)
     {
         $request->validate([
-            'bank_id' => 'required|integer',
-            'harga' => 'required|integer',
-            'robotInAction_team_id' => 'required|string',
-            'bukti_pembayaran' => 'required|file|mimes:jpeg,png,pdf'
+            'code_team' => 'string',
         ]);
 
-        $input = new CreatePembayaranRobotInActionRequest(
-            $request->input('bank_id'),
-            $request->input('harga'),
-            $request->input('robotInAction_team_id'),
-            $request->file('bukti_pembayaran')
-        );
-
-        DB::beginTransaction();
-        try {
-            $service->execute($input, $request->get('account'));
-        } catch (Throwable $e) {
-            DB::rollBack();
-            throw $e;
-        }
-        DB::commit();
-
-        return $this->success("Berhasil melakukan pembayaran");
-    }
-
-    public function cekPembayaran(Request $request, CekPembayaranRobotInActionService $service): JsonResponse
-    {
-        $response = $service->execute($request->get('account'));
-        return $this->successWithData($response, "Berhasil Mendapatkan Detail Cek Pembayaran");
+        $input = new JoinTeamRobotInActionRequest($request->input('code_team'));
+        $service->execute($input, $request->get('account'));
+        return $this->success("Berhasil Bergabung Dengan Team");
     }
 }
