@@ -2,11 +2,13 @@
 
 namespace App\Core\Application\Service\GetKTITeam;
 
+use App\Core\Domain\Models\KTI\Team\KTITeamId;
 use Illuminate\Http\UploadedFile;
 use JsonSerializable;
 
 class GetKTITeamResponse implements JsonSerializable
 {
+    private string $team_id;
     private string $team_name;
     private string $asal_instansi;
     private string $lead_name;
@@ -18,8 +20,9 @@ class GetKTITeamResponse implements JsonSerializable
     private string $twibbon;
     private string $abstrak;
 
-    public function __construct(string $team_name, string $asal_instansi, string $lead_name, string $no_telp, PembayaranObjResponse $payment, array $members, string $follow_sosmed, string $share_poster, string $twibbon, string $abstrak)
+    public function __construct(string $team_id, string $team_name, string $asal_instansi, string $lead_name, string $no_telp, PembayaranObjResponse $payment, array $members, string $follow_sosmed, string $share_poster, string $twibbon, string $abstrak)
     {
+        $this->team_id = $team_id;
         $this->team_name = $team_name;
         $this->asal_instansi = $asal_instansi;
         $this->lead_name = $lead_name;
@@ -35,6 +38,7 @@ class GetKTITeamResponse implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [
+            'team_id' => $this->team_id,
             'team_name' => $this->team_name,
             'asal_instansi' => $this->asal_instansi,
             'lead_name' => $this->lead_name,
