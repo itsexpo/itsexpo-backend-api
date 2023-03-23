@@ -128,7 +128,7 @@ class RegisterRobotInActionKetuaService
             $account->getUserId(),
             $request->getName(),
             $request->getNoTelp(),
-            RobotInActionMemberType::KETUA,
+            RobotInActionMemberType::KETUA->value,
             $request->getAsalSekolah(),
             $idCardUrl,
             $followUrl,

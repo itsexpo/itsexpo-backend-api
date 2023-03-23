@@ -83,6 +83,7 @@ Route::middleware(['iam'])->group(
         Route::post('/pre_event/robotik', [RobotInActionController::class, 'register'])->middleware('permission:robotik.store');
         Route::get('/pre_event/robotik', [RobotInActionController::class, 'get'])->middleware('permission:robotik.index');
         Route::post('/pre_event/robotik/join', [RobotInActionController::class, 'joinTeam'])->middleware('permission:robotik_join.store');
+        Route::delete('/pre_event/robotik/team', [RobotInActionController::class, 'deleteTeam'])->middleware('permission:robotik_team.delete');
 
 
         // jurnalistik admin

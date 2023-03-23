@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use App\Core\Domain\Models\RobotInAction\RobotInActionMemberType;
 use App\Core\Application\Service\JoinTeamRobotInAction\JoinTeamRobotInActionRequest;
 use App\Core\Application\Service\JoinTeamRobotInAction\JoinTeamRobotInActionService;
+use App\Core\Application\Service\DeleteTeamRobotInAction\DeleteTeamRobotInActionRequest;
+use App\Core\Application\Service\DeleteTeamRobotInAction\DeleteTeamRobotInActionService;
 use App\Core\Application\Service\GetAnggotaRobotInAction\GetAnggotaRobotInActionService;
 use App\Core\Application\Service\RegisterRobotInAction\Ketua\RegisterRobotInActionKetuaRequest;
 use App\Core\Application\Service\RegisterRobotInAction\Ketua\RegisterRobotInActionKetuaService;
@@ -90,5 +92,19 @@ class RobotInActionController extends Controller
         $input = new JoinTeamRobotInActionRequest($request->input('code_team'));
         $service->execute($input, $request->get('account'));
         return $this->success("Berhasil Bergabung Dengan Team");
+    }
+
+    public function deleteTeam(Request $request, DeleteTeamRobotInActionService $service)
+    {
+        $request->validate([
+            'code_team' => 'string',
+            'id_personal' => 'string',
+        ]);
+        $input = new DeleteTeamRobotInActionRequest(
+            $request->input('code_team'),
+            $request->input('id_personal'),
+        );
+        $service->execute($input, $request->get('account'));
+        return $this->success("Berhasil Menghapus Anggota Team");
     }
 }

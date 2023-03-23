@@ -152,15 +152,19 @@
         "routes": "robotik_join.store"
     },
     {
-        "id": 39, 
+        "id": 39,
         "routes": "admin_robotik_approval.store"
     },
     {
-        "id": 40, 
+        "id": 40,
         "routes": "admin_robotik.index"
     },
     {
-        "id": 41, 
+        "id": 41,
         "routes": "admin_robotik.detail"
+    },
+    {
+        "id": 42,
+        "routes": "robotik_team.delete"
     }
 ]

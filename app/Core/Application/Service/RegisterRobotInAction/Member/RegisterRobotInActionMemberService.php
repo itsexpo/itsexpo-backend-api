@@ -66,7 +66,7 @@ class RegisterRobotInActionMemberService
             $account->getUserId(),
             $request->getName(),
             $request->getNoTelp(),
-            RobotInActionMemberType::MEMBER,
+            RobotInActionMemberType::MEMBER->value,
             $request->getAsalSekolah(),
             $idCardUrl,
             $followUrl,
