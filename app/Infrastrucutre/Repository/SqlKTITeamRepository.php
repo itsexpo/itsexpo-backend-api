@@ -40,6 +40,7 @@ class SqlKTITeamRepository implements KTITeamRepositoryInterface
           'pembayaran_id' => $team->getPembayaranId(),
           'user_id' => $team->getUserId()->toString(),
           'team_name' => $team->getTeamName(),
+          'team_code' => $team->getTeamCode(),
           'asal_instansi' => $team->getAsalInstansi(),
           'follow_sosmed' => $team->getFollowSosmed(),
           'bukti_repost' => $team->getBuktiRepost(),
@@ -57,13 +58,32 @@ class SqlKTITeamRepository implements KTITeamRepositoryInterface
                 new PembayaranId($row->pembayaran_id),
                 new UserId($row->user_id),
                 $row->team_name,
+                $row->team_code,
                 $row->asal_instansi,
                 $row->follow_sosmed,
                 $row->bukti_repost,
                 $row->twibbon,
                 $row->abstrak,
+                $row->created_at,
             );
         }
         return $kti_team;
+    }
+
+    public function updatePembayaran(KTITeamId $kti_team_id, PembayaranId $pembayaran_id): void
+    {
+        $kti_team = DB::table('kti_team')->where('id', $kti_team_id->toString());
+        if (!$kti_team->first()) {
+            return;
+        }
+        $kti_team->update(
+            ['pembayaran_id' => $pembayaran_id->toString()]
+        );
+    }
+
+    public function countAllTeams(): int
+    {
+        $count = DB::table('jurnalistik_team')->count();
+        return $count;
     }
 }

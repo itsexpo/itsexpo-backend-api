@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->uuid('pembayaran_id')->nullable();
             $table->uuid('user_id')->index();
             $table->string('team_name', 512);
+            $table->string('team_code', 512);
             $table->string('asal_instansi', 512);
             $table->string('follow_sosmed', 512);
             $table->string('bukti_repost', 512);

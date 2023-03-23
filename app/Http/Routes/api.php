@@ -91,9 +91,12 @@ Route::middleware(['iam'])->group(
         // Karya Tulis Ilmiah
         Route::post('/pre_event/kti', [KTIController::class, 'createKTITeam'])->middleware('permission:kti.store');
         Route::get('/pre_event/kti', [KTIController::class, 'getKTITeam'])->middleware('permission:kti.index');
+        Route::get('/pre_event/pembayaran/jurnalistik', [KTIController::class, 'cekPembayaranKTI'])->middleware('permission:pembayaran_kti.index');
+
 
         // Pembayaran
         Route::post('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'createPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.store');
+        Route::post('/pre_event/pembayaran/kti', [PembayaranController::class, 'createPembayaranKTI'])->middleware('permission:pembayaran_kti.store');
         Route::get('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'cekPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.index');
         Route::post('/pre_event/pembayaran/robotik', [PembayaranController::class, 'createPembayaran'])->middleware('permission:pembayaran_robotik.store');
         Route::get('/pre_event/pembayaran/robotik', [PembayaranController::class, 'cekPembayaran'])->middleware('permission:pembayaran_robotik.index');
