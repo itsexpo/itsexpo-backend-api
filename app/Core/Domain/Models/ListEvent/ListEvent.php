@@ -3,24 +3,23 @@
 namespace App\Core\Domain\Models\ListEvent;
 
 use Exception;
-use Illuminate\Support\Carbon;
 
 class ListEvent
 {
     private int $id;
     private string $name;
     private int $kuota;
-    private Carbon $start_date;
-    private Carbon $close_date;
+    private string $start_date;
+    private string $close_date;
 
     /**
      * @param int $id
      * @param string $name
      * @param int $kuota
-     * @param Date $start_date
-     * @param Date $close_date
+     * @param string $start_date
+     * @param string $close_date
      */
-    public function __construct(int $id, string $name, int $kuota, Carbon $start_date, Carbon $close_date)
+    public function __construct(int $id, string $name, int $kuota, string $start_date, string $close_date)
     {
         $this->id = $id;
         $this->name = $name;
@@ -32,7 +31,7 @@ class ListEvent
     /**
      * @throws Exception
      */
-    public static function create(int $id, string $name, int $kuota, Carbon $start_date, Carbon $close_date): self
+    public static function create(int $id, string $name, int $kuota, string $start_date, string $close_date): self
     {
         return new self(
             $id,
@@ -68,17 +67,17 @@ class ListEvent
     }
 
     /**
-     * @return Date
+     * @return string
      */
-    public function getStartDate(): Carbon
+    public function getStartDate(): string
     {
         return $this->start_date;
     }
 
     /**
-     * @return Date
+     * @return string
      */
-    public function getCloseDate(): Carbon
+    public function getCloseDate(): string
     {
         return $this->close_date;
     }

@@ -3,8 +3,8 @@
         "id": 11,
         "name": "Jurnalistik",
         "kuota": 100,
-        "start_date": "2023-02-19",
-        "close_date": "2023-02-19"
+        "start_date": "2023-04-01",
+        "close_date": "2023-04-30"
     },
     {
         "id": 12,
@@ -17,28 +17,28 @@
         "id": 13,
         "name": "RobotInAction",
         "kuota": 100,
-        "start_date": "2023-02-19",
-        "close_date": "2023-02-19" 
+        "start_date": "2023-04-01",
+        "close_date": "2023-04-30"
     },
     {
         "id": 21,
         "name": "Talkshow",
         "kuota": 100,
-        "start_date": "2023-02-19",
-        "close_date": "2023-02-19"
+        "start_date": "2023-04-01",
+        "close_date": "2023-04-30"
     },
     {
         "id": 22,
         "name": "Exibition",
         "kuota": 100,
-        "start_date": "2023-02-19",
-        "close_date": "2023-02-19"
+        "start_date": "2023-04-01",
+        "close_date": "2023-04-30"
     },
     {
         "id": 31,
         "name": "GebyarITSEXPO",
         "kuota": 100,
-        "start_date": "2023-02-19",
-        "close_date": "2023-02-19"
+        "start_date": "2023-04-01",
+        "close_date": "2023-04-30"
     }
 ]

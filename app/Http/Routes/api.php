@@ -77,13 +77,11 @@ Route::middleware(['iam'])->group(
         Route::delete('/pre_event/jurnalistik/team', [JurnalistikController::class, 'deleteTeam'])->middleware('permission:jurnalistik_team.delete');
         Route::post('/pre_event/jurnalistik/ketua', [JurnalistikController::class, 'createJurnalistikKetua'])->middleware('permission:jurnalistik_ketua.store');
         Route::post('/pre_event/jurnalistik/member', [JurnalistikController::class, 'createJurnalistikMember'])->middleware('permission:jurnalistik_member.store');
-        Route::get('/pre_event/pembayaran/jurnalistik', [JurnalistikController::class, 'cekPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.index');
 
         // Robot In Action
         Route::post('/pre_event/robotik', [RobotInActionController::class, 'register'])->middleware('permission:robotik.store');
         Route::get('/pre_event/robotik', [RobotInActionController::class, 'get'])->middleware('permission:robotik.index');
-        Route::post('/pre_event/robotik/pembayaran', [RobotInActionController::class, 'createPembayaran'])->middleware('permission:robotik_pembayaran.store');
-        Route::get('/pre_event/robotik/pembayaran', [RobotInActionController::class, 'cekPembayaran'])->middleware('permission:robotik_pembayaran.index');
+        Route::post('/pre_event/robotik/join', [RobotInActionController::class, 'joinTeam'])->middleware('permission:robotik_join.store');
 
         // jurnalistik admin
         Route::get('/admin/jurnalistik', [JurnalistikAdminController::class, 'getTeam'])->middleware('permission:admin_jurnalistik.index');
@@ -99,6 +97,9 @@ Route::middleware(['iam'])->group(
         // Pembayaran
         Route::post('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'createPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.store');
         Route::post('/pre_event/pembayaran/kti', [PembayaranController::class, 'createPembayaranKTI'])->middleware('permission:pembayaran_kti.store');
+        Route::get('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'cekPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.index');
+        Route::post('/pre_event/pembayaran/robotik', [PembayaranController::class, 'createPembayaran'])->middleware('permission:pembayaran_robotik.store');
+        Route::get('/pre_event/pembayaran/robotik', [PembayaranController::class, 'cekPembayaran'])->middleware('permission:pembayaran_robotik.index');
 
         //User
         Route::get('/me', [UserController::class, 'me']);

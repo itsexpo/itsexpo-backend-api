@@ -8,16 +8,16 @@ class GetAnggotaRobotInActionPesertaResponse implements JsonSerializable
 {
     private string $id;
     private string $name;
-    private string $ketua;
+    private bool $is_ketua;
     private string $share_poster;
     private string $id_card;
     private string $follow_sosmed;
 
-    public function __construct(string $id, string $name, string $ketua, string $share_poster, string $id_card, string $follow_sosmed)
+    public function __construct(string $id, string $name, bool $is_ketua, string $share_poster, string $id_card, string $follow_sosmed)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->ketua = $ketua;
+        $this->is_ketua = $is_ketua;
         $this->share_poster = $share_poster;
         $this->id_card = $id_card;
         $this->follow_sosmed = $follow_sosmed;
@@ -28,7 +28,7 @@ class GetAnggotaRobotInActionPesertaResponse implements JsonSerializable
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'ketua' => $this->ketua,
+            'ketua' => $this->is_ketua,
             'share_poster' => $this->share_poster,
             'id_card' => $this->id_card,
             'follow_sosmed' => $this->follow_sosmed

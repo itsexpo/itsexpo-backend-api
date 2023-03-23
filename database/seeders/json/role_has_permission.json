@@ -225,23 +225,33 @@
         "permission_id": 35
     },
     {
-        "id": 45,
+        "id": 46,
         "role_id": 3,
         "permission_id": 36
     },
     {
-        "id": 45,
+        "id": 47,
         "role_id": 4,
         "permission_id": 36
     },
     {
-        "id": 45,
+        "id": 48,
         "role_id": 3,
         "permission_id": 37
     },
     {
-        "id": 45,
+        "id": 49,
         "role_id": 4,
         "permission_id": 37
+    },
+    {
+        "id": 50,
+        "role_id": 3,
+        "permission_id": 38
+    },
+    {
+        "id": 51,
+        "role_id": 4,
+        "permission_id": 38
     }
 ]

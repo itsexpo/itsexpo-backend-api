@@ -80,6 +80,9 @@ class MeService
             );
         }, $routes);
 
+        unset($user_has_event[4], $user_has_event[5]);
+        $user_has_event = array_values($user_has_event);
+
         return new MeResponse($user, $role->getName(), $routes_array, $user_has_event);
     }
 }
