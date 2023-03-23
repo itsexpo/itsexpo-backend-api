@@ -2,7 +2,6 @@
 
 namespace App\Core\Domain\Models\RobotInAction\Member;
 
-use App\Core\Domain\Models\RobotInAction\RobotInActionMemberType;
 use Exception;
 use App\Core\Domain\Models\User\UserId;
 use App\Core\Domain\Models\RobotInAction\Team\RobotInActionTeamId;
@@ -14,13 +13,13 @@ class RobotInActionMember
     private UserId $user_id;
     private string $name;
     private string $no_telp;
-    private RobotInActionMemberType $member_type;
+    private string $member_type;
     private string $asal_sekolah;
     private string $id_card_url;
     private string $follow_sosmed_url;
     private string $share_poster_url;
 
-    public function __construct(RobotInActionMemberId $id, ?RobotInActionTeamId $robot_in_action_team_id, UserId $user_id, string $name, string $no_telp, RobotInActionMemberType $member_type, string $asal_sekolah, string $id_card_url, string $follow_sosmed_url, string $share_poster_url)
+    public function __construct(RobotInActionMemberId $id, ?RobotInActionTeamId $robot_in_action_team_id, UserId $user_id, string $name, string $no_telp, string $member_type, string $asal_sekolah, string $id_card_url, string $follow_sosmed_url, string $share_poster_url)
     {
         $this->id = $id;
         $this->robot_in_action_team_id = $robot_in_action_team_id;
@@ -37,7 +36,7 @@ class RobotInActionMember
     /**
      * @throws Exception
      */
-    public static function create(?RobotInActionTeamId $robot_in_action_team_id, UserId $user_id, string $name, string $no_telp, RobotInActionMemberType $member_type, string $asal_sekolah, string $id_card_url, string $follow_sosmed_url, string $share_poster_url): self
+    public static function create(?RobotInActionTeamId $robot_in_action_team_id, UserId $user_id, string $name, string $no_telp, string $member_type, string $asal_sekolah, string $id_card_url, string $follow_sosmed_url, string $share_poster_url): self
     {
         return new self(
             RobotInActionMemberId::generate(),
@@ -102,9 +101,9 @@ class RobotInActionMember
     }
 
     /**
-     * @return RobotInActionMemberType
+     * @return string
      */
-    public function getMemberType(): RobotInActionMemberType
+    public function getMemberType(): string
     {
         return $this->member_type;
     }
