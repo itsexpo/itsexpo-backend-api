@@ -67,7 +67,7 @@ class SqlRobotInActionTeamRepository implements RobotInActionTeamRepositoryInter
 
     public function decrementJumlahAnggota(string $team_code): void
     {
-        $robot_in_action = DB::table('robot_in_action')->where('team_code', $team_code);
+        $robot_in_action = DB::table('robot_in_action_team')->where('team_code', $team_code);
         if (!$robot_in_action->first()) {
             return;
         }
