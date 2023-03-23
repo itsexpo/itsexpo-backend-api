@@ -34,7 +34,7 @@ class GetKTITeamService
         if (!$user_id) {
             UserException::throw("User id tidak ditemukan", 1005, 404);
         }
-
+        
         $team = $this->kti_team_repo->findByUserId($user_id);
 
         if (!$team) {
@@ -64,7 +64,7 @@ class GetKTITeamService
             
             $lead_no_telp = $this->kti_member_repo->findLeadByTeamId($team->getId())->getNoTelp();
     
-            return new GetKTITeamResponse($team->getTeamName(), $team->getAsalInstansi(), $lead_name, $lead_no_telp, $payment, $members_array, $team->getFollowSosmed(), $team->getBuktiRepost(), $team->getTwibbon(), $team->getAbstrak());
+            return new GetKTITeamResponse($team->getId()->toString(), $team->getTeamName(), $team->getAsalInstansi(), $lead_name, $lead_no_telp, $payment, $members_array, $team->getFollowSosmed(), $team->getBuktiRepost(), $team->getTwibbon(), $team->getAbstrak());
         }
 
         else
@@ -92,7 +92,7 @@ class GetKTITeamService
             
             $lead_no_telp = $this->kti_member_repo->findLeadByTeamId($team->getId())->getNoTelp();
     
-            return new GetKTITeamResponse($team->getTeamName(), $team->getAsalInstansi(), $lead_name, $lead_no_telp, $payment, $members_array, $team->getFollowSosmed(), $team->getBuktiRepost(), $team->getTwibbon(), $team->getAbstrak());
+            return new GetKTITeamResponse($team->getId()->toString(), $team->getTeamName(), $team->getAsalInstansi(), $lead_name, $lead_no_telp, $payment, $members_array, $team->getFollowSosmed(), $team->getBuktiRepost(), $team->getTwibbon(), $team->getAbstrak());
         }
 
     }
