@@ -150,5 +150,17 @@
     {
         "id": 38,
         "routes": "robotik_join.store"
+    },
+    {
+        "id": 39, 
+        "routes": "admin_robotik_approval.store"
+    },
+    {
+        "id": 40, 
+        "routes": "admin_robotik.index"
+    },
+    {
+        "id": 41, 
+        "routes": "admin_robotik.detail"
     }
 ]
