@@ -19,10 +19,10 @@ class KTIController extends Controller
     public function createKTITeam(Request $request, RegisterKTITeamService $kti_team_service, RegisterKTIMemberService $kti_member_service)
     {
         $request->validate([
-          'team_name' => 'max:512|string',
-          'asal_instansi' => 'max:512|string',
-          'nama_ketua' => 'max:512|string',
-          'no_telp_ketua' => 'max:512|string',
+            'team_name' => 'max:512|string',
+            'asal_instansi' => 'max:512|string',
+            'nama_ketua' => 'max:512|string',
+            'no_telp_ketua' => 'max:512|string',
         ]);
 
         $input = new RegisterKTITeamRequest(
@@ -43,12 +43,12 @@ class KTIController extends Controller
                 KTIMemberType::MEMBER
             );
         }, $request->input('team_member'));
-    
+
         DB::beginTransaction();
         try {
             $kti_team_service->execute($input, $request->get('account'));
             $kti_member_service->execute($input_member, $request->get('account'));
-        } catch(Throwable $e) {
+        } catch (Throwable $e) {
             DB::rollBack();
             throw $e;
         }
@@ -62,7 +62,7 @@ class KTIController extends Controller
         return $this->successWithData($data, "Berhasil mendapatkan data tim");
     }
 
-    public function cekPembayaranJurnalistik(Request $request, CekPembayaranKTIService $service): JsonResponse
+    public function cekPembayaranKTI(Request $request, CekPembayaranKTIService $service): JsonResponse
     {
         $response = $service->execute($request->get('account'));
         return $this->successWithData($response, "Berhasil Mendapatkan Detail Cek Pembayaran");
