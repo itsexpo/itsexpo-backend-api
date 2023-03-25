@@ -52,6 +52,7 @@ class PembayaranController extends Controller
             'bank_id' => 'required',
             'bukti_pembayaran' => 'required',
             'harga' => 'required',
+            'atas_nama' => 'required|string',
             'kti_team_id' => 'required'
         ]);
 
@@ -59,6 +60,7 @@ class PembayaranController extends Controller
             $request->input('bank_id'),
             $request->input('harga'),
             $request->input('kti_team_id'),
+            $request->input('atas_nama'),
             $request->file('bukti_pembayaran'),
         );
 
