@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class FakultasSeeder extends Seeder
 {
@@ -15,6 +14,9 @@ class FakultasSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('fakultas')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $json = file_get_contents(database_path('seeders/json/fakultas.json'));
         $fakultass = json_decode($json, true);
 

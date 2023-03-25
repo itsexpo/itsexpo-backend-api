@@ -14,6 +14,9 @@ class ListEventSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('list_event')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $json = file_get_contents(database_path('seeders/json/list_event.json'));
         $list_events = json_decode($json, true);
 

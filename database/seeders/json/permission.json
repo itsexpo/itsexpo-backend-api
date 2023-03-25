@@ -166,5 +166,13 @@
     {
         "id": 42,
         "routes": "robotik_team.delete"
+    },
+    {
+        "id": 43,
+        "routes": "pembayaran_kti.store"
+    },
+    {
+        "id": 44,
+        "routes": "pembayaran_kti.index"
     }
 ]

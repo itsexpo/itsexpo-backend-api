@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DesaSeeder extends Seeder
 {
@@ -15,9 +14,12 @@ class DesaSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('desa')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $json = file_get_contents(database_path('seeders/json/desa.json'));
         $big_desas = json_decode($json, true);
-        foreach(array_chunk($big_desas, 1000) as $key => $desas) {
+        foreach (array_chunk($big_desas, 1000) as $key => $desas) {
             // foreach ($smallerArray as $index => $value) {
             //         $temp[$index] = $value;
             // }
@@ -32,7 +34,5 @@ class DesaSeeder extends Seeder
             }
             DB::table('desa')->insert($payload);
         }
-
-        
     }
 }
