@@ -14,6 +14,9 @@ class RoleHasPermissionSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('role_has_permission')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $json = file_get_contents(database_path('seeders/json/role_has_permission.json'));
         $role_has_permissions = json_decode($json, true);
 
