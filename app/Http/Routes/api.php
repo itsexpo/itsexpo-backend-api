@@ -20,7 +20,6 @@ use App\Http\Controllers\UrlShortenerController;
 use App\Http\Controllers\RobotInActionController;
 use App\Http\Controllers\JurnalistikAdminController;
 use App\Http\Controllers\KTIAdminController;
-use App\Http\Controllers\KTIController;
 use App\Http\Controllers\RoleHasPermissionController;
 use App\Http\Controllers\RobotInActionAdminController;
 
