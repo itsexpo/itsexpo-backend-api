@@ -37,7 +37,7 @@ class KTITeam
     /**
      * @throws Exception
      */
-    public static function create(?PembayaranId $pembayaran_id, UserId $user_id, string $team_code, string $team_name, string $asal_instansi, string $follow_sosmed, string $bukti_repost, string $twibbon, string $abstrak): self
+    public static function create(?PembayaranId $pembayaran_id, UserId $user_id, string $team_name, string $team_code, string $asal_instansi, string $follow_sosmed, string $bukti_repost, string $twibbon, string $abstrak): self
     {
         return new self(
             KTITeamId::generate(),
