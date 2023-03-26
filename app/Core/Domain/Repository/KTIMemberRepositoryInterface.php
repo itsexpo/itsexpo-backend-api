@@ -14,5 +14,7 @@ interface KTIMemberRepositoryInterface
 
     public function findLeadByTeamId(KTITeamId $kti_team_id): ?KTIMember;
 
+    public function findAllMember(KTITeamId $kti_team_id): array;
+
     public function persist(KTIMember $member): void;
 }

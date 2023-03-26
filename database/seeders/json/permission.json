@@ -174,5 +174,13 @@
     {
         "id": 44,
         "routes": "pembayaran_kti.index"
+    },
+    {
+        "id": 45, 
+        "routes": "admin_kti.index"
+    },
+    {
+        "id": "46",
+        "routes": "admin_kti.detail"
     }
 ]
