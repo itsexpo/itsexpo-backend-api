@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Core\Application\Service\GetKtiAdminDetail\GetKtiAdminDetailService;
 use App\Core\Application\Service\KTIAdmin\KTIAdminRequest;
 use App\Core\Application\Service\KTIAdmin\KTIAdminService;
 use Illuminate\Http\Request;
@@ -11,21 +12,21 @@ class KTIAdminController extends Controller
     public function getTeam(Request $request, KTIAdminService $service)
     {
         $request->validate([
-          'per_page' => 'numeric',
-          'page' => 'numeric',
-          'filter' => ['sometimes', function ($attr, $val, $fail) {
-              if (!is_array($val)) {
-                  $fail($attr . ' must be an array of numbers');
-              }
-              if (is_array($val)) {
-                  foreach ($val as $number) {
-                      if (!is_numeric($number)) {
-                          $fail($attr . ' must be an array of numbers');
-                      }
-                  }
-              }
-          }],
-          'search' => 'string'
+            'per_page' => 'numeric',
+            'page' => 'numeric',
+            'filter' => ['sometimes', function ($attr, $val, $fail) {
+                if (!is_array($val)) {
+                    $fail($attr . ' must be an array of numbers');
+                }
+                if (is_array($val)) {
+                    foreach ($val as $number) {
+                        if (!is_numeric($number)) {
+                            $fail($attr . ' must be an array of numbers');
+                        }
+                    }
+                }
+            }],
+            'search' => 'string'
         ]);
 
         $input = new KTIAdminRequest(
@@ -37,5 +38,12 @@ class KTIAdminController extends Controller
 
         $response = $service->execute($input);
         return $this->successWithData($response, "Success Get KTI Team Data");
+    }
+
+    public function getDetail(Request $request, GetKtiAdminDetailService $service)
+    {
+        $id = $request->route('team_id');
+        $response = $service->execute($id);
+        return $this->successWithData($response, "Success getting KTI team detail");
     }
 }

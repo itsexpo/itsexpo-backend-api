@@ -104,6 +104,8 @@ Route::middleware(['iam'])->group(
 
         // Karya Tulis Ilmiah Admin
         Route::get('/admin/kti', [KTIAdminController::class, 'getTeam'])->middleware('permission:admin_kti.index');
+        Route::get('/admin/kti/{team_id}', [KTIAdminController::class, 'getDetail'])->middleware('permission:admin_kti.detail');
+
 
         // Pembayaran
         Route::post('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'createPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.store');

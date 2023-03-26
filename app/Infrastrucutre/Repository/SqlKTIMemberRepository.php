@@ -47,12 +47,21 @@ class SqlKTIMemberRepository implements KTIMemberRepositoryInterface
     public function persist(KTIMember $member): void
     {
         DB::table('kti_member')->upsert([
-          'id' => $member->getId()->toString(),
-          'kti_team_id' => $member->getTeamId()->toString(),
-          'name' => $member->getName(),
-          'no_telp' => $member->getNoTelp(),
-          'member_type' => $member->getMemberType()->value
+            'id' => $member->getId()->toString(),
+            'kti_team_id' => $member->getTeamId()->toString(),
+            'name' => $member->getName(),
+            'no_telp' => $member->getNoTelp(),
+            'member_type' => $member->getMemberType()->value
         ], 'id');
+    }
+
+    public function findAllMember(KTITeamId $kti_team_id): array
+    {
+        $row = DB::table('kti_member')->where('kti_team_id', $kti_team_id->toString())->get();
+        if (!$row) {
+            return null;
+        }
+        return $this->constructFromRows($row->all());
     }
 
     public function constructFromRows(array $rows): array
