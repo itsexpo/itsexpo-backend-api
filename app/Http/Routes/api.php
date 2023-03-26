@@ -141,7 +141,7 @@ Route::middleware(['iam'])->group(
 
         //Pengumuman
         Route::post('/pengumuman', [PengumumanController::class, 'add'])->middleware('permission:pengumuman.store');
-        Route::get('/pengumuman/{id?}', [PengumumanController::class, 'get'])->middleware('permission:pengumuman.index');
+        Route::get('/pengumuman/{id?}', [PengumumanController::class, 'get']);
         Route::put('/pengumuman/{id}', [PengumumanController::class, 'update'])->middleware('permission:pengumuman.update');
         Route::delete('/pengumuman/{id}', [PengumumanController::class, 'delete'])->middleware('permission:pengumuman.delete');
     }
