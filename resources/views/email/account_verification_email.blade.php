@@ -92,7 +92,7 @@
       <div class="header"></div>
       <div class="content">
         <h3><strong>Selamat Datang di ITS EXPO 2023!</strong></h3>
-        <h4>Halo, <strong>Username</strong></h4>
+        <h4>Halo, <strong>{{ $name }}</strong></h4>
         <h5>Untuk memulai, tolong tekan tombol di bawah ini untuk konfirmasi alamat emailmu dan aktivasi akunmu</h5>
         <a  href="{{ 'expo-its.com/activate?token=' . $token . '&email=' . $email }}" class="btn">Verifikasi Email</a>
         <!-- h6 align center -->

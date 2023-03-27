@@ -62,6 +62,7 @@ class UserVerificationService
         }
         Mail::to($user->getEmail()->toString())->send(new AccountVerificationEmail(
             $user->getEmail()->toString(),
+            $user->getName(),
             $account_verification->getToken()
         ));
     }
