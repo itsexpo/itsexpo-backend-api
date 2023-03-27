@@ -62,6 +62,7 @@ class RegisterUserService
         $this->account_verification_repository->persist($AccountVerification);
         Mail::to($user->getEmail()->toString())->send(new AccountVerificationEmail(
             $user->getEmail()->toString(),
+            $user->getName(),
             $token,
         ));
     }

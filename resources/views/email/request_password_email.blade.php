@@ -93,7 +93,7 @@
       <div class="content">
         <h3><strong>Selamat Datang di ITS EXPO 2023!</strong></h3>
         <h5>Silahkan klik kode dibawah ini untuk mengganti password akun anda.</h5>
-        <a href="{{ 'https://expo-its.com/forgot_password?token=' . $token  }}">Forgot Password</a>
+        <a href="{{ 'https://expo-its.com/forgot-password?token=' . $token  }}">Forgot Password</a>
         <!-- h6 align center -->
         <h6 align="center">Tolong jangan balas pesan ini. Email ini dikirim dari alamat email khusus pemberitahuan yang tidak dapat menerima email masuk.</h6>
         <!--Garis pembatas-->

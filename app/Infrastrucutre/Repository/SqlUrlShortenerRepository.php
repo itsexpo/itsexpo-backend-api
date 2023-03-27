@@ -66,8 +66,8 @@ class SqlUrlShortenerRepository implements UrlShortenerRepositoryInterface
     public function addVisitor(string $short_url): void
     {
         $row = DB::table('url_shortener')->where('short_url', $short_url);
-        $visitor = $row->first()->visitor + 1;
         if ($row) {
+            $visitor = $row->first()->visitor + 1;
             $row->update(['visitor' => $visitor]);
         }
     }
