@@ -17,5 +17,9 @@ interface PengumumanRepositoryInterface
 
     public function getByEventId(int $event_id): array;
 
-    public function getById(string $id);
+    public function getById(string $id): Pengumuman;
+
+    public function getWithPagination(int $page, int $per_page): array;
+
+    public function getByEventIdWithPagination(int $page, int $per_page, int $event_id): array;
 }

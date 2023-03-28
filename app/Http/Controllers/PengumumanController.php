@@ -53,7 +53,9 @@ class PengumumanController extends Controller
 
         $input = new GetPengumumanRequest(
             $request->query('event_id'),
-            $request->query('id')
+            $request->query('id'),
+            $request->query('page'),
+            $request->query('per_page')
         );
 
         $response = $service->execute($input);
