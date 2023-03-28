@@ -15,11 +15,12 @@ return new class extends Migration {
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->integer('list_event_id')->index();
-            $table->integer('list_bank_id')->index();
+            $table->integer('list_bank_id')->index()->nullable();
             $table->integer('status_pembayaran_id')->index();
-            $table->string('atas_nama', 512);
-            $table->string('bukti_pembayaran_url', 512);
-            $table->integer('harga');
+            $table->string('atas_nama', 512)->nullable();
+            $table->string('bukti_pembayaran_url', 512)->nullable();
+            $table->integer('harga')->nullable();
+            $table->datetime('deadline');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 

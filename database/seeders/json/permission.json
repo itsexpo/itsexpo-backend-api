@@ -180,7 +180,11 @@
         "routes": "admin_kti.index"
     },
     {
-        "id": "46",
+        "id": 46,
         "routes": "admin_kti.detail"
+    },
+    {
+        "id" : 47,
+        "routes" : "pembayaran.update"
     }
 ]

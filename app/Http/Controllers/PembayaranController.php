@@ -14,6 +14,8 @@ use App\Core\Application\Service\CreatePembayaranKTI\CreatePembayaranKTIRequest;
 use App\Core\Application\Service\CreatePembayaranKTI\CreatePembayaranKTIService;
 use App\Core\Application\Service\CreatePembayaranRobotInAction\CreatePembayaranRobotInActionRequest;
 use App\Core\Application\Service\CreatePembayaranRobotInAction\CreatePembayaranRobotInActionService;
+use App\Core\Application\Service\UpdatePembayaran\UpdatePembayaranRequest;
+use App\Core\Application\Service\UpdatePembayaran\UpdatePembayaranService;
 
 class PembayaranController extends Controller
 {
@@ -116,5 +118,15 @@ class PembayaranController extends Controller
     {
         $response = $service->execute($request->get('account'));
         return $this->successWithData($response, "Berhasil Mendapatkan Detail Cek Pembayaran");
+    }
+
+    public function updatePembayaran(Request $request, UpdatePembayaranService $service)
+    {
+        $request->validate([
+            'payment_id' => 'required'
+        ]);
+        $input = new UpdatePembayaranRequest($request->input('payment_id'));
+        $service->execute($input);
+        return $this->success("Berhasil merubah waktu pembayaran");
     }
 }

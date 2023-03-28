@@ -33,14 +33,22 @@ class CreatePembayaranKTIService
     {
         $bank = $this->list_bank_repository->find($request->getBankId());
         if (!$bank) {
-            UserException::throw("Bank Tidak Ditemukan", 1001, 404);
+            UserException::throw("Bank Tidak Ditemukan", 1003, 404);
         }
         $kti_team_id = new KTITeamId($request->getKTITeamId());
         $kti_team = $this->kti_team_repository->find($kti_team_id);
         if (!$kti_team) {
-            UserException::throw("KTI Team Tidak Ditemukan", 1001, 404);
-        } elseif ($kti_team->getPembayaranId()->toString() != null) {
-            UserException::throw("KTI Team Sudah Melakukan Pembayaran", 1001, 404);
+            UserException::throw("KTI Team Tidak Ditemukan", 1003, 404);
+        }
+
+        $pembayaran = $this->pembayaran_repository->find($kti_team->getPembayaranId());
+        
+        if (!$pembayaran) {
+            UserException::throw("Data pembayaran tidak dapat ditemukan", 1003, 404);
+        }
+
+        if ($pembayaran->getStatusPembayaranId() != 5) {
+            UserException::throw("Status pembayaran tidak sesuai", 1003, 404);
         }
 
         $bukti_pembayaran_url = ImageUpload::create(
@@ -50,17 +58,25 @@ class CreatePembayaranKTIService
             "Bukti Pembayaran"
         )->upload();
 
-        $pembayaran = Pembayaran::create(
+        $newPembayaran = Pembayaran::update(
+            $pembayaran->getId(),
+        $newPembayaran = Pembayaran::update(
+            $pembayaran->getId(),
             $request->getBankId(),
             12,
             4,
+            $request->getAtasNama(),
+            $request->getAtasNama(),
             $bukti_pembayaran_url,
             $request->getAtasNama(),
-            $request->getHarga()
+            $request->getHarga(),
+            $pembayaran->getDeadline()
         );
 
-        $this->pembayaran_repository->persist($pembayaran);
+        $this->pembayaran_repository->persist($newPembayaran);
+        $this->pembayaran_repository->persist($newPembayaran);
         
-        $this->kti_team_repository->updatePembayaran($kti_team_id, $pembayaran->getId());
+        $this->kti_team_repository->updatePembayaran($kti_team_id, $newPembayaran->getId());
+        $this->kti_team_repository->updatePembayaran($kti_team_id, $newPembayaran->getId());
     }
 }

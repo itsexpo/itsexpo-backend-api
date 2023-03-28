@@ -3,18 +3,20 @@
 namespace App\Core\Domain\Models\Pembayaran;
 
 use Exception;
+use Carbon\Carbon;
 
 class Pembayaran
 {
     private PembayaranId $id;
-    private int $list_bank_id;
+    private ?int $list_bank_id;
     private int $list_event_id;
     private int $status_pembayaran_id;
-    private string $atas_nama;
-    private string $bukti_pembayaran_url;
-    private int $harga;
+    private ?string $atas_nama;
+    private ?string $bukti_pembayaran_url;
+    private ?int $harga;
+    private Carbon $deadline;
 
-    public function __construct(PembayaranId $id, int $list_bank_id, int $list_event_id, int $status_pembayaran_id, string $atas_nama, string $bukti_pembayaran_url, int $harga)
+    public function __construct(PembayaranId $id, ?int $list_bank_id, int $list_event_id, int $status_pembayaran_id, ?string $atas_nama, ?string $bukti_pembayaran_url, ?int $harga, Carbon $deadline)
     {
         $this->id = $id;
         $this->list_bank_id = $list_bank_id;
@@ -23,12 +25,13 @@ class Pembayaran
         $this->atas_nama = $atas_nama;
         $this->bukti_pembayaran_url = $bukti_pembayaran_url;
         $this->harga = $harga;
+        $this->deadline = $deadline;
     }
 
     /**
      * @throws Exception
      */
-    public static function create(int $list_bank_id, int $list_event_id, int $status_pembayaran_id, string $atas_nama, string $bukti_pembayaran_url, int $harga): self
+    public static function create(?int $list_bank_id, int $list_event_id, int $status_pembayaran_id, ?string $atas_nama, ?string $bukti_pembayaran_url, ?int $harga, Carbon $deadline): self
     {
         return new self(
             PembayaranId::generate(),
@@ -38,13 +41,14 @@ class Pembayaran
             $atas_nama,
             $bukti_pembayaran_url,
             $harga,
+            $deadline
         );
     }
     
     /**
      * @throws Exception
      */
-    public static function update(PembayaranId $id, int $list_bank_id, int $list_event_id, int $status_pembayaran_id, string $atas_nama, string $bukti_pembayaran_url, int $harga): self
+    public static function update(PembayaranId $id, ?int $list_bank_id, int $list_event_id, int $status_pembayaran_id, ?string $atas_nama, ?string $bukti_pembayaran_url, ?int $harga, Carbon $deadline): self
     {
         return new self(
             $id,
@@ -54,6 +58,7 @@ class Pembayaran
             $atas_nama,
             $bukti_pembayaran_url,
             $harga,
+            $deadline
         );
     }
 
@@ -68,7 +73,7 @@ class Pembayaran
     /**
      * @return int
      */
-    public function getListBankId(): int
+    public function getListBankId(): int | NULL
     {
         return $this->list_bank_id;
     }
@@ -92,7 +97,7 @@ class Pembayaran
     /**
      * @return int
      */
-    public function getHarga(): int
+    public function getHarga(): int | NULL
     {
         return $this->harga;
     }
@@ -100,7 +105,7 @@ class Pembayaran
     /**
      * @return string
      */
-    public function getAtasNama(): string
+    public function getAtasNama(): string | NULL
     {
         return $this->atas_nama;
     }
@@ -108,8 +113,13 @@ class Pembayaran
     /**
      * @return string
      */
-    public function getBuktiPembayaranUrl(): string
+    public function getBuktiPembayaranUrl(): string | NULL
     {
         return $this->bukti_pembayaran_url;
+    }
+
+    public function getDeadline(): Carbon | NULL
+    {
+        return $this->deadline;
     }
 }

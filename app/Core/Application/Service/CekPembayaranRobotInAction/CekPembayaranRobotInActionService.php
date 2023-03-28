@@ -18,7 +18,6 @@ class CekPembayaranRobotInActionService
     private UserRepositoryInterface $user_repository;
     private PembayaranRepositoryInterface $pembayaran_repository;
 
-
     public function __construct(
         RobotInActionTeamRepositoryInterface $robotInAction_team_repositor,
         RobotInActionMemberRepositoryInterface $robotInAction_member_repository,
@@ -37,19 +36,39 @@ class CekPembayaranRobotInActionService
         if (!$user) {
             UserException::throw("User Tidak Ditemukan", 6009);
         }
+
         $robotInAction_member = $this->robotInAction_member_repository->findByUserId($account->getUserId());
         if (!$robotInAction_member) {
-            UserException::throw("Jurnalistik Team Tidak Ditemukan", 6009);
+            UserException::throw("Robot In Action Member Tidak Ditemukan", 6009);
         }
+
         $robotInAction_team = $this->robotInAction_team_repository->find($robotInAction_member->getRobotInActionTeamId());
         if (!$robotInAction_team) {
-            UserException::throw("Jurnalistik Team Tidak Ditemukan", 6009);
+            UserException::throw("Robot In Action Team Tidak Ditemukan", 6009);
         }
-        $tanggal_pembayaran = Carbon::createFromFormat("Y-m-d H:i:s", $robotInAction_team->getCreatedAt())->addDays(1)->format("Y-m-d H:i:s");
+
         $pembayaran = $this->pembayaran_repository->find($robotInAction_team->getPembayaranId());
-        if ($pembayaran && $pembayaran->getStatusPembayaranId() == 1) {
-            $tanggal_pembayaran = Carbon::createFromFormat("Y-m-d H:i:s", $robotInAction_team->getCreatedAt())->addDays(3)->format("Y-m-d H:i:s");
+        if (!$pembayaran) {
+            UserException::throw("Data pembayaran Tidak Ditemukan", 6009);
         }
+
+        $tanggal_pembayaran = $pembayaran->getDeadline()->toDateTimeString();
+
+        if (Carbon::now() >= $pembayaran->getDeadline()) {
+            $updatePembayaran = $pembayaran->update(
+                $pembayaran->getId(),
+                $pembayaran->getListBankId(),
+                $pembayaran->getListEventId(),
+                1,
+                $pembayaran->getAtasNama(),
+                $pembayaran->getBuktiPembayaranUrl(),
+                $pembayaran->getHarga(),
+                $pembayaran->getDeadline()
+            );
+            $this->pembayaran_repository->persist($updatePembayaran);
+            UserException::throw("Sesi pembayaran telah habis", 6009);
+        }
+
         $kode_unik = substr($robotInAction_team->getTeamCode(), -3);
         $harga = 0;
 
@@ -75,12 +94,12 @@ class CekPembayaranRobotInActionService
             }
         }
 
-
         return new CekPembayaranRobotInActionResponse(
             $cek_kuota,
             $kode_unik,
             $harga,
-            $tanggal_pembayaran
+            $tanggal_pembayaran,
+            $pembayaran->getId()->toString()
         );
     }
 }
