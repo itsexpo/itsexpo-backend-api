@@ -2,19 +2,22 @@
 
 namespace App\Core\Application\Service\RegisterRobotInAction\Ketua;
 
+use Illuminate\Support\Carbon;
 use App\Exceptions\UserException;
 use App\Core\Domain\Models\UserAccount;
 use App\Core\Application\ImageUpload\ImageUpload;
+use App\Core\Domain\Models\Pembayaran\Pembayaran;
 use App\Core\Domain\Repository\RoleRepositoryInterface;
 use App\Core\Domain\Repository\UserRepositoryInterface;
+use App\Core\Domain\Models\UserHasListEvent\UserHasListEvent;
+use App\Core\Domain\Repository\PembayaranRepositoryInterface;
 use App\Core\Domain\Models\RobotInAction\Team\RobotInActionTeam;
 use App\Core\Domain\Models\RobotInAction\RobotInActionMemberType;
+use App\Core\Domain\Repository\UserHasListEventRepositoryInterface;
 use App\Core\Domain\Models\RobotInAction\Member\RobotInActionMember;
 use App\Core\Domain\Repository\RobotInActionTeamRepositoryInterface;
 use App\Core\Domain\Repository\RobotInActionMemberRepositoryInterface;
 use App\Core\Domain\Models\RobotInAction\Team\RobotInActionCompetitionStatus;
-use App\Core\Domain\Models\UserHasListEvent\UserHasListEvent;
-use App\Core\Domain\Repository\UserHasListEventRepositoryInterface;
 
 class RegisterRobotInActionKetuaService
 {
@@ -23,6 +26,7 @@ class RegisterRobotInActionKetuaService
     private UserHasListEventRepositoryInterface $user_has_list_event_repository;
     private UserRepositoryInterface $user_repository;
     private RoleRepositoryInterface $role_repository;
+    private PembayaranRepositoryInterface $pembayaran_repository;
 
     /**
      * @param RobotInActionTeamRepositoryInterface robot_in_action__team_repository
@@ -31,13 +35,20 @@ class RegisterRobotInActionKetuaService
      * @param UserRepositoryInterface $user_repository
      * @param RoleRepositoryInterface $role_repository
      */
-    public function __construct(RobotInActionTeamRepositoryInterface $robot_in_action_team_repository, RobotInActionMemberRepositoryInterface $robot_in_action_member_repository, UserHasListEventRepositoryInterface $user_has_list_event_repository, UserRepositoryInterface $user_repository, RoleRepositoryInterface $role_repository)
-    {
+    public function __construct(
+        RobotInActionTeamRepositoryInterface $robot_in_action_team_repository,
+        RobotInActionMemberRepositoryInterface $robot_in_action_member_repository,
+        UserHasListEventRepositoryInterface $user_has_list_event_repository,
+        UserRepositoryInterface $user_repository,
+        RoleRepositoryInterface $role_repository,
+        PembayaranRepositoryInterface $pembayaran_repository
+    ) {
         $this->robot_in_action_team_repository = $robot_in_action_team_repository;
         $this->robot_in_action_member_repository = $robot_in_action_member_repository;
         $this->user_has_list_event_repository = $user_has_list_event_repository;
         $this->user_repository = $user_repository;
         $this->role_repository = $role_repository;
+        $this->pembayaran_repository = $pembayaran_repository;
     }
 
     public function execute(RegisterRobotInActionKetuaRequest $request, UserAccount $account)
@@ -85,8 +96,22 @@ class RegisterRobotInActionKetuaService
             STR_PAD_LEFT
         );
 
-        $team = RobotInActionTeam::create(
+        $current_time = Carbon::now()->addDay();
+        
+        $pembayaran = Pembayaran::create(
             null,
+            13,
+            5,
+            null,
+            null,
+            null,
+            $current_time
+        );
+        
+        $this->pembayaran_repository->persist($pembayaran);
+        
+        $team = RobotInActionTeam::create(
+            $pembayaran->getId(),
             $request->getTeamName(),
             $team_code,
             $competition_status,
@@ -94,9 +119,8 @@ class RegisterRobotInActionKetuaService
             1,
             false,
         );
-
+        
         $this->robot_in_action_team_repository->persist($team);
-
         // Cek File Exception
         $idCardUrl = ImageUpload::create(
             $request->getIdCard(),
@@ -134,6 +158,7 @@ class RegisterRobotInActionKetuaService
             $followUrl,
             $shareUrl
         );
+
         $this->robot_in_action_member_repository->persist($member);
         $user_has_list_event = UserHasListEvent::create(
             13,

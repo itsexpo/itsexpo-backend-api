@@ -33,51 +33,43 @@ class CreatePembayaranJurnalistikService
     {
         $bank = $this->list_bank_repository->find($request->getBankId());
         if (!$bank) {
-            UserException::throw("Bank Tidak Ditemukan", 1001, 404);
+            UserException::throw("Bank Tidak Ditemukan", 1002, 404);
         }
         $jurnalistik_team_id = new JurnalistikTeamId($request->getJurnalistikTeamId());
         $jurnalistik_team = $this->jurnalistik_team_repository->find($jurnalistik_team_id);
         if (!$jurnalistik_team) {
-            UserException::throw("Jurnalistik Team Tidak Ditemukan", 1001, 404);
+            UserException::throw("Jurnalistik Team Tidak Ditemukan", 1002, 404);
         }
         $pembayaran = $this->pembayaran_repository->find($jurnalistik_team->getPembayaranId());
-        $pembayaran_id = false;
-        if ($pembayaran != null) {
-            if ($pembayaran->getStatusPembayaranId() != 1) {
-                UserException::throw("Jurnalistik Team Sudah Melakukan Pembayaran", 1001, 404);
-            }
-            $pembayaran_id = true;
+
+        if (!$pembayaran) {
+            UserException::throw("Data pembayaran tidak dapat ditemukan", 1002, 404);
         }
+
+        if ($pembayaran->getStatusPembayaranId() != 5) {
+            UserException::throw("Status pembayaran tidak sesuai", 1002, 404);
+        }
+
         $bukti_pembayaran_url = ImageUpload::create(
             $request->getBuktiPembayaran(),
             'pembayaran/jurnalistik',
             $account->getUserId()->toString(),
             "Bukti Pembayaran"
         )->upload();
-        if ($pembayaran_id) {
-            $pembayaran = Pembayaran::update(
-                $pembayaran->getId(),
-                $request->getBankId(),
-                11,
-                4,
-                $request->getAtasNama(),
-                $bukti_pembayaran_url,
-                $request->getHarga()
-            );
-        } else {
-            $pembayaran = Pembayaran::create(
-                $request->getBankId(),
-                11,
-                4,
-                $request->getAtasNama(),
-                $bukti_pembayaran_url,
-                $request->getHarga()
-            );
-        }
-        
 
-        $this->pembayaran_repository->persist($pembayaran);
+        $newPembayaran = Pembayaran::update(
+            $pembayaran->getId(),
+            $request->getBankId(),
+            11,
+            4,
+            $request->getAtasNama(),
+            $bukti_pembayaran_url,
+            $request->getHarga(),
+            $pembayaran->getDeadline()
+        );
+
+        $this->pembayaran_repository->persist($newPembayaran);
         
-        $this->jurnalistik_team_repository->updatePembayaran($jurnalistik_team_id, $pembayaran->getId());
+        $this->jurnalistik_team_repository->updatePembayaran($jurnalistik_team_id, $newPembayaran->getId());
     }
 }

@@ -44,7 +44,7 @@ class SqlRobotInActionTeamRepository implements RobotInActionTeamRepositoryInter
     {
         DB::table('robot_in_action_team')->upsert([
             'id' => $team->getId()->toString(),
-            'pembayaran_id' => $team->getPembayaranId(),
+            'pembayaran_id' => $team->getPembayaranId()->toString(),
             'team_name' => $team->getTeamName(),
             'team_code' => $team->getTeamCode(),
             'competition_status' => $team->getCompetitionStatus()->value,

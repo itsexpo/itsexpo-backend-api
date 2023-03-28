@@ -9,6 +9,7 @@ class CreatePembayaranKTIRequest
     private int $bank_id;
     private int $harga;
     private string $kti_team_id;
+    private string $atas_nama;
     private UploadedFile $bukti_pembayaran;
 
     /**
@@ -18,12 +19,13 @@ class CreatePembayaranKTIRequest
      * @param UploadedFile $bukti_pembayaran
      */
 
-    public function __construct(int $bank_id, int $harga, string $kti_team_id, UploadedFile $bukti_pembayaran)
+    public function __construct(int $bank_id, int $harga, string $kti_team_id, string $atas_nama, UploadedFile $bukti_pembayaran)
     {
         $this->bank_id = $bank_id;
         $this->harga = $harga;
         $this->kti_team_id = $kti_team_id;
         $this->bukti_pembayaran = $bukti_pembayaran;
+        $this->atas_nama = $atas_nama;
     }
 
     /**
@@ -56,5 +58,13 @@ class CreatePembayaranKTIRequest
     public function getBuktiPembayaran(): UploadedFile
     {
         return $this->bukti_pembayaran;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAtasNama() : string
+    {
+        return $this->atas_nama;
     }
 }
