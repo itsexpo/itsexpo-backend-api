@@ -59,7 +59,7 @@ class KTIAdminService
         ];
 
         $team_response = array_map(function (KTITeam $team) {
-            $status_pembayaran = false;
+            $status_pembayaran = "AWAITING PAYMENT";
             if ($team->getPembayaranId()->toString() != null) {
                 $pembayaran_id = $this->pembayaran_repository->find($team->getPembayaranId())->getStatusPembayaranId();
                 $status_pembayaran = $this->status_pembayaran_repository->find($pembayaran_id)->getStatus();
