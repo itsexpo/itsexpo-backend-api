@@ -109,11 +109,13 @@ Route::middleware(['iam'])->group(
         // Pembayaran
         Route::post('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'createPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.store');
         Route::get('/pre_event/pembayaran/jurnalistik', [KTIController::class, 'cekPembayaranKTI'])->middleware('permission:pembayaran_kti.index');
+        Route::get('/pre_event/pembayaran/jurnalistik', [KTIController::class, 'cekPembayaranKTI'])->middleware('permission:pembayaran_kti.index');
         Route::post('/pre_event/pembayaran/kti', [PembayaranController::class, 'createPembayaranKTI'])->middleware('permission:pembayaran_kti.store');
         Route::get('/pre_event/pembayaran/kti', [KTIController::class, 'cekPembayaranKTI'])->middleware('permission:pembayaran_kti.index');
         Route::get('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'cekPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.index');
         Route::post('/pre_event/pembayaran/robotik', [PembayaranController::class, 'createPembayaran'])->middleware('permission:pembayaran_robotik.store');
         Route::get('/pre_event/pembayaran/robotik', [PembayaranController::class, 'cekPembayaran'])->middleware('permission:pembayaran_robotik.index');
+        Route::put('/pre_event/pembayaran', [PembayaranController::class, 'updatePembayaran'])->middleware('permission:pembayaran.update');
         Route::put('/pre_event/pembayaran', [PembayaranController::class, 'updatePembayaran'])->middleware('permission:pembayaran.update');
 
         //User
