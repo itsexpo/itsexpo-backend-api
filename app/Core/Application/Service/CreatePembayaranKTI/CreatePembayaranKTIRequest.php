@@ -27,6 +27,7 @@ class CreatePembayaranKTIRequest
         $this->kti_team_id = $kti_team_id;
         $this->atas_nama = $atas_nama;
         $this->bukti_pembayaran = $bukti_pembayaran;
+        $this->atas_nama = $atas_nama;
     }
 
     /**
@@ -67,5 +68,13 @@ class CreatePembayaranKTIRequest
     public function getBuktiPembayaran(): UploadedFile
     {
         return $this->bukti_pembayaran;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAtasNama() : string
+    {
+        return $this->atas_nama;
     }
 }

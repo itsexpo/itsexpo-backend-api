@@ -41,12 +41,13 @@ class CreatePembayaranRobotInActionService
             UserException::throw("Robot In Action Team Tidak Ditemukan", 1001, 404);
         }
         $pembayaran = $this->pembayaran_repository->find($robotInAction_team->getPembayaranId());
-        $pembayaran_id = false;
-        if ($pembayaran != null) {
-            if ($pembayaran->getStatusPembayaranId() != 1) {
-                UserException::throw("Jurnalistik Team Sudah Melakukan Pembayaran", 1001, 404);
-            }
-            $pembayaran_id = true;
+        
+        if (!$pembayaran) {
+            UserException::throw("Data pembayaran tidak dapat ditemukan", 1001, 404);
+        }
+
+        if ($pembayaran->getStatusPembayaranId() != 5) {
+            UserException::throw("Status pembayaran tidak sesuai", 1001, 404);
         }
 
         $bukti_pembayaran_url = ImageUpload::create(
@@ -55,30 +56,20 @@ class CreatePembayaranRobotInActionService
             $account->getUserId()->toString(),
             "Bukti Pembayaran"
         )->upload();
-        if ($pembayaran_id) {
-            $pembayaran = Pembayaran::update(
-                $pembayaran->getId(),
-                $request->getBankId(),
-                13,
-                4,
-                $request->getAtasNama(),
-                $bukti_pembayaran_url,
-                $request->getHarga()
-            );
-        } else {
-            $pembayaran = Pembayaran::create(
-                $request->getBankId(),
-                13,
-                4,
-                $request->getAtasNama(),
-                $bukti_pembayaran_url,
-                $request->getHarga()
-            );
-        }
-        
 
-        $this->pembayaran_repository->persist($pembayaran);
+        $newPembayaran = Pembayaran::update(
+            $pembayaran->getId(),
+            $request->getBankId(),
+            13,
+            4,
+            $request->getAtasNama(),
+            $bukti_pembayaran_url,
+            $request->getHarga(),
+            $pembayaran->getDeadline()
+        );
+
+        $this->pembayaran_repository->persist($newPembayaran);
         
-        $this->robotInAction_team_repository->updatePembayaran($robotInAction_team_id, $pembayaran->getId());
+        $this->robotInAction_team_repository->updatePembayaran($robotInAction_team_id, $newPembayaran->getId());
     }
 }

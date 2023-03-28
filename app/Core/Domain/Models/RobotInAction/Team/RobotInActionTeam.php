@@ -33,7 +33,7 @@ class RobotInActionTeam
     /**
      * @throws Exception
      */
-    public static function create(?PembayaranId $pembayaran_id, string $team_name, string $team_code, RobotInActionCompetitionStatus $competition_status, string  $deskripsi_karya, int $jumlah_anggota, bool $team_status): self
+    public static function create(PembayaranId $pembayaran_id, string $team_name, string $team_code, RobotInActionCompetitionStatus $competition_status, string  $deskripsi_karya, int $jumlah_anggota, bool $team_status): self
     {
         return new self(
             RobotInActionTeamId::generate(),

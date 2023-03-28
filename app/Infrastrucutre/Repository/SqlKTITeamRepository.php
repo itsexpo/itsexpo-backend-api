@@ -38,7 +38,7 @@ class SqlKTITeamRepository implements KTITeamRepositoryInterface
     {
         DB::table('kti_team')->upsert([
           'id' => $team->getId()->toString(),
-          'pembayaran_id' => $team->getPembayaranId(),
+          'pembayaran_id' => $team->getPembayaranId()->toString(),
           'user_id' => $team->getUserId()->toString(),
           'team_name' => $team->getTeamName(),
           'team_code' => $team->getTeamCode(),

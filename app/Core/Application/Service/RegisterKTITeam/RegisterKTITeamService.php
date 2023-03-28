@@ -2,18 +2,21 @@
 
 namespace App\Core\Application\Service\RegisterKTITeam;
 
-use App\Core\Application\ImageUpload\ImageUpload;
+use Illuminate\Support\Carbon;
+use App\Exceptions\UserException;
+use App\Core\Domain\Models\UserAccount;
+use App\Core\Domain\Models\KTI\Team\KTITeam;
 use App\Core\Domain\Models\KTI\KTIMemberType;
 use App\Core\Domain\Models\KTI\Member\KTIMember;
-use App\Core\Domain\Models\KTI\Team\KTITeam;
-use App\Core\Domain\Models\UserAccount;
-use App\Core\Domain\Models\UserHasListEvent\UserHasListEvent;
-use App\Core\Domain\Repository\KTIMemberRepositoryInterface;
-use App\Core\Domain\Repository\KTITeamRepositoryInterface;
+use App\Core\Application\ImageUpload\ImageUpload;
+use App\Core\Domain\Models\Pembayaran\Pembayaran;
 use App\Core\Domain\Repository\RoleRepositoryInterface;
-use App\Core\Domain\Repository\UserHasListEventRepositoryInterface;
 use App\Core\Domain\Repository\UserRepositoryInterface;
-use App\Exceptions\UserException;
+use App\Core\Domain\Repository\KTITeamRepositoryInterface;
+use App\Core\Domain\Repository\KTIMemberRepositoryInterface;
+use App\Core\Domain\Models\UserHasListEvent\UserHasListEvent;
+use App\Core\Domain\Repository\PembayaranRepositoryInterface;
+use App\Core\Domain\Repository\UserHasListEventRepositoryInterface;
 
 class RegisterKTITeamService
 {
@@ -22,6 +25,7 @@ class RegisterKTITeamService
     private UserHasListEventRepositoryInterface $user_has_list_event_repository;
     private UserRepositoryInterface $user_repository;
     private RoleRepositoryInterface $role_repository;
+    private PembayaranRepositoryInterface $pembayaran_repository;
 
     /**
      * @param KTITeamRepositoryInterface $kti_team_repository;
@@ -30,13 +34,14 @@ class RegisterKTITeamService
      * @param RoleRepositoryInterface $role_repository
      * @param KTIMemberRepositoryInterface $kti_member_repository
      */
-    public function __construct(KTITeamRepositoryInterface $kti_team_repository, KTIMemberRepositoryInterface $kti_member_repository, UserHasListEventRepositoryInterface $user_has_list_event_repository, UserRepositoryInterface $user_repository, RoleRepositoryInterface $role_repository)
+    public function __construct(KTITeamRepositoryInterface $kti_team_repository, KTIMemberRepositoryInterface $kti_member_repository, UserHasListEventRepositoryInterface $user_has_list_event_repository, UserRepositoryInterface $user_repository, RoleRepositoryInterface $role_repository, PembayaranRepositoryInterface $pembayaran_repository)
     {
         $this->kti_team_repository = $kti_team_repository;
         $this->kti_member_repository = $kti_member_repository;
         $this->user_has_list_event_repository = $user_has_list_event_repository;
         $this->user_repository = $user_repository;
         $this->role_repository = $role_repository;
+        $this->pembayaran_repository = $pembayaran_repository;
     }
 
     public function execute(RegisterKTITeamRequest $request, UserAccount $account)
@@ -83,9 +88,22 @@ class RegisterKTITeamService
 
         $team_code = 'LKTI-' . str_pad($this->kti_team_repository->countAllTeams() + 1, 3, "0", STR_PAD_LEFT);
       
+        $current_time = Carbon::now()->addDay();
+        
+        $pembayaran = Pembayaran::create(
+            null,
+            12,
+            5,
+            null,
+            null,
+            null,
+            $current_time
+        );
+        
+        $this->pembayaran_repository->persist($pembayaran);
         // Persist disini
         $team = KTITeam::create(
-            null,
+            $pembayaran->getId(),
             $account->getUserId(),
             $request->getTeamName(),
             $team_code,

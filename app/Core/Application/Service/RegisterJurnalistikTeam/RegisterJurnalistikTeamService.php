@@ -2,20 +2,23 @@
 
 namespace App\Core\Application\Service\RegisterJurnalistikTeam;
 
+use Illuminate\Support\Carbon;
 use App\Exceptions\UserException;
 use App\Core\Domain\Models\UserAccount;
 use App\Core\Application\ImageUpload\ImageUpload;
+use App\Core\Domain\Models\Pembayaran\Pembayaran;
 use App\Core\Domain\Repository\RoleRepositoryInterface;
 use App\Core\Domain\Repository\UserRepositoryInterface;
 use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikTeam;
 use App\Core\Domain\Models\Jurnalistik\JurnalistikMemberType;
+use App\Core\Domain\Models\UserHasListEvent\UserHasListEvent;
+use App\Core\Domain\Repository\PembayaranRepositoryInterface;
 use App\Core\Domain\Models\Jurnalistik\Member\JurnalistikMember;
 use App\Core\Domain\Repository\JurnalistikTeamRepositoryInterface;
+use App\Core\Domain\Repository\UserHasListEventRepositoryInterface;
 use App\Core\Domain\Repository\JurnalistikMemberRepositoryInterface;
 use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikJenisKegiatan;
 use App\Core\Domain\Models\Jurnalistik\Team\JurnalistikLombaCategory;
-use App\Core\Domain\Models\UserHasListEvent\UserHasListEvent;
-use App\Core\Domain\Repository\UserHasListEventRepositoryInterface;
 
 class RegisterJurnalistikTeamService
 {
@@ -24,6 +27,7 @@ class RegisterJurnalistikTeamService
     private UserHasListEventRepositoryInterface $user_has_list_event_repository;
     private UserRepositoryInterface $user_repository;
     private RoleRepositoryInterface $role_repository;
+    private PembayaranRepositoryInterface $pembayaran_repository;
 
     /**
      * @param JurnalistikTeamRepositoryInterface $jurnalistik_team_repository
@@ -32,13 +36,20 @@ class RegisterJurnalistikTeamService
      * @param UserRepositoryInterface $user_repository
      * @param RoleRepositoryInterface $role_repository
      */
-    public function __construct(JurnalistikTeamRepositoryInterface $jurnalistik_team_repository, JurnalistikMemberRepositoryInterface $jurnalistik_member_repository, UserHasListEventRepositoryInterface $user_has_list_event_repository, UserRepositoryInterface $user_repository, RoleRepositoryInterface $role_repository)
-    {
+    public function __construct(
+        JurnalistikTeamRepositoryInterface $jurnalistik_team_repository,
+        JurnalistikMemberRepositoryInterface $jurnalistik_member_repository,
+        UserHasListEventRepositoryInterface $user_has_list_event_repository,
+        UserRepositoryInterface $user_repository,
+        RoleRepositoryInterface $role_repository,
+        PembayaranRepositoryInterface $pembayaran_repository
+    ) {
         $this->jurnalistik_team_repository = $jurnalistik_team_repository;
         $this->jurnalistik_member_repository = $jurnalistik_member_repository;
         $this->user_has_list_event_repository = $user_has_list_event_repository;
         $this->user_repository = $user_repository;
         $this->role_repository = $role_repository;
+        $this->pembayaran_repository = $pembayaran_repository;
     }
 
     public function execute(RegisterJurnalistikTeamRequest $request, UserAccount $account)
@@ -102,8 +113,22 @@ class RegisterJurnalistikTeamService
             $team_code = 'JR-TV-CITS-' . str_pad($this->jurnalistik_team_repository->countAllTeams(JurnalistikLombaCategory::TELEVISION) + 1, 3, "0", STR_PAD_LEFT);
         }
 
-        $team = JurnalistikTeam::create(
+        $current_time = Carbon::now()->addDay();
+        
+        $pembayaran = Pembayaran::create(
             null,
+            11,
+            5,
+            null,
+            null,
+            null,
+            $current_time
+        );
+        
+        $this->pembayaran_repository->persist($pembayaran);
+
+        $team = JurnalistikTeam::create(
+            $pembayaran->getId(),
             $request->getTeamName(),
             $team_code,
             false,
@@ -113,7 +138,7 @@ class RegisterJurnalistikTeamService
         );
 
         $this->jurnalistik_team_repository->persist($team);
-        
+
         // Cek File Exception
         $idCardUrl = ImageUpload::create(
             $request->getIdCard(),
@@ -121,7 +146,7 @@ class RegisterJurnalistikTeamService
             $account->getUserId()->toString(),
             "ID Card"
         )
-                ->upload();
+            ->upload();
 
         $followUrl = ImageUpload::create(
             $request->getFollowSosmedUrl(),
@@ -129,7 +154,7 @@ class RegisterJurnalistikTeamService
             $account->getUserId()->toString(),
             "Follow Sosmed"
         )
-                ->upload();
+            ->upload();
 
         $shareUrl = ImageUpload::create(
             $request->getSharePosterUrl(),
@@ -137,8 +162,8 @@ class RegisterJurnalistikTeamService
             $account->getUserId()->toString(),
             "Share Poster"
         )
-                ->upload();
-                
+            ->upload();
+
         // Ceate Member
         $member = JurnalistikMember::create(
             $team->getId(),

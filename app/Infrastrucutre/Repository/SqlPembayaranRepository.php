@@ -2,6 +2,7 @@
 
 namespace App\Infrastrucutre\Repository;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Core\Domain\Models\Pembayaran\Pembayaran;
 use App\Core\Domain\Models\Pembayaran\PembayaranId;
@@ -19,6 +20,7 @@ class SqlPembayaranRepository implements PembayaranRepositoryInterface
             'atas_nama' => $pembayaran->getAtasNama(),
             'bukti_pembayaran_url' => $pembayaran->getBuktiPembayaranUrl(),
             'harga' => $pembayaran->getHarga(),
+            'deadline' => $pembayaran->getDeadline()->toDateTimeString()
         ], 'id');
     }
 
@@ -56,7 +58,8 @@ class SqlPembayaranRepository implements PembayaranRepositoryInterface
                 $row->status_pembayaran_id,
                 $row->atas_nama,
                 $row->bukti_pembayaran_url,
-                $row->harga
+                $row->harga,
+                Carbon::parse($row->deadline)
             );
         }
         return $pembayaran;

@@ -10,17 +10,20 @@ class CekPembayaranKtiResponse implements JsonSerializable
     private string $kode_unik;
     private string $harga;
     private string $tanggal_pembayaran;
+    private string $payment_id;
 
     public function __construct(
         bool $cek_kuota,
         string $kode_unik,
         string $harga,
-        string $tanggal_pembayaran
+        string $tanggal_pembayaran,
+        string $payment_id
     ) {
         $this->cek_kuota = $cek_kuota;
         $this->kode_unik = $kode_unik;
         $this->harga = $harga;
         $this->tanggal_pembayaran = $tanggal_pembayaran;
+        $this->payment_id = $payment_id;
     }
 
     public function jsonSerialize(): array
@@ -30,6 +33,7 @@ class CekPembayaranKtiResponse implements JsonSerializable
             'kode_unik' => $this->kode_unik,
             'harga' => $this->harga,
             'tanggal_pembayaran' => $this->tanggal_pembayaran,
+            'payment_id' => $this->payment_id
         ];
     }
 }
