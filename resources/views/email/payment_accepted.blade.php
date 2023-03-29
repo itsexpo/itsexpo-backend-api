@@ -349,7 +349,7 @@
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <p>Hi <span style="font-weight: bold;">Nama Peserta</span>,</p>
+                        <p>Hi <span style="font-weight: bold;">{{ $name }}</span>,</p>
                         <p>Kami senang memberitahu Anda bahwa pembayaran Anda untuk Pre Event ITS EXPO 2023 telah <span style="font-weight: bold;">berhasil diverifikasi</span>. Kami mengucapkan terima kasih atas partisipasi Anda.</p>
                         <p>Anda telah tercatat dan terdaftar untuk mengikuti Pre Event ITS EXPO 2023. Silakan pantau informasi lebih lanjut di website resmi ITS EXPO 2023.</p>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">

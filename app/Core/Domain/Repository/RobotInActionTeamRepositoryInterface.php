@@ -28,4 +28,6 @@ interface RobotInActionTeamRepositoryInterface
     public function getCreatedAt(RobotInActionTeamId $robot_in_action_team_id): ?string;
 
     public function updatePembayaran(RobotInActionTeamId $robot_in_action_team_id, PembayaranId $pembayaran_id);
+
+    public function findByPembayaranId(PembayaranId $pembayaran_id): RobotInActionTeam;
 }

@@ -31,4 +31,6 @@ interface JurnalistikTeamRepositoryInterface
     public function getCreatedAt(JurnalistikTeamId $jurnalistik_team_id): ?string;
 
     public function updatePembayaran(JurnalistikTeamId $jurnalistik_team_id, PembayaranId $pembayaran_id);
+
+    public function findByPembayaranId(PembayaranId $pembayaran_id): JurnalistikTeam;
 }

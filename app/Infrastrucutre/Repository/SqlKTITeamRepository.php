@@ -185,4 +185,15 @@ class SqlKTITeamRepository implements KTITeamRepositoryInterface
         $count = DB::table('jurnalistik_team')->count();
         return $count;
     }
+
+    public function findByPembayaranId(PembayaranId $pembayaran_id): KTITeam
+    {
+        $row = DB::table('kti_team')->where('pembayaran_id', $pembayaran_id->toString())->first();
+
+        if (!$row) {
+            return null;
+        }
+
+        return $this->constructFromRows([$row])[0];
+    }
 }

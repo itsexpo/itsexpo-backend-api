@@ -122,4 +122,15 @@ class SqlRobotInActionTeamRepository implements RobotInActionTeamRepositoryInter
             ['pembayaran_id' => $pembayaran_id->toString()]
         );
     }
+
+    public function findByPembayaranId(PembayaranId $pembayaran_id): RobotInActionTeam
+    {
+        $row = DB::table('robot_in_action_team')->where('pembayaran_id', $pembayaran_id->toString())->first();
+
+        if (!$row) {
+            return null;
+        }
+
+        return $this->constructFromRows([$row])[0];
+    }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Core\Application\Service\GetKtiAdminDetail\GetKtiAdminDetailService;
+use Illuminate\Http\Request;
 use App\Core\Application\Service\KTIAdmin\KTIAdminRequest;
 use App\Core\Application\Service\KTIAdmin\KTIAdminService;
-use Illuminate\Http\Request;
+use App\Core\Application\Service\KTIAdminConfirm\KTIAdminConfirmRequest;
+use App\Core\Application\Service\KTIAdminConfirm\KTIAdminConfirmService;
+use App\Core\Application\Service\GetKtiAdminDetail\GetKtiAdminDetailService;
 
 class KTIAdminController extends Controller
 {
@@ -45,5 +47,21 @@ class KTIAdminController extends Controller
         $id = $request->route('team_id');
         $response = $service->execute($id);
         return $this->successWithData($response, "Success getting KTI team detail");
+    }
+
+    public function confirmTeam(Request $request, KTIAdminConfirmService $service)
+    {
+        $request->validate([
+            'pembayaran_id' => 'required',
+            'status_pembayaran_id' => 'required'
+        ]);
+
+        $input = new KTIAdminConfirmRequest(
+            $request->input('pembayaran_id'),
+            $request->input('status_pembayaran_id')
+        );
+
+        $service->execute($input);
+        return $this->success("Berhasil Mengubah Status Pembayaran");
     }
 }
