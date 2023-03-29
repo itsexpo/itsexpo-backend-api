@@ -63,7 +63,7 @@ class PengumumanController extends Controller
         return $this->successWithData($response, "Berhasil Mendapatkan Pengumuman");
     }
 
-    public function update(Request $request, UpdatePengumumanService $service)
+    public function update(Request $request, UpdatePengumumanService $service, string $id)
     {
         DB::beginTransaction();
 
@@ -78,7 +78,7 @@ class PengumumanController extends Controller
             $request->input('event_id'),
             $request->input('title'),
             $request->input('description'),
-            $request->input('id')
+            $id
         );
 
         try {
@@ -91,11 +91,11 @@ class PengumumanController extends Controller
         return $this->success("Pengumuman berhasil diupdate");
     }
 
-    public function delete(Request $request, DeletePengumumanService $service)
+    public function delete(DeletePengumumanService $service, string $id)
     {
         DB::beginTransaction();
 
-        $input = new DeletePengumumanRequest($request->query('id'));
+        $input = new DeletePengumumanRequest($id);
 
         try {
             $service->execute($input);
