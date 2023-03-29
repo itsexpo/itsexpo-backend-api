@@ -10,19 +10,25 @@ class Pengumuman
     private int $list_event_id;
     private string $title;
     private string $description;
+    private string $created_at;
+    private string $updated_at;
 
     /**
      * @param PengumumanId $id
      * @param int $list_event_id
      * @param string $title
      * @param string $description
+     * @param string $created_at
+     * @param string $updated_at
      */
-    public function __construct(PengumumanId $id, int $list_event_id, string $title, string $description)
+    public function __construct(PengumumanId $id, int $list_event_id, string $title, string $description, string $created_at, string $updated_at)
     {
         $this->id = $id;
         $this->list_event_id = $list_event_id;
         $this->title = $title;
         $this->description = $description;
+        $this->created_at = $created_at;
+        $this->updated_at = $updated_at;
     }
 
     /**
@@ -35,6 +41,8 @@ class Pengumuman
             $list_event_id,
             $title,
             $description,
+            "",
+            ""
         );
     }
 
@@ -68,5 +76,21 @@ class Pengumuman
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreatedAt(): string
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUpdatedAt(): string
+    {
+        return $this->updated_at;
     }
 }

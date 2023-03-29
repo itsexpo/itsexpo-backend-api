@@ -105,6 +105,8 @@ class SqlPengumumanRepository implements PengumumanRepositoryInterface
             $row->list_event_id,
             $row->title,
             $row->description,
+            $row->created_at,
+            $row->updated_at,
         );
     }
 
@@ -117,6 +119,8 @@ class SqlPengumumanRepository implements PengumumanRepositoryInterface
                 $row->list_event_id,
                 $row->title,
                 $row->description,
+                $row->created_at,
+                $row->updated_at,
             );
         }
         return $pengumuman;

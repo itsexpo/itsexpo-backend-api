@@ -24,6 +24,8 @@ class GetPengumumanResponse implements JsonSerializable
             'list_event_id' => $this->pengumuman->getListEventId(),
             'title' => $this->pengumuman->getTitle(),
             'description' => $this->pengumuman->getDescription(),
+            'created_at' => $this->pengumuman->getCreatedAt(),
+            'updated_at' => $this->pengumuman->getUpdatedAt(),
         ];
     }
 }
