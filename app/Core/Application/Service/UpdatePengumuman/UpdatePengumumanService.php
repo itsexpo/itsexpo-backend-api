@@ -2,9 +2,9 @@
 
 namespace App\Core\Application\Service\UpdatePengumuman;
 
+use App\Exceptions\UserException;
 use App\Core\Domain\Models\Pengumuman\PengumumanId;
 use App\Core\Domain\Repository\PengumumanRepositoryInterface;
-use App\Exceptions\UserException;
 
 class UpdatePengumumanService
 {

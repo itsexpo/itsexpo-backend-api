@@ -6,16 +6,16 @@ use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use App\Core\Application\Service\UpdatePembayaran\UpdatePembayaranRequest;
+use App\Core\Application\Service\UpdatePembayaran\UpdatePembayaranService;
+use App\Core\Application\Service\CreatePembayaranKTI\CreatePembayaranKTIRequest;
+use App\Core\Application\Service\CreatePembayaranKTI\CreatePembayaranKTIService;
 use App\Core\Application\Service\CekPembayaranJurnalistik\CekPembayaranJurnalistikService;
 use App\Core\Application\Service\CekPembayaranRobotInAction\CekPembayaranRobotInActionService;
 use App\Core\Application\Service\CreatePembayaranJurnalistik\CreatePembayaranJurnalistikRequest;
 use App\Core\Application\Service\CreatePembayaranJurnalistik\CreatePembayaranJurnalistikService;
-use App\Core\Application\Service\CreatePembayaranKTI\CreatePembayaranKTIRequest;
-use App\Core\Application\Service\CreatePembayaranKTI\CreatePembayaranKTIService;
 use App\Core\Application\Service\CreatePembayaranRobotInAction\CreatePembayaranRobotInActionRequest;
 use App\Core\Application\Service\CreatePembayaranRobotInAction\CreatePembayaranRobotInActionService;
-use App\Core\Application\Service\UpdatePembayaran\UpdatePembayaranRequest;
-use App\Core\Application\Service\UpdatePembayaran\UpdatePembayaranService;
 
 class PembayaranController extends Controller
 {
@@ -126,7 +126,7 @@ class PembayaranController extends Controller
             'payment_id' => 'required'
         ]);
         $input = new UpdatePembayaranRequest($request->input('payment_id'));
-        $service->execute($input);
+        $service->execute($input, $request->get('account'));
         return $this->success("Berhasil merubah waktu pembayaran");
     }
 }

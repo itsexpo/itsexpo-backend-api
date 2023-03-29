@@ -66,7 +66,10 @@ class CekPembayaranRobotInActionService
                 $pembayaran->getDeadline()
             );
             $this->pembayaran_repository->persist($updatePembayaran);
-            UserException::throw("Sesi pembayaran telah habis", 6009);
+            $data = [
+                'payment_id' => $pembayaran->getid()->tostring()
+            ];
+            userexception::throw("sesi pembayaran telah habis", 6009, 400, $data);
         }
 
         $kode_unik = substr($robotInAction_team->getTeamCode(), -3);

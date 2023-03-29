@@ -61,7 +61,6 @@ class RegisterJurnalistikTeamService
             UserException::throw("User Sudah Mendaftar di Event Jurnalistik", 1001, 404);
         }
 
-        $user = $this->user_repository->find($account->getUserId());
         $role = $this->role_repository->find($user->getRoleId());
 
         $lomba_category = null;

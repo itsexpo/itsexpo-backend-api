@@ -60,23 +60,17 @@ class CreatePembayaranKTIService
 
         $newPembayaran = Pembayaran::update(
             $pembayaran->getId(),
-        $newPembayaran = Pembayaran::update(
-            $pembayaran->getId(),
             $request->getBankId(),
             12,
             4,
             $request->getAtasNama(),
-            $request->getAtasNama(),
             $bukti_pembayaran_url,
-            $request->getAtasNama(),
             $request->getHarga(),
             $pembayaran->getDeadline()
         );
 
         $this->pembayaran_repository->persist($newPembayaran);
-        $this->pembayaran_repository->persist($newPembayaran);
         
-        $this->kti_team_repository->updatePembayaran($kti_team_id, $newPembayaran->getId());
         $this->kti_team_repository->updatePembayaran($kti_team_id, $newPembayaran->getId());
     }
 }
