@@ -176,7 +176,7 @@
         "routes": "pembayaran_kti.index"
     },
     {
-        "id": 45, 
+        "id": 45,
         "routes": "admin_kti.index"
     },
     {
@@ -184,7 +184,11 @@
         "routes": "admin_kti.detail"
     },
     {
-        "id" : 47,
-        "routes" : "pembayaran.update"
+        "id": 47,
+        "routes": "pembayaran.update"
+    },
+    {
+        "id": 48,
+        "routes": "admin_robotik_approval.store"
     }
 ]

@@ -37,6 +37,10 @@ interface KTITeamRepositoryInterface
     public function getFilter(Builder $kti_team, ?array $filter): void;
 
     public function getSearch(Builder $kti_team, ?string $search): void;
+
     public function countAllTeams(): int;
+    
     public function updatePembayaran(KTITeamId $jurnalistik_team_id, PembayaranId $pembayaran_id): void;
+    
+    public function findByPembayaranId(PembayaranId $pembayaran_id): KTITeam;
 }

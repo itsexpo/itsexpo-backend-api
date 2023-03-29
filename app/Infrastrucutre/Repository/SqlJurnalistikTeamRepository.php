@@ -135,4 +135,13 @@ class SqlJurnalistikTeamRepository implements JurnalistikTeamRepositoryInterface
             ['pembayaran_id' => $pembayaran_id->toString()]
         );
     }
+
+    public function findByPembayaranId(PembayaranId $pembayaran_id): JurnalistikTeam
+    {
+        $row = DB::table('jurnalistik_team')->where('pembayaran_id', $pembayaran_id->toString())->first();
+        if (!$row) {
+            return null;
+        }
+        return $this->constructFromRows([$row])[0];
+    }
 }

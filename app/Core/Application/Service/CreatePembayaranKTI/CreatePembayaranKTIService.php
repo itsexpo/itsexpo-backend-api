@@ -3,28 +3,38 @@
 namespace App\Core\Application\Service\CreatePembayaranKTI;
 
 use App\Exceptions\UserException;
+use Illuminate\Support\Facades\Mail;
 use App\Core\Domain\Models\UserAccount;
-use App\Core\Application\ImageUpload\ImageUpload;
+use App\Core\Application\Mail\PaymentWaiting;
 use App\Core\Domain\Models\KTI\Team\KTITeamId;
-use App\Core\Domain\Repository\PembayaranRepositoryInterface;
-use App\Core\Domain\Repository\KTITeamRepositoryInterface;
+use App\Core\Application\ImageUpload\ImageUpload;
 use App\Core\Domain\Models\Pembayaran\Pembayaran;
+use App\Core\Domain\Repository\UserRepositoryInterface;
+use App\Core\Domain\Repository\KTITeamRepositoryInterface;
 use App\Core\Domain\Repository\ListBankRepositoryInterface;
+use App\Core\Domain\Repository\KTIMemberRepositoryInterface;
+use App\Core\Domain\Repository\PembayaranRepositoryInterface;
 
 class CreatePembayaranKTIService
 {
     private KTITeamRepositoryInterface $kti_team_repository;
+    private KTIMemberRepositoryInterface $kti_member_repository;
+    private UserRepositoryInterface $user_repository;
     private PembayaranRepositoryInterface $pembayaran_repository;
     private ListBankRepositoryInterface $list_bank_repository;
 
     /**
      * @param KTITeamRepositoryInterface $kti_team_repository
+     * @param KTIMemberRepositoryInterface $kti_member_repository
+     * @param UserRepositoryInterface $user_repository
      * @param PembayaranRepositoryInterface $pembayaran_repository
      * @param ListBankRepositoryInterface $list_bank_repository
      */
-    public function __construct(KTITeamRepositoryInterface $kti_team_repository, PembayaranRepositoryInterface $pembayaran_repository, ListBankRepositoryInterface $list_bank_repository)
+    public function __construct(KTITeamRepositoryInterface $kti_team_repository, KTIMemberRepositoryInterface $kti_member_repository, UserRepositoryInterface $user_repository, PembayaranRepositoryInterface $pembayaran_repository, ListBankRepositoryInterface $list_bank_repository)
     {
         $this->kti_team_repository = $kti_team_repository;
+        $this->kti_member_repository = $kti_member_repository;
+        $this->user_repository = $user_repository;
         $this->pembayaran_repository = $pembayaran_repository;
         $this->list_bank_repository = $list_bank_repository;
     }
@@ -40,7 +50,10 @@ class CreatePembayaranKTIService
         if (!$kti_team) {
             UserException::throw("KTI Team Tidak Ditemukan", 1003, 404);
         }
-
+        $ketua_user = $this->user_repository->find($kti_team->getUserId());
+        if (!$kti_team) {
+            UserException::throw("Ketua Team User Tidak Ditemukan", 1003, 404);
+        }
         $pembayaran = $this->pembayaran_repository->find($kti_team->getPembayaranId());
         
         if (!$pembayaran) {
@@ -70,7 +83,10 @@ class CreatePembayaranKTIService
         );
 
         $this->pembayaran_repository->persist($newPembayaran);
-        
         $this->kti_team_repository->updatePembayaran($kti_team_id, $newPembayaran->getId());
+
+        Mail::to($ketua_user->getEmail()->toString())->send(new PaymentWaiting(
+            $ketua_user->getName(),
+        ));
     }
 }
