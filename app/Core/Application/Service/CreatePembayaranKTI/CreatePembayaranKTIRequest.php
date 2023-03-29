@@ -69,12 +69,4 @@ class CreatePembayaranKTIRequest
     {
         return $this->bukti_pembayaran;
     }
-
-    /**
-     * @return string
-     */
-    public function getAtasNama() : string
-    {
-        return $this->atas_nama;
-    }
 }
