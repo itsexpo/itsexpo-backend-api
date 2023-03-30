@@ -71,7 +71,7 @@ class RegisterJurnalistikTeamService
             if ($lomba_category != JurnalistikLombaCategory::BLOGGER) {
                 UserException::throw("Role Anda Tidak Diperbolehkan Mengikuti Kategori Lomba yang Dipilih Team", 6003);
             }
-        } elseif ($role->getName() == 'Mahasiswa') {
+        } elseif ($role->getName() == 'Mahasiswa' || $role->getName() == 'Umum') {
             if ($lomba_category != JurnalistikLombaCategory::TELEVISION) {
                 UserException::throw("Role Anda Tidak Diperbolehkan Mengikuti Kategori Lomba yang Dipilih Team", 6003);
             }
@@ -108,7 +108,7 @@ class RegisterJurnalistikTeamService
         // Generate Team Code
         if ($role->getName() == 'SMA/Sederajat') {
             $team_code = 'JR-VG-CITS-' . str_pad($this->jurnalistik_team_repository->countAllTeams(JurnalistikLombaCategory::BLOGGER) + 1, 3, "0", STR_PAD_LEFT);
-        } elseif ($role->getName() == 'Mahasiswa') {
+        } elseif ($role->getName() == 'Mahasiswa' || $role->getName() == 'Umum') {
             $team_code = 'JR-TV-CITS-' . str_pad($this->jurnalistik_team_repository->countAllTeams(JurnalistikLombaCategory::TELEVISION) + 1, 3, "0", STR_PAD_LEFT);
         }
 
