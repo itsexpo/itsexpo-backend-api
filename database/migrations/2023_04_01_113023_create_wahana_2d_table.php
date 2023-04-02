@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('wahana_2d', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('pembayaran_id')->nullable();
-            $table->integer('departemen_id')->index();
+            $table->string('departemen_id')->index();
             $table->string('name', 512);
             $table->string('nrp', 512);
             $table->string('kontak', 512);
