@@ -54,6 +54,8 @@ use App\Core\Domain\Repository\KTITeamRepositoryInterface;
 use App\Core\Domain\Repository\KTIMemberRepositoryInterface;
 use App\Infrastrucutre\Repository\SqlKTIMemberRepository;
 use App\Infrastrucutre\Repository\SqlKTITeamRepository;
+use App\Core\Domain\Repository\Wahana2DRepositoryInterface;
+use App\Infrastrucutre\Repository\SqlWahana2DRepository;
 
 /** @var Application $app */
 
@@ -84,3 +86,4 @@ $app->singleton(RobotInActionTeamRepositoryInterface::class, SqlRobotInActionTea
 $app->singleton(RobotInActionMemberRepositoryInterface::class, SqlRobotInActionMemberRepository::class);
 $app->singleton(KTITeamRepositoryInterface::class, SqlKTITeamRepository::class);
 $app->singleton(KTIMemberRepositoryInterface::class, SqlKTIMemberRepository::class);
+$app->singleton(Wahana2DRepositoryInterface::class, SqlWahana2DRepository::class);

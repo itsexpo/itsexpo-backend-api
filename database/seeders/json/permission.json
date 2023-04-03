@@ -190,5 +190,9 @@
     {
         "id": 48,
         "routes": "admin_robotik_approval.store"
+    },
+    {
+        "id": 49,
+        "routes": "wahana_2d.store"
     }
 ]
