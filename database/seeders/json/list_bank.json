@@ -1,14 +1,440 @@
 [
     {
-        "id": 1,
-        "name": "Mandiri"
+        "name": "OVO"
     },
     {
-        "id": 2,
-        "name": "BNI"
+        "name": "SHOPEE PAY"
     },
     {
-        "id": 3,
-        "name": "BRI"
+        "name": "BANK JAGO"
+    },
+    {
+        "name": "GOPAY"
+    },
+    {
+        "name": "DANA"
+    },
+    {
+        "name": "BANK BRI"
+    },
+    {
+        "name": "BANK BRI SYARIAH"
+    },
+    {
+        "name": "BANK EKSPOR INDONESIA"
+    },
+    {
+        "name": "BANK MANDIRI"
+    },
+    {
+        "name": "BANK BNI"
+    },
+    {
+        "name": "BANK DANAMON"
+    },
+    {
+        "name": "PERMATA BANK"
+    },
+    {
+        "name": "BANK BCA"
+    },
+    {
+        "name": "BANK BII"
+    },
+    {
+        "name": "BANK PANIN"
+    },
+    {
+        "name": "BANK ARTA NIAGA KENCANA"
+    },
+    {
+        "name": "BANK NIAGA"
+    },
+    {
+        "name": "BANK BUANA IND"
+    },
+    {
+        "name": "BANK LIPPO"
+    },
+    {
+        "name": "BANK NISP"
+    },
+    {
+        "name": "AMERICAN EXPRESS BANK LTD"
+    },
+    {
+        "name": "CITIBANK N.A."
+    },
+    {
+        "name": "JP. MORGAN CHASE BANK, N.A."
+    },
+    {
+        "name": "BANK OF AMERICA, N.A"
+    },
+    {
+        "name": "ING INDONESIA BANK"
+    },
+    {
+        "name": "BANK MULTICOR TBK."
+    },
+    {
+        "name": "BANK ARTHA GRAHA"
+    },
+    {
+        "name": "BANK CREDIT AGRICOLE INDOSUEZ"
+    },
+    {
+        "name": "THE BANGKOK BANK COMP. LTD"
+    },
+    {
+        "name": "THE HONGKONG & SHANGHAI B.C."
+    },
+    {
+        "name": "THE BANK OF TOKYO MITSUBISHI UFJ LTD"
+    },
+    {
+        "name": "BANK SUMITOMO MITSUI INDONESIA"
+    },
+    {
+        "name": "BANK DBS INDONESIA"
+    },
+    {
+        "name": "BANK RESONA PERDANIA"
+    },
+    {
+        "name": "BANK MIZUHO INDONESIA"
+    },
+    {
+        "name": "STANDARD CHARTERED BANK"
+    },
+    {
+        "name": "BANK ABN AMRO"
+    },
+    {
+        "name": "BANK KEPPEL TATLEE BUANA"
+    },
+    {
+        "name": "BANK CAPITAL INDONESIA, TBK."
+    },
+    {
+        "name": "BANK BNP PARIBAS INDONESIA"
+    },
+    {
+        "name": "BANK UOB INDONESIA"
+    },
+    {
+        "name": "KOREA EXCHANGE BANK DANAMON"
+    },
+    {
+        "name": "RABOBANK INTERNASIONAL INDONESIA"
+    },
+    {
+        "name": "ANZ PANIN BANK"
+    },
+    {
+        "name": "DEUTSCHE BANK AG."
+    },
+    {
+        "name": "BANK WOORI INDONESIA"
+    },
+    {
+        "name": "BANK OF CHINA LIMITED"
+    },
+    {
+        "name": "BANK BUMI ARTA"
+    },
+    {
+        "name": "BANK EKONOMI"
+    },
+    {
+        "name": "BANK ANTARDAERAH"
+    },
+    {
+        "name": "BANK HAGA"
+    },
+    {
+        "name": "BANK IFI"
+    },
+    {
+        "name": "BANK CENTURY, TBK."
+    },
+    {
+        "name": "BANK MAYAPADA"
+    },
+    {
+        "name": "BANK JABAR"
+    },
+    {
+        "name": "BANK DKI"
+    },
+    {
+        "name": "BPD DIY"
+    },
+    {
+        "name": "BANK JATENG"
+    },
+    {
+        "name": "BANK JATIM"
+    },
+    {
+        "name": "BPD JAMBI"
+    },
+    {
+        "name": "BPD ACEH"
+    },
+    {
+        "name": "BANK SUMUT"
+    },
+    {
+        "name": "BANK NAGARI"
+    },
+    {
+        "name": "BANK RIAU"
+    },
+    {
+        "name": "BANK SUMSEL"
+    },
+    {
+        "name": "BANK LAMPUNG"
+    },
+    {
+        "name": "BPD KALSEL"
+    },
+    {
+        "name": "BPD KALIMANTAN BARAT"
+    },
+    {
+        "name": "BPD KALTIM"
+    },
+    {
+        "name": "BPD KALTENG"
+    },
+    {
+        "name": "BPD SULSEL"
+    },
+    {
+        "name": "BANK SULUT"
+    },
+    {
+        "name": "BPD NTB"
+    },
+    {
+        "name": "BPD BALI"
+    },
+    {
+        "name": "BANK NTT"
+    },
+    {
+        "name": "BANK MALUKU"
+    },
+    {
+        "name": "BPD PAPUA"
+    },
+    {
+        "name": "BANK BENGKULU"
+    },
+    {
+        "name": "BPD SULAWESI TENGAH"
+    },
+    {
+        "name": "BANK SULTRA"
+    },
+    {
+        "name": "BANK NUSANTARA PARAHYANGAN"
+    },
+    {
+        "name": "BANK SWADESI"
+    },
+    {
+        "name": "BANK MUAMALAT"
+    },
+    {
+        "name": "BANK MESTIKA"
+    },
+    {
+        "name": "BANK METRO EXPRESS"
+    },
+    {
+        "name": "BANK SHINTA INDONESIA"
+    },
+    {
+        "name": "BANK MASPION"
+    },
+    {
+        "name": "BANK HAGAKITA"
+    },
+    {
+        "name": "BANK GANESHA"
+    },
+    {
+        "name": "BANK WINDU KENTJANA"
+    },
+    {
+        "name": "HALIM INDONESIA BANK"
+    },
+    {
+        "name": "BANK HARMONI INTERNATIONAL"
+    },
+    {
+        "name": "BANK KESAWAN"
+    },
+    {
+        "name": "BANK TABUNGAN NEGARA (PERSERO)"
+    },
+    {
+        "name": "BANK HIMPUNAN SAUDARA 1906, TBK ."
+    },
+    {
+        "name": "BANK TABUNGAN PENSIUNAN NASIONAL"
+    },
+    {
+        "name": "BANK SWAGUNA"
+    },
+    {
+        "name": "BANK JASA ARTA"
+    },
+    {
+        "name": "BANK MEGA"
+    },
+    {
+        "name": "BANK JASA JAKARTA"
+    },
+    {
+        "name": "BANK BUKOPIN"
+    },
+    {
+        "name": "BANK SYARIAH MANDIRI"
+    },
+    {
+        "name": "BANK BISNIS INTERNASIONAL"
+    },
+    {
+        "name": "BANK SRI PARTHA"
+    },
+    {
+        "name": "BANK JASA JAKARTA"
+    },
+    {
+        "name": "BANK BINTANG MANUNGGAL"
+    },
+    {
+        "name": "BANK BUMIPUTERA"
+    },
+    {
+        "name": "BANK YUDHA BHAKTI"
+    },
+    {
+        "name": "BANK MITRANIAGA"
+    },
+    {
+        "name": "BANK AGRO NIAGA"
+    },
+    {
+        "name": "BANK INDOMONEX"
+    },
+    {
+        "name": "BANK ROYAL INDONESIA"
+    },
+    {
+        "name": "BANK ALFINDO"
+    },
+    {
+        "name": "BANK SYARIAH MEGA"
+    },
+    {
+        "name": "BANK INA PERDANA"
+    },
+    {
+        "name": "BANK HARFA"
+    },
+    {
+        "name": "PRIMA MASTER BANK"
+    },
+    {
+        "name": "BANK PERSYARIKATAN INDONESIA"
+    },
+    {
+        "name": "BANK AKITA"
+    },
+    {
+        "name": "LIMAN INTERNATIONAL BANK"
+    },
+    {
+        "name": "ANGLOMAS INTERNASIONAL BANK"
+    },
+    {
+        "name": "BANK DIPO INTERNATIONAL"
+    },
+    {
+        "name": "BANK KESEJAHTERAAN EKONOMI"
+    },
+    {
+        "name": "BANK UIB"
+    },
+    {
+        "name": "BANK ARTOS IND"
+    },
+    {
+        "name": "BANK PURBA DANARTA"
+    },
+    {
+        "name": "BANK MULTI ARTA SENTOSA"
+    },
+    {
+        "name": "BANK MAYORA"
+    },
+    {
+        "name": "BANK INDEX SELINDO"
+    },
+    {
+        "name": "BANK VICTORIA INTERNATIONAL"
+    },
+    {
+        "name": "BANK EKSEKUTIF"
+    },
+    {
+        "name": "CENTRATAMA NASIONAL BANK"
+    },
+    {
+        "name": "BANK FAMA INTERNASIONAL"
+    },
+    {
+        "name": "BANK SINAR HARAPAN BALI"
+    },
+    {
+        "name": "BANK HARDA"
+    },
+    {
+        "name": "BANK FINCONESIA"
+    },
+    {
+        "name": "BANK MERINCORP"
+    },
+    {
+        "name": "BANK MAYBANK INDOCORP"
+    },
+    {
+        "name": "BANK OCBC – INDONESIA"
+    },
+    {
+        "name": "BANK CHINA TRUST INDONESIA"
+    },
+    {
+        "name": "BANK COMMONWEALTH"
+    },
+    {
+        "name": "BANK BJB SYARIAH"
+    },
+    {
+        "name": "BPR KS (KARYAJATNIKA SEDAYA)"
+    },
+    {
+        "name": "INDOSAT DOMPETKU"
+    },
+    {
+        "name": "TELKOMSEL TCASH"
+    },
+    {
+        "name": "LINKAJA"
     }
 ]

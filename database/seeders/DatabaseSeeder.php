@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             // RoleHasPermissionSeeder::class,
             // UserSeeder::class,
-            // ListBankSeeder::class,
+            ListBankSeeder::class,
             // ListEventSeeder::class,
             // StatusPembayaranSeeder::class
         ]);

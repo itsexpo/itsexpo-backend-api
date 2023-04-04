@@ -21,11 +21,13 @@ class ListBankSeeder extends Seeder
         $list_banks = json_decode($json, true);
 
         $payload = [];
+        $i = 1;
         foreach ($list_banks as $list_bank) {
             $payload[] = [
-                'id' => $list_bank['id'],
+                'id' => $i,
                 'name' => $list_bank['name'],
             ];
+            $i++;
         }
         DB::table('list_bank')->insert($payload);
     }
