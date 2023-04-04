@@ -42,9 +42,16 @@ class RegisterWahana2DService
     public function execute(RegisterWahana2DRequest $request, UserAccount $account)
     {
         $user = $this->user_repository->find($account->getUserId());
+        
+        $registered_user_nrp = $this->wahana_2d_repository->findByNrp($request->getNrp());
+        
+        if ($registered_user_nrp) {
+            UserException::throw("Sudah terdapat pendaftar dengan NRP yang sama", 1021, 404);
+        }
 
-        $registered_user = $this->wahana_2d_repository->findByName($request->getName());
-        if ($registered_user) {
+        $registered_user_name = $this->wahana_2d_repository->findByName($request->getName());
+        
+        if ($registered_user_name) {
             UserException::throw("Sudah terdapat pendaftar dengan nama yang sama", 1021, 404);
         }
 
@@ -82,7 +89,6 @@ class RegisterWahana2DService
             $request->getNrp(),
             $request->getKontak(),
             0,
-            $request->getEmail(),
             $ktmUrl
         );
         

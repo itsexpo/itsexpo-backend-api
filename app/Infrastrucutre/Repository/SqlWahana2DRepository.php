@@ -23,12 +23,25 @@ class SqlWahana2DRepository implements Wahana2DRepositoryInterface
 
     public function findByName(string $name): ?Wahana2D
     {
-        $row = DB::table('wahana_2d')->where('name', '=', $name)->first();
 
+        $row = DB::table('wahana_2d')->where('name', '=', $name)->first();
+        
         if (!$row) {
             return null;
         }
 
+        return $this->constructFromRows([$row])[0];
+    }
+
+    public function findByNrp(string $nrp): ?Wahana2D
+    {
+
+        $row = DB::table('wahana_2d')->where('nrp', '=', $nrp)->first();
+        
+        if (!$row) {
+            return null;
+        }
+        
         return $this->constructFromRows([$row])[0];
     }
 
@@ -41,7 +54,6 @@ class SqlWahana2DRepository implements Wahana2DRepositoryInterface
             'name' => $member->getName(),
             'nrp' => $member->getNrp(),
             'kontak' => $member->getKontak(),
-            'email' => $member->getEmail(),
             'status' => $member->getStatus(),
             'ktm_url' => $member->getKTM()
         ], 'id');
@@ -58,9 +70,8 @@ class SqlWahana2DRepository implements Wahana2DRepositoryInterface
                 $row->name,
                 $row->nrp,
                 $row->kontak,
-                $row->email,
                 $row->status,
-                $row->ktm,
+                $row->ktm_url,
                 $row->created_at
             );
         }

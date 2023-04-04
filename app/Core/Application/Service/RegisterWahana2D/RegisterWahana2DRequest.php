@@ -9,7 +9,6 @@ class RegisterWahana2DRequest
     private string $name;
     private string $nrp;
     private string $departemen_id;
-    private string $email;
     private string $kontak;
     private UploadedFile $ktm;
 
@@ -17,17 +16,15 @@ class RegisterWahana2DRequest
      * @param string $name
      * @param string $nrp
      * @param string $departemen_id
-     * @param string $email
      * @param string $kontak
      * @param UploadedFile $ktm
      */
 
-    public function __construct(string $name, string $nrp, string $departemen_id, string $email, string $kontak, UploadedFile $ktm)
+    public function __construct(string $name, string $nrp, string $departemen_id, string $kontak, UploadedFile $ktm)
     {
         $this->name = $name;
         $this->nrp = $nrp;
         $this->departemen_id = $departemen_id;
-        $this->email = $email;
         $this->kontak = $kontak;
         $this->ktm = $ktm;
     }
@@ -54,14 +51,6 @@ class RegisterWahana2DRequest
     public function getDepartemenId(): string
     {
         return $this->departemen_id;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getEmail(): string
-    {
-        return $this->email;
     }
 
     /**

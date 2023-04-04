@@ -11,5 +11,7 @@ interface Wahana2DRepositoryInterface
     
     public function findByName(string $name): ?Wahana2D;
 
+    public function findByNrp(string $nrp): ?Wahana2D;
+
     public function persist(Wahana2D $registrant): void;
 }

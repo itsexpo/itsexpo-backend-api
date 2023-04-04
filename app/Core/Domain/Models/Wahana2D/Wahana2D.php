@@ -13,12 +13,11 @@ class Wahana2D
     private string $name;
     private string $nrp;
     private string $kontak;
-    private string $email;
     private bool $status;
     private string $ktm;
     private string $created_at;
 
-    public function __construct(Wahana2DId $id, ?PembayaranId $pembayaran_id, string $departemen_id, string $name, string $nrp, string $kontak, string $email, bool $status, string $ktm, string $created_at)
+    public function __construct(Wahana2DId $id, ?PembayaranId $pembayaran_id, string $departemen_id, string $name, string $nrp, string $kontak, bool $status, string $ktm, string $created_at)
     {
         $this->id = $id;
         $this->pembayaran_id = $pembayaran_id;
@@ -26,7 +25,6 @@ class Wahana2D
         $this->name = $name;
         $this->nrp = $nrp;
         $this->kontak = $kontak;
-        $this->email = $email;
         $this->status = $status;
         $this->ktm = $ktm;
         $this->created_at = $created_at;
@@ -35,7 +33,7 @@ class Wahana2D
     /**
      * @throws Exception
      */
-    public static function create(?PembayaranId $pembayaran_id, string $departemen_id, string $name, string $nrp, string $kontak, bool $status, string $email, string $ktm): self
+    public static function create(?PembayaranId $pembayaran_id, string $departemen_id, string $name, string $nrp, string $kontak, bool $status, string $ktm): self
     {
         return new self(
             Wahana2DId::generate(),
@@ -44,7 +42,6 @@ class Wahana2D
             $name,
             $nrp,
             $kontak,
-            $email,
             $status,
             $ktm,
             "null"
@@ -93,11 +90,6 @@ class Wahana2D
     public function getKontak(): string
     {
         return $this->kontak;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email;
     }
 
     public function getStatus(): bool
