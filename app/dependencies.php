@@ -52,8 +52,12 @@ use App\Core\Domain\Repository\AccountVerificationRepositoryInterface;
 use App\Core\Domain\Repository\RobotInActionMemberRepositoryInterface;
 use App\Core\Domain\Repository\KTITeamRepositoryInterface;
 use App\Core\Domain\Repository\KTIMemberRepositoryInterface;
+use App\Core\Domain\Repository\Wahana3DMemberRepositoryInterface;
+use App\Core\Domain\Repository\Wahana3DTeamRepositoryInterface;
 use App\Infrastrucutre\Repository\SqlKTIMemberRepository;
 use App\Infrastrucutre\Repository\SqlKTITeamRepository;
+use App\Infrastrucutre\Repository\SqlWahana3DMemberRepository;
+use App\Infrastrucutre\Repository\SqlWahana3DTeamRepository;
 use App\Core\Domain\Repository\Wahana2DRepositoryInterface;
 use App\Infrastrucutre\Repository\SqlWahana2DRepository;
 
@@ -87,3 +91,5 @@ $app->singleton(RobotInActionMemberRepositoryInterface::class, SqlRobotInActionM
 $app->singleton(KTITeamRepositoryInterface::class, SqlKTITeamRepository::class);
 $app->singleton(KTIMemberRepositoryInterface::class, SqlKTIMemberRepository::class);
 $app->singleton(Wahana2DRepositoryInterface::class, SqlWahana2DRepository::class);
+$app->singleton(Wahana3DTeamRepositoryInterface::class, SqlWahana3DTeamRepository::class);
+$app->singleton(Wahana3DMemberRepositoryInterface::class, SqlWahana3DMemberRepository::class);

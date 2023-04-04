@@ -15,16 +15,15 @@ return new class extends Migration {
         Schema::create('wahana_3d_team', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('pembayaran_id')->nullable();
+            $table->uuid('user_id')->index();
             $table->string('team_name', 512);
             $table->string('team_code', 512);
-            $table->string('competition_status', 512);
             $table->text('deskripsi_karya');
-            $table->integer('jumlah_anggota');
-            $table->boolean('team_status');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
             $table->foreign('pembayaran_id')->references('id')->on('pembayaran');
+            $table->foreign('user_id')->references('id')->on('user');
         });
     }
 

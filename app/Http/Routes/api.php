@@ -23,6 +23,7 @@ use App\Http\Controllers\KTIAdminController;
 use App\Http\Controllers\RoleHasPermissionController;
 use App\Http\Controllers\RobotInActionAdminController;
 use App\Http\Controllers\Wahana2DController;
+use App\Http\Controllers\Wahana3DController;
 
 Route::get('hello', function () {
     return response()->json();
@@ -108,6 +109,9 @@ Route::middleware(['iam'])->group(
         Route::get('/admin/kti', [KTIAdminController::class, 'getTeam'])->middleware('permission:admin_kti.index');
         Route::get('/admin/kti/{team_id}', [KTIAdminController::class, 'getDetail'])->middleware('permission:admin_kti.detail');
         Route::patch('/admin/kti', [KTIAdminController::class, 'confirmTeam'])->middleware('permission:admin_kti_approval.store');
+
+        // Wahana 3D
+        Route::post('/main-event/3d', [Wahana3DController::class, 'register'])->middleware('permission:wahana_3d.store');
 
         // Pembayaran
         Route::post('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'createPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.store');
