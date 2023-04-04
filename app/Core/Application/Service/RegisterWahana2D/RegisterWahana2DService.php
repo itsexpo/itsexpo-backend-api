@@ -65,7 +65,7 @@ class RegisterWahana2DService
         
         $pembayaran = Pembayaran::create(
             null,
-            12,
+            51,
             5,
             null,
             null,
