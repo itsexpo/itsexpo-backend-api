@@ -4,6 +4,7 @@ namespace App\Core\Application\Service\RegisterWahana3D\Member;
 
 use App\Core\Application\ImageUpload\ImageUpload;
 use App\Core\Domain\Models\UserAccount;
+use App\Core\Domain\Models\NRP;
 use App\Core\Domain\Models\UserHasListEvent\UserHasListEvent;
 use App\Core\Domain\Models\Wahana3D\Member\Wahana3DMember;
 use App\Core\Domain\Models\Wahana3D\Wahana3DMemberType;
@@ -46,12 +47,18 @@ class RegisterWahana3DMemberService
                     'KTM'
                 )->upload();
 
+                $nrp = new NRP($request->getNrp());
+
+                if ($nrp->getDepartemen() == "" || $nrp->getFakultas() == "") {
+                    UserException::throw("NRP Anda Tidak Valid", 6002);
+                }
+
                 $member = Wahana3DMember::create(
                     $team_id->getId(),
                     Wahana3DMemberType::MEMBER,
                     $request->getDepartemenId(),
                     $request->getName(),
-                    $request->getNrp(),
+                    $nrp,
                     $request->getKontak(),
                     $ktm_url
                 );

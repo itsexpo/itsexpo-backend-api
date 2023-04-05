@@ -3,6 +3,7 @@
 namespace App\Core\Application\Service\RegisterWahana3D\Ketua;
 
 use App\Core\Application\ImageUpload\ImageUpload;
+use App\Core\Domain\Models\NRP;
 use App\Core\Domain\Models\Pembayaran\Pembayaran;
 use App\Core\Domain\Models\UserAccount;
 use App\Core\Domain\Models\UserHasListEvent\UserHasListEvent;
@@ -42,8 +43,7 @@ class RegisterWahana3DKetuaService
         UserRepositoryInterface $user_repository,
         RoleRepositoryInterface $role_repository,
         PembayaranRepositoryInterface $pembayaran_repository
-    )
-    {
+    ) {
         $this->wahana_3d_team_repository = $wahana_3d_team_repository;
         $this->wahana_3d_member_repository = $wahana_3d_member_repository;
         $this->user_has_list_event_repository = $user_has_list_event_repository;
@@ -98,12 +98,20 @@ class RegisterWahana3DKetuaService
             $request->getDeskripsiKarya()
         );
 
+        $nrp = new NRP($request->getNrp());
+
+        if ($nrp->getDepartemen() == "" || $nrp->getFakultas() == "") {
+            UserException::throw("NRP Anda Tidak Valid", 6002);
+        }
+
+        // print_r($nrp->toString());
+
         $member = Wahana3DMember::create(
             $team->getId(),
             Wahana3DMemberType::KETUA,
             $request->getDepartemenId(),
             $request->getName(),
-            $request->getNrp(),
+            $nrp,
             $request->getKontak(),
             $ktm_url
         );

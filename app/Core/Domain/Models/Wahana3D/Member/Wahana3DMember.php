@@ -2,6 +2,7 @@
 
 namespace App\Core\Domain\Models\Wahana3D\Member;
 
+use App\Core\Domain\Models\NRP;
 use App\Core\Domain\Models\Wahana3D\Team\Wahana3DTeamId;
 use App\Core\Domain\Models\Wahana3D\Wahana3DMemberType;
 
@@ -12,7 +13,7 @@ class Wahana3DMember
     private Wahana3DMemberType $member_type;
     private string $departemen_id;
     private string $name;
-    private string $nrp;
+    private NRP $nrp;
     private string $kontak;
     private string $ktm_url;
 
@@ -21,11 +22,11 @@ class Wahana3DMember
      * @param ?Wahana3DTeamId $wahana_3d_team_id
      * @param Wahana3DMemberType $member_type
      * @param string $name
-     * @param string $nrp
+     * @param NRP $nrp
      * @param string $kontak
      * @param string $ktm_url
      */
-    public function __construct(Wahana3DMemberId $id, ?Wahana3DTeamId $wahana_3d_team_id, Wahana3DMemberType $member_type, string $departemen_id, string $name, string $nrp, string $kontak, string $ktm_url)
+    public function __construct(Wahana3DMemberId $id, ?Wahana3DTeamId $wahana_3d_team_id, Wahana3DMemberType $member_type, string $departemen_id, string $name, NRP $nrp, string $kontak, string $ktm_url)
     {
         $this->id = $id;
         $this->wahana_3d_team_id = $wahana_3d_team_id;
@@ -40,7 +41,7 @@ class Wahana3DMember
     /**
      * @throws Exception
      */
-    public static function create(?Wahana3DTeamId $wahana_3d_team_id, Wahana3DMemberType $member_type, string $departemen_id, string $name, string $nrp, string $kontak, string $ktm_url): self
+    public static function create(?Wahana3DTeamId $wahana_3d_team_id, Wahana3DMemberType $member_type, string $departemen_id, string $name, NRP $nrp, string $kontak, string $ktm_url): self
     {
         return new self(
             Wahana3DMemberId::generate(),
@@ -95,9 +96,9 @@ class Wahana3DMember
     }
 
     /**
-     * @return string
+     * @return NRP
      */
-    public function getNrp(): string
+    public function getNrp(): NRP
     {
         return $this->nrp;
     }

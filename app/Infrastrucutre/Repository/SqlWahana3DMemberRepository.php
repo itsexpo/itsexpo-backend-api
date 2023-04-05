@@ -63,7 +63,7 @@ class SqlWahana3DMemberRepository implements Wahana3DMemberRepositoryInterface
           'departemen_id' => $member->getDepartemenId(),
           'member_type' => $member->getMemberType()->value,
           'name' => $member->getName(),
-          'nrp' => $member->getNrp(),
+          'nrp' => $member->getNrp()->toString(),
           'kontak' => $member->getKontak(),
           'ktm_url' => $member->getKtmUrl(),
         ], 'id');
