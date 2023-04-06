@@ -99,6 +99,11 @@ class RegisterWahana3DKetuaService
         );
 
         $nrp = new NRP($request->getNrp());
+        $findNrp = $this->wahana_3d_member_repository->findNrp($nrp);
+
+        if ($findNrp) {
+            UserException::throw("NRP Anda Sudah Terdaftar", 6002);
+        }
 
         if ($nrp->getDepartemen() == "" || $nrp->getFakultas() == "") {
             UserException::throw("NRP Anda Tidak Valid", 6002);

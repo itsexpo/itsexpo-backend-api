@@ -27,7 +27,7 @@ class Wahana3DController extends Controller
             $request->input('kontak'),
             $request->input('departemen_id'),
             $request->input('deskripsi_karya'),
-            $request->file('ktm_url')
+            $request->file('ktm')
         );
 
         $input_member = array_map(function (array $member, array $file) {

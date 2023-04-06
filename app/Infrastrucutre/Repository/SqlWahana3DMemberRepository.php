@@ -7,6 +7,7 @@ use App\Core\Domain\Models\Wahana3D\Member\Wahana3DMemberId;
 use App\Core\Domain\Models\Wahana3D\Team\Wahana3DTeamId;
 use App\Core\Domain\Models\Wahana3D\Wahana3DMemberType;
 use App\Core\Domain\Repository\Wahana3DMemberRepositoryInterface;
+use App\Core\Domain\Models\NRP;
 use Illuminate\Support\Facades\DB;
 
 class SqlWahana3DMemberRepository implements Wahana3DMemberRepositoryInterface
@@ -53,6 +54,17 @@ class SqlWahana3DMemberRepository implements Wahana3DMemberRepositoryInterface
         }
 
         return $this->constructFromRows($row->all());
+    }
+
+    public function findNrp(NRP $nrp): bool
+    {
+        $row = DB::table('wahana_3d_member')->where('nrp', '=', $nrp->toString())->first();
+
+        if (!$row) {
+            return false;
+        }
+
+        return true;
     }
 
     public function persist(Wahana3DMember $member): void
