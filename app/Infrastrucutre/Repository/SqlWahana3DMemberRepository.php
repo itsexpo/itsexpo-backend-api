@@ -55,7 +55,7 @@ class SqlWahana3DMemberRepository implements Wahana3DMemberRepositoryInterface
 
         return $this->constructFromRows($row->all());
     }
-
+    
     public function findNrp(NRP $nrp): bool
     {
         $row = DB::table('wahana_3d_member')->where('nrp', '=', $nrp->toString())->first();
