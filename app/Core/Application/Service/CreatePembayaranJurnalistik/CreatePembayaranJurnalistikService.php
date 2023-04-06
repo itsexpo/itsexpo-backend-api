@@ -64,7 +64,7 @@ class CreatePembayaranJurnalistikService
             UserException::throw("Data pembayaran tidak dapat ditemukan", 1002, 404);
         }
 
-        if ($pembayaran->getStatusPembayaranId() != 5) {
+        if ($pembayaran->getStatusPembayaranId() != 5 && $pembayaran->getStatusPembayaranId() != 1) {
             UserException::throw("Status pembayaran tidak sesuai", 1002, 404);
         }
 

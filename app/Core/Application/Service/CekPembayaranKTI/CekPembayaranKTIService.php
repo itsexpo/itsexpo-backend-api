@@ -48,7 +48,7 @@ class CekPembayaranKTIService
                 $pembayaran->getId(),
                 $pembayaran->getListBankId(),
                 $pembayaran->getListEventId(),
-                1,
+                2,
                 $pembayaran->getAtasNama(),
                 $pembayaran->getBuktiPembayaranUrl(),
                 $pembayaran->getHarga(),

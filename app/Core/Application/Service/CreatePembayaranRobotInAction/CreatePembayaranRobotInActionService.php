@@ -66,7 +66,7 @@ class CreatePembayaranRobotInActionService
             UserException::throw("Data pembayaran tidak dapat ditemukan", 1001, 404);
         }
 
-        if ($pembayaran->getStatusPembayaranId() != 5) {
+        if ($pembayaran->getStatusPembayaranId() != 5 && $pembayaran->getStatusPembayaranId() != 1) {
             UserException::throw("Status pembayaran tidak sesuai", 1001, 404);
         }
 
