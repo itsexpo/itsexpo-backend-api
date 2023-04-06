@@ -3,12 +3,13 @@
 namespace App\Core\Application\Service\GetRobotInActionAdminDetail;
 
 use App\Exceptions\UserException;
+use App\Core\Domain\Repository\ListBankRepositoryInterface;
 use App\Core\Domain\Repository\PembayaranRepositoryInterface;
+use App\Core\Domain\Models\RobotInAction\RobotInActionMemberType;
 use App\Core\Domain\Models\RobotInAction\Team\RobotInActionTeamId;
 use App\Core\Domain\Repository\StatusPembayaranRepositoryInterface;
 use App\Core\Domain\Repository\RobotInActionTeamRepositoryInterface;
 use App\Core\Domain\Repository\RobotInActionMemberRepositoryInterface;
-use App\Core\Domain\Repository\ListBankRepositoryInterface;
 
 class GetRobotInActionAdminDetailService
 {
@@ -39,7 +40,7 @@ class GetRobotInActionAdminDetailService
         $member_array = [];
         foreach ($members as $member) {
             $nama = $member->getName();
-            $ketua = $member->getMemberType()->value;
+            $ketua = ($member->getMemberType() === RobotInActionMemberType::KETUA->value) ? true : false;
             $no_telp = $member->getNoTelp();
             $id_card_url = $member->getIdCardUrl();
             $follow_sosmed_url = $member->getFollowSosmedUrl();

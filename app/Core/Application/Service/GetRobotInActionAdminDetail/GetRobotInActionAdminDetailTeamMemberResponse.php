@@ -7,7 +7,7 @@ use JsonSerializable;
 class GetRobotInActionAdminDetailTeamMemberResponse implements JsonSerializable
 {
     private string $nama;
-    private string $ketua;
+    private bool $ketua;
     private string $no_telp;
     private string $id_card_url;
     private string $follow_sosmed_url;
@@ -15,7 +15,7 @@ class GetRobotInActionAdminDetailTeamMemberResponse implements JsonSerializable
 
     public function __construct(
         string $nama,
-        string $ketua,
+        bool $ketua,
         string $no_telp,
         string $id_card_url,
         string $follow_sosmed_url,
