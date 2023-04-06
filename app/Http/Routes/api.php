@@ -22,6 +22,7 @@ use App\Http\Controllers\JurnalistikAdminController;
 use App\Http\Controllers\KTIAdminController;
 use App\Http\Controllers\RoleHasPermissionController;
 use App\Http\Controllers\RobotInActionAdminController;
+use App\Http\Controllers\Wahana2DController;
 
 Route::get('hello', function () {
     return response()->json();
@@ -86,6 +87,8 @@ Route::middleware(['iam'])->group(
         Route::post('/pre_event/robotik/join', [RobotInActionController::class, 'joinTeam'])->middleware('permission:robotik_join.store');
         Route::delete('/pre_event/robotik/team', [RobotInActionController::class, 'deleteTeam'])->middleware('permission:robotik_team.delete');
 
+        // Wahana 2D
+        Route::post('/main-event/2d', [Wahana2DController::class, 'register'])->middleware('permission:wahana_2d.store');
 
         // Jurnalistik admin
         Route::get('/admin/jurnalistik', [JurnalistikAdminController::class, 'getTeam'])->middleware('permission:admin_jurnalistik.index');
