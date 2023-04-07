@@ -61,6 +61,7 @@ class SqlWahana2DRepository implements Wahana2DRepositoryInterface
     {
         DB::table('wahana_2d')->upsert([
             'id' => $member->getId()->toString(),
+            'user_id' => $member->getUserId()->toString(),
             'pembayaran_id' => $member->getPembayaranId()->toString(),
             'departemen_id' => $member->getDepartemenId(),
             'name' => $member->getName(),

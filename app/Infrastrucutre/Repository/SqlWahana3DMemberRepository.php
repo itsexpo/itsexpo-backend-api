@@ -55,7 +55,7 @@ class SqlWahana3DMemberRepository implements Wahana3DMemberRepositoryInterface
 
         return $this->constructFromRows($row->all());
     }
-    
+
     public function findNrp(NRP $nrp): bool
     {
         $row = DB::table('wahana_3d_member')->where('nrp', '=', $nrp->toString())->first();
@@ -70,14 +70,14 @@ class SqlWahana3DMemberRepository implements Wahana3DMemberRepositoryInterface
     public function persist(Wahana3DMember $member): void
     {
         DB::table('wahana_3d_member')->upsert([
-          'id' => $member->getId()->toString(),
-          'wahana_3d_team_id' => $member->getTeamId()->toString(),
-          'departemen_id' => $member->getDepartemenId(),
-          'member_type' => $member->getMemberType()->value,
-          'name' => $member->getName(),
-          'nrp' => $member->getNrp()->toString(),
-          'kontak' => $member->getKontak(),
-          'ktm_url' => $member->getKtmUrl(),
+            'id' => $member->getId()->toString(),
+            'wahana_3d_team_id' => $member->getTeamId()->toString(),
+            'departemen_id' => $member->getDepartemenId(),
+            'member_type' => $member->getMemberType()->value,
+            'name' => $member->getName(),
+            'nrp' => $member->getNrp()->toString(),
+            'kontak' => $member->getKontak(),
+            'ktm_url' => $member->getKtmUrl(),
         ], 'id');
     }
 
@@ -85,13 +85,13 @@ class SqlWahana3DMemberRepository implements Wahana3DMemberRepositoryInterface
     {
         $wahana_3d_member = [];
         foreach ($rows as $row) {
-            $wahana_3d_member = new Wahana3DMember(
+            $wahana_3d_member[] = new Wahana3DMember(
                 new Wahana3DMemberId($row->id),
                 new Wahana3DTeamId($row->wahana_3d_team_id),
                 Wahana3DMemberType::from($row->member_type),
                 $row->departemen_id,
                 $row->name,
-                $row->nrp,
+                new NRP($row->nrp),
                 $row->kontak,
                 $row->ktm_url
             );

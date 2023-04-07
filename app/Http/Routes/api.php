@@ -115,6 +115,7 @@ Route::middleware(['iam'])->group(
         Route::post('/main-event/3d', [Wahana3DController::class, 'register'])->middleware('permission:wahana_3d.store');
         // Wahana seni
         Route::get('/main-event/wahanaseni', [WahanaSeniController::class, 'getDetail']);
+
         // Pembayaran
         Route::post('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'createPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.store');
         Route::get('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'cekPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.index');
