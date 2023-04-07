@@ -194,5 +194,9 @@
     {
         "id": 49,
         "routes": "wahana_2d.store"
+    },
+    {
+        "id": 50, 
+        "routes": "wahana_3d.store"
     }
 ]

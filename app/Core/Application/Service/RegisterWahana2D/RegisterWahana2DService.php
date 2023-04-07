@@ -6,8 +6,8 @@ use Illuminate\Support\Carbon;
 use App\Exceptions\UserException;
 use App\Core\Domain\Models\UserAccount;
 use App\Core\Domain\Models\Wahana2D\Wahana2D;
-use App\Core\Domain\Models\Wahana2D\Wahana2DId;
 use App\Core\Application\ImageUpload\ImageUpload;
+use App\Core\Domain\Models\NRP;
 use App\Core\Domain\Models\Pembayaran\Pembayaran;
 use App\Core\Domain\Repository\RoleRepositoryInterface;
 use App\Core\Domain\Repository\UserRepositoryInterface;
@@ -43,17 +43,13 @@ class RegisterWahana2DService
     {
         $user = $this->user_repository->find($account->getUserId());
         
-        $registered_user_nrp = $this->wahana_2d_repository->findByNrp($request->getNrp());
+        // $registered_user_name = $this->wahana_2d_repository->findByName($request->getName());
         
-        if ($registered_user_nrp) {
-            UserException::throw("Sudah terdapat pendaftar dengan NRP yang sama", 1021, 404);
-        }
+        // if ($registered_user_name) {
+        //     UserException::throw("Sudah terdapat pendaftar dengan nama yang sama", 1021, 404);
+        // }
 
-        $registered_user_name = $this->wahana_2d_repository->findByName($request->getName());
-        
-        if ($registered_user_name) {
-            UserException::throw("Sudah terdapat pendaftar dengan nama yang sama", 1021, 404);
-        }
+        // $registered_user = $this->wahana_2d_repository->findByUserId($account->getUserId());
 
         $role = $this->role_repository->find($user->getRoleId());
 
@@ -81,12 +77,23 @@ class RegisterWahana2DService
         );
         
         $this->pembayaran_repository->persist($pembayaran);
+
+        $nrp = new NRP($request->getNrp());
+        $findNrp = $this->wahana_2d_repository->findByNrp($nrp);
+
+        if ($findNrp) {
+            UserException::throw("NRP Anda Sudah Terdaftar", 6002);
+        }
+
+        if ($nrp->getDepartemen() == "" || $nrp->getFakultas() == "") {
+            UserException::throw("NRP Anda Tidak Valid", 6002);
+        }
         
         $registrant = Wahana2D::create(
             $pembayaran->getId(),
             $request->getDepartemenId(),
             $request->getName(),
-            $request->getNrp(),
+            $nrp,
             $request->getKontak(),
             0,
             $ktmUrl

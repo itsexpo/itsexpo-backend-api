@@ -2,10 +2,12 @@
 
 namespace App\Infrastrucutre\Repository;
 
+use App\Core\Domain\Models\NRP;
 use Illuminate\Support\Facades\DB;
 use App\Core\Domain\Models\Wahana2D\Wahana2D;
 use App\Core\Domain\Models\Wahana2D\Wahana2DId;
 use App\Core\Domain\Models\Pembayaran\PembayaranId;
+use App\Core\Domain\Models\User\UserId;
 use App\Core\Domain\Repository\Wahana2DRepositoryInterface;
 
 class SqlWahana2DRepository implements Wahana2DRepositoryInterface
@@ -23,7 +25,6 @@ class SqlWahana2DRepository implements Wahana2DRepositoryInterface
 
     public function findByName(string $name): ?Wahana2D
     {
-
         $row = DB::table('wahana_2d')->where('name', '=', $name)->first();
         
         if (!$row) {
@@ -33,16 +34,27 @@ class SqlWahana2DRepository implements Wahana2DRepositoryInterface
         return $this->constructFromRows([$row])[0];
     }
 
-    public function findByNrp(string $nrp): ?Wahana2D
+    public function findByUserId(UserId $user_id): ?Wahana2D
     {
+        $row = DB::table('wahana_2d')->where('user_id', $user_id->toString())->first();
 
-        $row = DB::table('wahana_2d')->where('nrp', '=', $nrp)->first();
-        
         if (!$row) {
             return null;
         }
-        
+
         return $this->constructFromRows([$row])[0];
+    }
+
+    public function findByNrp(NRP $nrp): bool
+    {
+        $row = DB::table('wahana_2d')->where('nrp', '=', $nrp->toString())->first();
+        print_r($row);
+
+        if (!$row) {
+            return false;
+        }
+        
+        return true;
     }
 
     public function persist(Wahana2D $member): void
@@ -52,7 +64,7 @@ class SqlWahana2DRepository implements Wahana2DRepositoryInterface
             'pembayaran_id' => $member->getPembayaranId()->toString(),
             'departemen_id' => $member->getDepartemenId(),
             'name' => $member->getName(),
-            'nrp' => $member->getNrp(),
+            'nrp' => $member->getNrp()->toString(),
             'kontak' => $member->getKontak(),
             'status' => $member->getStatus(),
             'ktm_url' => $member->getKTM()

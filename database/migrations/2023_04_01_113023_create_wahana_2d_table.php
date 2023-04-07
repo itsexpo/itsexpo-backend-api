@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->string('name', 512);
             $table->string('nrp', 512);
             $table->string('kontak', 512);
-            $table->string('email', 512);
             $table->boolean('status');
             $table->string('ktm_url', 512);
             $table->timestamp('created_at')->useCurrent();

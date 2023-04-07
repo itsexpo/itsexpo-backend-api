@@ -47,5 +47,12 @@
         "kuota": 500,
         "start_date": "2023-04-01",
         "close_date": "2023-04-30"
+    }, 
+    {
+        "id": 52, 
+        "name": "Wahana3D", 
+        "kuota": 500, 
+        "start_date": "2023-04-01",
+        "close_date": "2023-04-30"
     }
 ]

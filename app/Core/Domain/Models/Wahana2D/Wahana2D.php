@@ -2,8 +2,8 @@
 
 namespace App\Core\Domain\Models\Wahana2D;
 
+use App\Core\Domain\Models\NRP;
 use App\Core\Domain\Models\Pembayaran\PembayaranId;
-use App\Core\Domain\Models\Wahana2D\Wahana2DId;
 
 class Wahana2D
 {
@@ -11,13 +11,13 @@ class Wahana2D
     private ?PembayaranId $pembayaran_id;
     private string $departemen_id;
     private string $name;
-    private string $nrp;
+    private NRP $nrp;
     private string $kontak;
     private bool $status;
     private string $ktm;
     private string $created_at;
 
-    public function __construct(Wahana2DId $id, ?PembayaranId $pembayaran_id, string $departemen_id, string $name, string $nrp, string $kontak, bool $status, string $ktm, string $created_at)
+    public function __construct(Wahana2DId $id, ?PembayaranId $pembayaran_id, string $departemen_id, string $name, NRP $nrp, string $kontak, bool $status, string $ktm, string $created_at)
     {
         $this->id = $id;
         $this->pembayaran_id = $pembayaran_id;
@@ -33,7 +33,7 @@ class Wahana2D
     /**
      * @throws Exception
      */
-    public static function create(?PembayaranId $pembayaran_id, string $departemen_id, string $name, string $nrp, string $kontak, bool $status, string $ktm): self
+    public static function create(?PembayaranId $pembayaran_id, string $departemen_id, string $name, NRP $nrp, string $kontak, bool $status, string $ktm): self
     {
         return new self(
             Wahana2DId::generate(),
@@ -82,7 +82,7 @@ class Wahana2D
         return $this->created_at;
     }
 
-    public function getNrp(): string
+    public function getNrp(): NRP
     {
         return $this->nrp;
     }

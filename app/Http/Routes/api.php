@@ -23,6 +23,7 @@ use App\Http\Controllers\KTIAdminController;
 use App\Http\Controllers\RoleHasPermissionController;
 use App\Http\Controllers\RobotInActionAdminController;
 use App\Http\Controllers\Wahana2DController;
+use App\Http\Controllers\Wahana3DController;
 
 Route::get('hello', function () {
     return response()->json();
@@ -87,9 +88,6 @@ Route::middleware(['iam'])->group(
         Route::post('/pre_event/robotik/join', [RobotInActionController::class, 'joinTeam'])->middleware('permission:robotik_join.store');
         Route::delete('/pre_event/robotik/team', [RobotInActionController::class, 'deleteTeam'])->middleware('permission:robotik_team.delete');
 
-        // Wahana 2D
-        Route::post('/main-event/2d', [Wahana2DController::class, 'register'])->middleware('permission:wahana_2d.store');
-
         // Jurnalistik admin
         Route::get('/admin/jurnalistik', [JurnalistikAdminController::class, 'getTeam'])->middleware('permission:admin_jurnalistik.index');
         Route::get('/admin/jurnalistik/{team_id}', [JurnalistikAdminController::class, 'getDetail'])->middleware('permission:admin_jurnalistik.detail');
@@ -108,6 +106,11 @@ Route::middleware(['iam'])->group(
         Route::get('/admin/kti', [KTIAdminController::class, 'getTeam'])->middleware('permission:admin_kti.index');
         Route::get('/admin/kti/{team_id}', [KTIAdminController::class, 'getDetail'])->middleware('permission:admin_kti.detail');
         Route::patch('/admin/kti', [KTIAdminController::class, 'confirmTeam'])->middleware('permission:admin_kti_approval.store');
+
+        // Wahana 2D
+        Route::post('/main-event/2d', [Wahana2DController::class, 'register'])->middleware('permission:wahana_2d.store');
+        // Wahana 3D
+        Route::post('/main-event/3d', [Wahana3DController::class, 'register'])->middleware('permission:wahana_3d.store');
 
         // Pembayaran
         Route::post('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'createPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.store');

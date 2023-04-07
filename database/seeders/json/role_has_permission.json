@@ -378,5 +378,10 @@
         "id": 76,
         "role_id": 5,
         "permission_id": 49
+    },
+    {
+        "id": 77, 
+        "role_id": 5, 
+        "permission_id": 50
     }
 ]
