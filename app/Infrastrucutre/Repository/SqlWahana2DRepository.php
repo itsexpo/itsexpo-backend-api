@@ -48,7 +48,6 @@ class SqlWahana2DRepository implements Wahana2DRepositoryInterface
     public function findByNrp(NRP $nrp): bool
     {
         $row = DB::table('wahana_2d')->where('nrp', '=', $nrp->toString())->first();
-        print_r($row);
 
         if (!$row) {
             return false;

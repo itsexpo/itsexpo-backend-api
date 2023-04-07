@@ -22,8 +22,6 @@ use App\Http\Controllers\JurnalistikAdminController;
 use App\Http\Controllers\KTIAdminController;
 use App\Http\Controllers\RoleHasPermissionController;
 use App\Http\Controllers\RobotInActionAdminController;
-use App\Http\Controllers\Wahana2DController;
-use App\Http\Controllers\Wahana3DController;
 use App\Http\Controllers\WahanaSeniController;
 
 Route::get('hello', function () {
@@ -110,9 +108,9 @@ Route::middleware(['iam'])->group(
         Route::patch('/admin/kti', [KTIAdminController::class, 'confirmTeam'])->middleware('permission:admin_kti_approval.store');
 
         // Wahana 2D
-        Route::post('/main-event/2d', [Wahana2DController::class, 'register'])->middleware('permission:wahana_2d.store');
+        Route::post('/main-event/2d', [WahanaSeniController::class, 'register2D'])->middleware('permission:wahana_2d.store');
         // Wahana 3D
-        Route::post('/main-event/3d', [Wahana3DController::class, 'register'])->middleware('permission:wahana_3d.store');
+        Route::post('/main-event/3d', [WahanaSeniController::class, 'register3D'])->middleware('permission:wahana_3d.store');
         // Wahana seni
         Route::get('/main-event/wahanaseni', [WahanaSeniController::class, 'getDetail']);
 

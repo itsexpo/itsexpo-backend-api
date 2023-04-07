@@ -109,8 +109,6 @@ class RegisterWahana3DKetuaService
             UserException::throw("NRP Anda Tidak Valid", 6002);
         }
 
-        // print_r($nrp->toString());
-
         $member = Wahana3DMember::create(
             $team->getId(),
             Wahana3DMemberType::KETUA,
