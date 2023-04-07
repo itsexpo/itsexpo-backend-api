@@ -3,11 +3,13 @@
 namespace App\Core\Domain\Models\Wahana2D;
 
 use App\Core\Domain\Models\NRP;
+use App\Core\Domain\Models\User\UserId;
 use App\Core\Domain\Models\Pembayaran\PembayaranId;
 
 class Wahana2D
 {
     private Wahana2DId $id;
+    private UserId $user_id;
     private ?PembayaranId $pembayaran_id;
     private string $departemen_id;
     private string $name;
@@ -17,9 +19,10 @@ class Wahana2D
     private string $ktm;
     private string $created_at;
 
-    public function __construct(Wahana2DId $id, ?PembayaranId $pembayaran_id, string $departemen_id, string $name, NRP $nrp, string $kontak, bool $status, string $ktm, string $created_at)
+    public function __construct(Wahana2DId $id, UserId $user_id, ?PembayaranId $pembayaran_id, string $departemen_id, string $name, NRP $nrp, string $kontak, bool $status, string $ktm, string $created_at)
     {
         $this->id = $id;
+        $this->user_id = $user_id;
         $this->pembayaran_id = $pembayaran_id;
         $this->departemen_id = $departemen_id;
         $this->name = $name;
@@ -33,10 +36,11 @@ class Wahana2D
     /**
      * @throws Exception
      */
-    public static function create(?PembayaranId $pembayaran_id, string $departemen_id, string $name, NRP $nrp, string $kontak, bool $status, string $ktm): self
+    public static function create(UserId $user_id, ?PembayaranId $pembayaran_id, string $departemen_id, string $name, NRP $nrp, string $kontak, bool $status, string $ktm): self
     {
         return new self(
             Wahana2DId::generate(),
+            $user_id,
             $pembayaran_id,
             $departemen_id,
             $name,
@@ -57,6 +61,14 @@ class Wahana2D
     }
 
     /**
+     * @return UserId
+     */
+    public function getUserId(): UserId
+    {
+        return $this->user_id;
+    }
+
+    /**
      * @return ?PembayaranId
      */
     public function getPembayaranId(): ?PembayaranId
@@ -71,12 +83,12 @@ class Wahana2D
     {
         return $this->departemen_id;
     }
-    
+
     public function getName(): string
     {
         return $this->name;
     }
-    
+
     public function getCreatedAt(): string
     {
         return $this->created_at;

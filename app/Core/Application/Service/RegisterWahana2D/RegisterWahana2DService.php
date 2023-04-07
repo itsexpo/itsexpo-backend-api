@@ -42,9 +42,9 @@ class RegisterWahana2DService
     public function execute(RegisterWahana2DRequest $request, UserAccount $account)
     {
         $user = $this->user_repository->find($account->getUserId());
-        
+
         // $registered_user_name = $this->wahana_2d_repository->findByName($request->getName());
-        
+
         // if ($registered_user_name) {
         //     UserException::throw("Sudah terdapat pendaftar dengan nama yang sama", 1021, 404);
         // }
@@ -63,9 +63,9 @@ class RegisterWahana2DService
             $account->getUserId()->toString(),
             'KTM'
         )->upload();
-      
+
         $current_time = Carbon::now()->addDay();
-        
+
         $pembayaran = Pembayaran::create(
             null,
             51,
@@ -75,7 +75,7 @@ class RegisterWahana2DService
             null,
             $current_time
         );
-        
+
         $this->pembayaran_repository->persist($pembayaran);
 
         $nrp = new NRP($request->getNrp());
@@ -88,8 +88,9 @@ class RegisterWahana2DService
         if ($nrp->getDepartemen() == "" || $nrp->getFakultas() == "") {
             UserException::throw("NRP Anda Tidak Valid", 6002);
         }
-        
+
         $registrant = Wahana2D::create(
+            $account->getUserId(),
             $pembayaran->getId(),
             $request->getDepartemenId(),
             $request->getName(),
@@ -98,7 +99,7 @@ class RegisterWahana2DService
             0,
             $ktmUrl
         );
-        
+
         $this->wahana_2d_repository->persist($registrant);
 
         $user_has_list_event = UserHasListEvent::create(

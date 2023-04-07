@@ -14,6 +14,7 @@ return new class extends Migration {
     {
         Schema::create('wahana_2d', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('user_id')->index();
             $table->uuid('pembayaran_id')->nullable();
             $table->string('departemen_id')->index();
             $table->string('name', 512);
@@ -26,6 +27,7 @@ return new class extends Migration {
 
             $table->foreign('pembayaran_id')->references('id')->on('pembayaran');
             $table->foreign('departemen_id')->references('id')->on('departemen');
+            $table->foreign('user_id')->references('id')->on('user');
         });
     }
 
