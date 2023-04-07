@@ -23,9 +23,10 @@ return new class extends Migration {
             $table->string('bukti_repost', 512);
             $table->string('twibbon', 512);
             $table->string('abstrak', 512);
+            $table->boolean('lolos_paper')->default(false);
+            $table->string('full_paper', 512);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->usrCurrentOnUpdate();
-
             $table->foreign('pembayaran_id')->references('id')->on('pembayaran');
             $table->foreign('user_id')->references('id')->on('user');
         });

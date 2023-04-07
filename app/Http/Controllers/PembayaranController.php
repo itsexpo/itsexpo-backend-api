@@ -16,6 +16,8 @@ use App\Core\Application\Service\CreatePembayaranJurnalistik\CreatePembayaranJur
 use App\Core\Application\Service\CreatePembayaranJurnalistik\CreatePembayaranJurnalistikService;
 use App\Core\Application\Service\CreatePembayaranRobotInAction\CreatePembayaranRobotInActionRequest;
 use App\Core\Application\Service\CreatePembayaranRobotInAction\CreatePembayaranRobotInActionService;
+use App\Core\Application\Service\ReRegisterKTITeam\ReRegisterKTITeamRequest;
+use App\Core\Application\Service\ReRegisterKTITeam\ReRegisterKTITeamService;
 
 class PembayaranController extends Controller
 {
@@ -48,14 +50,15 @@ class PembayaranController extends Controller
         return $this->success("Berhasil Melakukan Pembayaran");
     }
 
-    public function createPembayaranKTI(Request $request, CreatePembayaranKTIService $service): JsonResponse
+    public function createPembayaranKTI(Request $request, CreatePembayaranKTIService $service, ReRegisterKTITeamService $reregister_service): JsonResponse
     {
         $request->validate([
             'bank_id' => 'required',
             'bukti_pembayaran' => 'required',
             'harga' => 'required',
             'atas_nama' => 'required|string',
-            'kti_team_id' => 'required'
+            'kti_team_id' => 'required',
+            'full_paper' => 'required|file|mimes:pdf|max:2048',
         ]);
 
         $input = new CreatePembayaranKTIRequest(
@@ -66,18 +69,24 @@ class PembayaranController extends Controller
             $request->file('bukti_pembayaran'),
         );
 
+        $reregister_input = new ReRegisterKTITeamRequest(
+            $request->input('kti_team_id'),
+            $request->file('full_paper')
+        );
+
         DB::beginTransaction();
         try {
+            $reregister_service->execute($reregister_input, $request->get('account'));
             $service->execute($input, $request->get('account'));
         } catch (Throwable $e) {
             DB::rollBack();
             throw $e;
         }
         DB::commit();
-        
-        return $this->success("Berhasil Melakukan Pembayaran");
+
+        return $this->success("Berhasil Mendaftarkan Full Paper");
     }
-     
+
     public function cekPembayaranJurnalistik(Request $request, CekPembayaranJurnalistikService $service): JsonResponse
     {
         $response = $service->execute($request->get('account'));

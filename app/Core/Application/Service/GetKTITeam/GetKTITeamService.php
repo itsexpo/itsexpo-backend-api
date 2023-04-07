@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Core\Application\Service\GetKTITeam;
 
@@ -34,7 +34,7 @@ class GetKTITeamService
         if (!$user_id) {
             UserException::throw("User id tidak ditemukan", 1005, 404);
         }
-        
+
         $team = $this->kti_team_repo->findByUserId($user_id);
 
         if (!$team) {
@@ -42,58 +42,51 @@ class GetKTITeamService
         }
 
         $payment_id = $team->getPembayaranId();
+        $lolos_paper = $team->isLolosPaper();
 
-        if ($payment_id->toString() == null) {
-            $payment = new PembayaranObjResponse("AWAITING PAYMENT");
-    
-            $members = $this->kti_member_repo->findByTeamId($team->getId());
-    
-            $members_array = [];
-            foreach ($members as $member) {
-                $name = $member->getName();
-                $no_telp = $member->getNoTelp();
-                $memb = new GetKTITeamMemberResponse($name, $no_telp);
-                array_push($members_array, $memb);
-            }
-    
-            $lead_name = $this->kti_member_repo->findLeadByTeamId($team->getId())->getName();
-    
-            if (!$lead_name) {
-                UserException::throw("Ketua tidak ditemukan!", 1005, 404);
-            }
-            
-            $lead_no_telp = $this->kti_member_repo->findLeadByTeamId($team->getId())->getNoTelp();
-    
-            return new GetKTITeamResponse($team->getId()->toString(), $team->getTeamName(), $team->getAsalInstansi(), $lead_name, $lead_no_telp, $payment, $members_array, $team->getFollowSosmed(), $team->getBuktiRepost(), $team->getTwibbon(), $team->getAbstrak());
-        }
+        $payment = null;
 
-        else
-        {
+        if($payment_id->toString() !== null) {
             $payment = $this->pembayaran_repo->find($payment_id);
-            $payment_status = $this->status_pembayaran_repo->find($payment->getStatusPembayaranId());
-    
-            $payment = new PembayaranObjResponse($payment_status->getStatus(), $payment_id->toString());
-    
-            $members = $this->kti_member_repo->findByTeamId($team->getId());
-    
-            $members_array = [];
-            foreach ($members as $member) {
-                $name = $member->getName();
-                $no_telp = $member->getNoTelp();
-                $memb = new GetKTITeamMemberResponse($name, $no_telp);
-                array_push($members_array, $memb);
-            }
-    
-            $lead_name = $this->kti_member_repo->findLeadByTeamId($team->getId())->getName();
-    
-            if (!$lead_name) {
-                UserException::throw("Ketua tidak ditemukan!", 1005, 404);
-            }
-            
-            $lead_no_telp = $this->kti_member_repo->findLeadByTeamId($team->getId())->getNoTelp();
-    
-            return new GetKTITeamResponse($team->getId()->toString(), $team->getTeamName(), $team->getAsalInstansi(), $lead_name, $lead_no_telp, $payment, $members_array, $team->getFollowSosmed(), $team->getBuktiRepost(), $team->getTwibbon(), $team->getAbstrak());
+            $status_pembayaran = $this->status_pembayaran_repo->find($payment->getStatusPembayaranId());
+            $payment = new PembayaranObjResponse($status_pembayaran->getStatus());
+        } else if(!$lolos_paper)
+            $payment = new PembayaranObjResponse("NOT ELIGIBLE");
+        else
+            $payment = new PembayaranObjResponse("AWAITING PAYMENT");
+
+        $members = $this->kti_member_repo->findByTeamId($team->getId());
+
+        $members_array = [];
+        foreach ($members as $member) {
+            $name = $member->getName();
+            $no_telp = $member->getNoTelp();
+            $memb = new GetKTITeamMemberResponse($name, $no_telp);
+            array_push($members_array, $memb);
         }
 
+        $lead_name = $this->kti_member_repo->findLeadByTeamId($team->getId())->getName();
+
+        if (!$lead_name) {
+            UserException::throw("Ketua tidak ditemukan!", 1005, 404);
+        }
+
+        $lead_no_telp = $this->kti_member_repo->findLeadByTeamId($team->getId())->getNoTelp();
+
+        return new GetKTITeamResponse(
+            $team->getId()->toString(),
+            $team->getTeamName(),
+            $team->getAsalInstansi(),
+            $lead_name,
+            $lead_no_telp,
+            $payment,
+            $members_array,
+            $team->getFollowSosmed(),
+            $team->getBuktiRepost(),
+            $team->getTwibbon(),
+            $team->getAbstrak(),
+            $team->isLolosPaper(),
+            $team->getFullPaper()
+        );
     }
 }
