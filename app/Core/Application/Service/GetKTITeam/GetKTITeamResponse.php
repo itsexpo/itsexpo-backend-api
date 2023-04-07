@@ -19,8 +19,10 @@ class GetKTITeamResponse implements JsonSerializable
     private string $share_poster;
     private string $twibbon;
     private string $abstrak;
+    private bool $lolos_paper;
+    private string $full_paper;
 
-    public function __construct(string $team_id, string $team_name, string $asal_instansi, string $lead_name, string $no_telp, PembayaranObjResponse $payment, array $members, string $follow_sosmed, string $share_poster, string $twibbon, string $abstrak)
+    public function __construct(string $team_id, string $team_name, string $asal_instansi, string $lead_name, string $no_telp, PembayaranObjResponse $payment, array $members, string $follow_sosmed, string $share_poster, string $twibbon, string $abstrak, bool $lolos_paper, string $full_paper)
     {
         $this->team_id = $team_id;
         $this->team_name = $team_name;
@@ -33,6 +35,8 @@ class GetKTITeamResponse implements JsonSerializable
         $this->share_poster = $share_poster;
         $this->twibbon = $twibbon;
         $this->abstrak = $abstrak;
+        $this->lolos_paper = $lolos_paper;
+        $this->full_paper = $full_paper;
     }
 
     public function jsonSerialize(): array
@@ -49,6 +53,8 @@ class GetKTITeamResponse implements JsonSerializable
             'share_poster' => $this->share_poster,
             'twibbon' => $this->twibbon,
             'abstrak' => $this->abstrak,
+            'lolos_paper' => $this->lolos_paper,
+            'full_paper' => $this->full_paper
         ];
     }
 }

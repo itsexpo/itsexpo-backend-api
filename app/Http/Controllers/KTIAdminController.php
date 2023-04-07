@@ -8,6 +8,8 @@ use App\Core\Application\Service\KTIAdmin\KTIAdminService;
 use App\Core\Application\Service\KTIAdminConfirm\KTIAdminConfirmRequest;
 use App\Core\Application\Service\KTIAdminConfirm\KTIAdminConfirmService;
 use App\Core\Application\Service\GetKtiAdminDetail\GetKtiAdminDetailService;
+use App\Core\Application\Service\KTIAdminPass\KTIAdminPassRequest;
+use App\Core\Application\Service\KTIAdminPass\KTIAdminPassService;
 
 class KTIAdminController extends Controller
 {
@@ -63,5 +65,22 @@ class KTIAdminController extends Controller
 
         $service->execute($input);
         return $this->success("Berhasil Mengubah Status Pembayaran");
+    }
+
+    public function passTeam(Request $request, KTIAdminPassService $service)
+    {
+        $id = $request->route('team_id');
+
+        $request->validate([
+            'lolos_paper' => 'required',
+        ]);
+
+        $input = new KTIAdminPassRequest(
+            $id,
+            $request->input('lolos_paper'),
+        );
+
+        $service->execute($input);
+        return $this->success("Berhasil Mengubah Status Kelolosan Tim");
     }
 }

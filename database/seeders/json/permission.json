@@ -190,5 +190,13 @@
     {
         "id": 48,
         "routes": "admin_robotik_approval.store"
+    },
+    {
+        "id": 49,
+        "routes": "admin_kti.store"
+    },
+    {
+        "id": 50,
+        "routes": "admin_kti_approval.store"
     }
 ]
