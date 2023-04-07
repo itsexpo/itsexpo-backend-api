@@ -26,7 +26,7 @@ class SqlWahana2DRepository implements Wahana2DRepositoryInterface
     public function findByName(string $name): ?Wahana2D
     {
         $row = DB::table('wahana_2d')->where('name', '=', $name)->first();
-        
+
         if (!$row) {
             return null;
         }
@@ -53,7 +53,7 @@ class SqlWahana2DRepository implements Wahana2DRepositoryInterface
         if (!$row) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -77,10 +77,11 @@ class SqlWahana2DRepository implements Wahana2DRepositoryInterface
         foreach ($rows as $row) {
             $wahana_2d[] = new Wahana2D(
                 new Wahana2DId($row->id),
+                new UserId($row->user_id),
                 new PembayaranId($row->pembayaran_id),
                 $row->departemen_id,
                 $row->name,
-                $row->nrp,
+                new NRP($row->nrp),
                 $row->kontak,
                 $row->status,
                 $row->ktm_url,

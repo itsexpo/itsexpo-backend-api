@@ -24,6 +24,7 @@ use App\Http\Controllers\RoleHasPermissionController;
 use App\Http\Controllers\RobotInActionAdminController;
 use App\Http\Controllers\Wahana2DController;
 use App\Http\Controllers\Wahana3DController;
+use App\Http\Controllers\WahanaSeniController;
 
 Route::get('hello', function () {
     return response()->json();
@@ -111,7 +112,8 @@ Route::middleware(['iam'])->group(
         Route::post('/main-event/2d', [Wahana2DController::class, 'register'])->middleware('permission:wahana_2d.store');
         // Wahana 3D
         Route::post('/main-event/3d', [Wahana3DController::class, 'register'])->middleware('permission:wahana_3d.store');
-
+        // Wahana seni
+        Route::get('/main-event/wahanaseni', [WahanaSeniController::class, 'getDetail']);
         // Pembayaran
         Route::post('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'createPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.store');
         Route::get('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'cekPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.index');
