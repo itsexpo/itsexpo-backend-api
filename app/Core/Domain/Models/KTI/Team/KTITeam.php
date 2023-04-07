@@ -17,9 +17,11 @@ class KTITeam
     private string $bukti_repost;
     private string $twibbon;
     private string $abstrak;
+    private bool $lolos_paper;
+    private string $full_paper;
     private string $created_at;
 
-    public function __construct(KTITeamId $id, ?PembayaranId $pembayaran_id, UserId $user_id, string $team_name, string $team_code, string $asal_instansi, string $follow_sosmed, string $bukti_repost, string $twibbon, string $abstrak, string $created_at)
+    public function __construct(KTITeamId $id, ?PembayaranId $pembayaran_id, UserId $user_id, string $team_name, string $team_code, string $asal_instansi, string $follow_sosmed, string $bukti_repost, string $twibbon, string $abstrak, bool $lolos_paper, string $full_paper, string $created_at)
     {
         $this->id = $id;
         $this->pembayaran_id = $pembayaran_id;
@@ -31,17 +33,19 @@ class KTITeam
         $this->bukti_repost = $bukti_repost;
         $this->twibbon = $twibbon;
         $this->abstrak = $abstrak;
+        $this->lolos_paper = $lolos_paper;
+        $this->full_paper = $full_paper;
         $this->created_at = $created_at;
     }
 
     /**
      * @throws Exception
      */
-    public static function create(?PembayaranId $pembayaran_id, UserId $user_id, string $team_name, string $team_code, string $asal_instansi, string $follow_sosmed, string $bukti_repost, string $twibbon, string $abstrak): self
+    public static function create(UserId $user_id, string $team_name, string $team_code, string $asal_instansi, string $follow_sosmed, string $bukti_repost, string $twibbon, string $abstrak): self
     {
         return new self(
             KTITeamId::generate(),
-            $pembayaran_id,
+            null,
             $user_id,
             $team_name,
             $team_code,
@@ -50,8 +54,21 @@ class KTITeam
             $bukti_repost,
             $twibbon,
             $abstrak,
+            false,
+            "",
             "null"
         );
+    }
+
+    public function reregister(?PembayaranId $pembayaran_id, string $full_paper)
+    {
+        $this->pembayaran_id = $pembayaran_id;
+        $this->full_paper = $full_paper;
+    }
+
+    public function pass(bool $lolos_paper)
+    {
+        $this->lolos_paper = $lolos_paper;
     }
 
     /**
@@ -134,5 +151,21 @@ class KTITeam
     public function getAbstrak(): string
     {
         return $this->abstrak;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLolosPaper(): bool
+    {
+        return $this->lolos_paper;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullPaper(): string
+    {
+        return $this->full_paper;
     }
 }

@@ -26,7 +26,7 @@ class SqlKTITeamRepository implements KTITeamRepositoryInterface
     public function findByUserId(UserId $user_id): ?KTITeam
     {
         $row = DB::table('kti_team')->where('user_id', $user_id->toString())->first();
-        
+
         if (!$row) {
             return null;
         }
@@ -36,9 +36,12 @@ class SqlKTITeamRepository implements KTITeamRepositoryInterface
 
     public function persist(KTITeam $team): void
     {
+
+        $pembayaran_id = ($team->getPembayaranId() == null) ? $team->getPembayaranId() : $team->getPembayaranId()->toString();
+
         DB::table('kti_team')->upsert([
           'id' => $team->getId()->toString(),
-          'pembayaran_id' => $team->getPembayaranId()->toString(),
+          'pembayaran_id' => $pembayaran_id,
           'user_id' => $team->getUserId()->toString(),
           'team_name' => $team->getTeamName(),
           'team_code' => $team->getTeamCode(),
@@ -46,6 +49,8 @@ class SqlKTITeamRepository implements KTITeamRepositoryInterface
           'follow_sosmed' => $team->getFollowSosmed(),
           'bukti_repost' => $team->getBuktiRepost(),
           'twibbon' => $team->getTwibbon(),
+          'lolos_paper' => $team->isLolosPaper(),
+          'full_paper' => $team->getFullPaper(),
           'abstrak' => $team->getAbstrak()
         ], 'id');
     }
@@ -163,6 +168,8 @@ class SqlKTITeamRepository implements KTITeamRepositoryInterface
                 $row->bukti_repost,
                 $row->twibbon,
                 $row->abstrak,
+                $row->lolos_paper,
+                $row->full_paper,
                 $row->created_at,
             );
         }
