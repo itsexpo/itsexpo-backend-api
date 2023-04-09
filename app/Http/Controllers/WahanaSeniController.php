@@ -29,7 +29,10 @@ class WahanaSeniController extends Controller
             $request->input('nrp'),
             $request->input('departemen_id'),
             $request->input('kontak'),
-            $request->file('ktm')
+            $request->input('bank_id'),
+            $request->input('atas_nama'),
+            $request->file('ktm'),
+            $request->file('bukti_bayar')
         );
 
         DB::beginTransaction();
