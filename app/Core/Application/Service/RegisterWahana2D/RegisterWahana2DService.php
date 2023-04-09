@@ -43,19 +43,18 @@ class RegisterWahana2DService
     {
         $user = $this->user_repository->find($account->getUserId());
 
-        // $registered_user_name = $this->wahana_2d_repository->findByName($request->getName());
-
-        // if ($registered_user_name) {
-        //     UserException::throw("Sudah terdapat pendaftar dengan nama yang sama", 1021, 404);
-        // }
-
-        // $registered_user = $this->wahana_2d_repository->findByUserId($account->getUserId());
-
         $role = $this->role_repository->find($user->getRoleId());
 
         if ($role->getName() != 'Mahasiswa') {
             UserException::throw("Role Anda Tidak Diperbolehkan Untuk Mengikuti Lomba Ini", 6002);
         }
+
+        $buktiBayarUrl = ImageUpload::create(
+            $request->getBuktiBayar(),
+            'wahana_2d/bukti_bayar',
+            $account->getUserId()->toString(),
+            'Bukti Pembayaran'
+        )->upload();
 
         $ktmUrl = ImageUpload::create(
             $request->getKTM(),
@@ -67,12 +66,12 @@ class RegisterWahana2DService
         $current_time = Carbon::now()->addDay();
 
         $pembayaran = Pembayaran::create(
-            null,
+            $request->getBankId(),
             51,
-            5,
-            null,
-            null,
-            null,
+            4,
+            $request->getAtasNama(),
+            $buktiBayarUrl,
+            20000,
             $current_time
         );
 
@@ -89,6 +88,7 @@ class RegisterWahana2DService
             UserException::throw("NRP Anda Tidak Valid", 6002);
         }
 
+        
         $registrant = Wahana2D::create(
             $account->getUserId(),
             $pembayaran->getId(),
@@ -101,7 +101,7 @@ class RegisterWahana2DService
         );
 
         $this->wahana_2d_repository->persist($registrant);
-
+        
         $user_has_list_event = UserHasListEvent::create(
             51,
             $user->getId()
