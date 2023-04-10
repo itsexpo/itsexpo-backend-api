@@ -24,15 +24,9 @@ interface KTITeamRepositoryInterface
 
     public function getTotalTimCount(): int;
 
-    public function getPembayaranRevisiCount(int $status_pembayaran): int;
+    public function getPembayaranCount(int $status_pembayaran): int;
 
-    public function getPembayaranGagalCount(int $status_pembayaran): int;
-
-    public function getPembayaranSuccessCount(int $status_pembayaran): int;
-
-    public function getAwaitingVerificationCount(int $status_pembayaran): int;
-
-    public function getAwaitingPaymentCount(int $status_pembayaran): int;
+    public function getAwaitingPaymentCount(): int;
 
     public function getFilter(Builder $kti_team, ?array $filter): void;
 

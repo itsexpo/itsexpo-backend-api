@@ -8,6 +8,7 @@ use App\Core\Domain\Models\RobotInAction\Team\RobotInActionTeam;
 use App\Core\Domain\Models\RobotInAction\Team\RobotInActionTeamId;
 use App\Core\Domain\Repository\RobotInActionTeamRepositoryInterface;
 use App\Core\Domain\Models\Pembayaran\PembayaranId;
+use Illuminate\Database\Query\Builder;
 
 class SqlRobotInActionTeamRepository implements RobotInActionTeamRepositoryInterface
 {
@@ -20,6 +21,60 @@ class SqlRobotInActionTeamRepository implements RobotInActionTeamRepositoryInter
         }
 
         return $this->constructFromRows([$row])[0];
+    }
+
+    public function getTeams(): Builder
+    {
+        $rows = DB::table('robot_in_action_team')
+        ->leftJoin('pembayaran', 'robot_in_action_team.pembayaran_id', '=', 'pembayaran.id')
+        ->leftJoin('status_pembayaran', 'pembayaran.status_pembayaran_id', '=', 'status_pembayaran.id')
+        ->leftJoin('robot_in_action_member', 'robot_in_action_team.id', '=', 'robot_in_action_member.robot_in_action_team_id')
+        ->where('robot_in_action_member.member_type', 'KETUA');
+
+        if (!$rows) {
+            return null;
+        }
+
+        return $rows;
+    }
+
+    public function getTotalTimCount(): int
+    {
+        $rows = DB::table('robot_in_action_team')->count();
+
+        if (!$rows) {
+            return 0;
+        }
+
+        return $rows;
+    }
+
+    public function getPembayaranCount(int $status_pembayaran): int
+    {
+        $row = DB::table('robot_in_action_team')
+        ->leftJoin('pembayaran', 'robot_in_action_team.pembayaran_id', '=', 'pembayaran.id')
+        ->where('pembayaran.status_pembayaran_id', $status_pembayaran)
+        ->count();
+
+        if (!$row) {
+            return 0;
+        }
+
+        return $row;
+    }
+
+    public function getAwaitingPayment(): int
+    {
+        $row = DB::table('robot_in_action_team')
+        ->leftJoin('pembayaran', 'robot_in_action_team.pembayaran_id', '=', 'pembayaran.id')
+        ->where('pembayaran.status_pembayaran_id', null)
+        ->count();
+
+        if (!$row) {
+            return 0;
+        }
+
+        return $row;
     }
 
     public function getCreatedAt(RobotInActionTeamId $robot_in_action_team_id): ?string

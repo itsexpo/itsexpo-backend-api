@@ -36,7 +36,6 @@ class SqlKTITeamRepository implements KTITeamRepositoryInterface
 
     public function persist(KTITeam $team): void
     {
-
         $pembayaran_id = ($team->getPembayaranId() == null) ? $team->getPembayaranId() : $team->getPembayaranId()->toString();
 
         DB::table('kti_team')->upsert([
@@ -88,7 +87,7 @@ class SqlKTITeamRepository implements KTITeamRepositoryInterface
         return $rows;
     }
 
-    public function getPembayaranRevisiCount(int $status_pembayaran): int
+    public function getPembayaranCount(int $status_pembayaran): int
     {
         $rows = DB::table('kti_team')->leftJoin('pembayaran', 'kti_team.pembayaran_id', '=', 'pembayaran.id')->where('pembayaran.status_pembayaran_id', $status_pembayaran)->count();
 
@@ -99,42 +98,9 @@ class SqlKTITeamRepository implements KTITeamRepositoryInterface
         return $rows;
     }
 
-    public function getPembayaranGagalCount(int $status_pembayaran): int
+    public function getAwaitingPaymentCount(): int
     {
-        $rows = DB::table('kti_team')->leftJoin('pembayaran', 'kti_team.pembayaran_id', '=', 'pembayaran.id')->where('pembayaran.status_pembayaran_id', $status_pembayaran)->count();
-
-        if (!$rows) {
-            return 0;
-        }
-
-        return $rows;
-    }
-
-    public function getPembayaranSuccessCount(int $status_pembayaran): int
-    {
-        $rows = DB::table('kti_team')->leftJoin('pembayaran', 'kti_team.pembayaran_id', '=', 'pembayaran.id')->where('pembayaran.status_pembayaran_id', $status_pembayaran)->count();
-
-        if (!$rows) {
-            return 0;
-        }
-
-        return $rows;
-    }
-
-    public function getAwaitingVerificationCount(int $status_pembayaran): int
-    {
-        $rows = DB::table('kti_team')->leftJoin('pembayaran', 'kti_team.pembayaran_id', '=', 'pembayaran.id')->where('pembayaran.status_pembayaran_id', $status_pembayaran)->count();
-
-        if (!$rows) {
-            return 0;
-        }
-
-        return $rows;
-    }
-
-    public function getAwaitingPaymentCount(int $status_pembayaran): int
-    {
-        $rows = DB::table('kti_team')->leftJoin('pembayaran', 'kti_team.pembayaran_id', '=', 'pembayaran.id')->where('pembayaran.status_pembayaran_id', $status_pembayaran)->count();
+        $rows = DB::table('kti_team')->leftJoin('pembayaran', 'kti_team.pembayaran_id', '=', 'pembayaran.id')->where('pembayaran.status_pembayaran_id', null)->count();
 
         if (!$rows) {
             return 0;

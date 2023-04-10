@@ -33,11 +33,11 @@ class KTIAdminService
     {
         $kti_teams = $this->kti_team_repository->getTeams();
         $total_tim = $this->kti_team_repository->getTotalTimCount();
-        $pembayaran_revisi = $this->kti_team_repository->getPembayaranRevisiCount(1);
-        $pembayaran_gagal = $this->kti_team_repository->getPembayaranGagalCount(2);
-        $pembayaran_success = $this->kti_team_repository->getPembayaranSuccessCount(3);
-        $pembayaran_awaiting_verification = $this->kti_team_repository->getAwaitingVerificationCount(4);
-        $pembayaran_awaiting_payment = $this->kti_team_repository->getAwaitingPaymentCount(5);
+        $pembayaran_revisi = $this->kti_team_repository->getPembayaranCount(1);
+        $pembayaran_gagal = $this->kti_team_repository->getPembayaranCount(2);
+        $pembayaran_success = $this->kti_team_repository->getPembayaranCount(3);
+        $pembayaran_awaiting_verification = $this->kti_team_repository->getPembayaranCount(4);
+        $pembayaran_awaiting_payment = $this->kti_team_repository->getAwaitingPaymentCount();
 
         if ($request->getFilter()) {
             $this->kti_team_repository->getFilter($kti_teams, $request->getFilter());
