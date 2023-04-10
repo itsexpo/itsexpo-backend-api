@@ -2,8 +2,6 @@
 
 namespace App\Core\Application\Service\RobotInActionAdmin;
 
-use Illuminate\Support\Facades\DB;
-
 use App\Core\Domain\Repository\PembayaranRepositoryInterface;
 use App\Core\Domain\Repository\RobotInActionTeamRepositoryInterface;
 use App\Core\Domain\Repository\StatusPembayaranRepositoryInterface;
@@ -27,34 +25,14 @@ class RobotInActionAdminService
 
     public function execute(RobotInActionAdminRequest $request): RobotInActionAdminPaginationResponse
     {
-        $rows = DB::table('robot_in_action_team')
-            ->leftJoin('pembayaran', 'robot_in_action_team.pembayaran_id', '=', 'pembayaran.id')
-            ->leftJoin('status_pembayaran', 'pembayaran.status_pembayaran_id', '=', 'status_pembayaran.id')
-            ->leftJoin('robot_in_action_member', 'robot_in_action_team.id', '=', 'robot_in_action_member.robot_in_action_team_id')
-            ->where('robot_in_action_member.member_type', 'KETUA');
+        $rows = $this->robot_in_action_team_repository->getTeams();
 
-        $totaltim = DB::table('robot_in_action_team')
-            ->count();
-        $pembayaran_revisi = DB::table('robot_in_action_team')
-            ->leftJoin('pembayaran', 'robot_in_action_team.pembayaran_id', '=', 'pembayaran.id')
-            ->where('pembayaran.status_pembayaran_id', 1)
-            ->count();
-        $pembayaran_gagal = DB::table('robot_in_action_team')
-            ->leftJoin('pembayaran', 'robot_in_action_team.pembayaran_id', '=', 'pembayaran.id')
-            ->where('pembayaran.status_pembayaran_id', 2)
-            ->count();
-        $pembayaran_success = DB::table('robot_in_action_team')
-            ->leftJoin('pembayaran', 'robot_in_action_team.pembayaran_id', '=', 'pembayaran.id')
-            ->where('pembayaran.status_pembayaran_id', 3)
-            ->count();
-        $pembayaran_awaiting_verification = DB::table('robot_in_action_team')
-            ->leftJoin('pembayaran', 'robot_in_action_team.pembayaran_id', '=', 'pembayaran.id')
-            ->where('pembayaran.status_pembayaran_id', 4)
-            ->count();
-        $pembayaran_awaiting_payment = DB::table('robot_in_action_team')
-            ->leftJoin('pembayaran', 'robot_in_action_team.pembayaran_id', '=', 'pembayaran.id')
-            ->where('pembayaran.status_pembayaran_id', 5)
-            ->count();
+        $totaltim = $this->robot_in_action_team_repository->getTotalTimCount();
+        $pembayaran_revisi = $this->robot_in_action_team_repository->getPembayaranCount(1);
+        $pembayaran_gagal = $this->robot_in_action_team_repository->getPembayaranCount(2);
+        $pembayaran_success = $this->robot_in_action_team_repository->getPembayaranCount(3);
+        $pembayaran_awaiting_verification = $this->robot_in_action_team_repository->getPembayaranCount(4);
+        $pembayaran_awaiting_payment = $this->robot_in_action_team_repository->getAwaitingPayment();
 
         if ($request->getFilter()) {
             $rows->where('pembayaran.status_pembayaran_id', $request->getFilter());
@@ -76,7 +54,7 @@ class RobotInActionAdminService
         ];
 
         $team_response = array_map(function (RobotInActionTeam $team) {
-            $status_pembayaran = false;
+            $status_pembayaran = "AWAITING PAYMENT";
             if ($team->getPembayaranId()->toString() != null) {
                 $pembayaran_id = $this->pembayaran_repository->find($team->getPembayaranId())->getStatusPembayaranId();
                 $status_pembayaran = $this->status_pembayaran_repository->find($pembayaran_id)->getStatus();
