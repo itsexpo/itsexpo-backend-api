@@ -12,7 +12,10 @@ class RegisterWahana3DKetuaRequest
     private string $kontak;
     private string $departemen_id;
     private string $deskripsi_karya;
+    private int $bank_id;
+    private string $atas_nama;
     private UploadedFile $ktm;
+    private UploadedFile $bukti_bayar;
 
     /**
      * @param string $team_name
@@ -22,9 +25,12 @@ class RegisterWahana3DKetuaRequest
      * @param string $kontak
      * @param string $departemen_id
      * @param string $deskripsi_karya
+     * @param int $bank_id
+     * @param string $atas_nama
      * @param UploadedFile $ktm
+     * @param UploadedFile $bukti_bayar
      */
-    public function __construct(string $team_name, string $name, string $nrp, string $kontak, string $departemen_id, string $deskripsi_karya, UploadedFile $ktm)
+    public function __construct(string $team_name, string $name, string $nrp, string $kontak, string $departemen_id, string $deskripsi_karya, int $bank_id, string $atas_nama, UploadedFile $ktm, UploadedFile $bukti_bayar)
     {
         $this->team_name = $team_name;
         $this->name = $name;
@@ -32,7 +38,10 @@ class RegisterWahana3DKetuaRequest
         $this->kontak = $kontak;
         $this->departemen_id = $departemen_id;
         $this->deskripsi_karya = $deskripsi_karya;
+        $this->bank_id = $bank_id;
+        $this->atas_nama = $atas_nama;
         $this->ktm = $ktm;
+        $this->bukti_bayar = $bukti_bayar;
     }
 
     /**
@@ -83,11 +92,26 @@ class RegisterWahana3DKetuaRequest
         return $this->deskripsi_karya;
     }
 
+    public function getBankId(): int
+    {
+        return $this->bank_id;
+    }
+
+    public function getAtasNama(): string
+    {
+        return $this->atas_nama;
+    }
+
     /**
      * @return UploadedFile
      */
     public function getKtm(): UploadedFile
     {
         return $this->ktm;
+    }
+
+    public function getBuktiBayar(): UploadedFile
+    {
+        return $this->bukti_bayar;
     }
 }
