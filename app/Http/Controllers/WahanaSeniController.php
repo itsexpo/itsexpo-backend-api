@@ -9,6 +9,9 @@ use App\Core\Domain\Models\Wahana3D\Wahana3DMemberType;
 use App\Core\Application\Service\RegisterWahana2D\RegisterWahana2DRequest;
 use App\Core\Application\Service\RegisterWahana2D\RegisterWahana2DService;
 use App\Core\Application\Service\GetUserWahanaSeni\GetUserWahanaSeniService;
+use App\Core\Application\Service\UploadBerkasWahana\UploadBerkasWahanaRequest;
+use App\Core\Application\Service\UploadBerkasWahana\UploadBerkasWahana2DService;
+use App\Core\Application\Service\UploadBerkasWahana\UploadBerkasWahana3DService;
 use App\Core\Application\Service\RegisterWahana3D\Ketua\RegisterWahana3DKetuaRequest;
 use App\Core\Application\Service\RegisterWahana3D\Ketua\RegisterWahana3DKetuaService;
 use App\Core\Application\Service\RegisterWahana3D\Member\RegisterWahana3DMemberRequest;
@@ -90,9 +93,47 @@ class WahanaSeniController extends Controller
         return $this->success("Berhasil Membuat Tim");
     }
 
-    public function getDetail(Request  $request, GetUserWahanaSeniService $service)
+    public function getDetail(Request $request, GetUserWahanaSeniService $service)
     {
         $response = $service->execute($request->get('account'));
         return $response;
+    }
+
+    public function uploadBerkas2D(Request $request, UploadBerkasWahana2DService $service)
+    {
+        $input = new UploadBerkasWahanaRequest(
+            $request->file('upload_karya'),
+            $request->file('deskripsi'),
+            $request->file('form_keaslian'),
+        );
+
+        DB::beginTransaction();
+        try {
+            $service->execute($input, $request->get('account'));
+        } catch(Throwable $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
+        return $this->success("Berhasil Upload File Berkas");
+    }
+
+    public function uploadBerkas3D(Request $request, UploadBerkasWahana3DService $service)
+    {
+        $input = new UploadBerkasWahanaRequest(
+            $request->file('upload_karya'),
+            $request->file('deskripsi'),
+            $request->file('form_keaslian'),
+        );
+
+        DB::beginTransaction();
+        try {
+            $service->execute($input, $request->get('account'));
+        } catch(Throwable $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        DB::commit();
+        return $this->success("Berhasil Upload File Berkas");
     }
 }

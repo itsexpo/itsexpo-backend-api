@@ -46,7 +46,10 @@ class SqlWahana3DTeamRepository implements Wahana3DTeamRepositoryInterface
           'user_id' => $team->getUserId()->toString(),
           'team_name' => $team->getTeamName(),
           'team_code' => $team->getTeamCode(),
-          'deskripsi_karya' => $team->getDeskripsiKarya()
+          'deskripsi_karya' => $team->getDeskripsiKarya(),
+          'upload_karya_url' => $team->getUploadKaryaUrl(),
+          'deskripsi_url' => $team->getDeskripsiUrl(),
+          'form_keaslian_url' => $team->getFormKeaslianUrl(),
         ], 'id');
     }
 
@@ -61,7 +64,10 @@ class SqlWahana3DTeamRepository implements Wahana3DTeamRepositoryInterface
                 $row->team_name,
                 $row->team_code,
                 $row->deskripsi_karya,
-                $row->created_at
+                $row->upload_karya_url,
+                $row->deskripsi_url,
+                $row->form_keaslian_url,
+                $row->created_at,
             );
         }
         return $wahana_team;

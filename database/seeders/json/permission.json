@@ -210,5 +210,13 @@
     {
         "id": 53,
         "routes": "wahanaseni.detail"
+    },
+    {
+        "id": 54,
+        "routes": "wahana_2d_upload_berkas.store"
+    },
+    {
+        "id": 55,
+        "routes": "wahana_3d_upload_berkas.store"
     }
 ]

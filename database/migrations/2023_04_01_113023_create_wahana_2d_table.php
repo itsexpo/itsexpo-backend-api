@@ -38,6 +38,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('robot_in_action_team');
+        Schema::dropIfExists('wahana_2d');
     }
 };
