@@ -380,8 +380,23 @@
         "permission_id": 49
     },
     {
-        "id": 77, 
-        "role_id": 5, 
+        "id": 77,
+        "role_id": 5,
         "permission_id": 50
+    },
+    {
+        "id": 78,
+        "role_id": 5,
+        "permission_id": 53
+    },
+    {
+        "id": 79,
+        "role_id": 2,
+        "permission_id": 51
+    },
+    {
+        "id": 80,
+        "role_id": 2,
+        "permission_id": 52
     }
 ]

@@ -206,5 +206,9 @@
     {
         "id": 52,
         "routes": "admin_kti_approval.store"
+    },
+    {
+        "id": 53,
+        "routes": "wahanaseni.detail"
     }
 ]

@@ -107,12 +107,10 @@ Route::middleware(['iam'])->group(
         Route::post('/admin/kti/{team_id}', [KTIAdminController::class, 'passTeam'])->middleware('permission:admin_kti.store');
         Route::patch('/admin/kti', [KTIAdminController::class, 'confirmTeam'])->middleware('permission:admin_kti_approval.store');
 
-        // Wahana 2D
-        Route::post('/main-event/2d', [WahanaSeniController::class, 'register2D'])->middleware('permission:wahana_2d.store');
-        // Wahana 3D
-        Route::post('/main-event/3d', [WahanaSeniController::class, 'register3D'])->middleware('permission:wahana_3d.store');
         // Wahana seni
-        Route::get('/main-event/wahanaseni', [WahanaSeniController::class, 'getDetail']);
+        Route::post('/main-event/2d', [WahanaSeniController::class, 'register2D'])->middleware('permission:wahana_2d.store');
+        Route::post('/main-event/3d', [WahanaSeniController::class, 'register3D'])->middleware('permission:wahana_3d.store');
+        Route::get('/main-event/wahanaseni', [WahanaSeniController::class, 'getDetail'])->middleware('permission:wahanaseni.detail');
 
         // Pembayaran
         Route::post('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'createPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.store');

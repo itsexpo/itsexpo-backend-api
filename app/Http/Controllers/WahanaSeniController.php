@@ -61,7 +61,10 @@ class WahanaSeniController extends Controller
             $request->input('kontak'),
             $request->input('departemen_id'),
             $request->input('deskripsi_karya'),
-            $request->file('ktm')
+            $request->input('bank_id'),
+            $request->input('atas_nama'),
+            $request->file('ktm'),
+            $request->file('bukti_bayar')
         );
 
         $input_member = array_map(function (array $member, array $file) {

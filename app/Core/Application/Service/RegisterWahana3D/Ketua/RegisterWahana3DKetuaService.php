@@ -67,6 +67,13 @@ class RegisterWahana3DKetuaService
             UserException::throw("Role Anda Tidak Diperbolehkan Untuk Mengikuti Lomba Ini", 6002);
         }
 
+        $buktiBayarUrl = ImageUpload::create(
+            $request->getBuktiBayar(),
+            'wahana_3d/bukti_bayar',
+            $account->getUserId()->toString(),
+            'Bukti Pembayaran'
+        )->upload();
+
         $ktm_url = ImageUpload::create(
             $request->getKtm(),
             'wahana_3d/ktm',
@@ -79,12 +86,12 @@ class RegisterWahana3DKetuaService
         $current_time = Carbon::now()->addDay();
 
         $pembayaran = Pembayaran::create(
-            null,
+            $request->getBankId(),
             52,
-            5,
-            null,
-            null,
-            null,
+            4,
+            $request->getAtasNama(),
+            $buktiBayarUrl,
+            30000,
             $current_time
         );
 
