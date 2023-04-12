@@ -110,7 +110,7 @@ Route::middleware(['iam'])->group(
         // Wahana seni
         Route::post('/main-event/2d', [WahanaSeniController::class, 'register2D'])->middleware('permission:wahana_2d.store');
         Route::post('/main-event/3d', [WahanaSeniController::class, 'register3D'])->middleware('permission:wahana_3d.store');
-        Route::get('/main-event/wahanaseni', [WahanaSeniController::class, 'getDetail'])->middleware('permission:wahanaseni.detail');
+        Route::get('/main-event/wahana_seni', [WahanaSeniController::class, 'getDetail'])->middleware('permission:wahana_seni.index');
 
         // Pembayaran
         Route::post('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'createPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.store');
