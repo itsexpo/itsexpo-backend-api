@@ -17,6 +17,7 @@ jobs:
             cd /var/www/itsexpo-backend-api
             git pull origin main
             composer install --optimize-autoloader --no-dev
+            php artisan migrate
             php artisan route:clear
             php artisan cache:clear
             php artisan view:clear
