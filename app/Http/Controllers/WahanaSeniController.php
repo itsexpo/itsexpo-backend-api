@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Core\Domain\Models\Wahana3D\Wahana3DMemberType;
 use App\Core\Application\Service\RegisterWahana2D\RegisterWahana2DRequest;
 use App\Core\Application\Service\RegisterWahana2D\RegisterWahana2DService;
 use App\Core\Application\Service\GetUserWahanaSeni\GetUserWahanaSeniService;
@@ -66,18 +65,20 @@ class WahanaSeniController extends Controller
             $request->file('ktm'),
             $request->file('bukti_bayar')
         );
+        $input_member = [];
 
-        $input_member = array_map(function (array $member, array $file) {
-            return new RegisterWahana3DMemberRequest(
-                $member['departemen_id'],
-                $member['name'],
-                $member['nrp'],
-                $member['kontak'],
-                Wahana3DMemberType::MEMBER,
-                $file['ktm']
-            );
-        }, $request->input('mahasiswa'), $request->file('mahasiswa'));
-
+        if ($request->has(['mahasiswa'])) {
+            $input_member = array_map(function (array $member, array $file) {
+                return new RegisterWahana3DMemberRequest(
+                    $member['departemen_id'],
+                    $member['name'],
+                    $member['nrp'],
+                    $member['kontak'],
+                    $file['ktm']
+                );
+            }, $request->input('mahasiswa'), $request->file('mahasiswa'));
+        }
+        
         DB::beginTransaction();
         try {
             $wahana_3d_ketua->execute($input_ketua, $request->get('account'));
