@@ -9,6 +9,7 @@ use App\Core\Domain\Models\Wahana2D\Wahana2DId;
 use App\Core\Domain\Models\Pembayaran\PembayaranId;
 use App\Core\Domain\Models\User\UserId;
 use App\Core\Domain\Repository\Wahana2DRepositoryInterface;
+use Illuminate\Database\Query\Builder;
 
 class SqlWahana2DRepository implements Wahana2DRepositoryInterface
 {
@@ -83,6 +84,58 @@ class SqlWahana2DRepository implements Wahana2DRepositoryInterface
             'deskripsi_url' => $member->getDeskripsiUrl(),
             'form_keaslian_url' => $member->getFormKeaslianUrl(),
         ], 'id');
+    }
+
+    public function getAll(): Builder
+    {
+        $rows = DB::table('wahana_2d')
+            ->leftJoin('pembayaran', 'wahana_2d.pembayaran_id', '=', 'pembayaran.id')
+            ->leftJoin('status_pembayaran', 'pembayaran.status_pembayaran_id', '=', 'status_pembayaran.id');
+
+        if (!$rows) {
+            return null;
+        }
+
+        return $rows;
+    }
+
+    public function getPembayaranCount(int $status_pembayaran): int
+    {
+        $row = DB::table('wahana_2d')
+            ->leftJoin('pembayaran', 'wahana_2d.pembayaran_id', '=', 'pembayaran.id')
+            ->where('pembayaran.status_pembayaran_id', $status_pembayaran)
+            ->count();
+
+        if (!$row) {
+            return 0;
+        }
+
+        return $row;
+    }
+
+    public function getAwaitingPayment(): int
+    {
+        $row = DB::table('wahana_2d')
+            ->leftJoin('pembayaran', 'wahana_2d.pembayaran_id', '=', 'pembayaran.id')
+            ->where('pembayaran.status_pembayaran_id', null)
+            ->count();
+
+        if (!$row) {
+            return 0;
+        }
+
+        return $row;
+    }
+
+    public function getTotalPendaftarCount(): int
+    {
+        $rows = DB::table('wahana_2d')->count();
+
+        if (!$rows) {
+            return 0;
+        }
+
+        return $rows;
     }
 
     public function constructFromRows(array $rows): array
