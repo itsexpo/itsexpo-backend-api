@@ -6,7 +6,6 @@ use App\Core\Domain\Models\ListEvent\ListEvent;
 use Exception;
 use App\Exceptions\UserException;
 use App\Core\Domain\Models\UserAccount;
-use App\Core\Domain\Models\Permission\Permission;
 use App\Core\Domain\Repository\RoleRepositoryInterface;
 use App\Core\Domain\Repository\UserRepositoryInterface;
 use App\Core\Domain\Repository\ListEventRepositoryInterface;
@@ -62,15 +61,29 @@ class MeService
 
         $list_event = $this->list_event_repository->getAll();
 
-        $user_has_event = array_map(function (ListEvent $event) use ($user_events_id) {
+        $main_event_id = [51, 52];
+
+        $user_main_event = []; 
+        $user_pre_event = [];
+        array_map(function (ListEvent $event) use ($user_events_id, $main_event_id, &$user_main_event, &$user_pre_event) {
             $status = in_array($event->getId(), $user_events_id);
-            return [
+            if(in_array($event->getId(), $main_event_id)){
+              array_push($user_main_event, [
                 $event->getName() => [
-                    'status' => $status,
-                    'start_date' => $event->getStartDate(),
-                    'close_date' => $event->getCloseDate()
+                  'status' => $status,
+                  'start_date' => $event->getStartDate(),
+                  'close_date' => $event->getCloseDate()
                 ]
-            ];
+              ]);
+            } else {
+              array_push($user_pre_event, [
+                $event->getName() => [
+                  'status' => $status,
+                  'start_date' => $event->getStartDate(),
+                  'close_date' => $event->getCloseDate()
+                ]
+              ]);
+            }
         }, $list_event);
         
         $routes = $this->role_has_permission_repository->findByRoleId($role->getId());
@@ -80,9 +93,9 @@ class MeService
             );
         }, $routes);
 
-        unset($user_has_event[4], $user_has_event[5]);
-        $user_has_event = array_values($user_has_event);
+        // unset($user_has_event[4], $user_has_event[5]);
+        // $user_has_event = array_values($user_has_event);
 
-        return new MeResponse($user, $role->getName(), $routes_array, $user_has_event);
+        return new MeResponse($user, $role->getName(), $routes_array, $user_pre_event, $user_main_event);
     }
 }

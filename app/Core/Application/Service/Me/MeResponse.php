@@ -10,19 +10,28 @@ class MeResponse implements JsonSerializable
     private User $user;
     private string $role;
     private array $routes;
-    private array $event;
+    private array $pre_event;
+    private array $main_event;
 
     /**
      * @param User $user
      * @param string $role
      * @param array $routes
+     * @param array $pre_event
+     * @param array $main_event
      */
-    public function __construct(User $user, string $role, array $routes, array $event)
+  public function __construct(
+        User $user,
+        string $role,
+        array $routes,
+        array $pre_event,
+        array $main_event)
     {
         $this->user = $user;
         $this->role = $role;
         $this->routes = $routes;
-        $this->event = $event;
+        $this->pre_event = $pre_event;
+        $this->main_event = $main_event;
     }
 
     public function jsonSerialize(): array
@@ -36,7 +45,8 @@ class MeResponse implements JsonSerializable
                 'role' => $this->role,
                 'routes' => $this->routes,
             ],
-            'pre_event' => $this->event
+            'pre_event' => $this->pre_event,
+            'main_event' => $this->main_event 
         ];
         return $response;
     }
