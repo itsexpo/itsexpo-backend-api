@@ -38,6 +38,7 @@ class GetUserWahana3DResponse implements JsonSerializable
             'team_name' => $this->team_name,
             'team_code' => $this->team_code,
             'deskripsi_karya' => $this->deskripsi_karya,
+            'status_pengumpulan' => ($this->upload_karya_url != null ? true : false),
             'upload_karya_url' => $this->upload_karya_url,
             'deskripsi_url' => $this->deskripsi_url,
             'form_keaslian_url' => $this->form_keaslian_url,
