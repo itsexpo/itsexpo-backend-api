@@ -7,6 +7,7 @@ use App\Core\Domain\Models\User\UserId;
 use App\Core\Domain\Models\Wahana3D\Team\Wahana3DTeamId;
 use App\Core\Domain\Models\Wahana3D\Team\Wahana3DTeam;
 use App\Core\Domain\Repository\Wahana3DTeamRepositoryInterface;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 
 class SqlWahana3DTeamRepository implements Wahana3DTeamRepositoryInterface
@@ -33,9 +34,74 @@ class SqlWahana3DTeamRepository implements Wahana3DTeamRepositoryInterface
         return $this->constructFromRows([$row])[0];
     }
 
+    public function getCreatedAt(Wahana3DTeamId $wahana_3d_team_id): ?string
+    {
+        $row = DB::table('wahana_3d_team')->where('id', $wahana_3d_team_id->toString())->first();
+
+        if (!$row) {
+            return "";
+        }
+
+        return $row->created_at;
+    }
+
     public function countAllTeams(): int
     {
         return DB::table('wahana_3d_team')->count();
+    }
+
+    public function getTeams(): Builder
+    {
+        $rows = DB::table('wahana_3d_team')->leftJoin('pembayaran', 'wahana_3d_team.pembayaran_id', '=', 'pembayaran.id')->leftJoin('status_pembayaran', 'pembayaran.status_pembayaran_id', '=', 'status_pembayaran.id')->leftJoin('wahana_3d_member', 'wahana_3d_team.id', '=', 'wahana_3d_member.wahana_3d_team_id')->where('wahana_3d_member.member_type', 'KETUA');
+
+        if (!$rows) {
+            return null;
+        }
+
+        return $rows;
+    }
+
+    public function getTotalTimCount(): int
+    {
+        $rows = DB::table('wahana_3d_team')->count();
+
+        if (!$rows) {
+            return 0;
+        }
+
+        return $rows;
+    }
+
+    public function getPembayaranCount(int $status_pembayaran): int
+    {
+        $rows = DB::table('wahana_3d_team')->leftJoin('pembayaran', 'wahana_3d_team.pembayaran_id', '=', 'pembayaran.id')->where('pembayaran.status_pembayaran_id', $status_pembayaran)->count();
+
+        if (!$rows) {
+            return 0;
+        }
+      
+        return $rows;
+    }
+
+    public function getAwaitingPaymentCount(): int
+    {
+        $rows = DB::table('wahana_3d_team')->leftJoin('pembayaran', 'wahana_3d_team.pembayaran_id', '=', 'pembayaran.id')->where('pembayaran.status_pembayaran_id', null)->count();
+
+        if (!$rows) {
+            return 0;
+        }
+      
+        return $rows;
+    }
+
+    public function getFilter(Builder $wahana_team, ?array $filter): void
+    {
+        $wahana_team->where('pembayaran.status_pembayaran_id', $filter);
+    }
+
+    public function getSearch(Builder $wahana_team, ?string $search): void
+    {
+        $wahana_team->where('wahana_3d_team.team_name', 'like', '%' . $search . '%')->orWhere('wahana_3d_member.name', 'like', '%' . $search . '%');
     }
 
     public function persist(Wahana3DTeam $team): void
@@ -51,17 +117,6 @@ class SqlWahana3DTeamRepository implements Wahana3DTeamRepositoryInterface
           'deskripsi_url' => $team->getDeskripsiUrl(),
           'form_keaslian_url' => $team->getFormKeaslianUrl(),
         ], 'id');
-    }
-
-    public function findByPembayaranId(PembayaranId $pembayaran_id): ?Wahana3DTeam
-    {
-        $row = DB::table('wahana_3d_team')->where('pembayaran_id', $pembayaran_id->toString())->first();
-
-        if (!$row) {
-            return null;
-        }
-
-        return $this->constructFromRows([$row])[0];
     }
 
     public function constructFromRows(array $rows): array
