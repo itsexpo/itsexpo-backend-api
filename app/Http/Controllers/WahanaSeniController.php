@@ -45,15 +45,15 @@ class WahanaSeniController extends Controller
             throw $e;
         }
         DB::commit();
-        
+
         return $this->success("Berhasil Mendaftarkan ke Wahana 2D");
     }
 
     public function register3D(Request $request, RegisterWahana3DKetuaService $wahana_3d_ketua, RegisterWahana3DMemberService $wahana_3d_member)
     {
         $request->validate([
-          'team_name' => 'required|string',
-          'deskripsi_karya' => 'required|string'
+            'team_name' => 'required|string',
+            'deskripsi_karya' => 'required|string'
         ]);
 
         $input_ketua = new RegisterWahana3DKetuaRequest(
@@ -81,12 +81,12 @@ class WahanaSeniController extends Controller
                 );
             }, $request->input('mahasiswa'), $request->file('mahasiswa'));
         }
-        
+
         DB::beginTransaction();
         try {
             $wahana_3d_ketua->execute($input_ketua, $request->get('account'));
             $wahana_3d_member->execute($input_member, $request->get('account'));
-        } catch(Throwable $e) {
+        } catch (Throwable $e) {
             DB::rollBack();
             throw $e;
         }
@@ -97,7 +97,7 @@ class WahanaSeniController extends Controller
     public function getDetail(Request $request, GetUserWahanaSeniService $service)
     {
         $response = $service->execute($request->get('account'));
-        return $response;
+        return $this->successWithData($response, "Succes getting wahana seni");
     }
 
     public function uploadBerkas2D(Request $request, UploadBerkasWahana2DService $service)
@@ -111,7 +111,7 @@ class WahanaSeniController extends Controller
         DB::beginTransaction();
         try {
             $service->execute($input, $request->get('account'));
-        } catch(Throwable $e) {
+        } catch (Throwable $e) {
             DB::rollBack();
             throw $e;
         }
@@ -130,7 +130,7 @@ class WahanaSeniController extends Controller
         DB::beginTransaction();
         try {
             $service->execute($input, $request->get('account'));
-        } catch(Throwable $e) {
+        } catch (Throwable $e) {
             DB::rollBack();
             throw $e;
         }
