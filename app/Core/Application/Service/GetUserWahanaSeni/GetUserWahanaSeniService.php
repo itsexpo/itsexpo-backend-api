@@ -78,6 +78,9 @@ class GetUserWahanaSeniService
                 $wahana3d->getTeamName(),
                 $wahana3d->getTeamCode(),
                 $wahana3d->getDeskripsiKarya(),
+                $wahana3d->getUploadKaryaUrl(),
+                $wahana3d->getDeskripsiUrl(),
+                $wahana3d->getFormKeaslianUrl(),
                 $pembayaran,
                 $members_array
             );

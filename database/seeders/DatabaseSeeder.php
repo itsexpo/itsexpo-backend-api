@@ -21,12 +21,12 @@ class DatabaseSeeder extends Seeder
             // KecamatanSeeder::class,
             // DesaSeeder::class,
             // RoleSeeder::class,
+            // PermissionSeeder::class,
             // RoleHasPermissionSeeder::class,
             // UserSeeder::class,
             // ListEventSeeder::class,
             // StatusPembayaranSeeder::class,
-            PermissionSeeder::class,
-            ListBankSeeder::class,
+            // ListBankSeeder::class,
         ]);
     }
 }

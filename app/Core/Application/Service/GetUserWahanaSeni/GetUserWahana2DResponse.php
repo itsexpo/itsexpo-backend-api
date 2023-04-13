@@ -28,6 +28,9 @@ class GetUserWahana2DResponse implements JsonSerializable
             'kontak' => $this->wahana_2d->getKontak(),
             'ktm' => $this->wahana_2d->getKtm(),
             'status' => $this->wahana_2d->getStatus(),
+            'upload_karya_url' => $this->wahana_2d->getUploadKaryaUrl(),
+            'deskripsi_url' => $this->wahana_2d->getDeskripsiUrl(),
+            'form_keaslian_url' => $this->wahana_2d->getFormKeaslianUrl(),
             'payment' => $this->pembayaran
         ];
     }

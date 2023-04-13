@@ -67,7 +67,10 @@ class SqlWahana2DRepository implements Wahana2DRepositoryInterface
             'nrp' => $member->getNrp()->toString(),
             'kontak' => $member->getKontak(),
             'status' => $member->getStatus(),
-            'ktm_url' => $member->getKTM()
+            'ktm_url' => $member->getKTM(),
+            'upload_karya_url' => $member->getUploadKaryaUrl(),
+            'deskripsi_url' => $member->getDeskripsiUrl(),
+            'form_keaslian_url' => $member->getFormKeaslianUrl(),
         ], 'id');
     }
 
@@ -85,7 +88,10 @@ class SqlWahana2DRepository implements Wahana2DRepositoryInterface
                 $row->kontak,
                 $row->status,
                 $row->ktm_url,
-                $row->created_at
+                $row->upload_karya_url,
+                $row->deskripsi_url,
+                $row->form_keaslian_url,
+                $row->created_at,
             );
         }
         return $wahana_2d;
