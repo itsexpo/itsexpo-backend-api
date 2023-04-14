@@ -124,6 +124,7 @@ Route::middleware(['iam'])->group(
         Route::get('/admin/3d', [WahanaSeniAdminController::class, 'getTeam'])->middleware('permission:admin_3d.index');
         Route::get('/admin/3d/{team_id}', [WahanaSeniAdminController::class, 'getDetailTeam'])->middleware('permission:admin_3d.detail');
         Route::get('/admin/2d', [Wahana2DAdminController::class, 'getPeserta'])->middleware('permission:admin_2d.index');
+        Route::get('/admin/2d/{peserta_id}', [Wahana2DAdminController::class, 'getDetail'])->middleware('permission:admin_2d.detail');
 
 
         // Pembayaran
