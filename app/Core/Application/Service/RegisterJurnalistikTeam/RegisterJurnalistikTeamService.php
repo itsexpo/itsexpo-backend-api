@@ -113,7 +113,7 @@ class RegisterJurnalistikTeamService
         }
 
         $current_time = Carbon::now()->addDay();
-        
+
         $pembayaran = Pembayaran::create(
             null,
             11,
@@ -123,7 +123,7 @@ class RegisterJurnalistikTeamService
             null,
             $current_time
         );
-        
+
         $this->pembayaran_repository->persist($pembayaran);
 
         $team = JurnalistikTeam::create(
