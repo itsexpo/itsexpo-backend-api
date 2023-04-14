@@ -19,7 +19,7 @@ class SqlWahana3DTeamRepository implements Wahana3DTeamRepositoryInterface
             return null;
         }
 
-        return $this->constrctFromRows([$row])[0];
+        return $this->constructFromRows([$row])[0];
     }
 
     public function findByUserId(UserId $user_id): ?Wahana3DTeam
@@ -30,7 +30,7 @@ class SqlWahana3DTeamRepository implements Wahana3DTeamRepositoryInterface
             return null;
         }
 
-        return $this->constrctFromRows([$row])[0];
+        return $this->constructFromRows([$row])[0];
     }
 
     public function countAllTeams(): int
@@ -53,7 +53,18 @@ class SqlWahana3DTeamRepository implements Wahana3DTeamRepositoryInterface
         ], 'id');
     }
 
-    public function constrctFromRows(array $rows): array
+    public function findByPembayaranId(PembayaranId $pembayaran_id): ?Wahana3DTeam
+    {
+        $row = DB::table('wahana_3d_team')->where('pembayaran_id', $pembayaran_id->toString())->first();
+
+        if (!$row) {
+            return null;
+        }
+
+        return $this->constructFromRows([$row])[0];
+    }
+
+    public function constructFromRows(array $rows): array
     {
         $wahana_team = [];
         foreach ($rows as $row) {

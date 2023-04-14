@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Infrastrucutre\Repository;
+
+use App\Core\Domain\Models\{model_name}\{model_name};
+use Illuminate\Support\Facades\DB;
+
+class Sql{model_name}Repository
+{
+    public function getAll(): array
+    {
+        $rows = DB::table('{model_name}')->get();
+
+        if (!$rows) {
+            return null;
+        }
+
+        return $this->constructFromRows($rows->all());
+    }
+
+    public function find(int $id): ?{model_name}
+    {
+        $row = DB::table('{model_name}')->where('id', $id)->first();
+
+        if (!$row) {
+            return null;
+        }
+
+        return $this->constructFromRows([$row])[0];
+    }
+
+    public function constructFromRows(array $rows): array
+    {
+        ${model_name}s = [];
+        foreach ($rows as $row) {
+            ${model_name}s[] = new {model_name}(
+                $row->id,
+            );
+        }
+        return ${model_name}s;
+    }
+}

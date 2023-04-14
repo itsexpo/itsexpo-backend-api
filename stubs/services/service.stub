@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Core\Application\Service\{service_name};
+
+use App\Exceptions\UserException;
+use App\Core\Domain\Models\{service_name}\{service_name};
+use App\Core\Domain\Repository\{service_name}RepositoryInterface;
+
+class {service_name}Service
+{
+    private {service_name}RepositoryInterface ${service_name}_repository;
+
+    /**
+     * @param {service_name}RepositoryInterface ${service_name}_repository
+     */
+    public function __construct({service_name}RepositoryInterface ${service_name}_repository)
+    {
+        $this->{service_name}_repository = ${service_name}_repository;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function execute(): array
+    {
+        ${service_name} = $this->{service_name}_repository->getAll();
+        if (count(${service_name}) < 1) {
+            UserException::throw("{service_name} Tidak Ditemukan", 0, 404);
+        }
+        return array_map(function ({service_name} $result) {
+            return new {service_name}Response(
+                $result->getId(),
+                $result->getName()
+            );
+        }, ${service_name});
+    }
+}
+

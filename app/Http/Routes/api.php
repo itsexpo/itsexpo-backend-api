@@ -114,6 +114,10 @@ Route::middleware(['iam'])->group(
         Route::post('/main-event/3d/upload-berkas', [WahanaSeniController::class, 'uploadBerkas3D'])->middleware('permission:wahana_3d_upload_berkas.store');
         Route::get('/main-event/wahana_seni', [WahanaSeniController::class, 'getDetail'])->middleware('permission:wahana_seni.index');
 
+        // Wahana Seni Admin
+        Route::patch('/admin/2d', [WahanaSeniAdminController::class, 'confirm2DTeam'])->middleware('permission:admin_wahana_seni_approval.store');
+        Route::patch('/admin/3d', [WahanaSeniAdminController::class, 'confirm3DTeam'])->middleware('permission:admin_wahana_seni_approval.store');
+
         // Pembayaran
         Route::post('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'createPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.store');
         Route::get('/pre_event/pembayaran/jurnalistik', [PembayaranController::class, 'cekPembayaranJurnalistik'])->middleware('permission:pembayaran_jurnalistik.index');
