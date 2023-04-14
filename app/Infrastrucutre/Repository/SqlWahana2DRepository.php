@@ -15,7 +15,7 @@ class SqlWahana2DRepository implements Wahana2DRepositoryInterface
 {
     public function find(Wahana2DId $kti_member_id): ?Wahana2D
     {
-        $row = DB::table('kti_member')->where('id', $kti_member_id->toString())->first();
+        $row = DB::table('wahana_2d')->where('id', $kti_member_id->toString())->first();
 
         if (!$row) {
             return null;
