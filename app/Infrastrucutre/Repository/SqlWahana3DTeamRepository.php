@@ -23,6 +23,17 @@ class SqlWahana3DTeamRepository implements Wahana3DTeamRepositoryInterface
         return $this->constructFromRows([$row])[0];
     }
 
+    public function findByPembayaranId(PembayaranId $pembayaran_id): ?Wahana3DTeam
+    {
+        $row = DB::table('wahana_3d_team')->where('pembayaran_id', $pembayaran_id->toString())->first();
+        
+        if (!$row) {
+            return null;
+        }
+
+        return $this->constructFromRows([$row])[0];
+    }
+
     public function findByUserId(UserId $user_id): ?Wahana3DTeam
     {
         $row = DB::table('wahana_3d_team')->where('user_id', $user_id->toString())->first();

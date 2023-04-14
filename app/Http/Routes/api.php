@@ -118,8 +118,6 @@ Route::middleware(['iam'])->group(
         // Wahana Seni Admin
         Route::patch('/admin/2d', [WahanaSeniAdminController::class, 'confirm2DTeam'])->middleware('permission:admin_wahana_seni_approval.store');
         Route::patch('/admin/3d', [WahanaSeniAdminController::class, 'confirm3DTeam'])->middleware('permission:admin_wahana_seni_approval.store');
-
-        // Admin Wahana Seni
         Route::get('/admin/3d', [WahanaSeniAdminController::class, 'getTeam'])->middleware('permission:admin_3d.index');
         Route::get('/admin/3d/{team_id}', [WahanaSeniAdminController::class, 'getDetailTeam'])->middleware('permission:admin_3d.detail');
 

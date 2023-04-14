@@ -22,15 +22,13 @@ interface Wahana3DTeamRepositoryInterface
 
     public function getCreatedAt(Wahana3DTeamId $wahana_3d_team_id): ?string;
 
-    public function constructFromRows(array $rows): array;
-
     public function countAllTeams(): int;
 
     public function getTeams(): Builder;
 
     public function getTotalTimCount(): int;
 
-    public function getPembayaranCount(int $status_pembayaran): int;
+    public function getPembayaranCount(int $status_pembayara): int;
     
     public function getAwaitingPaymentCount(): int;
 

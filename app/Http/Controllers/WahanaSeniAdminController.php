@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Core\Application\Service\GetWahana3DAdminDetail\GetWahana3DAdminDetailService;
 use App\Core\Application\Service\WahanaSeniAdminConfirm\WahanaSeniAdminConfirmRequest;
 use App\Core\Application\Service\WahanaSeniAdminConfirm\WahanaSeniAdminConfirmService;
-use App\Http\Controllers\Controller;
+use App\Core\Application\Service\Wahana3DAdmin\Wahana3DAdminRequest;
+use App\Core\Application\Service\Wahana3DAdmin\Wahana3DAdminService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -43,18 +45,7 @@ class WahanaSeniAdminController extends Controller
         $service->execute($input);
         return $this->success("Berhasil Mengubah Status Pembayaran");
     }
-}
-<?php
 
-namespace App\Http\Controllers;
-
-use App\Core\Application\Service\GetWahana3DAdminDetail\GetWahana3DAdminDetailService;
-use App\Core\Application\Service\Wahana3DAdmin\Wahana3DAdminRequest;
-use App\Core\Application\Service\Wahana3DAdmin\Wahana3DAdminService;
-use Illuminate\Http\Request;
-
-class WahanaSeniAdminController extends Controller
-{
     public function getTeam(Request $request, Wahana3DAdminService $service)
     {
         $request->validate([
