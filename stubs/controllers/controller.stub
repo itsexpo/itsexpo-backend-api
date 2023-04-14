@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+class {controller_name}Controller extends Controller
+{
+    public function index(): JsonResponse
+    {
+        $response = [];
+        return $this->successWithData($response, "Berhasil Mengambil Data");
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        return $this->success("Berhasil Menyimpan Data");
+    }
+
+    public function show(Request $request): JsonResponse
+    {
+        $response = [];
+        return $this->successWithData($response, "Berhasil Mengambil Data");
+    }
+
+    public function update(Request $request): JsonResponse
+    {
+        return $this->success("Berhasil Mengubah Data");
+    }
+
+    public function persist(Request $request): JsonResponse
+    {
+        return $this->success("Berhasil Menyimpan Data");
+    }
+
+    public function destroy(Request $request): JsonResponse
+    {
+        return $this->success("Berhasil Menghapus Data");
+    }
+}

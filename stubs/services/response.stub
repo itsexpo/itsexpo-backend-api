@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Core\Application\Service\{service_name};
+
+use JsonSerializable;
+
+class {service_name}Response implements JsonSerializable
+{
+    public function __construct()
+    {
+
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [];
+    }
+}

@@ -1,0 +1,11 @@
+<?php
+
+namespace App\Core\Application\Service\{service_name};
+
+class {service_name}Request
+{
+    public function __construct()
+    {
+
+    }
+}

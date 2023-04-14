@@ -56,6 +56,17 @@ class SqlWahana2DRepository implements Wahana2DRepositoryInterface
         return true;
     }
 
+    public function findByPembayaranId(PembayaranId $pembayaran_id): ?Wahana2D
+    {
+        $row = DB::table('wahana_2d')->where('pembayaran_id', $pembayaran_id->toString())->first();
+
+        if (!$row) {
+            return null;
+        }
+
+        return $this->constructFromRows([$row])[0];
+    }
+
     public function persist(Wahana2D $member): void
     {
         DB::table('wahana_2d')->upsert([

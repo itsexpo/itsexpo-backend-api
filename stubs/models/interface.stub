@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Core\Domain\Repository;
+
+use App\Core\Domain\Models\{model_name}\{model_name};
+
+interface {model_name}RepositoryInterface
+{
+    /**
+     * @return {model_name}[]
+     */
+    public function getAll(): array;
+
+    public function find(int $id): ?{model_name};
+}
