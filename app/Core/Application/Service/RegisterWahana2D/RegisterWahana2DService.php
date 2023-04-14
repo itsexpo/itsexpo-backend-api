@@ -3,18 +3,23 @@
 namespace App\Core\Application\Service\RegisterWahana2D;
 
 use Illuminate\Support\Carbon;
+use App\Core\Domain\Models\NRP;
 use App\Exceptions\UserException;
+use Illuminate\Support\Facades\Mail;
 use App\Core\Domain\Models\UserAccount;
+use App\Core\Application\Mail\PaymentWaiting;
 use App\Core\Domain\Models\Wahana2D\Wahana2D;
 use App\Core\Application\ImageUpload\ImageUpload;
-use App\Core\Domain\Models\NRP;
+use App\Core\Application\Mail\WahanaSeniRegister;
 use App\Core\Domain\Models\Pembayaran\Pembayaran;
+use App\Core\Application\Mail\WahanaSeniRegisterEmail;
 use App\Core\Domain\Repository\RoleRepositoryInterface;
 use App\Core\Domain\Repository\UserRepositoryInterface;
 use App\Core\Domain\Repository\Wahana2DRepositoryInterface;
 use App\Core\Domain\Models\UserHasListEvent\UserHasListEvent;
 use App\Core\Domain\Repository\PembayaranRepositoryInterface;
 use App\Core\Domain\Repository\UserHasListEventRepositoryInterface;
+use App\Core\Application\Service\RegisterWahana2D\RegisterWahana2DRequest;
 
 class RegisterWahana2DService
 {
@@ -88,7 +93,7 @@ class RegisterWahana2DService
             UserException::throw("NRP Anda Tidak Valid", 6002);
         }
 
-        
+
         $registrant = Wahana2D::create(
             $account->getUserId(),
             $pembayaran->getId(),
@@ -101,11 +106,14 @@ class RegisterWahana2DService
         );
 
         $this->wahana_2d_repository->persist($registrant);
-        
+
         $user_has_list_event = UserHasListEvent::create(
             51,
             $user->getId()
         );
         $this->user_has_list_event_repository->persist($user_has_list_event);
+        Mail::to($user->getEmail()->toString())->send(new PaymentWaiting(
+            $user->getName(),
+        ));
     }
 }
