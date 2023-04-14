@@ -31,8 +31,7 @@ class GetWahana3DAdminDetailService
         StatusPembayaranRepositoryInterface $status_pembayaran_repository,
         PembayaranRepositoryInterface $pembayaran_repository,
         ListBankRepositoryInterface $list_bank_repository
-    )
-    {
+    ) {
         $this->wahana_3d_team_repository = $wahana_3d_team_repository;
         $this->wahana_3d_member_repository = $wahana_3d_member_repository;
         $this->status_pembayaran_repository = $status_pembayaran_repository;
@@ -51,6 +50,7 @@ class GetWahana3DAdminDetailService
         $members = $this->wahana_3d_member_repository->findAllMember($id);
 
         $member_array = [];
+        $member_ktm = [];
         foreach ($members as $member) {
             $nama = $member->getName();
             $ketua = $member->getMemberType()->value;
@@ -59,6 +59,7 @@ class GetWahana3DAdminDetailService
                 $is_ketua = true;
             }
 
+            array_push($member_ktm, $member->getKtmUrl());
             $memb = new GetWahana3DAdminDetailTeamMemberResponse($nama, $is_ketua);
             array_push($member_array, $memb);
         }
@@ -89,7 +90,7 @@ class GetWahana3DAdminDetailService
         $final = new GetWahana3DAdminDetailResponse(
             $team->getTeamName(),
             $team->getTeamCode(),
-            // $team->getUploadKaryaUrl(),
+            $member_ktm,
             $payment_obj,
             $member_array
         );
