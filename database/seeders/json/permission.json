@@ -222,5 +222,13 @@
     {
         "id" : 56,
         "routes": "wahana_seni.index"
+    }, 
+    {
+        "id": 57, 
+        "routes": "admin_3d.index"
+    }, 
+    {
+        "id": 58, 
+        "routes": "admin_3d.detail"
     }
 ]
