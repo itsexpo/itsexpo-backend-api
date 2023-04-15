@@ -46,7 +46,7 @@ class WahanaSeniController extends Controller
         }
         DB::commit();
 
-        return $this->success("Berhasil Mendaftarkan ke Wahana 2D");
+        return $this->success("Berhasil Mendaftar Wahana 2D");
     }
 
     public function register3D(Request $request, RegisterWahana3DKetuaService $wahana_3d_ketua, RegisterWahana3DMemberService $wahana_3d_member)

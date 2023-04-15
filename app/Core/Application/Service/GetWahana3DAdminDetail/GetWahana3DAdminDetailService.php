@@ -85,10 +85,30 @@ class GetWahana3DAdminDetailService
             $payment_obj = new PembayaranObjResponse($payment_status, $payment_id->toString(), $payment_image_url, $payment_atas_nama, $payment_bank, $payment_harga);
         }
 
+        $deskripsi_url = $team->getDeskripsiUrl();
+        $upload_karya_url = $team->getUploadKaryaUrl();
+        $form_keaslian_url = $team->getFormKeaslianUrl();
+
+        if ($deskripsi_url == null) {
+            $deskripsi_url = "";
+        }
+
+        if ($upload_karya_url == null) {
+            $upload_karya_url = "";
+        }
+
+        if ($form_keaslian_url == null) {
+            $form_keaslian_url = "";
+        }
+
         $final = new GetWahana3DAdminDetailResponse(
             $team->getTeamName(),
             $team->getTeamCode(),
             $payment_obj,
+            $team->getDeskripsiKarya(),
+            $deskripsi_url,
+            $upload_karya_url,
+            $form_keaslian_url,
             $member_array
         );
 
