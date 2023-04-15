@@ -58,7 +58,7 @@ class GetWahana3DAdminDetailService
                 $is_ketua = true;
             }
             
-            $memb = new GetWahana3DAdminDetailTeamMemberResponse($nama, $is_ketua, $member->getKtmUrl());
+            $memb = new GetWahana3DAdminDetailTeamMemberResponse($nama, $is_ketua, $member->getNrp()->toString(), $member->getKontak(), $member->getDepartemenId(), $member->getKtmUrl());
             array_push($member_array, $memb);
         }
 
@@ -88,18 +88,6 @@ class GetWahana3DAdminDetailService
         $deskripsi_url = $team->getDeskripsiUrl();
         $upload_karya_url = $team->getUploadKaryaUrl();
         $form_keaslian_url = $team->getFormKeaslianUrl();
-
-        if ($deskripsi_url == null) {
-            $deskripsi_url = "";
-        }
-
-        if ($upload_karya_url == null) {
-            $upload_karya_url = "";
-        }
-
-        if ($form_keaslian_url == null) {
-            $form_keaslian_url = "";
-        }
 
         $final = new GetWahana3DAdminDetailResponse(
             $team->getTeamName(),

@@ -63,18 +63,6 @@ class GetWahana2DAdminDetailService
             $upload_karya_url = $peserta->getUploadKaryaUrl();
             $form_keaslian_url = $peserta->getFormKeaslianUrl();
 
-            if ($deskripsi_url == null) {
-                $deskripsi_url = "";
-            }
-    
-            if ($upload_karya_url == null) {
-                $upload_karya_url = "";
-            }
-    
-            if ($form_keaslian_url == null) {
-                $form_keaslian_url = "";
-            }
-
             $final = new GetWahana2DAdminDetailResponse($peserta->getName(), $peserta->getKTM(), $departemen->getName(), $upload_karya_url, $peserta->getNrp()->toString(), $deskripsi_url, $form_keaslian_url, $peserta->getKontak(), $peserta->getStatus(), $payment_obj);
 
             return $final;

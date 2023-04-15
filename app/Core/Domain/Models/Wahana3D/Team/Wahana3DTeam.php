@@ -140,16 +140,16 @@ class Wahana3DTeam
     
     public function getUploadKaryaUrl(): ?string
     {
-        return $this->upload_karya_url;
+        return $this->upload_karya_url ? $this->upload_karya_url : null;
     }
 
     public function getDeskripsiUrl(): ?string
     {
-        return $this->deskripsi_url;
+        return $this->deskripsi_url ? $this->deskripsi_url : null;
     }
 
     public function getFormKeaslianUrl(): ?string
     {
-        return $this->form_keaslian_url;
+        return $this->form_keaslian_url ? $this->form_keaslian_url : null;
     }
 }
