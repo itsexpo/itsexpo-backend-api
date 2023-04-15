@@ -230,5 +230,13 @@
     {
         "id": 58, 
         "routes": "admin_3d.detail"
+    },
+    {
+        "id": 59, 
+        "routes": "admin_2d.index"
+    }, 
+    {
+        "id": 60, 
+        "routes": "admin_2d.detail"
     }
 ]
