@@ -34,7 +34,7 @@ Route::get('hello', function () {
 
 // User
 Route::post('/create_user', [UserController::class, 'createUser']);
-Route::post('/login_user', [UserController::class, 'loginUser']);
+Route::post('/login_user', [UserController::class, 'loginUser'])->middleware('request.limit: 5, 2'); //request limit 100/menit
 Route::post('/user_verification', [UserController::class, 'userVerification']);
 Route::get('/user_verification', [UserController::class, 'reUserVerification']);
 
