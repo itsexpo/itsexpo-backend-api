@@ -5,12 +5,9 @@ namespace App\Core\Application\Service\GetWahana2DAdminDetail;
 use App\Exceptions\UserException;
 use App\Core\Domain\Repository\ListBankRepositoryInterface;
 use App\Core\Domain\Repository\PembayaranRepositoryInterface;
-use App\Core\Domain\Models\RobotInAction\RobotInActionMemberType;
-use App\Core\Domain\Models\RobotInAction\Team\RobotInActionTeamId;
 use App\Core\Domain\Models\Wahana2D\Wahana2DId;
 use App\Core\Domain\Repository\DepartemenRepositoryInterface;
 use App\Core\Domain\Repository\StatusPembayaranRepositoryInterface;
-use App\Core\Domain\Repository\RobotInActionMemberRepositoryInterface;
 use App\Core\Domain\Repository\Wahana2DRepositoryInterface;
 
 class GetWahana2DAdminDetailService
@@ -62,7 +59,23 @@ class GetWahana2DAdminDetailService
 
             $payment_obj = new PembayaranObjResponse($payment_status, $payment_id->toString(), $payment_image_url, $payment_atas_nama, $payment_bank, $payment_harga);
 
-            $final = new GetWahana2DAdminDetailResponse($peserta->getName(), $peserta->getKTM(), $departemen->getName(), $peserta->getUploadKaryaUrl(), $peserta->getNrp()->toString(), $peserta->getDeskripsiUrl(), $peserta->getFormKeaslianUrl(), $peserta->getKontak(), $peserta->getStatus(), $payment_obj);
+            $deskripsi_url = $peserta->getDeskripsiUrl();
+            $upload_karya_url = $peserta->getUploadKaryaUrl();
+            $form_keaslian_url = $peserta->getFormKeaslianUrl();
+
+            if ($deskripsi_url == null) {
+                $deskripsi_url = "";
+            }
+    
+            if ($upload_karya_url == null) {
+                $upload_karya_url = "";
+            }
+    
+            if ($form_keaslian_url == null) {
+                $form_keaslian_url = "";
+            }
+
+            $final = new GetWahana2DAdminDetailResponse($peserta->getName(), $peserta->getKTM(), $departemen->getName(), $upload_karya_url, $peserta->getNrp()->toString(), $deskripsi_url, $form_keaslian_url, $peserta->getKontak(), $peserta->getStatus(), $payment_obj);
 
             return $final;
         }
