@@ -64,6 +64,7 @@ class Wahana2DAdminService
                 }
 
                 return new Wahana2DAdminResponse(
+                    $peserta->getId()->toString(),
                     $peserta->getName(),
                     $peserta->getCreatedAt(),
                     $status_pembayaran,
