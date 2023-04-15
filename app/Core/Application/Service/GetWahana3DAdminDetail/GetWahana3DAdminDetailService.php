@@ -50,7 +50,6 @@ class GetWahana3DAdminDetailService
         $members = $this->wahana_3d_member_repository->findAllMember($id);
 
         $member_array = [];
-        $member_ktm = [];
         foreach ($members as $member) {
             $nama = $member->getName();
             $ketua = $member->getMemberType()->value;
@@ -58,9 +57,8 @@ class GetWahana3DAdminDetailService
             if ($ketua == "KETUA") {
                 $is_ketua = true;
             }
-
-            array_push($member_ktm, $member->getKtmUrl());
-            $memb = new GetWahana3DAdminDetailTeamMemberResponse($nama, $is_ketua);
+            
+            $memb = new GetWahana3DAdminDetailTeamMemberResponse($nama, $is_ketua, $member->getKtmUrl());
             array_push($member_array, $memb);
         }
 
@@ -90,7 +88,6 @@ class GetWahana3DAdminDetailService
         $final = new GetWahana3DAdminDetailResponse(
             $team->getTeamName(),
             $team->getTeamCode(),
-            $member_ktm,
             $payment_obj,
             $member_array
         );
