@@ -10,16 +10,16 @@ class GetWahana3DAdminDetailTeamMemberResponse implements JsonSerializable
     private bool $ketua;
     private string $nrp;
     private string $kontak;
-    private int $departemen_id;
+    private string $departemen;
     private string $ktm_url;
   
-    public function __construct(string $nama, bool $ketua, string $nrp, string $kontak, int $departemen_id, string $ktm_url)
+    public function __construct(string $nama, bool $ketua, string $nrp, string $kontak, string $departemen, string $ktm_url)
     {
         $this->nama = $nama;
         $this->ketua = $ketua;
         $this->nrp = $nrp;
         $this->kontak = $kontak;
-        $this->departemen_id = $departemen_id;
+        $this->departemen = $departemen;
         $this->ktm_url = $ktm_url;
     }
 
@@ -28,7 +28,7 @@ class GetWahana3DAdminDetailTeamMemberResponse implements JsonSerializable
         return [
           'name' => $this->nama,
           'ketua' => $this->ketua,
-          'departemen_id' => $this->departemen_id,
+          'departemen' => $this->departemen,
           'nrp' => $this->nrp,
           'kontak' => $this->kontak,
           'bukti_upload_ktm' => $this->ktm_url
@@ -57,5 +57,21 @@ class GetWahana3DAdminDetailTeamMemberResponse implements JsonSerializable
     public function getKtmUrl(): string
     {
         return $this->ktm_url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNrp(): string
+    {
+        return $this->nrp;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDepartemen(): string
+    {
+        return $this->departemen;
     }
 }
