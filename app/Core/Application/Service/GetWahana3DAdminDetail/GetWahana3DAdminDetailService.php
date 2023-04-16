@@ -3,6 +3,7 @@
 namespace App\Core\Application\Service\GetWahana3DAdminDetail;
 
 use App\Core\Domain\Models\Wahana3D\Team\Wahana3DTeamId;
+use App\Core\Domain\Repository\DepartemenRepositoryInterface;
 use App\Core\Domain\Repository\ListBankRepositoryInterface;
 use App\Core\Domain\Repository\PembayaranRepositoryInterface;
 use App\Core\Domain\Repository\StatusPembayaranRepositoryInterface;
@@ -17,6 +18,7 @@ class GetWahana3DAdminDetailService
     private StatusPembayaranRepositoryInterface $status_pembayaran_repository;
     private PembayaranRepositoryInterface $pembayaran_repository;
     private ListBankRepositoryInterface $list_bank_repository;
+    private DepartemenRepositoryInterface $departemen_repository_interface;
 
     /**
      * @param Wahana3DTeamRepositoryInterface $wahana_3d_team_repository,
@@ -24,19 +26,22 @@ class GetWahana3DAdminDetailService
      * @param StatusPembayaranRepositoryInterface $status_pembayaran_repository,
      * @param PembayaranRepositoryInterface $pembayaran_repository,
      * @param ListBankRepositoryInterface $list_bank_repository
+     * @param DepartemenRepositoryInterface $departemen_repository_interface
      */
     public function __construct(
         Wahana3DTeamRepositoryInterface $wahana_3d_team_repository,
         Wahana3DMemberRepositoryInterface $wahana_3d_member_repository,
         StatusPembayaranRepositoryInterface $status_pembayaran_repository,
         PembayaranRepositoryInterface $pembayaran_repository,
-        ListBankRepositoryInterface $list_bank_repository
+        ListBankRepositoryInterface $list_bank_repository,
+        DepartemenRepositoryInterface $departemen_repository_interface
     ) {
         $this->wahana_3d_team_repository = $wahana_3d_team_repository;
         $this->wahana_3d_member_repository = $wahana_3d_member_repository;
         $this->status_pembayaran_repository = $status_pembayaran_repository;
         $this->pembayaran_repository = $pembayaran_repository;
         $this->list_bank_repository = $list_bank_repository;
+        $this->departemen_repository_interface = $departemen_repository_interface;
     }
 
     public function execute(string $team_id): GetWahana3DAdminDetailResponse
@@ -53,12 +58,13 @@ class GetWahana3DAdminDetailService
         foreach ($members as $member) {
             $nama = $member->getName();
             $ketua = $member->getMemberType()->value;
+            $departemen = $this->departemen_repository_interface->find($member->getDepartemenId());
             $is_ketua = false;
             if ($ketua == "KETUA") {
                 $is_ketua = true;
             }
             
-            $memb = new GetWahana3DAdminDetailTeamMemberResponse($nama, $is_ketua, $member->getNrp()->toString(), $member->getKontak(), $member->getDepartemenId(), $member->getKtmUrl());
+            $memb = new GetWahana3DAdminDetailTeamMemberResponse($nama, $is_ketua, $member->getNrp()->toString(), $member->getKontak(), $departemen->getName(), $member->getKtmUrl());
             array_push($member_array, $memb);
         }
 
