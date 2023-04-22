@@ -59,14 +59,18 @@ class KTIAdminConfirmService
             UserException::throw("Ketua Team Tidak Ditemukan", 1001, 404);
         }
 
+        $event = "Pre Event";
+
         $this->pembayaran_repository->changeStatusPembayaran($pembayaran->getId(), $request->getStatusPembayaranId());
         if ($cekStatusPembayaran->getId() == 1) {
             Mail::to($ketua_user->getEmail()->toString())->send(new PaymentNeedRevision(
                 $ketua_user->getName(),
+                $event
             ));
         } elseif ($cekStatusPembayaran->getId() == 3) {
             Mail::to($ketua_user->getEmail()->toString())->send(new PaymentAccepted(
                 $ketua_user->getName(),
+                $event
             ));
         }
     }

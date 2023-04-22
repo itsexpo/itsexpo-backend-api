@@ -2,12 +2,8 @@
 
 namespace App\Core\Application\Service\KTIAdminPass;
 
-use App\Core\Application\Mail\PaymentAccepted;
 use App\Exceptions\UserException;
-use Illuminate\Support\Facades\Mail;
-use App\Core\Application\Mail\PaymentNeedRevision;
 use App\Core\Domain\Models\KTI\Team\KTITeamId;
-use App\Core\Domain\Models\Pembayaran\PembayaranId;
 use App\Core\Domain\Repository\UserRepositoryInterface;
 use App\Core\Domain\Repository\PembayaranRepositoryInterface;
 use App\Core\Domain\Repository\StatusPembayaranRepositoryInterface;
@@ -46,8 +42,7 @@ class KTIAdminPassService
             UserException::throw("KTI Team Tidak Ditemukan", 1001, 404);
         }
 
-        if($kti_team->isLolosPaper() === $request->isLolosPaper())
-        {
+        if ($kti_team->isLolosPaper() === $request->isLolosPaper()) {
             UserException::throw("Tidak Dapat Mengganti Status Kelolosan Tim Karena Statusnya Sudah Sama", 1007, 404);
         }
 

@@ -91,8 +91,11 @@ class CreatePembayaranRobotInActionService
         $this->pembayaran_repository->persist($newPembayaran);
         $this->robotInAction_team_repository->updatePembayaran($robotInAction_team_id, $newPembayaran->getId());
 
+        $event = "Pre Event";
+
         Mail::to($ketua_user->getEmail()->toString())->send(new PaymentWaiting(
             $ketua_user->getName(),
+            $event
         ));
     }
 }
