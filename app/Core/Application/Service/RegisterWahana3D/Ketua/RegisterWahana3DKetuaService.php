@@ -10,7 +10,6 @@ use App\Core\Domain\Models\UserAccount;
 use App\Core\Application\ImageUpload\ImageUpload;
 use App\Core\Application\Mail\PaymentWaiting;
 use App\Core\Domain\Models\Pembayaran\Pembayaran;
-use App\Core\Application\Mail\WahanaSeniRegisterEmail;
 use App\Core\Domain\Models\Wahana3D\Team\Wahana3DTeam;
 use App\Core\Domain\Models\Wahana3D\Wahana3DMemberType;
 use App\Core\Domain\Repository\RoleRepositoryInterface;
@@ -21,7 +20,6 @@ use App\Core\Domain\Repository\PembayaranRepositoryInterface;
 use App\Core\Domain\Repository\Wahana3DTeamRepositoryInterface;
 use App\Core\Domain\Repository\Wahana3DMemberRepositoryInterface;
 use App\Core\Domain\Repository\UserHasListEventRepositoryInterface;
-use App\Core\Application\Service\RegisterWahana3D\Ketua\RegisterWahana3DKetuaRequest;
 
 class RegisterWahana3DKetuaService
 {
@@ -139,8 +137,11 @@ class RegisterWahana3DKetuaService
         );
 
         $this->user_has_list_event_repository->persist($user_has_list_event);
+        $event = "Sayembara Karya Mahasiswa";
+
         Mail::to($user->getEmail()->toString())->send(new PaymentWaiting(
             $user->getName(),
+            $event
         ));
     }
 }

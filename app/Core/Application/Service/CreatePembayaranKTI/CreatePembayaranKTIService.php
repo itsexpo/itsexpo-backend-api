@@ -85,8 +85,11 @@ class CreatePembayaranKTIService
         $this->pembayaran_repository->persist($newPembayaran);
         $this->kti_team_repository->updatePembayaran($kti_team_id, $newPembayaran->getId());
 
+        $event = "Pre Event";
+
         Mail::to($ketua_user->getEmail()->toString())->send(new PaymentWaiting(
             $ketua_user->getName(),
+            $event
         ));
     }
 }

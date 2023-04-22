@@ -63,14 +63,18 @@ class RobotInActionAdminConfirmService
         }
 
         $this->pembayaran_repository->changeStatusPembayaran($pembayaran->getId(), $request->getStatusPembayaranId());
+
+        $event = "Pre Event";
         
         if ($cekStatusPembayaran->getId() == 1) {
             Mail::to($ketua_user->getEmail()->toString())->send(new PaymentNeedRevision(
                 $ketua_user->getName(),
+                $event
             ));
         } elseif ($cekStatusPembayaran->getId() == 3) {
             Mail::to($ketua_user->getEmail()->toString())->send(new PaymentAccepted(
                 $ketua_user->getName(),
+                $event
             ));
         }
     }

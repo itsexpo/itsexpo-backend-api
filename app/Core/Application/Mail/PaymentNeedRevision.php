@@ -13,13 +13,16 @@ class PaymentNeedRevision extends Mailable
     use Queueable, SerializesModels;
 
     private string $name;
+    private string $event;
 
     /**
      * @param string $name
+     * @param string $event
      */
-    public function __construct(string $name)
+    public function __construct(string $name, string $event)
     {
         $this->name = $name;
+        $this->event = $event;
     }
 
     public function build(): PaymentNeedRevision
@@ -27,6 +30,7 @@ class PaymentNeedRevision extends Mailable
         return $this->from(config('mail.from'))
             ->markdown('email.payment_need_revision', [
                 "name" => $this->name,
+                "event" => $this->event,
             ]);
     }
 }

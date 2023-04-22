@@ -89,8 +89,11 @@ class CreatePembayaranJurnalistikService
         $this->pembayaran_repository->persist($newPembayaran);
         $this->jurnalistik_team_repository->updatePembayaran($jurnalistik_team_id, $newPembayaran->getId());
 
+        $event = "Pre Event";
+
         Mail::to($ketua_user->getEmail()->toString())->send(new PaymentWaiting(
             $ketua_user->getName(),
+            $event
         ));
     }
 }

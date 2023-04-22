@@ -350,7 +350,7 @@
                     <tr>
                       <td>
                         <p>Hi <span style="font-weight: bold;">{{ $name }}</span>,</p>
-                        <p>Terima kasih telah mendaftar di Pre Event ITS EXPO 2023. Sayangnya, kami <span style="font-weight: bold;">belum dapat memverifikasi pembayaran</span> yang Anda kirimkan karena kami menemukan kesalahan dalam informasi pembayaran Anda.</p>
+                        <p>Terima kasih telah mendaftar di {{ $event }} ITS EXPO 2023. Sayangnya, kami <span style="font-weight: bold;">belum dapat memverifikasi pembayaran</span> yang Anda kirimkan karena kami menemukan kesalahan dalam informasi pembayaran Anda.</p>
                         <p>Kami mohon maaf atas ketidaknyamanan ini, namun kami memerlukan validasi ulang dari pembayaran Anda. Silakan mengunggah ulang bukti pembayaran Anda melalui website ITS EXPO 2023. Untuk mempermudah, berikut <span style="font-weight: bold;">tahapan upload ulang bukti pembayaran :</span></p>
                         <ol>
                           <li>Login ke website ITS EXPO 2023 (https://expo-its.com/login)</li>

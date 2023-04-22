@@ -350,7 +350,7 @@
                     <tr>
                       <td>
                         <p>Hi <span style="font-weight: bold;">{{ $name }}</span>,</p>
-                        <p>Terima kasih telah mendaftar di Pre Event ITS EXPO 2023. Kami mendapatkan konfirmasi bahwa pembayaran Anda telah diunggah. Namun, kami ingin memberitahukan bahwa proses verifikasi pembayaran memakan waktu beberapa saat.</p>
+                        <p>Terima kasih telah mendaftar di {{ $event }} ITS EXPO 2023. Kami mendapatkan konfirmasi bahwa pembayaran Anda telah diunggah. Namun, kami ingin memberitahukan bahwa proses verifikasi pembayaran memakan waktu beberapa saat.</p>
                         <p>Mohon menunggu sampai kami mengonfirmasi pembayaran Anda. Informasi selanjutnya akan disampaikan melalui email resmi ITS EXPO 2023.</p>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                         </table>

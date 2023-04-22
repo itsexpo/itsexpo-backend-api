@@ -63,20 +63,23 @@ class WahanaSeniAdminConfirmService
                 UserException::throw("Type is not allowed", 500);
         }
 
-        if(!$wahana) {
+        if (!$wahana) {
             UserException::throw("Wahana {$request->getType()} Tidak Ditemukan", 5666, 404);
         }
+
+        $event = "Sayembara Karya Mahasiswa";
 
         $this->pembayaran_repository->changeStatusPembayaran($pembayaran->getId(), $request->getStatusPembayaranId());
         if ($cekStatusPembayaran->getId() == 1) {
             Mail::to($ketua->getEmail()->toString())->send(new PaymentNeedRevision(
                 $ketua->getName(),
+                $event
             ));
         } elseif ($cekStatusPembayaran->getId() == 3) {
             Mail::to($ketua->getEmail()->toString())->send(new PaymentAccepted(
                 $ketua->getName(),
+                $event
             ));
         }
     }
 }
-
