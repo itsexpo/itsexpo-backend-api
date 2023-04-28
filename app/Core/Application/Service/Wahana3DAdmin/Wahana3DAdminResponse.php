@@ -23,12 +23,13 @@ class Wahana3DAdminResponse implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-          'id_tim' => $this->wahana_3d_team->getId()->toString(),
-          'ketua_tim' => $this->nama_ketua,
-          'nama_tim' => $this->wahana_3d_team->getTeamName(),
-          'kode_tim' => $this->wahana_3d_team->getTeamCode(),
-          'created_at' => $this->created_at,
-          'status_pembayaran' => $this->status_pembayaran,
+            'id_tim' => $this->wahana_3d_team->getId()->toString(),
+            'ketua_tim' => $this->nama_ketua,
+            'nama_tim' => $this->wahana_3d_team->getTeamName(),
+            'kode_tim' => $this->wahana_3d_team->getTeamCode(),
+            'status_pengumpulan' => ($this->wahana_3d_team->getUploadKaryaUrl() == null ? false : true),
+            'created_at' => $this->created_at,
+            'status_pembayaran' => $this->status_pembayaran,
         ];
     }
 }

@@ -90,7 +90,7 @@ class SqlWahana2DRepository implements Wahana2DRepositoryInterface
     {
         $rows = DB::table('wahana_2d')
             ->leftJoin('pembayaran', 'wahana_2d.pembayaran_id', '=', 'pembayaran.id')
-            ->leftJoin('status_pembayaran', 'pembayaran.status_pembayaran_id', '=', 'status_pembayaran.id');
+            ->leftJoin('status_pembayaran', 'pembayaran.status_pembayaran_id', '=', 'status_pembayaran.id')->orderBy('wahana_2d.created_at', 'desc');
 
         if (!$rows) {
             return null;

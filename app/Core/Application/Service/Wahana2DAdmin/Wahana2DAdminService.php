@@ -6,10 +6,6 @@ use App\Core\Domain\Models\Wahana2D\Wahana2D;
 use App\Core\Domain\Repository\Wahana2DRepositoryInterface;
 use App\Core\Domain\Repository\PembayaranRepositoryInterface;
 use App\Core\Domain\Repository\StatusPembayaranRepositoryInterface;
-use App\Core\Application\Service\Wahana2DAdmin\Wahana2DAdminRequest;
-use App\Core\Application\Service\Wahana2DAdmin\Wahana2DAdminResponse;
-use App\Core\Application\Service\Wahana2DAdmin\Wahana2DAdminPaginationResponse;
-
 
 class Wahana2DAdminService
 {
@@ -37,10 +33,10 @@ class Wahana2DAdminService
 
 
         if ($request->getFilter()) {
-            $rows->where('pembayaran.status_pembayaran_id', $request->getFilter());
+            $rows->where('pembayaran.status_pembayaran_id', $request->getFilter())->orderBy('wahana_2d.created_at', 'desc');
         }
         if ($request->getSearch()) {
-            $rows->where('wahana_2d.name', 'like', '%' . $request->getSearch() . '%');
+            $rows->where('wahana_2d.name', 'like', '%' . $request->getSearch() . '%')->orderBy('wahana_2d.created_at', 'desc');
         }
 
         $rows = $rows->paginate($request->getPerPage(), ['wahana_2d.*'], 'Data Management', $request->getPage());
@@ -68,6 +64,7 @@ class Wahana2DAdminService
                     $peserta->getName(),
                     $peserta->getCreatedAt(),
                     $status_pembayaran,
+                    ($peserta->getUploadKaryaUrl() == null ? false : true)
                 );
             },
             $data_paginations['data']
