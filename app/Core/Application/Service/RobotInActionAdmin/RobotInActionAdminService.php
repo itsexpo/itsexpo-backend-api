@@ -32,7 +32,7 @@ class RobotInActionAdminService
         $pembayaran_gagal = $this->robot_in_action_team_repository->getPembayaranCount(2);
         $pembayaran_success = $this->robot_in_action_team_repository->getPembayaranCount(3);
         $pembayaran_awaiting_verification = $this->robot_in_action_team_repository->getPembayaranCount(4);
-        $pembayaran_awaiting_payment = $this->robot_in_action_team_repository->getAwaitingPayment();
+        $pembayaran_awaiting_payment = $this->robot_in_action_team_repository->getPembayaranCount(5);
 
         if ($request->getFilter()) {
             $rows->where('pembayaran.status_pembayaran_id', $request->getFilter());

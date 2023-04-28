@@ -24,8 +24,6 @@ interface RobotInActionTeamRepositoryInterface
 
     public function getPembayaranCount(int $status_pembayaran): int;
 
-    public function getAwaitingPayment(): int;
-
     public function findByTeamCode(string $team_code): ?RobotInActionTeam;
 
     public function countAllTeams(): int;
