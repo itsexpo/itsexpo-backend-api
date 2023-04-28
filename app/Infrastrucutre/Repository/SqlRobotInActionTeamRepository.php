@@ -63,20 +63,6 @@ class SqlRobotInActionTeamRepository implements RobotInActionTeamRepositoryInter
         return $row;
     }
 
-    public function getAwaitingPayment(): int
-    {
-        $row = DB::table('robot_in_action_team')
-        ->leftJoin('pembayaran', 'robot_in_action_team.pembayaran_id', '=', 'pembayaran.id')
-        ->where('pembayaran.status_pembayaran_id', null)
-        ->count();
-
-        if (!$row) {
-            return 0;
-        }
-
-        return $row;
-    }
-
     public function getCreatedAt(RobotInActionTeamId $robot_in_action_team_id): ?string
     {
         $row = DB::table('robot_in_action_team')->where('id', $robot_in_action_team_id->toString())->first();

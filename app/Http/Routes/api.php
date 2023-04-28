@@ -25,8 +25,6 @@ use App\Http\Controllers\RobotInActionAdminController;
 use App\Http\Controllers\WahanaSeniAdminController;
 use App\Http\Controllers\WahanaSeniController;
 use App\Http\Controllers\Wahana2DAdminController;
-use App\Http\Controllers\Wahana2DController;
-use App\Http\Controllers\Wahana3DController;
 
 Route::get('hello', function () {
     return response()->json();
