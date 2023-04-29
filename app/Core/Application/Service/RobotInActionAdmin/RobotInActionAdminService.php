@@ -38,7 +38,7 @@ class RobotInActionAdminService
             $rows->where('pembayaran.status_pembayaran_id', $request->getFilter());
         }
         if ($request->getSearch()) {
-            $rows->where('robot_in_action_team.team_name', 'like', '%' . $request->getSearch() . '%')->orWhere('robot_in_action_member.name', 'like', '%' . $request->getSearch() . '%');
+            $rows->where('robot_in_action_team.team_name', 'like', '%' . $request->getSearch() . '%')->orWhere('robot_in_action_member.name', 'like', '%' . $request->getSearch() . '%')->distinct();
         }
 
         $rows = $rows->paginate($request->getPerPage(), ['robot_in_action_team.*'], 'Data Management', $request->getPage());
