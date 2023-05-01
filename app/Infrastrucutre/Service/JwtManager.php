@@ -91,7 +91,7 @@ class JwtManager implements JwtManagerInterface
         } catch (ExpiredException $e) {
             UserException::throw('JWT has expired', 902);
         } catch (SignatureInvalidException $e) {
-            UserException::throw('JWT signature is invalid', 903);
+            UserException::throw('Sesi anda telah berakhir, silahkan melakukam login kembali', 903);
         } catch (UnexpectedValueException $e) {
             UserException::throw('Unexpected JWT format', 907);
         }
@@ -120,7 +120,7 @@ class JwtManager implements JwtManagerInterface
         } catch (ExpiredException $e) {
             UserException::throw('JWT has expired', 902);
         } catch (SignatureInvalidException $e) {
-            UserException::throw('JWT signature is invalid', 903);
+            UserException::throw('Sesi anda telah berakhir, silahkan melakukam login kembali', 903);
         } catch (UnexpectedValueException $e) {
             UserException::throw('Unexpected JWT format', 907);
         }
