@@ -62,14 +62,9 @@ class ForgotPasswordService
     {
         $token = $input->getToken();
         $password = $input->getPassword();
-        $re_password = $input->getRepassword();
 
         $decoded = $this->jwt_manager->decodeForgotPasswordToken($token);
         $user = $this->user_repository->find($decoded['user']->getUserId());
-
-        if ($password !== $re_password) {
-            UserException::throw("Password dan Repassword tidak sama", 6665, 404);
-        }
 
         if (!$user) {
             UserException::throw("User tidak ditemukan", 6667, 404);

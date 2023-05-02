@@ -183,12 +183,10 @@ class UserController extends Controller
         $request->validate([
             'token' => 'string',
             'password' => 'string|min:8|max:64',
-            're_password' => 'string|min:8|max:64'
         ]);
         $input = new ChangeForgotPasswordRequest(
             $request->input('token'),
             $request->input('password'),
-            $request->input('re_password')
         );
 
         DB::beginTransaction();
