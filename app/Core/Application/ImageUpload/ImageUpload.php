@@ -72,8 +72,8 @@ class ImageUpload
             if ($this->uploaded_file->getSize() > 1048576) {
                 UserException::throw("{$this->name} Harus Dibawah 1Mb", 2000);
             }
-        } elseif ($this->uploaded_file->getSize() > 20971520) {
-            UserException::throw("{$this->name} Harus Dibawah 20Mb", 2000);
+        } elseif ($this->uploaded_file->getSize() > 30971520) {
+            UserException::throw("{$this->name} Harus Dibawah 30Mb", 2000);
         }
     }
 
