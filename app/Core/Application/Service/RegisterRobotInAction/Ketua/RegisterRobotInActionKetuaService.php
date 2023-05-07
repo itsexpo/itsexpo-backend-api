@@ -53,6 +53,7 @@ class RegisterRobotInActionKetuaService
 
     public function execute(RegisterRobotInActionKetuaRequest $request, UserAccount $account)
     {
+        UserException::throw("Pendaftaran event robot in action sudah ditutup", 1001, 404);
         // Cek User Terdaftar
         $registeredUser = $this->robot_in_action_member_repository->findByUserId($account->getUserId());
         $user = $this->user_repository->find($account->getUserId());

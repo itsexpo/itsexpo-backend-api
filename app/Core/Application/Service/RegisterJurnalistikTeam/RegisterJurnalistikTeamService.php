@@ -54,6 +54,7 @@ class RegisterJurnalistikTeamService
 
     public function execute(RegisterJurnalistikTeamRequest $request, UserAccount $account)
     {
+        UserException::throw("Pendaftaran event jurnalistik sudah ditutup", 1001, 404);
         // Cek User Terdaftar
         $registeredUser = $this->jurnalistik_member_repository->findByUserId($account->getUserId());
         $user = $this->user_repository->find($account->getUserId());
