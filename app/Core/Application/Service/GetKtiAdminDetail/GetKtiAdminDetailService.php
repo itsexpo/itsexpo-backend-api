@@ -76,6 +76,7 @@ class GetKtiAdminDetailService
             $team->getBuktiRepost(),
             $team->getTwibbon(),
             $team->getAbstrak(),
+            $team->getFullPaper() ?? null,
             $payment_obj,
             $member_array
         );

@@ -13,6 +13,7 @@ class GetKtiAdminDetailResponse implements JsonSerializable
     private string $bukti_repost;
     private string $twibbon;
     private string $abstrak;
+    private string $fullpaper;
     private PembayaranObjResponse $payment;
     private array $team_member;
 
@@ -24,6 +25,7 @@ class GetKtiAdminDetailResponse implements JsonSerializable
         string $bukti_repost,
         string $twibbon,
         string $abstrak,
+        string $fullpaper,
         PembayaranObjResponse $payment,
         array $team_members,
     ) {
@@ -34,6 +36,7 @@ class GetKtiAdminDetailResponse implements JsonSerializable
         $this->bukti_repost = $bukti_repost;
         $this->twibbon = $twibbon;
         $this->abstrak = $abstrak;
+        $this->fullpaper = $fullpaper;
         $this->payment = $payment;
         $this->team_member = $team_members;
     }
@@ -48,6 +51,7 @@ class GetKtiAdminDetailResponse implements JsonSerializable
             'bukti_repost' => $this->bukti_repost,
             'twibbon' => $this->twibbon,
             'abstrak' => $this->abstrak,
+            'fullpaper' => $this->fullpaper,
             'payment' => $this->payment,
             'team_member' => $this->team_member,
         ];
